@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  27 JUN 2026 20:19
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  13 JUL 2026 10:07
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260627201925 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260713100703 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260627201925 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260713100703 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/AA3E6F025BA114D1C48F6180BB48E03F.highlight.minted)
 \openout7 = main.listing
  (./_minted/E65ADC48653FB75ED9203260BC8ECA1E.highlight.minted)
@@ -2154,7 +2154,13 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 365--366
 \openout7 = main.listing
  (./_minted/B8FC3EF18C2F9ADB74B470074001BB9F.highlight.minted) [43]
 \openout7 = main.listing
- (./_minted/227D7BD79772E280EC1A0333E05B6969.highlight.minted) [44] [45]
+ (./_minted/227D7BD79772E280EC1A0333E05B6969.highlight.minted)
+\openout7 = main.listing
+ (./_minted/69AC12AC9E0754E86629B9007540EDE0.highlight.minted)
+\openout7 = main.listing
+ (./_minted/0BB4AEB31DA500F62A5B9BC3FF02D6EB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/CEBAFA37FF309D9F1B4CD6672847960D.highlight.minted) [44] [45]
 \openout7 = main.listing
  (./_minted/213F9970F4781BCFE10CCC1B46D9E8AF.highlight.minted)
 \openout7 = main.listing
@@ -2186,12 +2192,13 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 365--366
 \openout7 = main.listing
  (./_minted/119CCBDD574570E0EC1258DA220CCECA.highlight.minted)
 \openout7 = main.listing
- (./_minted/12EB698E2694EF9ECFEC312215AE8574.highlight.minted) [49] [50]
+
+(./_minted/12EB698E2694EF9ECFEC312215AE8574.highlight.minted) [49] [50]
 \openout7 = main.listing
  (./_minted/C4F5394158F1FE69B9A3B3FAAC580F88.highlight.minted)
 \openout7 = main.listing
  (./_minted/3F212613A5CF3FA8A10B3D64D810A388.highlight.minted)
-Overfull \hbox (16.68694pt too wide) in paragraph at lines 2018--2019
+Overfull \hbox (16.68694pt too wide) in paragraph at lines 2041--2042
 \TU/lmr/m/n/10 You can-not mix it with pointer or ar-ray syn-tax dur-ing dec-la-ra-tion (e.g., __auto_type
  []
 
@@ -2216,7 +2223,7 @@ Overfull \hbox (16.68694pt too wide) in paragraph at lines 2018--2019
  (./_minted/5F9B36C207CF462FD016AAB74A67C241.highlight.minted)
 \openout7 = main.listing
  (./_minted/1E49EB9321F8DF558161B9D6D9038FE1.highlight.minted)
-Overfull \hbox (3.15671pt too wide) in paragraph at lines 2109--2110
+Overfull \hbox (3.15671pt too wide) in paragraph at lines 2132--2133
 []\TU/lmr/bx/n/10 Flex-i-ble ar-ray mem-bers\TU/lmr/m/n/10 : C99 added flex-i-ble ar-ray mem-bers for structs with variable-
  []
 
@@ -2279,12 +2286,12 @@ Overfull \hbox (3.15671pt too wide) in paragraph at lines 2109--2110
  (./_minted/7FE5CD463954FC8F04C4A278810271B0.highlight.minted) [62] [63]
 \openout7 = main.listing
  (./_minted/A09920B7A8C0E18690AEFB34ED250696.highlight.minted)
-Overfull \hbox (10.765pt too wide) in paragraph at lines 2497--2497
+Overfull \hbox (10.765pt too wide) in paragraph at lines 2520--2520
  []                    \TU/lmtt/m/n/10 | uninitialized data   | BSS: global/static variables[] 
  []
 
 [64]
-Overfull \hbox (0.265pt too wide) in paragraph at lines 2514--2514
+Overfull \hbox (0.265pt too wide) in paragraph at lines 2537--2537
  []                    \TU/lmtt/m/n/10 heap start                            program break 
  []
 
@@ -2327,7 +2334,7 @@ Overfull \hbox (0.265pt too wide) in paragraph at lines 2514--2514
  (./_minted/99F5D9C09FAE2575DE3A30BFD78C222A.highlight.minted)
 \openout7 = main.listing
  (./_minted/F49CFB7609B905DB91A8730E233ABB59.highlight.minted)
-Overfull \hbox (3.43332pt too wide) in paragraph at lines 2725--2726
+Overfull \hbox (3.43332pt too wide) in paragraph at lines 2748--2749
 []\TU/lmr/bx/n/10 To-tal align-ment\TU/lmr/m/n/10 : The hard-ware is op-ti-mized around read-ing/writ-ing fixed-size chunks
  []
 
@@ -2405,21 +2412,8 @@ Overfull \hbox (3.43332pt too wide) in paragraph at lines 2725--2726
  (./_minted/DF0AA5C0AEFA947F332C3C36359CF8BB.highlight.minted)
 \openout7 = main.listing
  (./_minted/D94AD552214DF3489DADF35A3E508C34.highlight.minted)
-
-./main.tex:3204: LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.3204                 \end{itemize}
-                                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
 \openout7 = main.listing
-(./_minted/16DB45F8F09908D1593F7076659744BF.highlight.minted) [80]
+ (./_minted/16DB45F8F09908D1593F7076659744BF.highlight.minted) [80]
 \openout7 = main.listing
  (./_minted/2E8D73E209135DEAB25E1F2EB20A0402.highlight.minted)
 \openout7 = main.listing
@@ -2427,13 +2421,65 @@ If that doesn't work, type  X <return>  to quit.
 \openout7 = main.listing
  (./_minted/985A4188817E309A44F16FA5F79BDDC5.highlight.minted)
 \openout7 = main.listing
- (./_minted/F1893679138F9B5309C66436E126D64D.highlight.minted)
+ (./_minted/F1893679138F9B5309C66436E126D64D.highlight.minted) [81]
 \openout7 = main.listing
- (./_minted/EC744A63EDC0870D62AA9AD973B3A163.highlight.minted) [81]
+ (./_minted/EC744A63EDC0870D62AA9AD973B3A163.highlight.minted)
 \openout7 = main.listing
  (./_minted/E6E60F45133CC7AD4B5C411AA13064F5.highlight.minted)
 \openout7 = main.listing
- (./_minted/75B0ED6EB0DFDB5BB3D3F104C0D3F13C.highlight.minted) [82] (./main.aux)
+ (./_minted/75B0ED6EB0DFDB5BB3D3F104C0D3F13C.highlight.minted) [82]
+\openout7 = main.listing
+ (./_minted/C63F80EF8281DD499D83E621D779782C.highlight.minted)
+\openout7 = main.listing
+ (./_minted/99E06E980D8D80F6DDBF3A659EED4EF6.highlight.minted) [83]
+\openout7 = main.listing
+ (./_minted/B951862B15361710A2FA955787B9B636.highlight.minted)
+\openout7 = main.listing
+ (./_minted/D2A161022BBC372C69E9EB18F21F5EF9.highlight.minted) [84]
+\openout7 = main.listing
+ (./_minted/D6BCE3DE11A07320341B06EE8E1E16A9.highlight.minted)
+\openout7 = main.listing
+ (./_minted/01345ABB214CC2C64258E02B5C875F39.highlight.minted) [85]
+\openout7 = main.listing
+ (./_minted/EBC05615E98DE5A6DC0E7359B0F59819.highlight.minted)
+\openout7 = main.listing
+ (./_minted/5B7189382C8E2F638751987261C8F57E.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B01530816B7193A651963642D7A41AD1.highlight.minted) [86]
+\openout7 = main.listing
+ (./_minted/DD1EAAD0F621009AF9275E3A87469F5B.highlight.minted)
+Overfull \hbox (25.0pt too wide) in paragraph at lines 3563--3564
+ [] 
+ []
+
+[87]
+Overfull \hbox (25.0pt too wide) in paragraph at lines 3581--3582
+ [] 
+ []
+
+[88]
+Overfull \hbox (25.0pt too wide) in paragraph at lines 3596--3597
+ [] 
+ []
+
+
+\openout7 = main.listing
+(./_minted/BDEBD76EA723DA80B56AC6E3B3EDC930.highlight.minted) [89]
+\openout7 = main.listing
+ (./_minted/3E964482B10FFC7F9E3A549A1F2CD0AE.highlight.minted) [90]
+
+./main.tex:3621: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3621         \end{itemize}
+                            
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[91] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2441,19 +2487,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 65199 strings out of 476076
+ 65414 strings out of 476076
  156265,2373549 words of node,token memory allocated
- 1887 words of node memory still in use:
-   32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:2,2:5773,3:1441,4:788,5:1658,6:206,7:8106,8:56,9:4693,10:89,11:1380
- 83875 multiletter control sequences out of 65536+600000
+ 1883 words of node memory still in use:
+   32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 85 attribute, 162 glue_spec, 85 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
+   avail lists: 1:2,2:5775,3:1441,4:788,5:1664,6:221,7:8106,8:56,9:4693,10:89,11:1380
+ 83954 multiletter control sequences out of 65536+600000
  66 fonts using 4812095 bytes
  99i,13n,108p,815b,1375s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (83 pages, 365826 bytes).
+Output written on main.pdf (92 pages, 389386 bytes).
 
-PDF statistics: 726 PDF objects out of 1000 (max. 8388607)
- 580 compressed objects within 6 object streams
- 192 named destinations out of 1000 (max. 1048576)
- 504 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 788 PDF objects out of 1000 (max. 8388607)
+ 632 compressed objects within 7 object streams
+ 208 named destinations out of 1000 (max. 1048576)
+ 536 words of extra memory for PDF output out of 10000 (max. 100000000)
 

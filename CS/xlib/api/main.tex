@@ -356,6 +356,188 @@
     \end{itemize}
 
     \pagebreak 
+    \unsect{Keymask modifiers}
+    \begin{itemize}
+        \item \textbf{Keymask modifiers}: In Xlib, keymask modifiers are bitwise constants used to describe the state of modifier keys (like Shift, Control, or Alt) during an input event. These masks are commonly found in the state member of event structures such as XKeyEvent or used as arguments in functions like \textbf{XGrabKey.}
+            \begin{itemize}
+                \item \textbf{ShiftMask}: The Shift key is pressed.
+                \item \textbf{LockMask}: The Caps Lock key is active.
+                \item \textbf{ControlMask}: The Control key is pressed.
+                \item \textbf{Mod1Mask}: Usually mapped to Alt or Meta.
+                \item \textbf{Mod2Mask}: Often mapped to Num Lock.
+                \item \textbf{Mod3Mask}: Sometimes mapped to AltGr.
+                \item \textbf{Mod4Mask}: Commonly mapped to the Super/Windows key.
+                \item \textbf{Mod5Mask}: Often mapped to Scroll Lock or other custom modifiers.
+            \end{itemize}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{XIDs}
+    \begin{itemize}
+        \item \textbf{XID definitions} 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef XID Window;
+                typedef XID Drawable;
+                typedef XID Font;
+                typedef XID Pixmap;
+                typedef XID Cursor;
+                typedef XID Colormap;
+                typedef XID GContext;
+                typedef XID KeySym;
+            \end{cppcode}
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Other typedefs}
+    \begin{itemize}
+        \item \textbf{Other typedefs}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            typedef unsigned long XID;
+            typedef unsigned long Mask;
+            typedef unsigned long Atom;		
+            typedef unsigned char KeyCode;
+            typedef unsigned long VisualID;
+            typedef unsigned long Time;
+            \end{cppcode}
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Cursors (<X11/cursorfont.h>)}
+    \begin{itemize}
+        \item \textbf{Cursors}
+            \begin{itemize}
+                \item \textbf{XC\_X\_cursor}:	An “X” shaped cursor. Often used as a generic default or placeholder cursor.
+                \item \textbf{XC\_arrow}:	A generic arrow cursor.
+                \item \textbf{XC\_based\_arrow\_down}:	A downward-pointing arrow with a base/bar.
+                \item \textbf{XC\_based\_arrow\_up}:	An upward-pointing arrow with a base/bar.
+                \item \textbf{XC\_boat}:	A small boat-shaped cursor. Mostly decorative/legacy.
+                \item \textbf{XC\_bogosity}:	A strange “bad/invalid/weird” symbol. Mostly humorous/legacy.
+                \item \textbf{XC\_bottom\_left\_corner}:	Resize cursor for the bottom-left corner of a window.
+                \item \textbf{XC\_bottom\_right\_corner}:	Resize cursor for the bottom-right corner of a window.
+                \item \textbf{XC\_bottom\_side}:	Resize cursor for the bottom edge of a window.
+                \item \textbf{XC\_bottom\_tee}:	A T-shaped cursor associated with the bottom side.
+                \item \textbf{XC\_box\_spiral}:	A box/square spiral shape. Mostly decorative.
+                \item \textbf{XC\_center\_ptr}:	A pointer arrow whose hotspot is more centered than XC\_left\_ptr.
+                \item \textbf{XC\_circle}:	A circular cursor.
+                \item \textbf{XC\_clock}:	A clock-shaped cursor, usually indicating waiting/busy state.
+                \item \textbf{XC\_coffee\_mug}:	A coffee mug cursor. Mostly decorative/legacy.
+                \item \textbf{XC\_cross}:	A simple cross-shaped cursor.
+                \item \textbf{XC\_cross\_reverse}:	A reverse/inverted version of the cross cursor.
+                \item \textbf{XC\_crosshair}:	A precision crosshair cursor, often used for targeting or coordinate selection.
+                \item \textbf{XC\_diamond\_cross}:	A cross combined with a diamond-like shape.
+                \item \textbf{XC\_dot}:	A small dot cursor.
+                \item \textbf{XC\_dotbox}:	A dot inside a box. Useful for precise pointing.
+                \item \textbf{XC\_double\_arrow}:	A double-ended arrow, generally suggesting resizing or directional adjustment.
+                \item \textbf{XC\_draft\_large}:	A large drafting/drawing-style cursor.
+                \item \textbf{XC\_draft\_small}:	A smaller drafting/drawing-style cursor.
+                \item \textbf{XC\_draped\_box}:	A box-like cursor with a draped/covered appearance. Mostly decorative.
+                \item \textbf{XC\_exchange}:	An exchange/swap cursor, suggesting replacement or swapping.
+                \item \textbf{XC\_fleur}:	A four-direction move cursor, like arrows pointing up/down/left/right.
+                \item \textbf{XC\_gobbler}:	A “gobbler”/Pac-Man-like decorative cursor.
+                \item \textbf{XC\_gumby}:	A Gumby-like figure cursor. Decorative/legacy.
+                \item \textbf{XC\_hand1}:	A hand cursor, usually pointing or selecting.
+                \item \textbf{XC\_hand2}:	Another hand cursor variant. Commonly used for links or clickable things.
+                \item \textbf{XC\_heart}:	A heart-shaped cursor.
+                \item \textbf{XC\_icon}:	An icon-like cursor, historically associated with window/icon manipulation.
+                \item \textbf{XC\_iron\_cross}:	A heavy cross shape resembling an iron cross.
+                \item \textbf{XC\_left\_ptr}:	The usual left-leaning arrow pointer. This is the common default pointer.
+                \item \textbf{XC\_left\_side}:	Resize cursor for the left edge of a window.
+                \item \textbf{XC\_left\_tee}:	A T-shaped cursor associated with the left side.
+                \item \textbf{XC\_leftbutton}:	A mouse/button symbol emphasizing the left button.
+                \item \textbf{XC\_ll\_angle}:	Lower-left angle/corner shape.
+                \item \textbf{XC\_lr\_angle}:	Lower-right angle/corner shape.
+                \item \textbf{XC\_man}:	A small human figure cursor.
+                \item \textbf{XC\_middlebutton}:	A mouse/button symbol emphasizing the middle button.
+                \item \textbf{XC\_mouse}:	A mouse-shaped cursor.
+                \item \textbf{XC\_pencil}:	A pencil cursor, commonly used for drawing/editing.
+                \item \textbf{XC\_pirate}:	A pirate/skull-style cursor, often used for destructive or dangerous actions.
+                \item \textbf{XC\_plus}:	A plus-sign cursor. Often suggests adding, inserting, or selecting.
+                \item \textbf{XC\_question\_arrow}:	An arrow with a question mark, commonly used for help/context help.
+                \item \textbf{XC\_right\_ptr}:	A right-leaning or right-pointing pointer arrow.
+                \item \textbf{XC\_right\_side}:	Resize cursor for the right edge of a window.
+                \item \textbf{XC\_right\_tee}:	A T-shaped cursor associated with the right side.
+                \item \textbf{XC\_rightbutton}:	A mouse/button symbol emphasizing the right button.
+                \item \textbf{XC\_rtl\_logo}:	A stylized logo cursor. Rarely used in modern programs.
+                \item \textbf{XC\_sailboat}:	A sailboat-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_sb\_down\_arrow}:	Scrollbar-style down arrow.
+                \item \textbf{XC\_sb\_h\_double\_arrow}:	Horizontal double arrow, commonly suggesting horizontal resizing or scrolling.
+                \item \textbf{XC\_sb\_left\_arrow}:	Scrollbar-style left arrow.
+                \item \textbf{XC\_sb\_right\_arrow}:	Scrollbar-style right arrow.
+                \item \textbf{XC\_sb\_up\_arrow}:	Scrollbar-style up arrow.
+                \item \textbf{XC\_sb\_v\_double\_arrow}:	Vertical double arrow, commonly suggesting vertical resizing or scrolling.
+                \item \textbf{XC\_shuttle}:	A space-shuttle-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_sizing}:	Generic sizing/resizing cursor.
+                \item \textbf{XC\_spider}:	Spider-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_spraycan}:	Spray-can cursor, commonly associated with painting/drawing programs.
+                \item \textbf{XC\_star}:	Star-shaped cursor.
+                \item \textbf{XC\_target}:	Target/bullseye cursor.
+                \item \textbf{XC\_tcross}:	A T-like cross cursor.
+                \item \textbf{XC\_top\_left\_arrow}:	Arrow pointing toward the upper-left.
+                \item \textbf{XC\_top\_left\_corner}:	Resize cursor for the top-left corner of a window.
+                \item \textbf{XC\_top\_right\_corner}:	Resize cursor for the top-right corner of a window.
+                \item \textbf{XC\_top\_side}:	Resize cursor for the top edge of a window.
+                \item \textbf{XC\_top\_tee}:	A T-shaped cursor associated with the top side.
+                \item \textbf{XC\_trek}:	A Star-Trek-like insignia cursor. Decorative/legacy.
+                \item \textbf{XC\_ul\_angle}:	Upper-left angle/corner shape.
+                \item \textbf{XC\_umbrella}:	Umbrella-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_ur\_angle}:	Upper-right angle/corner shape.
+                \item \textbf{XC\_watch}:	Watch cursor, commonly used to indicate busy/waiting.
+                \item \textbf{XC\_xterm}:	Text insertion/I-beam cursor, commonly used over text areas.
+            \end{itemize}
+            The practical / common ones is the subset
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Cursor}&	\textbf{Description}&	\textbf{Common use} \\
+                    \midrule
+                    XC\_left\_ptr	&Standard arrow pointer, usually angled up-left.	&Default cursor for normal pointing and selection.\\[2ex]
+                    XC\_xterm	&Text insertion cursor, usually an I-beam.	&Used over editable or selectable text regions.\\[2ex]
+                    XC\_watch	&Watch/busy cursor.	&Indicates that the application is busy or waiting.\\[2ex]
+                    XC\_hand1	&Hand-shaped cursor, first variant.	&Used for clickable or draggable objects.\\[2ex]
+                    XC\_hand2	&Hand-shaped cursor, second variant.	&Commonly used for links or clickable UI elements.\\[2ex]
+                    XC\_crosshair	&Crosshair cursor with horizontal and vertical lines.	&Precision pointing, drawing, targeting, coordinate selection.\\[2ex]
+                    XC\_fleur	&Four-direction movement cursor.	&Moving windows, panels, objects, or selections.\\[2ex]
+                    XC\_sb\_h\_double\_arrow	&Horizontal double-ended arrow.	&Horizontal resizing or horizontal scrollbar interaction.\\[2ex]
+                    XC\_sb\_v\_double\_arrow	&Vertical double-ended arrow.	&Vertical resizing or vertical scrollbar interaction.\\[2ex]
+                    XC\_top\_side	&Resize cursor for the top edge.	&Resizing a window or object from its top border.\\[2ex]
+                    XC\_bottom\_side	&Resize cursor for the bottom edge.	&Resizing from the bottom border.\\[2ex]
+                    XC\_left\_side	&Resize cursor for the left edge.	&Resizing from the left border.\\[2ex]
+                    XC\_right\_side	&Resize cursor for the right edge.	&Resizing from the right border.\\[2ex]
+                    XC\_top\_left\_corner&	Diagonal resize cursor for the top-left corner.	&Resizing from the upper-left corner.\\[2ex]
+                    XC\_top\_right\_corner&	Diagonal resize cursor for the top-right corner.	&Resizing from the upper-right corner.\\[2ex]
+                    XC\_bottom\_left\_corner&	Diagonal resize cursor for the bottom-left corner.	&Resizing from the lower-left corner.\\[2ex]
+                    XC\_bottom\_right\_corner&	Diagonal resize cursor for the bottom-right corner.	&Resizing from the lower-right corner. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Creating Cursors}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Cursor XCreateFontCursor(Display *display, unsigned int shape)
+            \end{cppcode}
+            \bigbreak \noindent
+            Creates a cursor from one of the standard cursor glyphs defined by the X cursor font.
+            \begin{itemize}
+                \item \textit{display}: Specifies the connection to the X server.
+                \item \textit{shape}: Specifies the shape of the cursor.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadAlloc}
+                        \item \textbf{BadValue}
+                    \end{itemize}
+            \end{itemize}
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
     \unsect{Display functions}
     \begin{itemize}
         \item \textbf{Structures:} 
@@ -1426,7 +1608,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Maps the specified window, making it eligible to become visible on the screen.
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1504,11 +1685,9 @@
             \end{cppcode}
             \bigbreak \noindent
             Moves the specified window to a new position relative to its parent.
-
             \begin{itemize}
                 \item $x$, $y$ Specify the $x$ and $y$ coordinates, which define the new location of the top-left pixel of the window’s border or the window itself if it has no border.
             \end{itemize}
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1555,7 +1734,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Sets the border width of the specified window.
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1579,7 +1757,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Lowers the specified window to the bottom of the stacking order.
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1702,7 +1879,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Sets the border pixel value of the specified window.
-
             \begin{itemize}
                 \item border\_pixel Specifies the entry in the colormap.
             \end{itemize}
@@ -1751,11 +1927,9 @@
             \end{cppcode}
             \bigbreak \noindent
             Defines the cursor that appears when the pointer is inside the specified window.
-
             \begin{itemize}
                 \item cursor Specifies the cursor that is to be displayed or None.
             \end{itemize}
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1768,7 +1942,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Removes the window's explicitly defined cursor so that the parent window's cursor is inherited.
-
             \bigbreak \noindent
             \textbf{Possible errors:}
             \begin{itemize}
@@ -1877,7 +2050,6 @@
                 \item border\_width\_return Returns the border width in pixels. If the drawable is a pixmap, it returns zero.
                 \item depth\_return Returns the depth of the drawable (bits per pixel for the object).
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}:
                     \begin{itemize}
@@ -1930,7 +2102,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Queries the current pointer position and button/modifier state relative to both the root window and the specified window.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -1940,7 +2111,6 @@
                 \item win\_x\_return, win\_y\_return Return the pointer coordinates relative to the specified window.
                 \item mask\_return Returns the current state of the modifier keys and pointer buttons.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}:
                     \begin{itemize}
@@ -2341,12 +2511,10 @@
             \end{cppcode}
             \bigbreak \noindent
             Creates a cursor from one of the standard cursor glyphs defined by the X cursor font.
-
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{shape}: Specifies the shape of the cursor.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}:
                     \begin{itemize}
@@ -4513,7 +4681,6 @@
         \end{cppcode}
         \bigbreak \noindent
         Enables or disables synchronous operation for the display connection, causing Xlib to wait for each request to complete when enabled.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item onoff Specifies a Boolean value that indicates whether to enable or disable synchronization.
@@ -4601,11 +4768,9 @@
         \end{cppcode}
         \bigbreak \noindent
         Installs a custom handler for fatal I/O errors on a display connection and returns the previously installed handler.
-
         \begin{itemize}
             \item handler Specifies the program’s supplied error handler.
         \end{itemize}
-
         \begin{itemize}
             \item \textbf{Possible errors}: None documented.
         \end{itemize}
@@ -4744,7 +4909,6 @@
         \end{cppcode}
         \bigbreak \noindent
         Establishes a passive pointer grab that becomes active when the specified button and modifier combination is pressed.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item button Specifies the pointer button that is to be grabbed or AnyButton.
@@ -4757,7 +4921,6 @@
             \item confine\_to Specifies the window to confine the pointer in or None.
             \item cursor Specifies the cursor that is to be displayed or None.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item \texttt{BadAccess}
@@ -4767,11 +4930,15 @@
         \end{itemize}
 
         \begin{cppcode}
-        XUngrabButton(Display* display, unsigned int button, unsigned int modifiers, Window grab_window)
+        XUngrabButton(
+            Display* display,
+            unsigned int button,
+            unsigned int modifiers,
+            Window grab_window
+        )
         \end{cppcode}
         \bigbreak \noindent
         Removes a passive button grab for the specified button, modifier combination, and grab window.
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item \texttt{BadValue}
@@ -4842,7 +5009,6 @@
         \end{cppcode}
         \bigbreak \noindent
         Establishes a passive keyboard grab that becomes active when the specified key and modifier combination is pressed.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item keycode Specifies the KeyCode or AnyKey.
@@ -4852,7 +5018,6 @@
             \item pointer\_mode Specifies further processing of pointer events. You can pass GrabModeSync or GrabModeAsync.
             \item keyboard\_mode Specifies further processing of keyboard events. You can pass GrabModeSync or GrabModeAsync.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item \texttt{BadAccess}
@@ -4884,13 +5049,11 @@
         \end{cppcode}
         \bigbreak \noindent
         Releases, synchronizes, or replays frozen pointer and keyboard events after a synchronous grab.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item event\_mode Specifies the event mode. You can pass AsyncPointer, SyncPointer, AsyncKeyboard, SyncKeyboard, ReplayPointer, ReplayKeyboard, AsyncBoth, or SyncBoth.
             \item time Specifies the time. You can pass either a timestamp or CurrentTime.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item \texttt{BadValue}
@@ -4928,7 +5091,6 @@
         \end{cppcode}
         \bigbreak \noindent
         Changes the window that receives keyboard input focus.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item focus Specifies the window, PointerRoot, or None.
@@ -4949,13 +5111,11 @@
         \end{cppcode}
         \bigbreak \noindent
         Returns the current input focus window and the current focus revert policy.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item focus\_return Returns the focus window, PointerRoot, or None.
             \item revert\_to\_return Returns the current focus state, such as RevertToParent, RevertToPointerRoot, or RevertToNone.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item None.
@@ -5163,7 +5323,6 @@
             \item key\_event Specifies the KeyPress or KeyRelease event.
             \item index Specifies the index into the KeySyms list for the event’s KeyCode.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item None.
@@ -5194,7 +5353,6 @@
             \item display Specifies the connection to the X server.
             \item keysym Specifies the KeySym that is to be searched for.
         \end{itemize}
-
         \textbf{Possible errors}:
         \begin{itemize}
             \item None.

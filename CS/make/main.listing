@@ -1,2 +1,1 @@
-            clean:
-                @-rm missing-file
+            CPPFLAGS += -DHAVE_IMLIB2=1

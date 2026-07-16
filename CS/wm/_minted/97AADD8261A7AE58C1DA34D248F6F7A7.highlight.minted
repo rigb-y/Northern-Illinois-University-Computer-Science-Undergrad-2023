@@ -1,0 +1,19 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{KeySym}\PYG{+w}{ }\PYG{n}{ks\PYGZus{}q}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{XK\PYGZus{}q}\PYG{p}{;}
+\PYG{n}{KeyCode}\PYG{+w}{ }\PYG{n}{kc\PYGZus{}q}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{XKeysymToKeycode}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ks\PYGZus{}q}\PYG{p}{)}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{modifiers}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Mod4Mask}\PYG{+w}{ }\PYG{err}{|}\PYG{+w}{ }\PYG{n}{ShiftMask}\PYG{p}{;}
+\PYG{n}{XGrabKey}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{kc\PYGZus{}q}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{modifiers}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{GrabModeAsync}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{GrabModeAsync}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}
+\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{;}\PYG{p}{;}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{XEvent}\PYG{+w}{ }\PYG{n}{event}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{XNextEvent}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{event}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{event}\PYG{p}{.}\PYG{n}{type}\PYG{+w}{ }\PYG{o}{=}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{KeyPress}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{XKeyEvent}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{key\PYGZus{}event}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{event}\PYG{p}{.}\PYG{n}{xkey}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{c+c1}{// Check key\PYGZus{}event\PYGZhy{}\PYGZgt{}keycode and key\PYGZus{}event\PYGZhy{}\PYGZgt{}state}
+\PYG{+w}{        }\PYG{c+c1}{// against the mapping we defined above.}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+cat\PYG{+w}{ }file.txt\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }grep\PYG{+w}{ }hello\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }less
+\end{MintedVerbatim}

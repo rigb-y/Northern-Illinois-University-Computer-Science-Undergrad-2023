@@ -1093,7 +1093,6 @@ INPUT ./_minted/DA777CB76808099F1A4C0055D3997C2A.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/B3354B930EFA4B4FD8D4C102EB94F644.highlight.minted
 OUTPUT main.listing
-OUTPUT _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
 INPUT ./_minted/565267DD8821AD35EE4D3F627E106B4E.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/864988829192642BB6106C74FF0B8C02.highlight.minted
@@ -1277,7 +1276,6 @@ OUTPUT main.listing
 INPUT ./_minted/22426F27525A12EA2503F9A6A78248C6.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted
-OUTPUT _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
 INPUT ./main.aux
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb

@@ -1,28 +1,44 @@
 \contentsline {section}{\numberline {1}Introduction}{3}{section.0.1}%
 \contentsline {section}{\numberline {2}Events}{8}{section.0.2}%
-\contentsline {section}{\numberline {3}Tiling layout model}{9}{section.0.3}%
-\contentsline {section}{\numberline {4}Layout recomputation}{15}{section.0.4}%
-\contentsline {section}{\numberline {5}Focus model}{16}{section.0.5}%
-\contentsline {section}{\numberline {6}Keyboard control}{18}{section.0.6}%
-\contentsline {section}{\numberline {7}Mouse control}{20}{section.0.7}%
-\contentsline {section}{\numberline {8}Borders and visual feedback}{21}{section.0.8}%
-\contentsline {section}{\numberline {9}Workspaces}{23}{section.0.9}%
-\contentsline {section}{\numberline {10}Configure requests}{25}{section.0.10}%
-\contentsline {section}{\numberline {11}Mapping, unmapping, and destruction}{27}{section.0.11}%
-\contentsline {section}{\numberline {12}Stacking order}{31}{section.0.12}%
-\contentsline {section}{\numberline {13}Error handling}{34}{section.0.13}%
-\contentsline {section}{\numberline {14}Startup sequence / minimal implementation order}{38}{section.0.14}%
-\contentsline {section}{\numberline {15}ICCCM / EWMH Discussion}{39}{section.0.15}%
-\contentsline {section}{\numberline {16}Testing environment}{49}{section.0.16}%
-\contentsline {section}{\numberline {17}Angel Implementation Journal (AIJ)}{50}{section.0.17}%
-\contentsline {subsection}{\numberline {17.1}Display}{50}{subsection.0.17.1}%
-\contentsline {subsection}{\numberline {17.2}Errors}{51}{subsection.0.17.2}%
-\contentsline {subsection}{\numberline {17.3}Flushing and Syncing}{52}{subsection.0.17.3}%
-\contentsline {subsection}{\numberline {17.4}Root window}{53}{subsection.0.17.4}%
-\contentsline {subsection}{\numberline {17.5}The client list}{54}{subsection.0.17.5}%
-\contentsline {subsection}{\numberline {17.6}Scanning and managing existing windows}{55}{subsection.0.17.6}%
-\contentsline {subsection}{\numberline {17.7}Window information}{57}{subsection.0.17.7}%
-\contentsline {subsection}{\numberline {17.8}Screens}{63}{subsection.0.17.8}%
-\contentsline {subsection}{\numberline {17.9}Manipulating windows}{64}{subsection.0.17.9}%
-\contentsline {subsection}{\numberline {17.10}Geometry}{65}{subsection.0.17.10}%
-\contentsline {subsection}{\numberline {17.11}Notes}{66}{subsection.0.17.11}%
+\contentsline {section}{\numberline {3}Tiling layout model}{24}{section.0.3}%
+\contentsline {section}{\numberline {4}Layout recomputation}{30}{section.0.4}%
+\contentsline {section}{\numberline {5}Focus model}{31}{section.0.5}%
+\contentsline {section}{\numberline {6}Keyboard control}{33}{section.0.6}%
+\contentsline {section}{\numberline {7}Mouse control}{35}{section.0.7}%
+\contentsline {section}{\numberline {8}Borders and visual feedback}{36}{section.0.8}%
+\contentsline {section}{\numberline {9}Workspaces}{38}{section.0.9}%
+\contentsline {section}{\numberline {10}Configure requests}{40}{section.0.10}%
+\contentsline {section}{\numberline {11}Mapping, unmapping, and destruction}{42}{section.0.11}%
+\contentsline {section}{\numberline {12}Stacking order}{46}{section.0.12}%
+\contentsline {section}{\numberline {13}Error handling}{49}{section.0.13}%
+\contentsline {section}{\numberline {14}Startup sequence / minimal implementation order}{53}{section.0.14}%
+\contentsline {section}{\numberline {15}ICCCM / EWMH Discussion}{54}{section.0.15}%
+\contentsline {section}{\numberline {16}Testing environment}{64}{section.0.16}%
+\contentsline {section}{\numberline {17}Angel Implementation Journal (AIJ)}{65}{section.0.17}%
+\contentsline {subsection}{\numberline {17.1}Display}{65}{subsection.0.17.1}%
+\contentsline {subsection}{\numberline {17.2}Errors}{66}{subsection.0.17.2}%
+\contentsline {subsection}{\numberline {17.3}Flushing and Syncing}{69}{subsection.0.17.3}%
+\contentsline {subsection}{\numberline {17.4}Root window}{70}{subsection.0.17.4}%
+\contentsline {subsection}{\numberline {17.5}The client list}{71}{subsection.0.17.5}%
+\contentsline {subsection}{\numberline {17.6}Scanning and managing existing windows}{72}{subsection.0.17.6}%
+\contentsline {subsection}{\numberline {17.7}Window information}{74}{subsection.0.17.7}%
+\contentsline {subsection}{\numberline {17.8}Screens}{80}{subsection.0.17.8}%
+\contentsline {subsection}{\numberline {17.9}Manipulating windows}{81}{subsection.0.17.9}%
+\contentsline {subsubsection}{\numberline {17.9.1}Closing windows}{82}{subsubsection.0.17.9.1}%
+\contentsline {subsection}{\numberline {17.10}Geometry}{85}{subsection.0.17.10}%
+\contentsline {subsection}{\numberline {17.11}Cursors}{86}{subsection.0.17.11}%
+\contentsline {subsection}{\numberline {17.12}Event loop}{91}{subsection.0.17.12}%
+\contentsline {subsection}{\numberline {17.13}Focus}{93}{subsection.0.17.13}%
+\contentsline {subsection}{\numberline {17.14}KeySyms and KeyCodes}{99}{subsection.0.17.14}%
+\contentsline {subsection}{\numberline {17.15}Keymaps}{101}{subsection.0.17.15}%
+\contentsline {subsection}{\numberline {17.16}Window map}{104}{subsection.0.17.16}%
+\contentsline {subsection}{\numberline {17.17}Colors}{105}{subsection.0.17.17}%
+\contentsline {subsection}{\numberline {17.18}Borders}{107}{subsection.0.17.18}%
+\contentsline {subsection}{\numberline {17.19}Backgrounds}{108}{subsection.0.17.19}%
+\contentsline {subsection}{\numberline {17.20}Window spawning}{109}{subsection.0.17.20}%
+\contentsline {subsection}{\numberline {17.21}Raising windows}{110}{subsection.0.17.21}%
+\contentsline {subsection}{\numberline {17.22}Tracking pointer}{111}{subsection.0.17.22}%
+\contentsline {subsection}{\numberline {17.23}Floating windows}{113}{subsection.0.17.23}%
+\contentsline {subsubsection}{\numberline {17.23.1}Dragging windows}{113}{subsubsection.0.17.23.1}%
+\contentsline {subsection}{\numberline {17.24}Workspaces}{115}{subsection.0.17.24}%
+\contentsline {subsection}{\numberline {17.25}Notes}{116}{subsection.0.17.25}%

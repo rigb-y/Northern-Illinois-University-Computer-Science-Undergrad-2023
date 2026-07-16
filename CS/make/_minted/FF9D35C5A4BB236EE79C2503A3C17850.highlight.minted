@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{CPPFLAGS}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{DHAVE\PYGZus{}IMLIB2}\PYG{o}{=}\PYG{l+m+mi}{1}
+\end{MintedVerbatim}

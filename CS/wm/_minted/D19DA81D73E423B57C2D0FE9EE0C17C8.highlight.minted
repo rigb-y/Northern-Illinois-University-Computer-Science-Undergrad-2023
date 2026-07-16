@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{grab\PYGZus{}left\PYGZus{}click}\PYG{p}{(}\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{win}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{XGrabButton}\PYG{p}{(}
+\PYG{+w}{        }\PYG{n}{dp}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{Button1}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{AnyModifier}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{win}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n+nb}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{c+c1}{// owner\PYGZus{}events}
+\PYG{+w}{        }\PYG{n}{ButtonPressMask}\PYG{p}{,}\PYG{+w}{ }\PYG{c+c1}{// Send ButtonPress to win}
+\PYG{+w}{        }\PYG{n}{GrabModeSync}\PYG{p}{,}\PYG{+w}{ }\PYG{c+c1}{// Pointer mode async}
+\PYG{+w}{        }\PYG{n}{GrabModeAsync}\PYG{p}{,}\PYG{+w}{ }\PYG{c+c1}{// Keyboard mode async}
+\PYG{+w}{        }\PYG{n}{None}\PYG{p}{,}\PYG{+w}{ }\PYG{c+c1}{// confine\PYGZus{}to}
+\PYG{+w}{        }\PYG{n}{None}\PYG{+w}{ }\PYG{c+c1}{// cursor}
+\PYG{+w}{    }\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

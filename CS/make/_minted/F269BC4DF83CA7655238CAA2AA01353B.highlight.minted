@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{CPPFLAGS}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{shell}\PYG{+w}{ }\PYG{n}{pkg}\PYG{o}{\PYGZhy{}}\PYG{n}{config}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{cflags}\PYG{+w}{ }\PYG{n}{imlib2}\PYG{+w}{ }\PYG{n}{x11}\PYG{p}{)}
+\PYG{n}{LDLIBS}\PYG{+w}{   }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{\PYGZdl{}}\PYG{p}{(}\PYG{n}{shell}\PYG{+w}{ }\PYG{n}{pkg}\PYG{o}{\PYGZhy{}}\PYG{n}{config}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{n}{libs}\PYG{+w}{ }\PYG{n}{imlib2}\PYG{+w}{ }\PYG{n}{x11}\PYG{p}{)}
+\end{MintedVerbatim}

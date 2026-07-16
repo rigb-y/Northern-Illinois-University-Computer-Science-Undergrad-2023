@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  27 JUN 2026 18:31
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  15 JUL 2026 10:37
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260627183109 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260715103729 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260627183109 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260715103729 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/1578A6D71A1FC43C18424C4DE131DE7C.highlight.minted)
 \openout7 = main.listing
  (./_minted/2B478BCAB008F38D371B9FB8DBFDC87C.highlight.minted)
@@ -1880,92 +1880,155 @@ runsystem(latexminted cleanconfig  --timestamp 20260627183109 FAD58DE7366495DB46
  (./_minted/DD4731AE6F2AFDA3E91401515F272194.highlight.minted)
 \openout7 = main.listing
  (./_minted/D6988F843F168CA5125C02E7F208ABF4.highlight.minted) [4] [5] [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 268--268
+[]|\TU/lmr/m/n/10 Cir-cu-lateRequest, Con-fig-ur-eRequest,
+ []
 
-./main.tex:252: LaTeX Error: Something's wrong--perhaps a missing \item.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.252     \end{itemize}
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+Underfull \hbox (badness 1590) in paragraph at lines 268--268
+[]|\TU/lmr/m/n/10 ClientMes-sage, Prop-er-tyNo-tify, Se-lec-tion-
+ []
 
-[8]
+
+Overfull \hbox (25.0pt too wide) in paragraph at lines 268--269
+ [] 
+ []
+
+[8] [9]
+\openout7 = main.listing
+ (./_minted/75738FF71E981C67063011629D1B78F0.highlight.minted) [10]
+\openout7 = main.listing
+ (./_minted/0DAE7B662F5740D5F81CAC35CDDBFB4C.highlight.minted
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 4.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 4.
+)
+\openout7 = main.listing
+ (./_minted/BB5763D4E9AF6E46DB68738DD1786365.highlight.minted)
+\openout7 = main.listing
+ (./_minted/EE0BB77459BE8C15EC64EA04B0EA61F2.highlight.minted) [11]
+\openout7 = main.listing
+ (./_minted/DE69DA740E2E2CAFE0BB9E3901DA5302.highlight.minted)
+\openout7 = main.listing
+ (./_minted/19AE42B52012F048ADF741A397D38F83.highlight.minted) [12]
+\openout7 = main.listing
+ (./_minted/F5EDAD5F44381A1384E16675E0D88C43.highlight.minted) [13]
+\openout7 = main.listing
+ (./_minted/0C82B3774941D5CC09103F4968C77F9F.highlight.minted) [14]
+\openout7 = main.listing
+ (./_minted/66D785E6A2DEDEEB2098F97BDE96608D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/007EDA212AAA0C08A04941C0BDF0AC96.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F38AD8DF0D237A88C58A8DB503B525F5.highlight.minted) [15]
+\openout7 = main.listing
+ (./_minted/955140A7FD6990130BC54540E2A363C7.highlight.minted)
+\openout7 = main.listing
+ (./_minted/EEE851B5ABE5824F561EAC59B7991BD7.highlight.minted) [16]
+\openout7 = main.listing
+ (./_minted/082D7FAE7B49BBBADA88D36B4179E993.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4F5B80A348321A67197804166998DC3D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/536EA1577255E4568063A617B61CF7D3.highlight.minted) [17]
+\openout7 = main.listing
+ (./_minted/F117B7DCEEB4CAFA01AE8D38C0D3FB88.highlight.minted)
+\openout7 = main.listing
+ (./_minted/78AD8D268AF441BF360CE46291FB7DFB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/9138644A9D91EC09F516C284D93ED7D4.highlight.minted) [18]
+\openout7 = main.listing
+ (./_minted/8AC757D5B6EE69E27B94201910CED36D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E93C8AC11FE3B65D2E28EEEFA5A255BF.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B5EBB98B4279DAE213A9B9B2A788D7EC.highlight.minted) [19]
+\openout7 = main.listing
+ (./_minted/6A9700BA016ADC8D849E90C62B2B8DBD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BD64EB343F69EF26FB10027208756131.highlight.minted)
+\openout7 = main.listing
+ (./_minted/611F4112CB9BA949EA34EB5933093032.highlight.minted) [20]
+\openout7 = main.listing
+ (./_minted/D56DB425289CA6EFCB85DDDBB99F2CB1.highlight.minted)
+\openout7 = main.listing
+ (./_minted/31F575106B401F87FAB234CA61294506.highlight.minted)
+\openout7 = main.listing
+ (./_minted/613EA7225BE332952C6C3F06F22AAB02.highlight.minted) [21]
+\openout7 = main.listing
+ (./_minted/7DA2ADCBA74103DE03118D4A22C882A2.highlight.minted)
+\openout7 = main.listing
+ (./_minted/7CAABAC25B04A20C060D9DE8607734AE.highlight.minted) [22] [23]
 \openout7 = main.listing
  (./_minted/B5D59FADE4D9AAE9F56283820F2ED00F.highlight.minted)
 \openout7 = main.listing
- (./_minted/95315A0C94836623000083B7527464E9.highlight.minted) [9]
 
-./main.tex:356: LaTeX Error: Something's wrong--perhaps a missing \item.
+(./_minted/95315A0C94836623000083B7527464E9.highlight.minted) [24]
+
+./main.tex:904: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.356                     \end{itemize}
+l.904                     \end{itemize}
                                        
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
 \openout7 = main.listing
-(./_minted/5732CFBCE101616FB2C23F952DE74516.highlight.minted) [10] [11]
+(./_minted/5732CFBCE101616FB2C23F952DE74516.highlight.minted) [25] [26]
 \openout7 = main.listing
  (./_minted/522B11B5A51D703CB806B12EA7FB834C.highlight.minted)
 \openout7 = main.listing
- (./_minted/EFA0798E2122BE466CB52D6D3719F9C3.highlight.minted) [12]
+ (./_minted/EFA0798E2122BE466CB52D6D3719F9C3.highlight.minted) [27]
 \openout7 = main.listing
  (./_minted/09E54A591C7A5AA6321E76CB0D28F3E2.highlight.minted)
 \openout7 = main.listing
  (./_minted/04ACBDF4BDA42915E4B5C2AF43FD7DA2.highlight.minted)
 \openout7 = main.listing
- (./_minted/0CFCF6BDA0D700A9F301DDAFDC133BCC.highlight.minted) [13]
+ (./_minted/0CFCF6BDA0D700A9F301DDAFDC133BCC.highlight.minted) [28]
 \openout7 = main.listing
  (./_minted/4A0BBEDE509C99821109C1E642FCEF92.highlight.minted)
 \openout7 = main.listing
- (./_minted/4F64BFAE2D990E60B09DF51FA5B48518.highlight.minted) [14] [15]
+ (./_minted/4F64BFAE2D990E60B09DF51FA5B48518.highlight.minted) [29] [30]
 \openout7 = main.listing
- (./_minted/C7C124BDBE1C27027774DA5E738EB993.highlight.minted
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 2.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 2.
-) [16] [17]
+ (./_minted/C7C124BDBE1C27027774DA5E738EB993.highlight.minted) [31] [32]
 \openout7 = main.listing
  (./_minted/DBCEBCBE0D9DC688EBB6ADB39AD4908F.highlight.minted)
 \openout7 = main.listing
- (./_minted/CB976047A3F3179695AC500572E4C4D5.highlight.minted) [18]
-Overfull \hbox (0.92511pt too wide) in paragraph at lines 691--692
+ (./_minted/CB976047A3F3179695AC500572E4C4D5.highlight.minted) [33]
+Overfull \hbox (0.92511pt too wide) in paragraph at lines 1239--1240
 []\TU/lmr/bx/n/10 Spawn com-mands\TU/lmr/m/n/10 : A WM does not usu-ally im-ple-ment a ter-mi-nal, launcher, browser,
  []
 
-[19] [20]
+[34] [35]
 \openout7 = main.listing
  (./_minted/3118A03BAD6175A81CE11962BD0853F6.highlight.minted)
 \openout7 = main.listing
  (./_minted/046B3D3694D40A09C0F6733791278334.highlight.minted)
 \openout7 = main.listing
  (./_minted/FC12CDF09F1C7F6BF8B8DB926166D334.highlight.minted)
-Overfull \hbox (40.51497pt too wide) in paragraph at lines 785--786
+Overfull \hbox (40.51497pt too wide) in paragraph at lines 1333--1334
 \TU/lmr/m/n/10 This is com-monly ex-posed through \TU/lmr/bx/n/10 WM_HINTS\TU/lmr/m/n/10 . You can query hints with \TU/lmr/bx/n/10 XGetWMHints\TU/lmr/m/n/10 .
  []
 
-[21]
+[36]
 \openout7 = main.listing
  (./_minted/C7190BB15276A38B36E4F6B3CAD34FCE.highlight.minted)
 \openout7 = main.listing
  (./_minted/CFFF832DB81CE2C325A6467FBF72E039.highlight.minted)
-Overfull \hbox (0.48097pt too wide) in paragraph at lines 807--809
+Overfull \hbox (0.48097pt too wide) in paragraph at lines 1355--1357
 \TU/lmr/m/n/10 That func-tion should be the only place where fo-cused, un-fo-cused, ur-gent, and fullscreen
  []
 
-[22]
+[37]
 \openout7 = main.listing
  (./_minted/5AE352D833B3E6B5079081A148586FF4.highlight.minted)
 \openout7 = main.listing
- (./_minted/31CDAFE81BAE76691FB631569491D499.highlight.minted) [23]
+ (./_minted/31CDAFE81BAE76691FB631569491D499.highlight.minted) [38]
 \openout7 = main.listing
  (./_minted/CF387894507073893E7BEED757E2C15F.highlight.minted)
 \openout7 = main.listing
@@ -1975,34 +2038,34 @@ Overfull \hbox (0.48097pt too wide) in paragraph at lines 807--809
 \openout7 = main.listing
  (./_minted/6A0E354C3FA1F12AAA5EAA8FA47CE130.highlight.minted)
 \openout7 = main.listing
- (./_minted/7062D9DD9116B9F0B7497049DC7B0AF6.highlight.minted) [24]
+ (./_minted/7062D9DD9116B9F0B7497049DC7B0AF6.highlight.minted) [39]
 \openout7 = main.listing
  (./_minted/545A7BB68CBAC71A2008707844807CF7.highlight.minted)
 \openout7 = main.listing
- (./_minted/B37C40678F04EB911194EA9AF6BA6172.highlight.minted) [25]
+ (./_minted/B37C40678F04EB911194EA9AF6BA6172.highlight.minted) [40]
 \openout7 = main.listing
- (./_minted/6524DE413DD9056293847F902A1DE3F7.highlight.minted) [26] [27]
+ (./_minted/6524DE413DD9056293847F902A1DE3F7.highlight.minted) [41] [42]
 \openout7 = main.listing
  (./_minted/C543334120C831A5454FAD235C4BCB5A.highlight.minted)
 \openout7 = main.listing
  (./_minted/B734581BA68B4207B5A449A1988BCD71.highlight.minted)
 \openout7 = main.listing
- (./_minted/418CF8B047A85EF1D00C0EF3E9E8065B.highlight.minted) [28]
+ (./_minted/418CF8B047A85EF1D00C0EF3E9E8065B.highlight.minted) [43]
 \openout7 = main.listing
  (./_minted/1030F3F67ABD24F1C36B2CE66836C30F.highlight.minted)
 
-./main.tex:1118: LaTeX Error: Something's wrong--perhaps a missing \item.
+./main.tex:1666: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1118             \end{itemize}
+l.1666             \end{itemize}
                                 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[29] [30]
+[44] [45]
 \openout7 = main.listing
  (./_minted/E26DA1CEC9AB46937CCE71304A0CFADB.highlight.minted)
 \openout7 = main.listing
@@ -2010,15 +2073,15 @@ If that doesn't work, type  X <return>  to quit.
 \openout7 = main.listing
  (./_minted/FFCA6F126A3E0FFBB88AFD8B424EB9B5.highlight.minted)
 \openout7 = main.listing
- (./_minted/7D90F3F920C8BC8DE4F19E3B9C493128.highlight.minted) [31]
+ (./_minted/7D90F3F920C8BC8DE4F19E3B9C493128.highlight.minted) [46]
 \openout7 = main.listing
- (./_minted/67555D01791BE70C704BB439DA061CAA.highlight.minted) [32] [33]
+ (./_minted/67555D01791BE70C704BB439DA061CAA.highlight.minted) [47] [48]
 \openout7 = main.listing
  (./_minted/426C5C339BB697AB5814530F132FE385.highlight.minted)
 \openout7 = main.listing
  (./_minted/B96787BB78051D5037750BAA04FBFDC5.highlight.minted)
 \openout7 = main.listing
- (./_minted/13E7E6F3563FEF73E4CCED562874FD67.highlight.minted) [34]
+ (./_minted/13E7E6F3563FEF73E4CCED562874FD67.highlight.minted) [49]
 \openout7 = main.listing
  (./_minted/2FCCD507B829E37155AD58663D2A513D.highlight.minted)
 \openout7 = main.listing
@@ -2026,40 +2089,40 @@ If that doesn't work, type  X <return>  to quit.
 \openout7 = main.listing
  (./_minted/91BE2B56385F5A7168E8F55703A20109.highlight.minted)
 \openout7 = main.listing
- (./_minted/5618DB35799DBDA24224A78703B333DB.highlight.minted) [35]
+ (./_minted/5618DB35799DBDA24224A78703B333DB.highlight.minted) [50]
 \openout7 = main.listing
  (./_minted/1E5509C915FA3D968E12D892384513F4.highlight.minted)
 \openout7 = main.listing
- (./_minted/7A885FF8EDAF964EB1F42B2AD692117C.highlight.minted) [36]
-Overfull \hbox (25.0pt too wide) in paragraph at lines 1411--1412
+ (./_minted/7A885FF8EDAF964EB1F42B2AD692117C.highlight.minted) [51]
+Overfull \hbox (25.0pt too wide) in paragraph at lines 1959--1960
  [] 
  []
 
-[37] [38]
-Overfull \hbox (18.2239pt too wide) in paragraph at lines 1464--1466
+[52] [53]
+Overfull \hbox (18.2239pt too wide) in paragraph at lines 2012--2014
 \TU/lmr/m/n/10 IC-CCM is the base con-tract. It de-fines things like WM_NOR-MAL_HINTS, WM_HINTS,
  []
 
 
-Overfull \hbox (12.84497pt too wide) in paragraph at lines 1464--1466
+Overfull \hbox (12.84497pt too wide) in paragraph at lines 2012--2014
 \TU/lmr/m/n/10 WM_PRO-TO-COLS, WM_DELETE_WIN-DOW, WM_TAKE_FO-CUS, WM_TRAN-
  []
 
 
-Overfull \hbox (39.83542pt too wide) in paragraph at lines 1477--1478
+Overfull \hbox (39.83542pt too wide) in paragraph at lines 2025--2026
 []\TU/lmr/bx/n/10 WM_NOR-MAL_HINTS (ge-om-e-try con-straints)\TU/lmr/m/n/10 : Clients use WM_NOR-MAL_HINTS
  []
 
 
 \openout7 = main.listing
-(./_minted/E3623E59C4943C12C37AC5F5EC8C83B4.highlight.minted) [39]
+(./_minted/E3623E59C4943C12C37AC5F5EC8C83B4.highlight.minted) [54]
 \openout7 = main.listing
  (./_minted/09D6307B7A2ADD223575AF4E04EA1B30.highlight.minted)
-Overfull \hbox (25.0pt too wide) in paragraph at lines 1522--1523
+Overfull \hbox (25.0pt too wide) in paragraph at lines 2070--2071
  [] 
  []
 
-[40]
+[55]
 \openout7 = main.listing
  (./_minted/1751E8710308241C130FC25AFC7F3D01.highlight.minted)
 \openout7 = main.listing
@@ -2069,27 +2132,27 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 1522--1523
 \openout7 = main.listing
  (./_minted/FC8B01F49AB940B852E45C53588EEF7D.highlight.minted)
 \openout7 = main.listing
- (./_minted/01E7AEE47BDA244BD01C7980496CAC09.highlight.minted) [41]
-./main.tex:1589: Missing $ inserted.
+ (./_minted/01E7AEE47BDA244BD01C7980496CAC09.highlight.minted) [56]
+./main.tex:2137: Missing $ inserted.
 <inserted text> 
                 $
-l.1589 ...em \textbf{What is WM\_TAKE\_FOCUS}: WM_
+l.2137 ...em \textbf{What is WM\_TAKE\_FOCUS}: WM_
                                                   TAKE_FOCUS is not a functi...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1590: Missing $ inserted.
+./main.tex:2138: Missing $ inserted.
 <inserted text> 
                 $
-l.1590             \bigbreak
+l.2138             \bigbreak
                              \noindent
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1590: Missing } inserted.
+./main.tex:2138: Missing } inserted.
 <inserted text> 
                 }
-l.1590             \bigbreak
+l.2138             \bigbreak
                              \noindent
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2098,14 +2161,14 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (325.64598pt too wide) in paragraph at lines 1589--1590
+Overfull \hbox (325.64598pt too wide) in paragraph at lines 2137--2138
 []\TU/lmr/bx/n/10 What is WM_TAKE_FO-CUS\TU/lmr/m/n/10 : WM$[][]\OML/lmm/m/it/10 AKE[]OCUSisnotafunctioncall:ItisanatomusedinsideaClientMessage:Theclientadvertisessupportforitbysetting \OT1/lmr/m/n/10 :
  []
 
-./main.tex:1590: Extra }, or forgotten \endgroup.
+./main.tex:2138: Extra }, or forgotten \endgroup.
 \@par ... \@noitemerr {\@@par }\fi \else {\@@par }
                                                   \fi 
-l.1590             \bigbreak
+l.2138             \bigbreak
                              \noindent
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2118,38 +2181,38 @@ deleted material, e.g., by typing `I$}'.
 (./_minted/337A8C4D2093F8F559550C6811EBCF87.highlight.minted)
 \openout7 = main.listing
  (./_minted/9B4AC4242C6CFB1354CB9F9A33437A58.highlight.minted)
-Overfull \hbox (8.49388pt too wide) in paragraph at lines 1613--1615
+Overfull \hbox (8.49388pt too wide) in paragraph at lines 2161--2163
 \TU/lmr/m/n/10 EWMH also de-fines _NET_WM_WIN-DOW_TYPE; _NET_WM_WIN-DOW_TYPE_DI-
  []
 
 
-Overfull \hbox (16.24498pt too wide) in paragraph at lines 1613--1615
+Overfull \hbox (16.24498pt too wide) in paragraph at lines 2161--2163
 \TU/lmr/m/n/10 A-LOG, _NET_WM_WIN-DOW_TYPE_SPLASH, _NET_WM_WIN-DOW_TYPE_UTIL-
  []
 
-[42] [43]
+[57] [58]
 \openout7 = main.listing
  (./_minted/C9965DD1CB8828FC987F8D01B59A0FD9.highlight.minted)
-./main.tex:1673: Missing $ inserted.
+./main.tex:2221: Missing $ inserted.
 <inserted text> 
                 $
-l.1673 ...tocols it understands by setting the WM_
+l.2221 ...tocols it understands by setting the WM_
                                                   PROTOCOLS property on its ...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1674: Missing $ inserted.
+./main.tex:2222: Missing $ inserted.
 <inserted text> 
                 $
-l.1674             \bigbreak
+l.2222             \bigbreak
                              \noindent
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1674: Missing } inserted.
+./main.tex:2222: Missing } inserted.
 <inserted text> 
                 }
-l.1674             \bigbreak
+l.2222             \bigbreak
                              \noindent
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2158,14 +2221,14 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (55.08669pt too wide) in paragraph at lines 1672--1674
+Overfull \hbox (55.08669pt too wide) in paragraph at lines 2220--2222
 \TU/lmr/m/n/10 The client ad-ver-tises which pro-to-cols it un-der-stands by set-ting the WM$[][]\OML/lmm/m/it/10 ROTOCOLSpropertyonitstop \OMS/lmsy/m/n/10 ^^@
  []
 
-./main.tex:1674: Extra }, or forgotten \endgroup.
+./main.tex:2222: Extra }, or forgotten \endgroup.
 \@par ... \@noitemerr {\@@par }\fi \else {\@@par }
                                                   \fi 
-l.1674             \bigbreak
+l.2222             \bigbreak
                              \noindent
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2179,36 +2242,36 @@ deleted material, e.g., by typing `I$}'.
 \openout7 = main.listing
  (./_minted/793CCF94872B196D5D52C7600C48862D.highlight.minted)
 \openout7 = main.listing
- (./_minted/31A9C374855EED2AFF4FEEE0F94DE638.highlight.minted) [44]
-Overfull \hbox (60.77386pt too wide) in paragraph at lines 1707--1709
+ (./_minted/31A9C374855EED2AFF4FEEE0F94DE638.highlight.minted) [59]
+Overfull \hbox (60.77386pt too wide) in paragraph at lines 2255--2257
 \TU/lmr/m/n/10 IC-CCM says WMs should not use De-stroy-Win-dow on a win-dow that has WM_DELETE_WIN-
  []
 
 
-Overfull \hbox (26.46387pt too wide) in paragraph at lines 1709--1710
+Overfull \hbox (26.46387pt too wide) in paragraph at lines 2257--2258
 []\TU/lmr/bx/n/10 WM_TAKE_FO-CUS\TU/lmr/m/n/10 : Used for fo-cus ne-go-ti-a-tion. The WM sends a \TU/lmtt/m/n/10 ClientMessage
  []
 
-./main.tex:1714: Missing $ inserted.
+./main.tex:2262: Missing $ inserted.
 <inserted text> 
                 $
-l.1714 ...WMH, not old ICCCM, but it also uses WM_
+l.2262 ...WMH, not old ICCCM, but it also uses WM_
                                                   PROTOCOLS.
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1715: Missing $ inserted.
+./main.tex:2263: Missing $ inserted.
 <inserted text> 
                 $
-l.1715                 \bigbreak
+l.2263                 \bigbreak
                                  \noindent
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./main.tex:1715: Missing } inserted.
+./main.tex:2263: Missing } inserted.
 <inserted text> 
                 }
-l.1715                 \bigbreak
+l.2263                 \bigbreak
                                  \noindent
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2217,14 +2280,14 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-Overfull \hbox (52.80072pt too wide) in paragraph at lines 1714--1715
+Overfull \hbox (52.80072pt too wide) in paragraph at lines 2262--2263
 []\TU/lmr/bx/n/10 _NET_WM_PING\TU/lmr/m/n/10 : This is EWMH, not old IC-CCM, but it also uses WM$[][]\OML/lmm/m/it/10 ROTOCOLS:[]$ 
  []
 
-./main.tex:1715: Extra }, or forgotten \endgroup.
+./main.tex:2263: Extra }, or forgotten \endgroup.
 \par ...m \@noitemerr {\@@par }\fi \else {\@@par }
                                                   \fi 
-l.1715                 \bigbreak
+l.2263                 \bigbreak
                                  \noindent
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2234,7 +2297,7 @@ deleted material, e.g., by typing `I$}'.
 
 
 \openout7 = main.listing
-(./_minted/7807320AA37AA8F3F8663FEB8B5D04BD.highlight.minted) [45]
+(./_minted/7807320AA37AA8F3F8663FEB8B5D04BD.highlight.minted) [60]
 \openout7 = main.listing
  (./_minted/E203480E30AB636466F799F263ACE233.highlight.minted)
 \openout7 = main.listing
@@ -2244,15 +2307,15 @@ deleted material, e.g., by typing `I$}'.
 \openout7 = main.listing
  (./_minted/1EA78C976E01327CA38CD624DF652BF8.highlight.minted)
 \openout7 = main.listing
- (./_minted/BABF1F7E5D67E6240BF52BD93194AB8B.highlight.minted) [46]
+ (./_minted/BABF1F7E5D67E6240BF52BD93194AB8B.highlight.minted) [61]
 \openout7 = main.listing
  (./_minted/BABF1F7E5D67E6240BF52BD93194AB8B.highlight.minted)
 \openout7 = main.listing
- (./_minted/8C729CAB07ECDBAAC45FFEBCCCBEF55B.highlight.minted) [47]
+ (./_minted/8C729CAB07ECDBAAC45FFEBCCCBEF55B.highlight.minted) [62]
 \openout7 = main.listing
  (./_minted/B48B5BAE44CD92A0FFE42FFFDFE31E46.highlight.minted)
 \openout7 = main.listing
- (./_minted/AA73EACD8D87F6E621D78D890E8D6CC7.highlight.minted) [48]
+ (./_minted/AA73EACD8D87F6E621D78D890E8D6CC7.highlight.minted) [63]
 \openout7 = main.listing
  (./_minted/514C75FF41343002E40A39CB22B6D584.highlight.minted)
 \openout7 = main.listing
@@ -2262,7 +2325,9 @@ deleted material, e.g., by typing `I$}'.
 \openout7 = main.listing
  (./_minted/6B494A8923A71930D16110FE385D9279.highlight.minted)
 \openout7 = main.listing
- (./_minted/816DDB5942EC690FB36C46A331F6093C.highlight.minted) [49]
+ (./_minted/816DDB5942EC690FB36C46A331F6093C.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A64E0AE2D2DCE3AAB5009EF037A1744A.highlight.minted) [64]
 \openout7 = main.listing
  (./_minted/C3F08F255EF8D99299B749C7A60A0B6A.highlight.minted)
 \openout7 = main.listing
@@ -2270,60 +2335,64 @@ deleted material, e.g., by typing `I$}'.
 \openout7 = main.listing
  (./_minted/B813574C92D52DDA7F4A56B5749AD74F.highlight.minted)
 \openout7 = main.listing
- (./_minted/097249438CE6D12A8CDE8AC2B2FD4251.highlight.minted) [50]
+ (./_minted/097249438CE6D12A8CDE8AC2B2FD4251.highlight.minted) [65]
 \openout7 = main.listing
  (./_minted/565267DD8821AD35EE4D3F627E106B4E.highlight.minted)
 \openout7 = main.listing
  (./_minted/864988829192642BB6106C74FF0B8C02.highlight.minted)
 \openout7 = main.listing
- (./_minted/09CBC29A7E5DBE6814A1E77B7D64B290.highlight.minted) [51]
+ (./_minted/09CBC29A7E5DBE6814A1E77B7D64B290.highlight.minted)
 \openout7 = main.listing
- (./_minted/8E0EB223252265FDE4028894C96BC83B.highlight.minted)
+ (./_minted/1E2D787115D52856F09BAC8653A2543D.highlight.minted) [66]
 \openout7 = main.listing
- (./_minted/C897B4146C6320D9BBA919596BAEB251.highlight.minted) [52]
+ (./_minted/51943A7A7DCF420013A41CBE9B4F0025.highlight.minted)
+\openout7 = main.listing
+ (./_minted/94C8FD1E4E6DA54187984A5EBCBAA79F.highlight.minted) [67] [68]
+\openout7 = main.listing
+ (./_minted/1198C89A77867B9564728B16A083A6E2.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E2CBEB01DAB9323965A34726BC08967D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/10233FD272C49D0561AC5921FD6E8B00.highlight.minted) [69]
 \openout7 = main.listing
  (./_minted/F5824385DAE83AE08327A0F5DD60981A.highlight.minted)
 \openout7 = main.listing
  (./_minted/FE0F58C9EB3EB68EE742151F51BEA9EA.highlight.minted)
 \openout7 = main.listing
- (./_minted/48E96B35BF18A0C0C6763CE54A817745.highlight.minted)
+
+(./_minted/48E96B35BF18A0C0C6763CE54A817745.highlight.minted)
 \openout7 = main.listing
- (./_minted/454B9DAC28E680F266CE0C4BE75ACCA0.highlight.minted) [53]
+ (./_minted/454B9DAC28E680F266CE0C4BE75ACCA0.highlight.minted) [70]
 \openout7 = main.listing
- (./_minted/1AA07B9E80546174EBD213C938C7B8F9.highlight.minted) [54]
+ (./_minted/1AA07B9E80546174EBD213C938C7B8F9.highlight.minted) [71]
 \openout7 = main.listing
  (./_minted/48E62943287429F9633D7A717D43BE3B.highlight.minted)
 \openout7 = main.listing
  (./_minted/48E96B35BF18A0C0C6763CE54A817745.highlight.minted)
 \openout7 = main.listing
-
-(./_minted/DAB093B17FA12F1AB9312CFC4F504D06.highlight.minted) [55]
+ (./_minted/DAB093B17FA12F1AB9312CFC4F504D06.highlight.minted) [72]
 \openout7 = main.listing
- (./_minted/0A5726BCC9D91128198293CB22204439.highlight.minted) [56]
+ (./_minted/0A5726BCC9D91128198293CB22204439.highlight.minted) [73]
 \openout7 = main.listing
  (./_minted/36009247D8389A02EAE4B2569E535BBA.highlight.minted)
 \openout7 = main.listing
  (./_minted/5B7A37A7753DD485023724BF770A75D0.highlight.minted)
 \openout7 = main.listing
- (./_minted/F9023D123219EC4D76E9BE9293210C33.highlight.minted) [57]
+ (./_minted/F9023D123219EC4D76E9BE9293210C33.highlight.minted) [74]
 \openout7 = main.listing
- (./_minted/C800B8F7C3BDCE228583E7AC00843A6D.highlight.minted) [58]
+ (./_minted/C800B8F7C3BDCE228583E7AC00843A6D.highlight.minted) [75]
 \openout7 = main.listing
  (./_minted/F496C3784A9C349AFEF3F6D9246CB10E.highlight.minted)
 \openout7 = main.listing
- (./_minted/5E2FC0F95C3CA6C17E60A02DF287D3A6.highlight.minted) [59]
+ (./_minted/5E2FC0F95C3CA6C17E60A02DF287D3A6.highlight.minted) [76]
 \openout7 = main.listing
  (./_minted/2AACE8723996D3E1CC295121BD2C24D5.highlight.minted)
 \openout7 = main.listing
- (./_minted/44A7CA1AB0D8032E9648E13697A079ED.highlight.minted) [60]
+ (./_minted/44A7CA1AB0D8032E9648E13697A079ED.highlight.minted) [77]
 \openout7 = main.listing
- (./_minted/9CC1C6911C9C76DFE82D70E5A490CAFF.highlight.minted) [61]
+ (./_minted/9CC1C6911C9C76DFE82D70E5A490CAFF.highlight.minted) [78]
 \openout7 = main.listing
-
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-
-runsystem(latexminted highlight  --timestamp 20260627183109 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./_minted/BB8BEA3F88560869A8607D53AE540D22.highlight.minted) [62]
+ (./_minted/BB8BEA3F88560869A8607D53AE540D22.highlight.minted) [79]
 \openout7 = main.listing
  (./_minted/55FB788FFE994C9E8FACC7A647CDEC02.highlight.minted)
 \openout7 = main.listing
@@ -2336,20 +2405,20 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <9> not available
 \openout7 = main.listing
 )
 Runaway argument?
-./main.tex:2434: File ended while scanning use of \next.
+./main.tex:3076: File ended while scanning use of \next.
 <inserted text> 
                 \par 
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 I suspect you have forgotten a `}', causing me
 to read past where you wanted me to stop.
 I'll try to recover; but if the error is serious,
 you'd better type `E' or `X' now and fix your file.
 
-./main.tex:2434: Extra }, or forgotten \endgroup.
+./main.tex:3076: Extra }, or forgotten \endgroup.
 \endtcb@savebox ...efalse \color@endgroup \egroup 
                                                   \expandafter \@iiiparbox \...
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -2358,53 +2427,53 @@ the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
 
-./main.tex:2434: LaTeX Error: \begin{cppcode} on input line 1 ended by \end{tcb@savebox}.
+./main.tex:3076: LaTeX Error: \begin{cppcode} on input line 1 ended by \end{tcb@savebox}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (31.29794pt too wide) in paragraph at lines 2434--2434
+Overfull \hbox (31.29794pt too wide) in paragraph at lines 3076--3076
 [] 
  []
 
 
-./main.tex:2434: LaTeX Error: \begin{tcb@savebox} on input line 2434 ended by \end{tcolorbox}.
+./main.tex:3076: LaTeX Error: \begin{tcb@savebox} on input line 3076 ended by \end{tcolorbox}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./main.tex:2434: LaTeX Error: \begin{tcb@savebox} on input line 2434 ended by \end{cppcode}.
+./main.tex:3076: LaTeX Error: \begin{tcb@savebox} on input line 3076 ended by \end{cppcode}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-./main.tex:2434: Missing } inserted.
+./main.tex:3076: Missing } inserted.
 <inserted text> 
                 }
-l.2434             \end{cppcode}
+l.3076             \end{cppcode}
                                 
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -2413,29 +2482,29 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 
-./main.tex:2435: LaTeX Error: Lonely \item--perhaps a missing list environment.
+./main.tex:3077: LaTeX Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2435         \item \textbf
+l.3077         \item \textbf
                             {Any screen}: Get a pointer to any screens struc...
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 2435
+Underfull \hbox (badness 10000) detected at line 3077
 [][]
  []
 
 
 \openout7 = main.listing
 (./_minted/97315A158AB5A7D6B320E8209C06CD25.highlight.minted)
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@enditemize ->\enit@after 
                                \endlist \ifx \enit@series \relax \else \ifnu...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2443,10 +2512,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@enditemize ...x \else \ifnum \enit@resuming 
                                                   =\@ne \enit@setresumekeys ...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2454,19 +2523,19 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Missing number, treated as zero.
+./main.tex:3093: Missing number, treated as zero.
 <to be read again> 
                    =
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...xpandafter {\enit@savekeys 
                                                   }\xdef \enit@afterlist {#2...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2474,10 +2543,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...it@toks }\ifnum \enit@type 
                                                   =\z@ #3\def \enit@noexcs {...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2485,19 +2554,19 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Missing number, treated as zero.
+./main.tex:3093: Missing number, treated as zero.
 <to be read again> 
                    =
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 <argument> enit@resume@series@\enit@series 
                                            
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2505,10 +2574,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...me@#1}{\csname c@\@listctr 
                                                   \endcsname \the \csname c@...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2516,10 +2585,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...e \the \csname c@\@listctr 
                                                   \endcsname }\fi }
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2527,17 +2596,17 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: You can't use `\relax' after \the.
+./main.tex:3093: You can't use `\relax' after \the.
 <recently read> \c@ 
                     
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 I'm forgetting what you said and using zero instead.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@enditemize ...ist \fi \ifnum \enit@resuming 
                                                   =\thr@@ \enit@setresumekey...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2545,19 +2614,19 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Missing number, treated as zero.
+./main.tex:3093: Missing number, treated as zero.
 <to be read again> 
                    =
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...xpandafter {\enit@savekeys 
                                                   }\xdef \enit@afterlist {#2...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2565,10 +2634,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...it@toks }\ifnum \enit@type 
                                                   =\z@ #3\def \enit@noexcs {...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2576,19 +2645,19 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Missing number, treated as zero.
+./main.tex:3093: Missing number, treated as zero.
 <to be read again> 
                    =
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...me@#1}{\csname c@\@listctr 
                                                   \endcsname \the \csname c@...
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2596,10 +2665,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: Undefined control sequence.
+./main.tex:3093: Undefined control sequence.
 \enit@setresumekeys ...e \the \csname c@\@listctr 
                                                   \endcsname }\fi }
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2607,39 +2676,214 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:2451: You can't use `\relax' after \the.
+./main.tex:3093: You can't use `\relax' after \the.
 <recently read> \c@ 
                     
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 I'm forgetting what you said and using zero instead.
 
 
-./main.tex:2451: LaTeX Error: \begin{tcolorbox} on input line 2434 ended by \end{itemize}.
+./main.tex:3093: LaTeX Error: \begin{tcolorbox} on input line 3076 ended by \end{itemize}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.2451     \end{itemize}
+l.3093     \end{itemize}
                         
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[63]
+[80]
 \openout7 = main.listing
  (./_minted/C800B8F7C3BDCE228583E7AC00843A6D.highlight.minted)
 \openout7 = main.listing
- (./_minted/5E2FC0F95C3CA6C17E60A02DF287D3A6.highlight.minted) [64]
+ (./_minted/5E2FC0F95C3CA6C17E60A02DF287D3A6.highlight.minted) [81]
+\openout7 = main.listing
+ (./_minted/F117B7DCEEB4CAFA01AE8D38C0D3FB88.highlight.minted)
+\openout7 = main.listing
+ (./_minted/082D7FAE7B49BBBADA88D36B4179E993.highlight.minted)
+\openout7 = main.listing
+ (./_minted/649C1284DD1BCD880775D1A79EF334A5.highlight.minted) [82]
+Overfull \hbox (53.13496pt too wide) in paragraph at lines 3202--3204
+\TU/lmr/m/n/10 For a WM, XKill-Client() is a force-ful fall-back for clients that do not sup-port WM_DELETE_WIN-
+ []
+
+[83] [84]
 \openout7 = main.listing
  (./_minted/0DF37D07AD81C1B314610EBA39F56C0C.highlight.minted)
 \openout7 = main.listing
- (./_minted/20BA510E94D12E38622630FE55B08979.highlight.minted) [65] [66]
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+ (./_minted/20BA510E94D12E38622630FE55B08979.highlight.minted) [85]
+\openout7 = main.listing
+ (./_minted/8F91EB155B0E55A28F34FFB648180356.highlight.minted)
+Overfull \hbox (3.96887pt too wide) in paragraph at lines 3283--3284
+[]\TU/lmr/bx/n/10 XC_bo-gos-ity\TU/lmr/m/n/10 : A strange “bad/in-valid/weird” sym-bol. Mostly hu-mor-ous/legacy. 
+ []
 
-runsystem(latexminted clean  --timestamp 20260627183109 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./main.aux)
+
+Overfull \hbox (24.04889pt too wide) in paragraph at lines 3289--3290
+[]\TU/lmr/bx/n/10 XC_cen-ter_ptr\TU/lmr/m/n/10 : A pointer ar-row whose hotspot is more cen-tered than XC_left_ptr. 
+ []
+
+
+Overfull \hbox (3.7089pt too wide) in paragraph at lines 3302--3303
+[]\TU/lmr/bx/n/10 XC_draped_box\TU/lmr/m/n/10 : A box-like cur-sor with a draped/cov-ered ap-pear-ance. Mostly
+ []
+
+
+Overfull \hbox (5.74086pt too wide) in paragraph at lines 3304--3305
+[]\TU/lmr/bx/n/10 XC_fleur\TU/lmr/m/n/10 : A four-direction move cur-sor, like ar-rows point-ing up/down/left/right. 
+ []
+
+[86] [87]
+Underfull \hbox (badness 3601) in paragraph at lines 3380--3380
+[]|\TU/lmr/m/n/10 De-fault cur-sor for nor-mal
+ []
+
+
+Underfull \hbox (badness 2828) in paragraph at lines 3380--3380
+[]|\TU/lmr/m/n/10 Used over ed-itable or se-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3380--3380
+[]|\TU/lmr/m/n/10 Hand-shaped cur-sor, first
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 3380--3380
+\TU/lmr/m/n/10 tar-get-ing, co-or-di-nate se-lec-
+ []
+
+
+Underfull \hbox (badness 3148) in paragraph at lines 3380--3380
+[]|\TU/lmr/m/n/10 Re-siz-ing from the bot-tom
+ []
+
+
+Overfull \hbox (25.0pt too wide) in paragraph at lines 3380--3381
+ [] 
+ []
+
+[88]
+\openout7 = main.listing
+ (./_minted/6A3BB47F6B2D2DC1E35BC803070A8C30.highlight.minted)
+\openout7 = main.listing
+ (./_minted/EFEC76F90E31BB84B8A1C0E7D65F65BD.highlight.minted) [89]
+\openout7 = main.listing
+ (./_minted/1837747C20FAE65D36F37D174FFE67BF.highlight.minted) [90]
+\openout7 = main.listing
+ (./_minted/F42CCA8668EA153E8D086BDF0ACB799B.highlight.minted)
+\openout7 = main.listing
+ (./_minted/8B688D7E125B47CFC24C5658CBCBD0BD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/7D315B9EF08AE9236F00CD4AB387F7C1.highlight.minted) [91] [92]
+\openout7 = main.listing
+ (./_minted/19AE42B52012F048ADF741A397D38F83.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BB5763D4E9AF6E46DB68738DD1786365.highlight.minted) [93]
+\openout7 = main.listing
+ (./_minted/806887F587ED55E5C73D327DF529CBA5.highlight.minted) [94]
+\openout7 = main.listing
+ (./_minted/530E2B056AF9D7460B7C3B5BBB90AA8C.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4540DD1DF18E74A25C987391D02F4AEF.highlight.minted)
+\openout7 = main.listing
+ (./_minted/67A3386BA5F30DF7C0E70F8AB79C6387.highlight.minted) [95]
+\openout7 = main.listing
+ (./_minted/BA4510C08D6C2B8EF4090F8B2650F1DD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F5672ED428D3AA117EC8A4C52E194BA3.highlight.minted) [96]
+\openout7 = main.listing
+ (./_minted/D19DA81D73E423B57C2D0FE9EE0C17C8.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F28DF3559A9D946315D994252FEA9EEE.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BFA1FAEEAB8E13961EDF44CB77D29FA6.highlight.minted) [97] [98]
+\openout7 = main.listing
+ (./_minted/F4C4D7E0033CBC9370FE7237D588DE91.highlight.minted)
+\openout7 = main.listing
+ (./_minted/73E0956499C49E194EFF5BAAC00E36FD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A1E122B26827EED93D6E8BB13FCDB2CB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B0A67BDBE6728DA7EA600883494CF01B.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4FABA5E2C867F4EB0ED8B7F4445B4F05.highlight.minted) [99]
+\openout7 = main.listing
+ (./_minted/44E4EC589300A33F0A052367622A0F72.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4744834B42D1CDACD0F993E7C7DC6FEE.highlight.minted) [100]
+\openout7 = main.listing
+ (./_minted/EE0BB77459BE8C15EC64EA04B0EA61F2.highlight.minted)
+\openout7 = main.listing
+ (./_minted/484D8AA196363B1C1AAB9199A623E5B8.highlight.minted) [101]
+\openout7 = main.listing
+ (./_minted/D8D5F982156E3DF2B90086A9026FB395.highlight.minted)
+\openout7 = main.listing
+ (./_minted/97AADD8261A7AE58C1DA34D248F6F7A7.highlight.minted)
+\openout7 = main.listing
+ (./_minted/11EB35701D51C5E5E96268ADC6B0A1A2.highlight.minted) [102]
+Overfull \hbox (4.98502pt too wide) in paragraph at lines 3919--3921
+\TU/lmr/m/n/10 gen-er-ated key events are re-ported with re-spect to the grab win-dow. When owner_events
+ []
+
+[103]
+\openout7 = main.listing
+ (./_minted/6A9700BA016ADC8D849E90C62B2B8DBD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/6652D2617E403E17AAB86630056E7CEA.highlight.minted) [104]
+\openout7 = main.listing
+ (./_minted/81D30D5212300CCD2DB12989EE58DEBB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/758CFBE14F83CECCF888643B2C6E48C1.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E8BA3C9C1E71ED3C62E75231AB1E6190.highlight.minted)
+\openout7 = main.listing
+ (./_minted/7AD8B0A7C8D20864D2DD25835B4A70BE.highlight.minted) [105]
+\openout7 = main.listing
+ (./_minted/E3990086DED19E43629F406100C00A74.highlight.minted) [106]
+\openout7 = main.listing
+ (./_minted/4581FF88D4021AB8E0DE592729DE9008.highlight.minted)
+\openout7 = main.listing
+ (./_minted/56AEFE16F531CA9349BD979DEDCABDFA.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2C5789C93FE724CF4CEF5C753880E413.highlight.minted) [107]
+\openout7 = main.listing
+ (./_minted/0C141B819CE9BE0EB5C2B2D36AFA1D91.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A02B42C1F431F06DBC876432BF40ADC8.highlight.minted) [108]
+\openout7 = main.listing
+ (./_minted/09C6A5F925BA17F67D18382B29F12878.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F6958D7ADF6D1456EAA6B2774E3B022A.highlight.minted) [109]
+\openout7 = main.listing
+ (./_minted/0D126D2209E39BBEF168211EE1DD683A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/84C8C89F89C3C646D1CDFF9C9BCE3D76.highlight.minted) [110]
+\openout7 = main.listing
+ (./_minted/12CA90C30A1AA6272D2DA989097A34FD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/DE69DA740E2E2CAFE0BB9E3901DA5302.highlight.minted) [111] [112]
+\openout7 = main.listing
+ (./_minted/8B2F95BE6D71E1D91AB7BC24A8ABC600.highlight.minted)
+Overfull \hbox (8.60693pt too wide) in paragraph at lines 4324--4325
+[]\TU/lmr/m/n/10 width_re-turn, height_re-turn Re-turn the draw-able’s di-men-sions (width and height).
+ []
+
+
+\openout7 = main.listing
+(./_minted/1AAD16BAA4235E407E96C7AC3458178A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/0D817549B9A4F3ED76978E76E60762BE.highlight.minted) [113]
+\openout7 = main.listing
+ (./_minted/1A28A3AFEB34B8A4EA1712C6F7DE92F6.highlight.minted) [114]
+\openout7 = main.listing
+ (./_minted/AC46828A9C900AEF82C266854DBD504B.highlight.minted)
+\openout7 = main.listing
+ (./_minted/AF5007DE61F4B378F38A2F1A28038681.highlight.minted) [115] [116] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2647,19 +2891,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 63474 strings out of 476076
- 244169,2373549 words of node,token memory allocated
+ 64747 strings out of 476076
+ 305236,2373549 words of node,token memory allocated
  1887 words of node memory still in use:
    32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:3,2:7977,3:1967,4:538,5:2383,6:107,7:11737,8:105,9:7505,10:80,11:2135
- 83214 multiletter control sequences out of 65536+600000
+   avail lists: 1:1,2:12752,3:1966,4:795,5:3027,6:136,7:14800,8:105,9:8684,10:80,11:2315
+ 83673 multiletter control sequences out of 65536+600000
  75 fonts using 5741431 bytes
- 99i,13n,108p,815b,1337s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf>{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
-Output written on main.pdf (67 pages, 283632 bytes).
+ 99i,13n,108p,815b,1384s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf>{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
+Output written on main.pdf (117 pages, 408610 bytes).
 
-PDF statistics: 655 PDF objects out of 1000 (max. 8388607)
- 528 compressed objects within 6 object streams
- 193 named destinations out of 1000 (max. 1048576)
- 480 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 973 PDF objects out of 1000 (max. 8388607)
+ 790 compressed objects within 8 object streams
+ 275 named destinations out of 1000 (max. 1048576)
+ 608 words of extra memory for PDF output out of 10000 (max. 100000000)
 

@@ -1,0 +1,19 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+pid\PYGZus{}t\PYG{+w}{ }\PYG{n+nv}{pid}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }fork\PYG{o}{()}\PYG{p}{;}
+
+//\PYG{+w}{ }Child
+\PYG{k}{if}\PYG{+w}{ }\PYG{o}{(}\PYG{n+nv}{pid}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{o}{)}\PYG{+w}{ }\PYG{o}{\PYGZob{}}
+\PYG{+w}{    }//\PYG{+w}{ }Don\PYG{err}{\PYGZsq{}}t\PYG{+w}{ }need\PYG{+w}{ }our\PYG{+w}{ }spawned\PYG{+w}{ }process\PYG{+w}{ }talking\PYG{+w}{ }through\PYG{+w}{ }the\PYG{+w}{ }parents\PYG{+w}{ }X\PYG{+w}{ }connection
+\PYG{+w}{    }close\PYG{o}{(}XConnectionNumber\PYG{o}{(}dp\PYG{o}{))}\PYG{p}{;}
+
+\PYG{+w}{    }//\PYG{+w}{ }Make\PYG{+w}{ }process\PYG{+w}{ }leader\PYG{+w}{ }of\PYG{+w}{ }new\PYG{+w}{ }session.\PYG{+w}{ }Disconnect\PYG{+w}{ }process\PYG{+w}{ }from\PYG{+w}{ }WMs\PYG{+w}{ }session.
+\PYG{+w}{    }setsid\PYG{o}{()}\PYG{p}{;}
+
+\PYG{+w}{    }//\PYG{+w}{ }The\PYG{+w}{ }second\PYG{+w}{ }kitty\PYG{+w}{ }is\PYG{+w}{ }argv\PYG{o}{[}\PYG{l+m}{0}\PYG{o}{]},\PYG{+w}{ }which\PYG{+w}{ }is\PYG{+w}{ }the\PYG{+w}{ }name\PYG{+w}{ }of\PYG{+w}{ }the\PYG{+w}{ }program
+\PYG{+w}{    }execlp\PYG{o}{(}\PYG{l+s+s2}{\PYGZdq{}kitty\PYGZdq{}},\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}kitty\PYGZdq{}},\PYG{+w}{ }\PYG{o}{(}char*\PYG{o}{)}NULL\PYG{o}{)}\PYG{p}{;}
+
+
+\PYG{+w}{    }//\PYG{+w}{ }Command\PYG{+w}{ }not\PYG{+w}{ }found\PYG{+w}{ }or\PYG{+w}{ }kitty\PYG{+w}{ }failed\PYG{+w}{ }to\PYG{+w}{ }execute
+\PYG{+w}{    }\PYGZus{}exit\PYG{o}{(}\PYG{l+m}{127}\PYG{o}{)}\PYG{p}{;}
+\PYG{o}{\PYGZcb{}}
+\end{MintedVerbatim}

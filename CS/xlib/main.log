@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  24 JUN 2026 10:05
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  11 JUL 2026 10:24
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260624100509 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260711102444 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260624100509 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260711102444 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/240A0FFCE43C285066A9D1ED9DCEB326.highlight.minted)
 \openout7 = main.listing
  (./_minted/18D3BD4308834DB623A719909126741E.highlight.minted
@@ -2841,10 +2841,6 @@ Missing character: There is no ’ (U+2019) in font rm-lmr10!
 \openout7 = main.listing
  (./_minted/B3354B930EFA4B4FD8D4C102EB94F644.highlight.minted) [180]
 \openout7 = main.listing
-
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-
-runsystem(latexminted highlight  --timestamp 20260624100509 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/565267DD8821AD35EE4D3F627E106B4E.highlight.minted)
 \openout7 = main.listing
  (./_minted/864988829192642BB6106C74FF0B8C02.highlight.minted)
@@ -3347,11 +3343,7 @@ Overfull \hbox (1.71698pt too wide) in paragraph at lines 7565--7567
 
 
 \openout7 = main.listing
-(./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted) [224] [225]
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-
-runsystem(latexminted clean  --timestamp 20260624100509 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./main.aux)
+(./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted) [224] [225] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -3359,7 +3351,7 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 67187 strings out of 476076
+ 67183 strings out of 476076
  244178,2373549 words of node,token memory allocated
  1887 words of node memory still in use:
    32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes

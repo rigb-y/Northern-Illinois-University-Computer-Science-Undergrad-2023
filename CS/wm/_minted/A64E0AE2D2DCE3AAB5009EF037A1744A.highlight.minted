@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+ohup\PYG{+w}{ }Xephyr\PYG{+w}{ }:1\PYG{+w}{ }\PYGZhy{}screen\PYG{+w}{ }1920x1080\PYG{+w}{ }\PYGZhy{}ac\PYG{+w}{ }\PYGZhy{}br\PYG{+w}{ }\PYGZhy{}noreset\PYG{+w}{ }\PYGZgt{}/dev/null\PYG{+w}{ }\PYG{l+m}{2}\PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{1}\PYG{+w}{ }\PYG{p}{\PYGZam{}}
+\end{MintedVerbatim}

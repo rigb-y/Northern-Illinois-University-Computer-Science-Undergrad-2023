@@ -1,0 +1,34 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{Handler}\PYG{+w}{ }\PYG{n+nf}{set\PYGZus{}error\PYGZus{}handler}\PYG{p}{(}\PYG{n}{Handler}\PYG{+w}{ }\PYG{n}{handler}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{XSetErrorHandler}\PYG{p}{(}\PYG{n}{handler}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{error\PYGZus{}handler}\PYG{p}{(}\PYG{n}{Display}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{XErrorEvent}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{error\PYGZus{}event}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{error\PYGZus{}code}\PYG{+w}{ }\PYG{o}{=}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{BadAccess}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{wm\PYGZus{}present}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{n}{error\PYGZus{}str}\PYG{p}{[}\PYG{n}{DEFAULT\PYGZus{}ERROR\PYGZus{}STR\PYGZus{}LEN}\PYG{p}{]}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{n}{XGetErrorText}\PYG{p}{(}
+\PYG{+w}{        }\PYG{n}{dp}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{error\PYGZus{}code}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{error\PYGZus{}str}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{DEFAULT\PYGZus{}ERROR\PYGZus{}STR\PYGZus{}LEN}
+\PYG{+w}{    }\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{n}{fprintf}\PYG{p}{(}\PYG{n}{stderr}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZpc{}s:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZpc{}s: \PYGZpc{}lu}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZpc{}s: \PYGZpc{}d}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZpc{}s: \PYGZpc{}d}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZpc{}s: \PYGZpc{}lu}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{error\PYGZus{}str}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Serial}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{serial}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Minor code}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{minor\PYGZus{}code}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Request code}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{request\PYGZus{}code}\PYG{p}{,}
+\PYG{+w}{        }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Resource ID}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{error\PYGZus{}event}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{resourceid}
+\PYG{+w}{    }\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c+c1}{// Useful for gdb; stops execution at failing request}
+\PYG{+w}{    }\PYG{n}{abort}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

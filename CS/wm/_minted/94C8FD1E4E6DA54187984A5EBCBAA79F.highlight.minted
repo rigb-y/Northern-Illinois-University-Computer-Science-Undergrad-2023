@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{IOHandler}\PYG{+w}{ }\PYG{n+nf}{set\PYGZus{}io\PYGZus{}error\PYGZus{}handler}\PYG{p}{(}\PYG{n}{IOHandler}\PYG{+w}{ }\PYG{n}{handler}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{XSetIOErrorHandler}\PYG{p}{(}\PYG{n}{handler}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{io\PYGZus{}error\PYGZus{}handler}\PYG{p}{(}\PYG{n}{Display}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{dp}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{lerr}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{IO error}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{c+c1}{// Useful for debugging}
+\PYG{+w}{    }\PYG{n}{abort}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

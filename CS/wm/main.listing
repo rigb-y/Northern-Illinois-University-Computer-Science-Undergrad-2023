@@ -1,2 +1,2 @@
-            DisplayHeight(Display* display, int screen_number)
-            int XDisplayHeight(Display* display, int screen_number)
+                extern Workspaces workspaces;
+                extern int current_workspace;

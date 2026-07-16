@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{for}\PYG{p}{(}\PYG{p}{;}\PYG{p}{;}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{XEvent}\PYG{+w}{ }\PYG{n}{event}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{XNextEvent}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{event}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{event}\PYG{p}{.}\PYG{n}{type}\PYG{+w}{ }\PYG{o}{=}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{EnterNotify}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{XCrossingEvent}\PYG{+w}{ }\PYG{n}{crossing\PYGZus{}event}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xcrossing}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

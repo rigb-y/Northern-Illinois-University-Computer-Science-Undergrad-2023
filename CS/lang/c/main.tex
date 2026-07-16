@@ -1737,6 +1737,29 @@
                 \begin{cppcode}
                 #include <stdint.h>
                 \end{cppcode}
+            \item \textbf{Initialization order}: For a declaration like
+                \bigbreak \noindent 
+                \begin{cppcode}
+                T x = e1, y = e2, z e3, ...
+                \end{cppcode}
+                \bigbreak \noindent 
+                the declarators are processed left to right. So $x$ is initialized before $y$, and $y$ is initialized before $z$.
+                \bigbreak \noindent 
+                Similarly,
+                \bigbreak \noindent 
+                \begin{cppcode}
+                int x = f(), y = g();
+                \end{cppcode}
+                \bigbreak \noindent 
+                $f()$ is evaluated before $g()$. But, consider
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    int a[] = {f(), g(), h()};
+                \end{cppcode}
+                \bigbreak \noindent 
+                For brace-enclosed initializer lists in C, the order of evaluation of the initializer expressions is unspecified. So you should not rely on f() running before g() there.
+
+
         \end{itemize}
 
         \pagebreak 
@@ -3194,13 +3217,13 @@
                 It runs your program inside an instrumented environment and watches memory operations. It can detect problems such as:
                 \bigbreak \noindent 
                 \begin{itemize}
-                    memory leaks
-                    invalid reads
-                    invalid writes
-                    use of uninitialized values
-                    double free
-                    invalid free
-                    mismatched allocation/deallocation
+                    \item memory leaks
+                    \item invalid reads
+                    \item invalid writes
+                    \item use of uninitialized values
+                    \item double free
+                    \item invalid free
+                    \item mismatched allocation/deallocation
                 \end{itemize}
                 Run a program through valgrind
                 \bigbreak \noindent 
@@ -3293,6 +3316,314 @@
 
 
         \end{itemize}
+
+        \pagebreak 
+        \unsect{Unix / POSIX}
+        \subsection{unistd.h and sys/types.h}
+        \begin{itemize}
+            \item \textbf{unistd.h}: unistd.h is the C header file that provides access to the POSIX operating system Application Programming Interface (API). Short for "Unix standard," it is the primary way to interact directly with the operating system on Unix-like environments like Linux and macOS.
+            \item \textbf{sys/types.h}: sys/types.h is a standard header file used in C and C++ programming that defines a collection of basic system data types. It is part of the POSIX Programmer's Manual standard.
+            \item \textbf{Types}: The <unistd.h> header shall define the size\_t, ssize\_t, uid\_t, gid\_t, off\_t, and pid\_t types as described in <sys/types.h>.
+                \bigbreak \noindent 
+                \textbf{Note:} \texttt{ssize\_t} is a Unix based type and is therefore not a C standard language construct (the same goes for C++).
+                \begin{itemize}
+                    \item \textbf{pid\_t}: Used for process IDs and process group IDs.
+                    \item \textbf{gid\_t}: Used for group IDs.
+                    \item \textbf{uid\_t}: Used for user IDs.
+                    \item \textbf{off\_t}: Used for file sizes
+                    \item \textbf{size\_t}: Used for sizes of objects.
+                    \item \textbf{ssize\_t}: Used for a count of bytes or an error indication.
+                \end{itemize}
+            \item \textbf{Some common functions}: 
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    /* Close an open file descriptor. */
+                    int close(int fd);
+
+                    /* Terminate the current process immediately. */
+                    void _exit(int status);
+
+                    /* Replace the current process image using a path and argument list. */
+                    int execl(const char *path, const char *arg0, ...);
+
+                    /* Like execl(), but allows a custom environment. */
+                    int execle(const char *path, const char *arg0, ...);
+
+                    /* Like execl(), but searches PATH for the executable. */
+                    int execlp(const char *file, const char *arg0, ...);
+
+                    /* Replace the current process image using an argument vector. */
+                    int execv(const char *path, char *const argv[]);
+
+                    /* Like execv(), but allows a custom environment. */
+                    int execve(const char *path, char *const argv[], char *const envp[]);
+
+                    /* Like execv(), but searches PATH for the executable. */
+                    int execvp(const char *file, char *const argv[]);
+                \end{cppcode}
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    /* Execute a program referred to by an open file descriptor. */
+                    int fexecve(int fd, char *const argv[], char *const envp[]);
+
+                    /* Create a new child process by duplicating the current process. */
+                    pid_t fork(void);
+
+                    /* Return the real group ID of the calling process. */
+                    gid_t getgid(void);
+
+                    /* Get the current working directory. */
+                    char *getcwd(char *buf, size_t size);
+
+                    /* Get the supplementary group IDs of the calling process. */
+                    int getgroups(int gidsetsize, gid_t grouplist[]);
+
+                    /* Return a host identifier for the current machine. */
+                    long gethostid(void);
+
+                    /* Get the hostname of the current machine. */
+                    int gethostname(char *name, size_t namelen);
+                \end{cppcode}
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    /* Return the process ID of the calling process. */
+                    pid_t getpid(void);
+
+                    /* Get the session ID of a process. */
+                    pid_t getsid(pid_t pid);
+
+                    /* Return the real user ID of the calling process. */
+                    uid_t getuid(void);
+
+                    /* Create a unidirectional pipe with read and write ends. */
+                    int pipe(int pipefd[2]);
+
+                    /* Read bytes from a file descriptor into a buffer. */
+                    ssize_t read(int fd, void *buf, size_t count);
+
+                    /* Remove an empty directory. */
+                    int rmdir(const char *path);
+
+                    /* Change the current working directory. */
+                    int chdir(const char *path);
+                \end{cppcode}
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    /* Change the owner and group of a file. */
+                    int chown(const char *path, uid_t owner, gid_t group);
+
+                    /* Create a new session and become its session leader. */
+                    pid_t setsid(void);
+
+                    /* Set the real user ID of the calling process. */
+                    int setuid(uid_t uid);
+
+                    /* Suspend execution for a number of seconds. */
+                    unsigned sleep(unsigned seconds);
+
+                    /* Write bytes from a buffer to a file descriptor. */
+                    ssize_t write(int fd, const void *buf, size_t count);
+                \end{cppcode}
+            \item \textbf{Custom enviornment}: In the exec functions, a custom environment means you explicitly choose the environment variables that the new program will receive.
+                \bigbreak \noindent 
+                These allow you to provide a separate environment:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    int execle(const char *path, const char *arg0, ..., char *const envp[]);
+                    int execve(const char *path, char *const argv[], char *const envp[]);
+                    int fexecve(int fd, char *const argv[], char *const envp[]);
+                \end{cppcode}
+                \bigbreak \noindent 
+                For example,
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    char *envp[] = {
+                        "HOME=/tmp",
+                        "USER=testuser",
+                        "PATH=/usr/bin:/bin",
+                        NULL
+                    };
+                \end{cppcode}
+            \item \textbf{Unix/POSIX sessions and process groups}: In Unix/POSIX, sessions and process groups are mainly about job control: grouping related processes together so the terminal and kernel know which processes should receive keyboard-generated signals like Ctrl-C, Ctrl-Z, and hangup notifications.
+                \bigbreak \noindent 
+                The hierarchy is:
+                \begin{verbatim}
+                    session
+                    |-- process group
+                        |--  process
+                        |--  process
+                        |--  process
+                \end{verbatim}
+                More concretely:
+                \begin{verbatim}
+                    login session
+                    |-- foreground process group
+                    |   |-- vim
+                    |
+                    |-- background process group
+                    |   |-- gcc
+                    |   |-- cc1
+                    |
+                    |-- background process group
+                    |-- sleep
+                    |-- cat
+                \end{verbatim}
+                A process group is a set of related processes. Every process has a process group ID, usually abbreviated as PGID.
+                \bigbreak \noindent 
+                For example, when a shell runs a pipeline:
+                \bigbreak \noindent 
+                \begin{bashcode}
+                cat file.txt | grep hello | less
+                \end{bashcode}
+                \bigbreak \noindent 
+                the shell usually puts all three processes into the same process group:
+                \begin{verbatim}
+                    process group 5000
+                    |-- cat
+                    |-- grep
+                    |-- less
+                \end{verbatim}
+                That way, the shell can treat the whole pipeline as one “job.”
+                \bigbreak \noindent 
+                If you press Ctrl-C, the terminal does not send SIGINT to only one process. It sends SIGINT to the foreground process group. So cat, grep, and less can all be interrupted together.
+                \bigbreak \noindent 
+                A session is a larger container for one or more process groups. Every process also belongs to a session, identified by a session ID, or SID.
+                \bigbreak \noindent 
+                A session often corresponds to a login or terminal session. For example, when you log into a TTY or open a terminal emulator, you get a session. Inside that session, your shell creates process groups for commands and pipelines.
+                \bigbreak \noindent 
+                The important connection is the controlling terminal. A session may have a controlling terminal, such as:
+                \bigbreak \noindent 
+                \begin{bashcode}
+                    /dev/tty1
+                    /dev/pts/3
+                \end{bashcode}
+                \bigbreak \noindent 
+                Only one process group in that session is the terminal’s foreground process group at a time.
+                \bigbreak \noindent 
+                \begin{bashcode}
+                kill(-pgid, SIGTERM);
+                \end{bashcode}
+                \bigbreak \noindent 
+                The negative PID means “send to process group pgid.”
+            \item \textbf{setsid()}: Calling 
+                \bigbreak \noindent 
+                \begin{bashcode}
+                setsid()
+                \end{bashcode}
+                \bigbreak \noindent 
+                does three important things
+                \begin{enumerate}
+                    \item The calling process becomes the leader of a new session.
+                    \item The calling process becomes the leader of a new process group.
+                    \item The new session has no controlling terminal.
+                \end{enumerate}
+                The process is now detached from the old terminal/session structure.
+            \item \textbf{\_exit(127)}: commonly means “command could not be executed” or “exec failed.”
+                \bigbreak \noindent 
+                The usual meanings are convention, not strict C language rules:
+                \begin{itemize}
+                    \item 0      success
+                    \item 1      general error
+                    \item 2      command-line usage error, often bad arguments
+                    \item 126    command found but not executable
+                    \item 127    command not found / exec failed
+                    \item $128+n$  shell convention for death by signal $n$
+                \end{itemize}
+            \item \textbf{Signals}: Below is the Linux signal list you are most likely to care about. The numbers shown are the usual values on x86/x86-64, ARM, and “most others”; signal numbers can vary by architecture, so portable C code should use names like SIGTERM, not raw numbers. Linux defines both standard signals and real-time signals. 
+                \begin{itemize}
+                    \item \textbf{Term}:	Terminate the process
+                    \item \textbf{Core}:	Terminate and dump core
+                    \item \textbf{Ign}:	Ignore by default
+                    \item \textbf{Stop}:	Stop/suspend the process
+                    \item \textbf{Cont}:	Continue a stopped process
+                \end{itemize}
+                \begin{center}
+                    \begin{tabularx}{\textwidth}{@{}lllX@{}}
+                        \toprule
+                        \textbf{Signal}&	\textbf{No.}&	\textbf{Default}&	\textbf{Description} \\
+                        \midrule
+                        SIGHUP	&1	&Term	&Hangup. Often sent when a controlling terminal disappears or a session leader dies. Commonly used to tell daemons to reload config.\\[2ex]
+                        SIGINT	&2	&Term	&Keyboard interrupt, usually Ctrl-C.\\[2ex]
+                        SIGQUIT	&3	&Core	&Keyboard quit, usually Ctrl-\; like interrupt, but default action dumps core.\\[2ex]
+                        SIGILL	&4	&Core	&Illegal instruction. CPU tried to execute invalid or privileged instruction.\\[2ex]
+                        SIGTRAP	&5	&Core	&Trace/breakpoint trap. Used by debuggers.\\[2ex]
+                        SIGABRT	&6	&Core	&Abort signal from abort(). Often means the program deliberately killed itself after detecting a serious failure.\\[2ex]
+                        SIGIOT	&6	&Core	&Alias for SIGABRT on Linux. Mostly historical.\\[2ex]
+                        SIGBUS	&7	&Core	&Bus error / bad memory access. For example, invalid aligned access or certain mmap errors.\\[2ex]
+                        SIGFPE	&8	&Core	&Arithmetic exception, despite the name not being limited to floating point. Can include divide-by-zero.\\[2ex]
+                        SIGKILL	&9	&Term	&Immediate kill. Cannot be caught, blocked, or ignored.\\[2ex]
+                        SIGUSR1	&10	&Term	&User-defined signal 1. Meaning is application-specific.\\[2ex]
+                        SIGSEGV	&11	&Core	&Segmentation fault. Invalid memory reference.\\[2ex]
+                        SIGUSR2	&12	&Term	&User-defined signal 2. Meaning is application-specific.\\[2ex]
+                        SIGPIPE	&13	&Term	&Broken pipe. Happens when writing to a pipe/socket whose reader is gone.\\[2ex]
+                        SIGALRM	&14	&Term	&Timer expired from alarm().\\[2ex]
+                        SIGTERM	&15	&Term	&Polite termination request. This is the default signal sent by kill PID.\\[2ex]
+                        SIGSTKFLT	&16	&Term	&Stack fault on coprocessor. Unused on most modern Linux systems. \\
+                        \bottomrule
+                    \end{tabularx}
+                \end{center}
+                \begin{center}
+                    \begin{tabularx}{\textwidth}{@{}lllX@{}}
+                        \toprule
+                        \textbf{Signal}&	\textbf{No.}&	\textbf{Default}&	\textbf{Description} \\
+                        \midrule
+                        SIGCHLD	&17	&Ign	&Child process stopped, terminated, or continued. Important for shells/window managers that spawn children.\\[2ex]
+                        SIGCONT	&18	&Cont	&Continue a stopped process.\\[2ex]
+                        SIGSTOP	&19	&Stop	&Stop/suspend process immediately. Cannot be caught, blocked, or ignored.\\[2ex]
+                        SIGTSTP	&20	&Stop	&Terminal stop, usually Ctrl-Z. Unlike SIGSTOP, it can be caught or ignored.\\[2ex]
+                        SIGTTIN	&21	&Stop	&Background process tried to read from its controlling terminal.\\[2ex]
+                        SIGTTOU	&22	&Stop	&Background process tried to write to its controlling terminal.\\[2ex]
+                        SIGURG	&23	&Ign	&Urgent condition on socket.\\[2ex]
+                        SIGXCPU	&24	&Core	&CPU time limit exceeded.\\[2ex]
+                        SIGXFSZ	&25	&Core	&File size limit exceeded.\\[2ex]
+                        SIGVTALRM	&26	&Term	&Virtual timer expired. Counts CPU time used by the process. \\ 
+                        \bottomrule
+                    \end{tabularx}
+                \end{center}
+                \begin{center}
+                    \begin{tabularx}{\textwidth}{@{}lllX@{}}
+                        \toprule
+                        \textbf{Signal}&	\textbf{No.}&	\textbf{Default}&	\textbf{Description} \\
+                        \midrule\\[2ex]
+                        SIGPROF	&27	&Term	&Profiling timer expired. Used by profilers.\\[2ex]
+                        SIGWINCH	&28	&Ign	&Terminal window size changed. Very relevant to terminal programs.\\[2ex]
+                        SIGIO	&29	&Term	&I/O now possible. Used for asynchronous I/O notification.\\[2ex]
+                        SIGPOLL	&29	&Term	&Pollable event. Alias for SIGIO on Linux.\\[2ex]
+                        SIGPWR	&30	&Term	&Power failure signal. System-specific.\\[2ex]
+                        SIGSYS	&31	&Core	&Bad system call. Can happen with invalid syscall usage or seccomp filters.\\[2ex]
+                        SIGUNUSED	&31	&Core	&Historical alias for SIGSYS; do not use in new code. \\
+                        \bottomrule
+                    \end{tabularx}
+                \end{center}
+                \textbf{SIGKILL} and \textbf{SIGSTOP} are special: they cannot be caught, blocked, or ignored. That is why kill -9 PID is forceful, and why a process cannot install a cleanup handler for SIGKILL
+            \item \textbf{Hangups}: In UNIX and Linux, a hangup (or SIGHUP, short for signal hang up) is an automatic signal sent to a process when its controlling terminal or session is disconnected or closed.
+                \bigbreak \noindent 
+                When you close a terminal window, exit an SSH session, or lose your connection, the system sends a SIGHUP to all programs running in that session. The default reaction of almost any program upon receiving this signal is to immediately abort/terminate
+            \item \textbf{Ignoring hangups}: We can use the command
+                \bigbreak \noindent 
+                \begin{bashcode}
+                nohup 
+                \end{bashcode}
+                \bigbreak \noindent 
+                to start a procsss that ignores hangup signals.
+                \bigbreak \noindent 
+                \begin{bashcode}
+                nohup ./proc
+                \end{bashcode}
+
+        \end{itemize}
+
+        \pagebreak 
+        \unsect{GCC complier flags}
+        \subsection{Warnings}
+        \begin{itemize}
+            
+        \end{itemize}
+
+
+
+
+
 
 
 

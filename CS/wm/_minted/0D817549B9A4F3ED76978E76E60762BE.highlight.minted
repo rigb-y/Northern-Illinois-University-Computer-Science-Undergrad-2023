@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{enable\PYGZus{}drag}\PYG{p}{(}\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{win}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{XGrabButton}\PYG{p}{(}
+\PYG{+w}{        }\PYG{n}{dp}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{Button1}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{CONTROL}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{win}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n+nb}{false}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{ButtonPressMask}\PYG{+w}{ }\PYG{esc}{ ButtonReleaseMask }\PYG{+w}{ }\PYG{n}{PointerMotionMask}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{GrabModeAsync}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{GrabModeAsync}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{win}\PYG{p}{,}
+\PYG{+w}{        }\PYG{n}{cursors}\PYG{p}{.}\PYG{n}{four\PYGZus{}df\PYGZus{}resize}
+\PYG{+w}{    }\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

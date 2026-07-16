@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cm}{/* Change the owner and group of a file. */}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{chown}\PYG{p}{(}\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{path}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{uid\PYGZus{}t}\PYG{+w}{ }\PYG{n}{owner}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{gid\PYGZus{}t}\PYG{+w}{ }\PYG{n}{group}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Create a new session and become its session leader. */}
+\PYG{k+kt}{pid\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{setsid}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Set the real user ID of the calling process. */}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{setuid}\PYG{p}{(}\PYG{k+kt}{uid\PYGZus{}t}\PYG{+w}{ }\PYG{n}{uid}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Suspend execution for a number of seconds. */}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{n+nf}{sleep}\PYG{p}{(}\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{n}{seconds}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Write bytes from a buffer to a file descriptor. */}
+\PYG{k+kt}{ssize\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{write}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{fd}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{buf}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{size\PYGZus{}t}\PYG{+w}{ }\PYG{n}{count}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

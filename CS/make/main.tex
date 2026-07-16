@@ -813,6 +813,162 @@
             \end{bashcode}
     \end{itemize}
 
+    \pagebreak 
+    \unsect{Header dependencies}
+    \begin{itemize}
+        \item \textbf{gcc -MMD -MP}: The GCC flag -MMD tells the preprocessor to generate Makefile dependency rules automatically while compiling, but it excludes system header files. This helps automated build systems track exactly when a .c file needs to be recompiled due to a change in a local .h file.
+            \bigbreak \noindent 
+            When you append -MMD to your compilation command:
+            \begin{itemize}
+                \item \textbf{Normal Compilation Happens:} It generates the intended object file (e.g., main.o).
+                \item \textbf{Dependency File Created:} It creates a parallel sidecar file with a .d extension (e.g., main.d).
+                \item \textbf{System Headers Ignored:} It skips system-wide headers (like <stdio.h>), mapping only your custom project headers (like "config.h").
+            \end{itemize}
+            For example, 
+            \bigbreak \noindent 
+            \begin{bashcode}
+            gcc -MMD -c main.c -o main.o
+            \end{bashcode}
+            \bigbreak \noindent 
+            GCC creates main.o alongside a new plain text file called main.d. If main.c relies on a custom header, the generated main.d file will contain:
+            \bigbreak \noindent 
+            \begin{bashcode}
+            main.o: main.c config.h
+            \end{bashcode}
+            \bigbreak \noindent 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}llX@{}}
+                    \toprule
+                    \textbf{Flag} &\textbf{System Headers Included?} &\textbf{Output Behavior}  \\
+                    \midrule
+                    -M &Yes & Prints Makefile rules to standard output; stops compilation.\\[2ex]
+                    -MM& No &Prints Makefile rules to standard output; stops compilation.\\[2ex]
+                    -MD& Yes &Compiles normally and outputs a .d dependency file.\\[2ex]
+                    -MMD& No &Compiles normally and outputs a .d dependency file. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            The GCC flag -MP tells the preprocessor to add a phony, empty target for each header file dependency in the generated .d file
+            \bigbreak \noindent 
+            This prevents your build from crashing with a fatal "No such file or directory" error if you delete or rename a header file.
+            \bigbreak \noindent 
+            When you combine -MP with your dependency generation (usually written as -MMD -MP), GCC adds empty rules at the bottom of the .d file:
+            \bigbreak \noindent 
+            \begin{bashcode}
+            main.o: main.c config.h
+
+            config.h:
+            \end{bashcode}
+            \bigbreak \noindent 
+            Because config.h: has an empty body, if the file is deleted, make simply treats it as an empty target that has already been successfully "built." It will then correctly proceed to recompile main.c, which will now look for the new header or throw a normal compiler error instead of a fatal make error.
+            \bigbreak \noindent 
+            \begin{bashcode}
+            CFLAGS += -MMD -MP
+
+            $(OBJDIR)/%.o: %.c
+                @mkdir -p $(dir $@)
+                $(CC) $(CFLAGS) -c $< -o $@
+
+            -include $(OBJS:.o=.d)
+            \end{bashcode}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Handling dependencies in a build}
+    \begin{itemize}
+        \item \textbf{Intro}: In general, handling dependencies in a build means solving four separate problems:
+            \begin{enumerate}
+                \item Declare what your project needs.
+                \item Locate the dependency on the user’s system.
+                \item Compile and link against it correctly.
+                \item Fail clearly when it is unavailable.
+            \end{enumerate}
+        \item \textbf{Distinguish dependency types}: A dependency can be needed at different stages.
+            \begin{itemize}
+                \item \textbf{Build dependency:} required to compile the project, such as a compiler, pkg-config, or header files.
+                \item \textbf{Link dependency:} provides symbols your program links against, such as libX11.so.
+                \item \textbf{Runtime dependency:} must exist when the program runs.
+                \item \textbf{Optional dependency:} enables a feature but is not required for the core program.
+                \item \textbf{Development-only dependency:} tests, documentation tools, formatters, or static analyzers.
+            \end{itemize}
+        \item \textbf{Do not hard-code system paths}: Avoid something like
+            \bigbreak \noindent 
+            \begin{cppcode}
+                CFLAGS += -I/usr/include/imlib2
+                LDFLAGS += -L/usr/lib
+            \end{cppcode}
+            \bigbreak \noindent 
+            These paths differ across systems. Instead, use a dependency discovery mechanism. For many C libraries, that is pkg-config
+        \item \textbf{pkg-config}: pkg-config is a helper tool used in software development to retrieve the correct compiler and linker flags needed to build applications that depend on external libraries. It saves developers from manually guessing or hard-coding paths to include files (-I) and libraries (-L).
+            \bigbreak \noindent 
+            When a library (like glib-2.0 or sqlite3) is installed on a system, it usually provides a metadata file ending in .pc. pkg-config reads this file to find out exactly where the library's header files and binaries are located.
+            \bigbreak \noindent 
+            Instead of typing out long build commands, developers embed pkg-config in their build scripts (such as Makefiles) or call it directly using backticks.
+            \bigbreak \noindent 
+            \begin{cppcode}
+            gcc -o my_program my_program.c $(pkg-config --cflags --libs glib-2.0)
+            \end{cppcode}
+            \begin{itemize}
+                \item \textbf{\texttt{--}cflags:} Returns the include paths (where the header files are).
+                \item \textbf{\texttt{--}libs:} Returns the library paths and the names of the libraries to link against
+                \item \textbf{\texttt{--}exists:} Checks if a specific library or package is available on your system without printing any output to the terminal. It communicates the result entirely through a standard UNIX exit status code.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                pkg-config --cflags imlib2
+                pkg-config --libs imlib2
+            \end{cppcode}
+            \bigbreak \noindent 
+            Typical output might be:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                -I/usr/include/imlib2
+                -lImlib2
+            \end{cppcode}
+            \bigbreak \noindent 
+            A simple makefile can use something like 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                CPPFLAGS += $(shell pkg-config --cflags imlib2 x11)
+                LDLIBS   += $(shell pkg-config --libs imlib2 x11)
+            \end{cppcode}
+            \bigbreak \noindent 
+            The build should detect missing dependencies early.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                PKG_CONFIG ?= pkg-config
+
+                DEPS := x11 imlib2
+
+                ifeq ($(shell $(PKG_CONFIG) --exists $(DEPS) && echo yes),)
+                $(error Missing required dependencies: $(DEPS))
+                endif
+
+                CPPFLAGS += $(shell $(PKG_CONFIG) --cflags $(DEPS))
+                LDLIBS   += $(shell $(PKG_CONFIG) --libs $(DEPS))
+            \end{cppcode}
+        \item \textbf{Feature detection}: Do not assume that because the system is Linux, a given API or header exists.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #ifdef HAVE_IMLIB2
+                #include <Imlib2.h>
+                #endif
+            \end{cppcode}
+            \bigbreak \noindent 
+            The build system determines whether HAVE\_IMLIB2 should be defined:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            CPPFLAGS += -DHAVE_IMLIB2=1
+            \end{cppcode}
+
+
+
+
+
+    \end{itemize}
+
 
 
 

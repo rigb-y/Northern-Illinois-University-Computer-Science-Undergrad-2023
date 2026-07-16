@@ -5,3 +5,5 @@
 \contentsline {section}{\numberline {5}Conditionals}{19}{section.0.5}%
 \contentsline {section}{\numberline {6}User-defined functions}{20}{section.0.6}%
 \contentsline {section}{\numberline {7}More on make}{21}{section.0.7}%
+\contentsline {section}{\numberline {8}Header dependencies}{22}{section.0.8}%
+\contentsline {section}{\numberline {9}Handling dependencies in a build}{24}{section.0.9}%

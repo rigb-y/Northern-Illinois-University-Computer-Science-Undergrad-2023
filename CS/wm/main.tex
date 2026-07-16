@@ -170,7 +170,7 @@
         When this mask is set on a parent window (like the root window), it intercepts requests from other clients to map, configure (resize/move), or circulate child windows. Instead of executing the command, the X server pauses the action and sends the window manager a specific request even
     \item \textbf{SubstructureNotifyMask}: SubstructureNotifyMask is an Xlib event mask used primarily by window managers and system utilities. When selected on a parent window, it alerts the client to any structural or state changes affecting any of its direct child windows. 
         \bigbreak \noindent 
-        When the X Server receives SubstructureNotifyMask, it can report the following state-change events for children
+         When the X Server receives SubstructureNotifyMask, it can report the following state-change events for children
         \begin{itemize}
             \item \textbf{CreateNotify:} A new child window was created.
             \item \textbf{DestroyNotify:} A child window was destroyed.
@@ -248,7 +248,555 @@
     \pagebreak 
     \unsect{Events}
     \begin{itemize}
-        
+        \item \textbf{Events}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Event Category}& \textbf{Event Type} \\
+                    \midrule
+                    Keyboard events &KeyPress, KeyRelease\\[2ex]
+                    Pointer events &ButtonPress, ButtonRelease, MotionNotify\\[2ex]
+                    Window crossing events &EnterNotify, LeaveNotify\\[2ex]
+                    Input focus events &FocusIn, FocusOut\\[2ex]
+                    Keymap state notification event &KeymapNotify\\[2ex]
+                    Exposure events &Expose, GraphicsExpose, NoExpose\\[2ex]
+                    Structure control events &CirculateRequest, ConfigureRequest, MapRequest, ResizeRequest \\[2ex]
+                    Window state notification events &CirculateNotify, ConfigureNotify, CreateNotify, DestroyNotify, GravityNotify, MapNotify, MappingNotify, ReparentNotify, UnmapNotify, VisibilityNotify\\[2ex]
+                    Colormap state notification event& ColormapNotify\\[2ex]
+                    Client communication events &ClientMessage, PropertyNotify, SelectionClear, SelectionNotify, SelectionRequest  \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Exposure and visibility events}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{Expose}: Generated when part of a window becomes visible and should be redrawn.
+                \item \textbf{VisibilityNotify}: Generated when a window's visibility state changes.
+            \end{itemize}
+        \item \textbf{Exposure and visibility masks}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{ExposureMask}: Selects \textbf{Expose} events.
+                \item \textbf{VisibilityChangeMask}: Selects \textbf{VisibilityNotify} events.
+            \end{itemize}
+        \item \textbf{Focus events}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{FocusIn}: Generated when a window receives keyboard focus.
+                \item \textbf{FocusOut}: Generated when a window loses keyboard focus.
+            \end{itemize}
+        \item \textbf{Focus masks}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{FocusChangeMask}: Selects \textbf{FocusIn} and \textbf{FocusOut} events.
+            \end{itemize}
+        \item \textbf{Window structure events}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{CreateNotify}: Generated when a child window is created.
+                \item \textbf{DestroyNotify}: Generated when a window is destroyed.
+                \item \textbf{UnmapNotify}: Generated when a window becomes unmapped.
+                \item \textbf{MapNotify}: Generated when a window becomes mapped.
+                \item \textbf{ReparentNotify}: Generated when a window is reparented.
+                \item \textbf{ConfigureNotify}: Generated when a window's size, position, border width, or stacking order changes.
+                \item \textbf{GravityNotify}: Generated when a window is moved because of bit gravity or window gravity.
+                \item \textbf{CirculateNotify}: Generated when a window is restacked to the top or bottom.
+            \end{itemize}
+        \item \textbf{Window structure masks}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{StructureNotifyMask}: Selects structure events on the selected window itself.
+                \item \textbf{SubstructureNotifyMask}: Selects structure events involving child windows.
+            \end{itemize}
+        \item \textbf{Redirect / request events}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{MapRequest}: Sent to a client that selected map redirection when another client requests that a child window be mapped.
+                \item \textbf{ConfigureRequest}: Sent to a client that selected configure redirection when another client requests a geometry or stacking change.
+                \item \textbf{CirculateRequest}: Sent to a client that selected circulation redirection when another client requests restacking by circulation.
+                \item \textbf{ResizeRequest}: Sent when a client requests that a window be resized and resize redirection is selected.
+            \end{itemize}
+        \item \textbf{Redirect / request masks}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{SubstructureRedirectMask}: Selects redirection of map, configure, and circulate requests for child windows.
+                \item \textbf{ResizeRedirectMask}: Selects \textbf{ResizeRequest} events.
+            \end{itemize}
+        \item \textbf{Property and colormap events}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{PropertyNotify}: Generated when a window property is changed or deleted.
+                \item \textbf{ColormapNotify}: Generated when a window's colormap changes or its install state changes.
+            \end{itemize}
+        \item \textbf{Property and colormap masks}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{PropertyChangeMask}: Selects \textbf{PropertyNotify} events.
+                \item \textbf{ColormapChangeMask}: Selects \textbf{ColormapNotify} events.
+            \end{itemize}
+        \item \textbf{Selection events cannot be selected directly}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{SelectionClear}: Sent to the previous selection owner when another client claims the selection.
+                \item \textbf{SelectionRequest}: Sent to the selection owner when another client requests selection data.
+                \item \textbf{SelectionNotify}: Sent to the requesting client when a selection conversion completes or fails.
+            \end{itemize}
+        \item \textbf{Graphics operation events cannot be selected directly}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{GraphicsExpose}: Generated by certain graphics operations when exposed areas need to be redrawn.
+                \item \textbf{NoExpose}: Generated by certain graphics operations when no exposure resulted.
+            \end{itemize}
+        \item \textbf{Client protocol events cannot be selected directly}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{ClientMessage}: Sent by clients using \texttt{XSendEvent}, commonly for protocols such as \texttt{WM\_DELETE\_WINDOW}.
+            \end{itemize}
+        \item \textbf{Mapping events cannot be selected directly}
+            \bigbreak \noindent
+            \begin{itemize}
+                \item \textbf{MappingNotify}: Generated when the keyboard, pointer, or modifier mapping changes.
+            \end{itemize}
+        \item \textbf{Unions}: 
+            \begin{cppcode}
+                typedef union _XEvent {
+                    int type;           /* must not be changed */
+                    XAnyEvent xany;
+                    XKeyEvent xkey;
+                    XButtonEvent xbutton;
+                    XMotionEvent xmotion;
+                    XCrossingEvent xcrossing;
+                    XFocusChangeEvent xfocus;
+                    XExposeEvent xexpose;
+                    XGraphicsExposeEvent xgraphicsexpose;
+                    XNoExposeEvent xnoexpose;
+                    XVisibilityEvent xvisibility;
+                    XCreateWindowEvent xcreatewindow;
+                    XDestroyWindowEvent xdestroywindow;
+                    XUnmapEvent xunmap;
+                    XMapEvent xmap;
+                    XMapRequestEvent xmaprequest;
+                    XReparentEvent xreparent;
+                    XConfigureEvent xconfigure;
+                    XGravityEvent xgravity;
+                    XResizeRequestEvent xresizerequest;
+                    XConfigureRequestEvent xconfigurerequest;
+                    XCirculateEvent xcirculate;
+                    XCirculateRequestEvent xcirculaterequest;
+                    XPropertyEvent xproperty;
+                    XSelectionClearEvent xselectionclear;
+                    XSelectionRequestEvent xselectionrequest;
+                    XSelectionEvent xselection;
+                    XColormapEvent xcolormap;
+                    XClientMessageEvent xclient;
+                    XMappingEvent xmapping;
+                    XErrorEvent xerror;
+                    XKeymapEvent xkeymap;
+                    long pad[24];
+                } XEvent;
+            \end{cppcode}
+
+        \item \textbf{Structures}:
+            \begin{cppcode}
+                typedef struct {
+                    int type;
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;
+                } XAnyEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* ButtonPress or ButtonRelease */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window it is reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    unsigned int button;    /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XButtonEvent;
+                typedef XButtonEvent XButtonPressedEvent;
+                typedef XButtonEvent XButtonReleasedEvent; 
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* KeyPress or KeyRelease */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window it is reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    unsigned int keycode;   /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XKeyEvent;
+                typedef XKeyEvent XKeyPressedEvent;
+                typedef XKeyEvent XKeyReleasedEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* MotionNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    char is_hint;           /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XMotionEvent;
+                typedef XMotionEvent XPointerMovedEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* EnterNotify or LeaveNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    int mode;               /* NotifyNormal, NotifyGrab, NotifyUngrab */
+                    int detail;
+                                            /*
+                                            * NotifyAncestor, NotifyVirtual, NotifyInferior,
+                                            * NotifyNonlinear,NotifyNonlinearVirtual
+                                            */
+                    Bool same_screen;       /* same screen flag */
+                    Bool focus;             /* boolean focus */
+                    unsigned int state;     /* key or button mask */
+                } XCrossingEvent;
+                typedef XCrossingEvent XEnterWindowEvent;
+                typedef XCrossingEvent XLeaveWindowEvent;
+            \end{cppcode}
+           \begin{cppcode}
+                typedef struct {
+                    int type;               /* FocusIn or FocusOut */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* window of event */
+                    int mode;               /* NotifyNormal, NotifyGrab, NotifyUngrab */
+                    int detail;
+                    /*
+                    * NotifyAncestor, NotifyVirtual, NotifyInferior,
+                    * NotifyNonlinear,NotifyNonlinearVirtual, NotifyPointer,
+                    * NotifyPointerRoot, NotifyDetailNone
+                    */
+                } XFocusChangeEvent;
+                typedef XFocusChangeEvent XFocusInEvent;
+                typedef XFocusChangeEvent XFocusOutEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                /* generated on EnterWindow and FocusIn when KeymapState selected */
+                typedef struct {
+                    int type;                   /* KeymapNotify */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window window;
+                    char key_vector[32];
+                } XKeymapEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* Expose */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;
+                    int x, y;
+                    int width, height;
+                    int count;              /* if nonzero, at least this many more */
+                } XExposeEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* GraphicsExpose */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Drawable drawable;
+                    int x, y;
+                    int width, height;
+                    int count;              /* if nonzero, at least this many more */
+                    int major_code;         /* core is CopyArea or CopyPlane */
+                    int minor_code;         /* not defined in the core */
+                } XGraphicsExposeEvent;
+
+                typedef struct {
+                    int type;               /* NoExpose */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Drawable drawable;
+                    int major_code;         /* core is CopyArea or CopyPlane */
+                    int minor_code;         /* not defined in the core */
+                } XNoExposeEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* CirculateNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    int place;              /* PlaceOnTop, PlaceOnBottom */
+                } XCirculateEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* ConfigureNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    int x, y;
+                    int width, height;
+                    int border_width;
+                    Window above;
+                    Bool override_redirect;
+                } XConfigureEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* CreateNotify */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window parent;              /* parent of the window */
+                    Window window;              /* window id of window created */
+                    int x, y;                   /* window location */
+                    int width, height;          /* size of window */
+                    int border_width;           /* border width */
+                    Bool override_redirect;     /* creation should be overridden */
+                } XCreateWindowEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type; /* DestroyNotify */
+                    unsigned long serial; /* # of last request processed by server */
+                    Bool send_event; /* true if this came from a SendEvent request */
+                    Display *display; /* Display the event was read from */
+                    Window event;
+                    Window window;
+                } XDestroyWindowEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* GravityNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    int x, y;
+                } XGravityEvent;
+            \end{cppcode}
+            \begin{cppcode}
+            typedef struct {
+                int type;                   /* MapNotify */
+                unsigned long serial;       /* # of last request processed by server */
+                Bool send_event;            /* true if this came from a SendEvent request */
+                Display *display;           /* Display the event was read from */
+                Window event;
+                Window window;
+                Bool override_redirect;     /* boolean, is override set... */
+            } XMapEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* UnmapNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    Bool from_configure;
+                } XUnmapEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* MappingNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* unused */
+                    int request;            /* one of MappingModifier, MappingKeyboard,
+                    MappingPointer */
+                    int first_keycode;      /* first keycode */
+                    int count;              /* defines range of change w. first_keycode*/
+                } XMappingEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* ReparentNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    Window parent;
+                    int x, y;
+                    Bool override_redirect;
+                } XReparentEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* VisibilityNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;
+                    int state;
+                } XVisibilityEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* CirculateRequest */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window parent;
+                    Window window;
+                    int place;                  /* PlaceOnTop, PlaceOnBottom */
+                } XCirculateRequestEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* ConfigureRequest */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window parent;
+                    Window window;
+                    int x, y;
+                    int width, height;
+                    int border_width;
+                    Window above;
+                    int detail; /* Above, Below, TopIf, BottomIf, Opposite */
+                    unsigned long value_mask;
+                } XConfigureRequestEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type; /* MapRequest */
+                    unsigned long serial; /* # of last request processed by server */
+                    Bool send_event; /* true if this came from a SendEvent request */
+                    Display *display; /* Display the event was read from */
+                    Window parent;
+                    Window window;
+                } XMapRequestEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* ResizeRequest */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window window;
+                    int width, height;
+                } XResizeRequestEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* ColormapNotify */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window window;
+                    Colormap colormap;          /* colormap or None */
+                    Bool new;
+                    int state;                  /* ColormapInstalled, ColormapUninstalled */
+                } XColormapEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* ClientMessage */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window window;
+                    Atom message_type;
+                    int format;
+                    union {
+                        char b[20];
+                        short s[10];
+                        long l[5];
+                    } data;
+                } XClientMessageEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* PropertyNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;
+                    Atom atom;
+                    Time time;
+                    int state;              /* PropertyNewValue or PropertyDelete */
+                } XPropertyEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* SelectionClear */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window window;
+                    Atom selection;
+                    Time time;
+                } XSelectionClearEvent; 
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;                   /* SelectionRequest */
+                    unsigned long serial;       /* # of last request processed by server */
+                    Bool send_event;            /* true if this came from a SendEvent request */
+                    Display *display;           /* Display the event was read from */
+                    Window owner;
+                    Window requestor;
+                    Atom selection;
+                    Atom target;
+                    Atom property;
+                    Time time;
+                } XSelectionRequestEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* SelectionNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window requestor;
+                    Atom selection;
+                    Atom target;
+                    Atom property;          /* atom or None */
+                    Time time;
+                } XSelectionEvent;
+            \end{cppcode}
+
     \end{itemize}
 
     \pagebreak 
@@ -1897,6 +2445,17 @@
             \end{cppcode}
             \bigbreak \noindent 
             means “the X server running as display 1.”
+        \item \textbf{Testing with keybinds working}
+            \bigbreak \noindent 
+            \begin{bashcode}
+            ohup Xephyr :1 -screen 1920x1080 -ac -br -noreset >/dev/null 2>&1 &
+            \end{bashcode}
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item \textbf{-ac}: Disables access control restrictions. It allows any X client (like a window manager or desktop app) to connect to the Xephyr display without authorization checks.
+                \item \textbf{-br}: Sets the root window (the background) of the nested display to black
+                \item \textbf{-noreset}: flag tells the nested X server not to terminate or reset itself when the last client application running inside it disconnects or closes.
+            \end{itemize}
 
 
     \end{itemize}
@@ -1983,28 +2542,113 @@
             \end{cppcode}
             \bigbreak \noindent 
             To get a textual description of the error code in the XErrorEvent structure passed to the handler.
+        \item \textbf{Example}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Handler set_error_handler(Handler handler) {
+                    return XSetErrorHandler(handler);
+                }
+
+                int error_handler(Display* dp, XErrorEvent* error_event) {
+                    if (error_event->error_code == BadAccess) {
+                        wm_present = true;
+                    }
+
+                    char error_str[DEFAULT_ERROR_STR_LEN];
+
+                    XGetErrorText(
+                        dp, 
+                        error_event->error_code,
+                        error_str,
+                        DEFAULT_ERROR_STR_LEN
+                    );
+
+                    fprintf(stderr, 
+                        "%s:\n%s: %lu\n%s: %d\n%s: %d\n%s: %lu\n", 
+                        error_str, 
+                        "Serial", error_event->serial,
+                        "Minor code", error_event->minor_code,
+                        "Request code", error_event->request_code,
+                        "Resource ID", error_event->resourceid
+                    );
+
+                    // Useful for gdb; stops execution at failing request
+                    abort();
+
+                    return 0;
+                }
+            \end{cppcode}
+        \item \textbf{IO errors}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int (*XSetIOErrorHandler(handler))()
+                    int (*handler)(Display *);
+            \end{cppcode}
+            \bigbreak \noindent
+            Installs a custom handler for fatal I/O errors on a display connection and returns the previously installed handler.
+            \begin{itemize}
+                \item handler Specifies the program’s supplied error handler.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented.
+            \end{itemize}
+        \item \textbf{Example}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                IOHandler set_io_error_handler(IOHandler handler) {
+                    return XSetIOErrorHandler(handler);
+                }
+
+                int io_error_handler(Display* dp) {
+                    lerr("IO error");
+
+                    // Useful for debugging
+                    abort();
+
+                    return 0;
+                }
+            \end{cppcode}
 
     \end{itemize}
 
     \pagebreak 
     \subsection{Flushing and Syncing}
     \begin{itemize}
-        \begin{cppcode}
-            XFlush(Display* display);
-        \end{cppcode}
-        \bigbreak \noindent
-        Flushes the output buffer, forcing all pending requests for the display connection to be sent to the X server.
-        \begin{itemize}
-            \item \textbf{Possible errors}: None documented for the call itself. Errors from previously buffered requests may be reported after the flush.
-        \end{itemize}
-        \begin{cppcode}
-            XSync(Display* display, Bool discard);
-        \end{cppcode}
-        \bigbreak \noindent
-        Flushes the output buffer and waits until all requests have been processed by the X server.
-        \begin{itemize}
-            \item \textbf{Possible errors}: None documented for the call itself. Errors from previously buffered requests may be handled by the installed error handler.
-        \end{itemize}
+        \item \textbf{XFlush}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XFlush(Display* display);
+            \end{cppcode}
+            \bigbreak \noindent
+            Flushes the output buffer, forcing all pending requests for the display connection to be sent to the X server.
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented for the call itself. Errors from previously buffered requests may be reported after the flush.
+            \end{itemize}
+        \item \textbf{XSync}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSync(Display* display, Bool discard);
+            \end{cppcode}
+            \bigbreak \noindent
+            Flushes the output buffer and waits until all requests have been processed by the X server.
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented for the call itself. Errors from previously buffered requests may be handled by the installed error handler.
+            \end{itemize}
+        \item \textbf{XSynchronize}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int (*XSynchronize(Display* display, Bool onoff))()
+            \end{cppcode}
+            \bigbreak \noindent
+            Enables or disables synchronous operation for the display connection, causing Xlib to wait for each request to complete when enabled.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item onoff Specifies a Boolean value that indicates whether to enable or disable synchronization.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented.
+            \end{itemize}
+
 
     \end{itemize}
 
@@ -2376,8 +3020,6 @@
                     \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
                 \end{itemize}
 
-
-
     \end{itemize}
 
     \pagebreak 
@@ -2497,6 +3139,99 @@
     \end{itemize}
 
     \pagebreak 
+    \subsubsection{Closing windows}
+    \begin{itemize}
+        \item \textbf{XUnmapEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* UnmapNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    Bool from_configure;
+                } XUnmapEvent;
+            \end{cppcode}
+        \item \textbf{XDestroyWindowEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type; /* DestroyNotify */
+                    unsigned long serial; /* # of last request processed by server */
+                    Bool send_event; /* true if this came from a SendEvent request */
+                    Display *display; /* Display the event was read from */
+                    Window event;
+                    Window window;
+                } XDestroyWindowEvent;
+            \end{cppcode}
+        \item \textbf{XKillClient}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XKillClient(Display* display, XID resource)
+            \end{cppcode}
+            \bigbreak \noindent
+            Forces the client that owns the specified resource to close its connection to the X server. If AllTemporary is specified, all temporary resources are destroyed.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item resource Specifies any resource associated with the client that you want to destroy or AllTemporary.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Errors}:
+            \begin{itemize}
+                \item BadValue
+            \end{itemize}
+        \item \textbf{XKillClient vs XDestroyWindow}: XDestroyWindow() destroys one X window resource. It tells the X server: "Destroy this window". It does not mean: "Terminate the process that created this window".
+            \bigbreak \noindent 
+            If the window is mapped, the server effectively unmaps it first, then destroys it. It also destroys that window’s child windows. Relevant clients receive events such as DestroyNotify. For a WM, XDestroyWindow() is appropriate for windows the WM itself created, such as:
+            \begin{itemize}
+                \item bar window
+                \item frame window
+                \item popup/menu window
+                \item drag overlay
+                \item scratch UI owned by the WM
+            \end{itemize}
+            It is usually not the right way to close a normal application window. If you call XDestroyWindow() on a client’s top-level window, you are forcibly deleting its X window without giving the application a chance to handle shutdown, save state, display a confirmation dialog, or clean up normally.
+            \bigbreak \noindent 
+            XKillClient() tells the X server to kill the client connection that owns a given resource. If win is a window created by some application, the X server finds the client that owns that window and forcibly closes that client’s connection to the X server.
+            \bigbreak \noindent 
+            This is closer to: "Kick this application off the X server."
+            \bigbreak \noindent 
+            It is still not exactly the same as sending SIGKILL to the Unix process. It kills the X connection. Many GUI programs will terminate when their X connection is closed, but the X server is not directly sending a Unix signal to the process.
+            \bigbreak \noindent 
+            For a WM, XKillClient() is a forceful fallback for clients that do not support WM\_DELETE\_WINDOW or refuse to close politely.
+            \bigbreak \noindent 
+            Normal app close:
+            \begin{itemize}
+                \item send WM\_DELETE\_WINDOW
+                \item fallback: XKillClient(client\_window)
+            \end{itemize}
+            WM internal window close:
+            \begin{itemize}
+                \item XDestroyWindow(wm\_owned\_window)
+                \item unmanage/free WM state
+            \end{itemize}
+        \item \textbf{Close window keybind}: 
+            \begin{enumerate}
+                \item Send WM\_DELETE\_WINDOW if supported.
+                \item Wait for DestroyNotify / UnmapNotify.
+                \item Unmanage the client when it actually disappears.
+                \item Use XKillClient only as a forceful fallback.
+                \item Use XDestroyWindow only for windows your WM owns.
+            \end{enumerate}
+            After using \textbf{XKillClient}, wait for DestroyNotify or UnmapNotify before unmanaging. XKillClient() is still an X request. It tells the server to close the owning client connection, but your WM should continue to treat the client as managed until the server reports that the window actually disappeared.
+            \bigbreak \noindent 
+            If the killed client had a mapped top-level window, you should expect both UnmapNotify and DestroyNotify, with the unmap happening first.
+            \bigbreak \noindent 
+            Recall that \textbf{UnmapNotify} cause by the WM should not mean unmanage. For example when we implement workspace switching, the WM will need to unmap all windows on the current workspace before switching, but still manage them.
+            \bigbreak \noindent 
+            If a managed client top-level window unmaps itself, that usually means the client is withdrawing the window from management.
+
+    \end{itemize}
+
+
+    \pagebreak 
     \subsection{Geometry}
     \begin{itemize}
         \item \textbf{Screen width and height}: 
@@ -2525,6 +3260,1157 @@
                 \end{itemize}
         \end{itemize}
 
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Cursors}
+    \begin{itemize}
+        \item \textbf{Cursorfont.h}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #include <X11/cursorfont.h>
+            \end{cppcode}
+            \bigbreak \noindent 
+            the standard header file containing predefined glyph definitions used to create system cursors
+        \item \textbf{Cursors}:
+            \begin{itemize}
+                \item \textbf{XC\_X\_cursor}:	An “X” shaped cursor. Often used as a generic default or placeholder cursor.
+                \item \textbf{XC\_arrow}:	A generic arrow cursor.
+                \item \textbf{XC\_based\_arrow\_down}:	A downward-pointing arrow with a base/bar.
+                \item \textbf{XC\_based\_arrow\_up}:	An upward-pointing arrow with a base/bar.
+                \item \textbf{XC\_boat}:	A small boat-shaped cursor. Mostly decorative/legacy.
+                \item \textbf{XC\_bogosity}:	A strange “bad/invalid/weird” symbol. Mostly humorous/legacy.
+                \item \textbf{XC\_bottom\_left\_corner}:	Resize cursor for the bottom-left corner of a window.
+                \item \textbf{XC\_bottom\_right\_corner}:	Resize cursor for the bottom-right corner of a window.
+                \item \textbf{XC\_bottom\_side}:	Resize cursor for the bottom edge of a window.
+                \item \textbf{XC\_bottom\_tee}:	A T-shaped cursor associated with the bottom side.
+                \item \textbf{XC\_box\_spiral}:	A box/square spiral shape. Mostly decorative.
+                \item \textbf{XC\_center\_ptr}:	A pointer arrow whose hotspot is more centered than XC\_left\_ptr.
+                \item \textbf{XC\_circle}:	A circular cursor.
+                \item \textbf{XC\_clock}:	A clock-shaped cursor, usually indicating waiting/busy state.
+                \item \textbf{XC\_coffee\_mug}:	A coffee mug cursor. Mostly decorative/legacy.
+                \item \textbf{XC\_cross}:	A simple cross-shaped cursor.
+                \item \textbf{XC\_cross\_reverse}:	A reverse/inverted version of the cross cursor.
+                \item \textbf{XC\_crosshair}:	A precision crosshair cursor, often used for targeting or coordinate selection.
+                \item \textbf{XC\_diamond\_cross}:	A cross combined with a diamond-like shape.
+                \item \textbf{XC\_dot}:	A small dot cursor.
+                \item \textbf{XC\_dotbox}:	A dot inside a box. Useful for precise pointing.
+                \item \textbf{XC\_double\_arrow}:	A double-ended arrow, generally suggesting resizing or directional adjustment.
+                \item \textbf{XC\_draft\_large}:	A large drafting/drawing-style cursor.
+                \item \textbf{XC\_draft\_small}:	A smaller drafting/drawing-style cursor.
+                \item \textbf{XC\_draped\_box}:	A box-like cursor with a draped/covered appearance. Mostly decorative.
+                \item \textbf{XC\_exchange}:	An exchange/swap cursor, suggesting replacement or swapping.
+                \item \textbf{XC\_fleur}:	A four-direction move cursor, like arrows pointing up/down/left/right.
+                \item \textbf{XC\_gobbler}:	A “gobbler”/Pac-Man-like decorative cursor.
+                \item \textbf{XC\_gumby}:	A Gumby-like figure cursor. Decorative/legacy.
+                \item \textbf{XC\_hand1}:	A hand cursor, usually pointing or selecting.
+                \item \textbf{XC\_hand2}:	Another hand cursor variant. Commonly used for links or clickable things.
+                \item \textbf{XC\_heart}:	A heart-shaped cursor.
+                \item \textbf{XC\_icon}:	An icon-like cursor, historically associated with window/icon manipulation.
+                \item \textbf{XC\_iron\_cross}:	A heavy cross shape resembling an iron cross.
+                \item \textbf{XC\_left\_ptr}:	The usual left-leaning arrow pointer. This is the common default pointer.
+                \item \textbf{XC\_left\_side}:	Resize cursor for the left edge of a window.
+                \item \textbf{XC\_left\_tee}:	A T-shaped cursor associated with the left side.
+                \item \textbf{XC\_leftbutton}:	A mouse/button symbol emphasizing the left button.
+                \item \textbf{XC\_ll\_angle}:	Lower-left angle/corner shape.
+                \item \textbf{XC\_lr\_angle}:	Lower-right angle/corner shape.
+                \item \textbf{XC\_man}:	A small human figure cursor.
+                \item \textbf{XC\_middlebutton}:	A mouse/button symbol emphasizing the middle button.
+                \item \textbf{XC\_mouse}:	A mouse-shaped cursor.
+                \item \textbf{XC\_pencil}:	A pencil cursor, commonly used for drawing/editing.
+                \item \textbf{XC\_pirate}:	A pirate/skull-style cursor, often used for destructive or dangerous actions.
+                \item \textbf{XC\_plus}:	A plus-sign cursor. Often suggests adding, inserting, or selecting.
+                \item \textbf{XC\_question\_arrow}:	An arrow with a question mark, commonly used for help/context help.
+                \item \textbf{XC\_right\_ptr}:	A right-leaning or right-pointing pointer arrow.
+                \item \textbf{XC\_right\_side}:	Resize cursor for the right edge of a window.
+                \item \textbf{XC\_right\_tee}:	A T-shaped cursor associated with the right side.
+                \item \textbf{XC\_rightbutton}:	A mouse/button symbol emphasizing the right button.
+                \item \textbf{XC\_rtl\_logo}:	A stylized logo cursor. Rarely used in modern programs.
+                \item \textbf{XC\_sailboat}:	A sailboat-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_sb\_down\_arrow}:	Scrollbar-style down arrow.
+                \item \textbf{XC\_sb\_h\_double\_arrow}:	Horizontal double arrow, commonly suggesting horizontal resizing or scrolling.
+                \item \textbf{XC\_sb\_left\_arrow}:	Scrollbar-style left arrow.
+                \item \textbf{XC\_sb\_right\_arrow}:	Scrollbar-style right arrow.
+                \item \textbf{XC\_sb\_up\_arrow}:	Scrollbar-style up arrow.
+                \item \textbf{XC\_sb\_v\_double\_arrow}:	Vertical double arrow, commonly suggesting vertical resizing or scrolling.
+                \item \textbf{XC\_shuttle}:	A space-shuttle-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_sizing}:	Generic sizing/resizing cursor.
+                \item \textbf{XC\_spider}:	Spider-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_spraycan}:	Spray-can cursor, commonly associated with painting/drawing programs.
+                \item \textbf{XC\_star}:	Star-shaped cursor.
+                \item \textbf{XC\_target}:	Target/bullseye cursor.
+                \item \textbf{XC\_tcross}:	A T-like cross cursor.
+                \item \textbf{XC\_top\_left\_arrow}:	Arrow pointing toward the upper-left.
+                \item \textbf{XC\_top\_left\_corner}:	Resize cursor for the top-left corner of a window.
+                \item \textbf{XC\_top\_right\_corner}:	Resize cursor for the top-right corner of a window.
+                \item \textbf{XC\_top\_side}:	Resize cursor for the top edge of a window.
+                \item \textbf{XC\_top\_tee}:	A T-shaped cursor associated with the top side.
+                \item \textbf{XC\_trek}:	A Star-Trek-like insignia cursor. Decorative/legacy.
+                \item \textbf{XC\_ul\_angle}:	Upper-left angle/corner shape.
+                \item \textbf{XC\_umbrella}:	Umbrella-shaped cursor. Decorative/legacy.
+                \item \textbf{XC\_ur\_angle}:	Upper-right angle/corner shape.
+                \item \textbf{XC\_watch}:	Watch cursor, commonly used to indicate busy/waiting.
+                \item \textbf{XC\_xterm}:	Text insertion/I-beam cursor, commonly used over text areas.
+            \end{itemize}
+            The practical / common ones is the subset
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Cursor}&	\textbf{Description}&	\textbf{Common use} \\
+                    \midrule
+                    XC\_left\_ptr	&Standard arrow pointer, usually angled up-left.	&Default cursor for normal pointing and selection.\\[2ex]
+                    XC\_xterm	&Text insertion cursor, usually an I-beam.	&Used over editable or selectable text regions.\\[2ex]
+                    XC\_watch	&Watch/busy cursor.	&Indicates that the application is busy or waiting.\\[2ex]
+                    XC\_hand1	&Hand-shaped cursor, first variant.	&Used for clickable or draggable objects.\\[2ex]
+                    XC\_hand2	&Hand-shaped cursor, second variant.	&Commonly used for links or clickable UI elements.\\[2ex]
+                    XC\_crosshair	&Crosshair cursor with horizontal and vertical lines.	&Precision pointing, drawing, targeting, coordinate selection.\\[2ex]
+                    XC\_fleur	&Four-direction movement cursor.	&Moving windows, panels, objects, or selections.\\[2ex]
+                    XC\_sb\_h\_double\_arrow	&Horizontal double-ended arrow.	&Horizontal resizing or horizontal scrollbar interaction.\\[2ex]
+                    XC\_sb\_v\_double\_arrow	&Vertical double-ended arrow.	&Vertical resizing or vertical scrollbar interaction.\\[2ex]
+                    XC\_top\_side	&Resize cursor for the top edge.	&Resizing a window or object from its top border.\\[2ex]
+                    XC\_bottom\_side	&Resize cursor for the bottom edge.	&Resizing from the bottom border.\\[2ex]
+                    XC\_left\_side	&Resize cursor for the left edge.	&Resizing from the left border.\\[2ex]
+                    XC\_right\_side	&Resize cursor for the right edge.	&Resizing from the right border.\\[2ex]
+                    XC\_top\_left\_corner&	Diagonal resize cursor for the top-left corner.	&Resizing from the upper-left corner.\\[2ex]
+                    XC\_top\_right\_corner&	Diagonal resize cursor for the top-right corner.	&Resizing from the upper-right corner.\\[2ex]
+                    XC\_bottom\_left\_corner&	Diagonal resize cursor for the bottom-left corner.	&Resizing from the lower-left corner.\\[2ex]
+                    XC\_bottom\_right\_corner&	Diagonal resize cursor for the bottom-right corner.	&Resizing from the lower-right corner. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{XCreateFontCursor}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Cursor XCreateFontCursor(Display *display, unsigned int shape)
+            \end{cppcode}
+            \bigbreak \noindent
+            Creates a cursor from one of the standard cursor glyphs defined by the X cursor font.
+            \begin{itemize}
+                \item \textit{display}: Specifies the connection to the X server.
+                \item \textit{shape}: Specifies the shape of the cursor.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadAlloc}
+                        \item \textbf{BadValue}
+                    \end{itemize}
+            \end{itemize}
+
+
+        \item \textbf{XDefineCursor}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XDefineCursor(Display* display, w, Cursor cursor)
+            \end{cppcode}
+            \bigbreak \noindent
+            Defines the cursor that appears when the pointer is inside the specified window.
+            \begin{itemize}
+                \item cursor Specifies the cursor that is to be displayed or None.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadCursor}
+                \item \textbf{BadWindow}
+            \end{itemize}
+        \item \textbf{XUndefineCursor}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XUndefineCursor(Display* display, w)
+            \end{cppcode}
+            \bigbreak \noindent
+            Removes the window's explicitly defined cursor so that the parent window's cursor is inherited.
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Event loop}
+    \begin{itemize}
+        \begin{cppcode}
+            XNextEvent(Display* display, XEvent* event_return)
+        \end{cppcode}
+        \bigbreak \noindent
+        Removes the next event from the event queue and copies it into the supplied event structure. If the queue is empty, it blocks until an event is available.
+        \begin{itemize}
+            \item display Specifies the connection to the X server.
+            \item event\_return Returns the next event in the queue.
+        \end{itemize}
+        \begin{itemize}
+            \item \textbf{Possible errors}: None documented for the call itself. Errors from previously buffered requests may be reported if the function flushes while waiting.
+        \end{itemize}
+        \bigbreak \noindent 
+        \begin{cppcode}
+            typedef union _XEvent {
+                int type;           /* must not be changed */
+                XAnyEvent xany;
+                XKeyEvent xkey;
+                XButtonEvent xbutton;
+                XMotionEvent xmotion;
+                XCrossingEvent xcrossing;
+                XFocusChangeEvent xfocus;
+                XExposeEvent xexpose;
+                XGraphicsExposeEvent xgraphicsexpose;
+                XNoExposeEvent xnoexpose;
+                XVisibilityEvent xvisibility;
+                XCreateWindowEvent xcreatewindow;
+                XDestroyWindowEvent xdestroywindow;
+                XUnmapEvent xunmap;
+                XMapEvent xmap;
+                XMapRequestEvent xmaprequest;
+                XReparentEvent xreparent;
+                XConfigureEvent xconfigure;
+                XGravityEvent xgravity;
+                XResizeRequestEvent xresizerequest;
+                XConfigureRequestEvent xconfigurerequest;
+                XCirculateEvent xcirculate;
+                XCirculateRequestEvent xcirculaterequest;
+                XPropertyEvent xproperty;
+                XSelectionClearEvent xselectionclear;
+                XSelectionRequestEvent xselectionrequest;
+                XSelectionEvent xselection;
+                XColormapEvent xcolormap;
+                XClientMessageEvent xclient;
+                XMappingEvent xmapping;
+                XErrorEvent xerror;
+                XKeymapEvent xkeymap;
+                long pad[24];
+            } XEvent;
+        \end{cppcode}
+    \item \textbf{Simple event loop}:
+        \bigbreak \noindent 
+        \begin{cppcode}
+            for(;;) {
+                XEvent event;
+                XNextEvent(dp, &event);
+
+                if (event.type == EnterNotify) {
+                    XCrossingEvent crossing_event = event.xcrossing;
+                }
+            }
+        \end{cppcode}
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Focus}
+    \begin{itemize}
+        \item \textbf{XCrossingEvent}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* EnterNotify or LeaveNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    int mode;               /* NotifyNormal, NotifyGrab, NotifyUngrab */
+                    int detail;
+                                            /*
+                                            * NotifyAncestor, NotifyVirtual, NotifyInferior,
+                                            * NotifyNonlinear,NotifyNonlinearVirtual
+                                            */
+                    Bool same_screen;       /* same screen flag */
+                    Bool focus;             /* boolean focus */
+                    unsigned int state;     /* key or button mask */
+                } XCrossingEvent;
+                typedef XCrossingEvent XEnterWindowEvent;
+                typedef XCrossingEvent XLeaveWindowEvent;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* ButtonPress or ButtonRelease */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window it is reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    unsigned int button;    /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XButtonEvent;
+                typedef XButtonEvent XButtonPressedEvent;
+                typedef XButtonEvent XButtonReleasedEvent; 
+            \end{cppcode}
+        \item \textbf{XGrabButton}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XGrabButton(
+                Display* display,
+                unsigned int button,
+                unsigned int modifiers,
+                Window grab_window,
+                Bool owner_events,
+                unsigned int event_mask,
+                int pointer_mode, keyboard_mode,
+                Window confine_to,
+                Cursor cursor
+            )
+            \end{cppcode}
+            \bigbreak \noindent
+            Establishes a passive pointer grab that becomes active when the specified button and modifier combination is pressed.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item button Specifies the pointer button that is to be grabbed or AnyButton.
+                \item modifiers Specifies the set of keymasks or AnyModifier. The mask is the bitwise inclusive OR of the valid keymask bits.
+                \item grab\_window Specifies the grab window.
+                \item owner\_events Specifies a Boolean value that indicates whether the pointer events are to be reported as usual or reported with respect to the grab window if selected by the event mask.
+                \item event\_mask Specifies which pointer events are reported to the client. The mask is the bitwise inclusive OR of the valid pointer event mask bits.
+                \item pointer\_mode Specifies further processing of pointer events. You can pass GrabModeSync or GrabModeAsync.
+                \item keyboard\_mode Specifies further processing of keyboard events. You can pass GrabModeSync or GrabModeAsync.
+                \item confine\_to Specifies the window to confine the pointer in or None.
+                \item cursor Specifies the cursor that is to be displayed or None.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadAccess}
+                \item \texttt{BadCursor}
+                \item \texttt{BadValue}
+                \item \texttt{BadWindow}
+            \end{itemize}
+        \item \textbf{XUngrabButton}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XUngrabButton(
+                    Display* display,
+                    unsigned int button,
+                    unsigned int modifiers,
+                    Window grab_window
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Removes a passive button grab for the specified button, modifier combination, and grab window.
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadValue}
+                \item \texttt{BadWindow}
+            \end{itemize}
+        \item \textbf{XAllowEvents}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XAllowEvents(Display* display, int event_mode, Time time)
+            \end{cppcode}
+            \bigbreak \noindent
+            Releases, synchronizes, or replays frozen pointer and keyboard events after a synchronous grab.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item event\_mode Specifies the event mode. You can pass AsyncPointer, SyncPointer, AsyncKeyboard, SyncKeyboard, ReplayPointer, ReplayKeyboard, AsyncBoth, or SyncBoth.
+                \item time Specifies the time. You can pass either a timestamp or CurrentTime.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadValue}
+            \end{itemize}
+
+        \item \textbf{InputFocus}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSetInputFocus(Display* display, Window focus, int revert_to, Time time)
+            \end{cppcode}
+            \bigbreak \noindent
+            Changes the window that receives keyboard input focus.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item focus Specifies the window, PointerRoot, or None.
+                \item revert\_to Specifies where the input focus reverts to if the window becomes not viewable.
+                \item You can pass RevertToParent, RevertToPointerRoot, or RevertToNone.
+                \item time Specifies the time. You can pass either a timestamp or CurrentTime.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadMatch}
+                \item \texttt{BadValue}
+                \item \texttt{BadWindow}
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XGetInputFocus(Display* display, Window* focus_return, int* revert_to_return)
+            \end{cppcode}
+            \bigbreak \noindent
+            Returns the current input focus window and the current focus revert policy.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item focus\_return Returns the focus window, PointerRoot, or None.
+                \item revert\_to\_return Returns the current focus state, such as RevertToParent, RevertToPointerRoot, or RevertToNone.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item None.
+            \end{itemize}
+        \item \textbf{Focus follows mouse} 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void evloop() {
+                    for(;;) {
+                        XEvent event;
+                        XNextEvent(dp, &event);
+
+                        if (event.type == EnterNotify) {
+                            XCrossingEvent enter_event = event.xcrossing;
+                            Window event_window = enter_event.window;
+                            Time event_time = enter_event.time;
+
+                            give_window_focus(event_window, event_time);
+                        }
+                    }
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Note that \texttt{EnterNotify} must be selected on the windows that we want to focus.
+        \item \textbf{Click to focus}: 
+            \begin{enumerate}
+                \item When a managed window is unfocused, the WM grabs mouse button presses on it.
+                \item The user clicks the window.
+                \item The X server sends the ButtonPress event to the WM instead of directly to the client.
+                \item The WM calls XSetInputFocus.
+                \item The WM optionally raises/restacks the window.
+                \item The WM lets the original click continue to the client, usually with XAllowEvents(..., ReplayPointer, ...).
+            \end{enumerate}
+            So, we call the following function on all windows that we manage, perhaps on the call to \texttt{manage(win)}.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void grab_left_click(Window win) {
+                    XGrabButton(
+                        dp,
+                        Button1,
+                        AnyModifier,
+                        win,
+                        false, // owner_events
+                        ButtonPressMask, // Send ButtonPress to win
+                        GrabModeSync, // Pointer mode async
+                        GrabModeAsync, // Keyboard mode async
+                        None, // confine_to
+                        None // cursor
+                    );
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Note that with \textbf{GrabModeSync}, the pointer is frozen until you call \textbf{XAllowEvents}.
+            \bigbreak \noindent 
+            In the event loop, 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                else if (event.type == ButtonPress) {
+                    handle_button_press(&event); 
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            with
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void handle_button_press(const XEvent* event) {
+                    if (!is_managed(event->xbutton.window)) return;
+
+                    const XButtonEvent* button_event = &event->xbutton;
+                    Window event_win = button_event->window;
+
+                    // Will be non null since is_managed is true
+                    Client* client = get_managed(event_win);
+
+                    if (client_is_current_focus(client)) {
+                        XAllowEvents(dp, ReplayPointer, button_event->time);
+                        return;
+                    }
+
+                    set_current_focus(client, button_event->time);
+                    XAllowEvents(dp, ReplayPointer, button_event->time);
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Note that the button grab is sufficient, we do not need to select \textbf{ButtonPressMask} on clients.
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{KeySyms and KeyCodes}
+    \begin{itemize}
+        \item \textbf{KeySyms}: Defined in 
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #include <X11/keysym.h>
+            \end{cppcode}
+            \bigbreak \noindent 
+            KeySyms under this header use the \texttt{XK\_} prefix
+
+        \item \textbf{KeySym to KeyCode}
+            \begin{cppcode}
+            KeyCode XKeysymToKeycode(Display* display, KeySym keysym)
+            \end{cppcode}
+            \bigbreak \noindent
+            The XKeysymToKeycode function returns a KeyCode that is associated with the specified KeySym.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item keysym Specifies the KeySym that is to be searched for.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item None.
+            \end{itemize}
+        \item \textbf{KeyCode to KeySym (deprecated)}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                KeySym XKeycodeToKeysym(Display* display, KeyCode keycode, int index)
+            \end{cppcode}
+            \bigbreak \noindent
+            The XKeycodeToKeysym function converts a KeyCode and KeySym index into the corresponding KeySym.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item keycode Specifies the KeyCode.
+                \item index Specifies the element of KeyCode vector.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item None.
+            \end{itemize}
+        \item \textbf{KeyCode to KeySym with XKeyEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                KeySym XLookupKeysym(XKeyEvent* key_event, int index)
+            \end{cppcode}
+            \bigbreak \noindent
+            The XLookupKeysym function returns the KeySym from a keyboard event by using the event's KeyCode and the specified KeySym index.
+            \begin{itemize}
+                \item key\_event Specifies the KeyPress or KeyRelease event.
+                \item index Specifies the index into the KeySyms list for the event’s KeyCode.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item None.
+            \end{itemize}
+            \bigbreak \noindent 
+            For example,
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XLookupKeysym(&key_event, 0);
+            \end{cppcode}
+            \bigbreak \noindent 
+            For a normal alphabetic key like $q$, the keycode might have a keysym list conceptually like this:
+            \begin{itemize}
+                \item \textbf{index 0}: XK\_q
+                \item \textbf{index 1}: XK\_Q
+            \end{itemize}
+            So,
+            \bigbreak \noindent 
+            \begin{cppcode}
+                KeySym s0 = XLookupKeysym(e, 0);  /* usually XK_q */
+                KeySym s1 = XLookupKeysym(e, 1);  /* usually XK_Q */
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XLookupKeysym(e, 1)
+            \end{cppcode}
+            \bigbreak \noindent 
+            does not mean “return the shifted version because Shift is currently pressed.” It just asks for slot 1. If Shift is not pressed, you can still ask for slot 1. If Shift is pressed, asking for slot 0 can still return the lowercase/unshifted symbol.
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Keymaps}
+    \begin{itemize}
+        \item \textbf{XKeyEvent} 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* KeyPress or KeyRelease */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window it is reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    unsigned int keycode;   /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XKeyEvent;
+                typedef XKeyEvent XKeyPressedEvent;
+                typedef XKeyEvent XKeyReleasedEvent;
+            \end{cppcode}
+        \item \textbf{Passive keyboard grabbing}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XGrabKey(
+                    Display* display,
+                    int keycode,
+                    unsigned int modifiers,
+                    Window grab_window,
+                    Bool owner_events,
+                    int pointer_mode, keyboard_mode
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Establishes a passive keyboard grab that becomes active when the specified key and modifier combination is pressed.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item keycode Specifies the KeyCode or AnyKey.
+                \item modifiers Specifies the set of keymasks or AnyModifier. The mask is the bitwise inclusive OR of the valid keymask bits.
+                \item grab\_window Specifies the grab window.
+                \item owner\_events Specifies a Boolean value that indicates whether the keyboard events are to be reported as usual.
+                \item pointer\_mode Specifies further processing of pointer events. You can pass GrabModeSync or GrabModeAsync.
+                \item keyboard\_mode Specifies further processing of keyboard events. You can pass GrabModeSync or GrabModeAsync.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadAccess}
+                \item \texttt{BadValue}
+                \item \texttt{BadWindow}
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XUngrabKey(Display* display, int keycode, unsigned int modifiers, Window grab_window)
+            \end{cppcode}
+            \bigbreak \noindent
+            Removes a passive keyboard grab for the specified key, modifier combination, and grab window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item keycode Specifies the KeyCode or AnyKey.
+                \item modifiers Specifies the set of keymasks or AnyModifier. The mask is the bitwise inclusive OR of the valid keymask bits.
+                \item grab\_window Specifies the grab window.
+            \end{itemize}
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item \texttt{BadValue}
+                \item \texttt{BadWindow}
+            \end{itemize}
+        \item \textbf{Example}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                KeySym ks_q = XK_q; 
+                KeyCode kc_q = XKeysymToKeycode(dp, ks_q);
+                unsigned int modifiers = Mod4Mask | ShiftMask;
+                XGrabKey(dp, kc_q, modifiers, root, true, GrabModeAsync, GrabModeAsync);
+
+                ...
+                for (;;) {
+                    XEvent event;
+                    XNextEvent(dp, &event);
+
+                    if (event.type == KeyPress) {
+                        XKeyEvent* key_event = &event.xkey;
+
+                        // Check key_event->keycode and key_event->state
+                        // against the mapping we defined above.
+                    }
+                }
+            \end{cppcode}
+        \item \textbf{Note about key\_event.window}: If owner\_events == False in the XGrabKey call, the key event is reported with respect to grab\_window, so:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            key_event.window = grab_window
+            \end{cppcode}
+            \bigbreak \noindent 
+            For both XGrabKeyboard and XGrabKey, Xlib says that when owner\_events is false, generated key events are reported with respect to the grab window. When owner\_events is true, events are reported normally if they would normally go to the grabbing client; otherwise they fall back to the grab window.
+            \bigbreak \noindent 
+            To find the window of interest for the KeyEvent, we likely want to use XGetInputFocus
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Window map}
+    \begin{itemize}
+        \item \textbf{XMapRequestEvent struct}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type; /* MapRequest */
+                    unsigned long serial; /* # of last request processed by server */
+                    Bool send_event; /* true if this came from a SendEvent request */
+                    Display *display; /* Display the event was read from */
+                    Window parent;
+                    Window window;
+                } XMapRequestEvent;
+            \end{cppcode}
+        \item \textbf{Window mapping}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XMapWindow(Display* display, w)
+            \end{cppcode}
+            \bigbreak \noindent
+            Maps the specified window, making it eligible to become visible on the screen.
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Colors}
+    \begin{itemize}
+        \item \textbf{XDefaultColorMap}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Colormap XDefaultColormap(Display* display, int screen_number)
+            \end{cppcode}
+            \begin{itemize}
+                \item \textbf{Description}: Returns the default colormap for the specified screen.
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textit{None}: This function does not generate X protocol errors.
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{XColor}:             
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    unsigned long pixel;
+                    unsigned short red, green, blue;
+                    char flags; 
+                    char pad;
+                } XColor;
+            \end{cppcode}
+        \item \textbf{XParseColor}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XParseColor(
+                    Display *display,
+                    Colormap colormap,
+                    char *spec,
+                    XColor *exact_def_return
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Parses a color name or numeric color specification and fills an \textbf{XColor} structure with the exact color definition.
+            \begin{itemize}
+                \item \textbf{display}: Specifies the connection to the X server.
+                \item \textbf{colormap}: Specifies the colormap.
+                \item \textbf{spec}: Specifies the color name string; case is ignored.
+                \item \textbf{exact\_def\_return}: Returns the exact color value for later use and sets the \textbf{DoRed}, \textbf{DoGreen}, and \textbf{DoBlue} flags.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Errors}:
+            \begin{itemize}
+                \item \textbf{BadColor}
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Status return values}:
+            \begin{itemize}
+                \item \textbf{Nonzero}: The color specification was resolved.
+                \item \textbf{Zero}: The color specification was not resolved.
+            \end{itemize}
+        \item \textbf{XAllocColor}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XAllocColor(
+                    Display *display,
+                    Colormap colormap,
+                    XColor *screen_in_out
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Allocates a read-only color cell in the specified colormap that most closely matches the requested RGB values.
+            \begin{itemize}
+                \item \textit{display}: Specifies the connection to the X server.
+                \item \textit{colormap}: Specifies the colormap.
+                \item \textit{screen\_in\_out}: Specifies and returns the values actually used in the colormap.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Errors}:
+            \begin{itemize}
+                \item \textbf{BadColor}
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Status return values}:
+            \begin{itemize}
+                \item \textbf{Nonzero}: The allocation succeeded.
+                \item \textbf{Zero}: The allocation failed.
+            \end{itemize}
+        \item \textbf{Example}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status set_xcolor(XColor* xcolor, char* spec) {
+                    Colormap default_color_map = get_default_color_map(get_default_screen_number());
+                    Status xpc_s = XParseColor(dp, default_color_map, spec, xcolor);
+                    Status xac_s = XAllocColor(dp, default_color_map, xcolor);
+
+                    return xpc_s != 0 && xac_s != 0;
+                }
+
+                XColor red;
+                Status st = set_xcolor(&red, "red");
+            \end{cppcode}
+            \bigbreak \noindent 
+            XParseColor only translates a string into RGB values; it does not assign a usable color to the X server. XAllocColor is required to request the X server to find or create a matching color index in the system's hardware or software lookup table.
+            \bigbreak \noindent 
+            XAllocColor Sends the RGB structure to the X server, looks up the closest matching color slot in the Colormap, and returns a unique integer index called a Pixel.
+            \bigbreak \noindent 
+            XParseColor requires a Colormap because color strings are looked up with respect to the specific screen and visual settings associated with that colormap.
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Borders}
+    \begin{itemize}
+        \item \textbf{Border width}: We can set border width when we call \textbf{XConfigurewindow} to place and size our managed windows. Alternatively, we can call \textbf{XSetBorderWidth}
+        \item \textbf{XSetBorderWidth}:             
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSetWindowBorderWidth(Display* display, Window w, unsigned int width)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sets the border width of the specified window.
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+        \item \textbf{Border color}: We use \textbf{XSetWindowBorder}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSetWindowBorder(Display* display, w, unsigned long border_pixel)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sets the border pixel value of the specified window.
+            \begin{itemize}
+                \item border\_pixel Specifies the entry in the colormap.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadMatch}
+                \item \textbf{BadWindow}
+            \end{itemize}
+            \begin{cppcode}
+                XSetWindowBorderPixmap(Display* display, w, Pixmap border_pixmap)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sets the border pixmap used to draw the specified window's border.
+            \begin{itemize}
+                \item border\_pixmap Specifies the border pixmap or CopyFromParent.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadMatch}
+                \item \textbf{BadPixmap}
+                \item \textbf{BadWindow}
+            \end{itemize}
+            \textbf{Note:} Alternatively, we can use \textbf{XChangeWindowAttributes} with the \textbf{XSetWindowAttributes} struct.
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Backgrounds}
+    \begin{itemize}
+        \item \textbf{XSetWindowBackground}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSetWindowBackground(Display* display, Window w, unsigned long background_pixel)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sets the background pixel value used when the window background is drawn.
+            \begin{itemize}
+                \item background\_pixel Specifies the pixel that is to be used for the background.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadMatch}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+        \item \textbf{XSetWindowBackgroundPixmap}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSetWindowBackgroundPixmap(Display* display, Window w, Pixmap background_pixmap)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sets the background pixmap used when the window background is drawn.
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadMatch}
+                \item \textbf{BadPixmap}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+        \item \textbf{Set background to fill}: 
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Window spawning}
+    \begin{itemize}
+        \item \textbf{Getting connection number}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int XConnectionNumber(Display* display)
+            \end{cppcode}
+            \begin{itemize}
+                \item \textbf{Description}: Returns the file descriptor used by the X server connection.
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textit{None}: This function does not generate X protocol errors.
+                    \end{itemize}
+            \end{itemize}
+
+        \item \textbf{Process}: 
+            \begin{enumerate}
+                \item WM fork/execs program
+                \item terminal connects to X server using DISPLAY
+                \item terminal calls XCreateWindow / XMapWindow internally
+                \item X server sends your WM a MapRequest
+                \item WM tiles the new window and maps it
+            \end{enumerate}
+        \item \textbf{Fork / exec logic}: We use the standard Unix fork logic:
+            \bigbreak \noindent 
+            \begin{bashcode}
+            pid_t pid = fork();
+
+            // Child
+            if (pid == 0) {
+                // Don't need our spawned process talking through the parents X connection
+                close(XConnectionNumber(dp));
+
+                // Make process leader of new session. Disconnect process from WMs session.
+                setsid();
+
+                // The second kitty is argv[0], which is the name of the program
+                execlp("kitty", "kitty", (char*)NULL);
+
+
+                // Command not found or kitty failed to execute
+                _exit(127);
+            }
+            \end{bashcode}
+        \item \textbf{Mapping the spawnee}: Now that we have spawned this new process, our window manager will receive a MapRequest once kitty tries to map itself (provided we selected SubstructureRedirectMask on the root). So, we handle this event in the event loop
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Raising windows}
+    \begin{itemize}
+        \item \textbf{XRaiseWindow}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XRaiseWindow(Display* display, w)
+            \end{cppcode}
+            \bigbreak \noindent
+            Raises the specified window to the top of the stacking order.
+
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+        \item \textbf{XLowerWindow}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XLowerWindow(Display* display, w)
+            \end{cppcode}
+            \bigbreak \noindent
+            Lowers the specified window to the bottom of the stacking order.
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Tracking pointer}
+    \begin{itemize}
+        \item \textbf{XQueryPointer}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Bool XQueryPointer(
+                    Display* display,
+                    Window w,
+                    Window* root_return, Window* child_return,
+                    int* root_x_return, int* root_y_return,
+                    int* win_x_return, int* win_y_return,
+                    unsigned int* mask_return
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Queries the current pointer position and button/modifier state relative to both the root window and the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window.
+                \item root\_return Returns the root window that the pointer is in.
+                \item child\_return Returns the child window that the pointer is located in, if any.
+                \item root\_x\_return, root\_y\_return Return the pointer coordinates relative to the root window’s origin.
+                \item win\_x\_return, win\_y\_return Return the pointer coordinates relative to the specified window.
+                \item mask\_return Returns the current state of the modifier keys and pointer buttons.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadWindow}
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{XMotionEvent}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* MotionNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* ‘‘event’’ window reported relative to */
+                    Window root;            /* root window that the event occurred on */
+                    Window subwindow;       /* child window */
+                    Time time;              /* milliseconds */
+                    int x, y;               /* pointer x, y coordinates in event window */
+                    int x_root, y_root;     /* coordinates relative to root */
+                    unsigned int state;     /* key or button mask */
+                    char is_hint;           /* detail */
+                    Bool same_screen;       /* same screen flag */
+                } XMotionEvent;
+                typedef XMotionEvent XPointerMovedEvent;
+            \end{cppcode}
+            \bigbreak \noindent 
+            The relevant event is \textbf{MotionNotify} and the relevant mask is \textbf{PointerMotionMask}
+
+
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Floating windows}
+    \subsubsection{Dragging windows}
+    \begin{itemize}
+        \item \textbf{XGetGeometry}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XGetGeometry(
+                    Display* display, 
+                    Drawable d,
+                    Window* root_return,
+                    int* x_return, int* y_return,
+                    unsigned int* width_return, unsigned int* height_return,
+                    unsigned int* border_width_return,
+                    unsigned int* depth_return
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Gets the geometry of a drawable, including its root window, position, size, border width, and depth.
+            \begin{itemize}
+                \item d Specifies the drawable, which can be a window or a pixmap.
+                \item root\_return Returns the root window.
+                \item x\_return, y\_return Return the $x$ and $y$ coordinates that define the location of the drawable. For a window, these coordinates specify the upper-left outer corner relative to its parent’s origin. For pixmaps, these coordinates are always zero.
+                \item width\_return, height\_return Return the drawable’s dimensions (width and height). For a window, these dimensions specify the inside size, not including the border.
+                \item border\_width\_return Returns the border width in pixels. If the drawable is a pixmap, it returns zero.
+                \item depth\_return Returns the depth of the drawable (bits per pixel for the object).
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadDrawable}
+                    \end{itemize}
+                \item \textbf{Status identifiers}:
+                    \begin{itemize}
+                        \item \textbf{0}: Failure.
+                        \item \textbf{Nonzero}: Success.
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{XMoveWindow}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XMoveWindow(Display* display, w, x, y)
+            \end{cppcode}
+            \bigbreak \noindent
+            Moves the specified window to a new position relative to its parent.
+            \begin{itemize}
+                \item $x$, $y$ Specify the $x$ and $y$ coordinates, which define the new location of the top-left pixel of the window’s border or the window itself if it has no border.
+            \end{itemize}
+            \bigbreak \noindent
+            \textbf{Possible errors:}
+            \begin{itemize}
+                \item \textbf{BadWindow}
+            \end{itemize}
+
+        \item \textbf{Dragging windows}: Suppose we want Control + Button1 to move a floating window. Then, for each floating window, we grab that button. 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void enable_drag(Window win) {
+                    XGrabButton(
+                        dp, 
+                        Button1,
+                        CONTROL,
+                        win, 
+                        false,
+                        ButtonPressMask | ButtonReleaseMask | PointerMotionMask,
+                        GrabModeAsync,
+                        GrabModeAsync, 
+                        win, 
+                        cursors.four_df_resize
+                    );
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            With
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #define CONTROL ControlMask
+            cursors.four_df_resize = XCreateFontCursor(dp, XC_fleur);
+            \end{cppcode}
+            \bigbreak \noindent 
+            When ButtonPress is delivered, we can check that it is indeed Button1 + ControlMask on a floating window, then set an internal move mode to true for that window. When ButtonRelease is delivered, we can disable the internal move mode.
+            \bigbreak \noindent 
+            When MotionNotify is delivered in a floating window with an internal move mode set to true, we can then move that window based on current position of the window and new cursor position.
+
+
+    \end{itemize}
+
+
+    \pagebreak 
+    \subsection{Workspaces}
+    \begin{itemize}
+        \item \textbf{Root window:} In the X Window System architecture, the root window is a hardware-level entity created and managed directly by the X server, spanning the full size of the physical screen or display. A standard X11 display session has exactly one root window per screen. So, all workspaces share the same root and display connection.
+        \item \textbf{A simple structure}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct Workspace {
+                    ClientList* client_list;
+                    MotionTree* motion_tree;
+                    ... other per-workspace structures
+                    Client* current_focus;
+                } Workspace;
+
+                typedef struct Workspaces {
+                    Workspace spaces[N_WORKSPACES];
+                } Workspaces;
+            \end{cppcode}
+            \bigbreak \noindent 
+            Then, we can maintain a global \texttt{Workspaces} structure and \texttt{current\_workspace} number.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                extern Workspaces workspaces;
+                extern int current_workspace;
+            \end{cppcode}
 
     \end{itemize}
 

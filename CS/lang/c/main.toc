@@ -29,3 +29,7 @@
 \contentsline {section}{\numberline {11}Memory allocator}{64}{section.0.11}%
 \contentsline {section}{\numberline {12}Libraries}{76}{section.0.12}%
 \contentsline {section}{\numberline {13}Finding memory leaks}{79}{section.0.13}%
+\contentsline {section}{\numberline {14}Unix / POSIX}{83}{section.0.14}%
+\contentsline {subsection}{\numberline {14.1}unistd.h and sys/types.h}{83}{subsection.0.14.1}%
+\contentsline {section}{\numberline {15}GCC complier flags}{91}{section.0.15}%
+\contentsline {subsection}{\numberline {15.1}Warnings}{91}{subsection.0.15.1}%

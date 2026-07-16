@@ -1,0 +1,22 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cm}{/* Return the process ID of the calling process. */}
+\PYG{k+kt}{pid\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{getpid}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Get the session ID of a process. */}
+\PYG{k+kt}{pid\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{getsid}\PYG{p}{(}\PYG{k+kt}{pid\PYGZus{}t}\PYG{+w}{ }\PYG{n}{pid}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Return the real user ID of the calling process. */}
+\PYG{k+kt}{uid\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{getuid}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Create a unidirectional pipe with read and write ends. */}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{pipe}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{pipefd}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Read bytes from a file descriptor into a buffer. */}
+\PYG{k+kt}{ssize\PYGZus{}t}\PYG{+w}{ }\PYG{n+nf}{read}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{fd}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{buf}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{size\PYGZus{}t}\PYG{+w}{ }\PYG{n}{count}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Remove an empty directory. */}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{rmdir}\PYG{p}{(}\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{path}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+cm}{/* Change the current working directory. */}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{chdir}\PYG{p}{(}\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{path}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

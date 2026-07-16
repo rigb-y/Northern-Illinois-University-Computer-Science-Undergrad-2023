@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{typedef}\PYG{+w}{ }\PYG{k}{struct}\PYG{+w}{ }\PYG{n+nc}{Workspace}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{ClientList}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{client\PYGZus{}list}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{MotionTree}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{motion\PYGZus{}tree}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{.}\PYG{p}{.}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{other}\PYG{+w}{ }\PYG{n}{per}\PYG{o}{\PYGZhy{}}\PYG{n}{workspace}\PYG{+w}{ }\PYG{n}{structures}
+\PYG{+w}{    }\PYG{n}{Client}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{current\PYGZus{}focus}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{Workspace}\PYG{p}{;}
+
+\PYG{k}{typedef}\PYG{+w}{ }\PYG{k}{struct}\PYG{+w}{ }\PYG{n+nc}{Workspaces}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{Workspace}\PYG{+w}{ }\PYG{n}{spaces}\PYG{p}{[}\PYG{n}{N\PYGZus{}WORKSPACES}\PYG{p}{]}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{Workspaces}\PYG{p}{;}
+\end{MintedVerbatim}
