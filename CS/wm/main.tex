@@ -2054,6 +2054,21 @@
             \end{cppcode}
             \bigbreak \noindent 
             The input field participates in ICCCM focus handling. UrgencyHint means the client wants attention; the ICCCM says the WM must make some effort to draw the user’s attention while this flag is set.
+            \begin{itemize}
+                \item \textbf{InputHint:} input field is valid. Tells the WM whether the client expects keyboard focus via XSetInputFocus().
+                \item \textbf{StateHint:} initial\_state is valid. Historically suggests whether the client should start NormalState, IconicState, etc.
+                \item \textbf{IconPixmapHint:} icon\_pixmap is valid. Client provides a pixmap the WM may use as its icon.
+                \item \textbf{IconWindowHint:} icon\_window is valid. Client provides an actual X window to use as its icon instead of a pixmap.
+                \item \textbf{WindowGroupHint:} window\_group is valid. Associates this window with a group of related windows, often belonging to the same logical application.
+                \item \textbf{UrgencyHint:} the client is requesting the user's attention. For a tiling WM, this commonly maps to an “urgent” workspace/window indicator.
+            \end{itemize}
+            For a modern tiling WM, the most relevant ones are usually:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                InputHint
+                WindowGroupHint
+                UrgencyHint
+            \end{cppcode}
         \item \textbf{Focus models and WM\_TAKE\_FOCUS}: ICCCM defines four input models:
             \bigbreak \noindent 
             ICCCM defines four input models:
@@ -2134,7 +2149,7 @@
                     \bigbreak \noindent 
                     ICCCM says No Input and Globally Active clients set input = False, which requests that the WM not set input focus to their top-level window
             \end{enumerate}
-        \item \textbf{What is WM\_TAKE\_FOCUS}: WM_TAKE_FOCUS is not a function call. It is an atom used inside a ClientMessage. The client advertises support for it by setting:
+        \item \textbf{What is WM\_TAKE\_FOCUS}: WM\_TAKE\_FOCUS is not a function call. It is an atom used inside a ClientMessage. The client advertises support for it by setting:
             \bigbreak \noindent 
             \begin{cppcode}
                 WM_PROTOCOLS = [..., WM_TAKE_FOCUS, ...]
@@ -4411,6 +4426,217 @@
                 extern Workspaces workspaces;
                 extern int current_workspace;
             \end{cppcode}
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{ICCCM}
+    \begin{itemize}
+        \item \textbf{Headers}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #include <X11/Xutil.h>
+            #include <X11/Xatom.h>
+            \end{cppcode}
+        \item \textbf{Structures}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    unsigned char *value;       /* property data */
+                    Atom encoding;              /* type of property */
+                    int format;                 /* 8, 16, or 32 */
+                    unsigned long nitems;       /* number of items in value */
+                } XTextProperty;
+            \end{cppcode}
+            \begin{cppcode}
+                * Window manager hints mask bits */
+                #define InputHint               (1L << 0)
+                #define StateHint               (1L << 1)
+                #define IconPixmapHint          (1L << 2)
+                #define IconWindowHint          (1L << 3)
+                #define IconPositionHint        (1L << 4)
+                #define IconMaskHint            (1L << 5)
+                #define WindowGroupHint         (1L << 6)
+                #define UrgencyHint             (1L << 8)
+                #define AllHints                (InputHint|StateHint|IconPixmapHint|
+                                                IconWindowHint|IconPositionHint|
+                                                IconMaskHint|WindowGroupHint)
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    long flags;                 /* marks which fields in this structure are defined */
+                    Bool input;                 /* does this application rely on the window manager to get keyboard input? */
+                    int initial_state;          /* see below */
+                    Pixmap icon_pixmap;         /* pixmap to be used as icon */
+                    Window icon_window;         /* window to be used as icon */
+                    int icon_x, icon_y;         /* initial position of icon */
+                    Pixmap icon_mask;           /* pixmap to be used as mask for icon_pixmap */
+                    XID window_group;           /* id of related window group */
+                    /* this structure may be extended in the future */
+                } XWMHints;
+            \end{cppcode}
+            \begin{cppcode}
+                #define WithdrawnState 0
+                #define NormalState 1           /* most applications start this way */
+                #define IconicState 3           /* application wants to start as an icon */
+            \end{cppcode}
+            \begin{cppcode}
+                /* Size hints mask bits */
+                #define USPosition      (1L << 0)       /* user specified x, y */
+                #define USSize          (1L << 1)       /* user specified width, height */
+                #define PPosition       (1L << 2)       /* program specified position */
+                #define PSize           (1L << 3)       /* program specified size */
+                #define PMinSize        (1L << 4)       /* program specified minimum size */
+                #define PMaxSize        (1L << 5)       /* program specified maximum size */
+                #define PResizeInc      (1L << 6)       /* program specified resize increments */
+                #define PAspect         (1L << 7)       /* program specified min and max aspect ratios */
+                #define PBaseSize       (1L << 8)
+                #define PWinGravity     (1L << 9)
+                #define PAllHints   (PPosition|PSize| PMinSize|PMaxSize| PResizeInc|PAspect)
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    long flags;                     /* marks which fields in this structure are defined */
+                    int x, y;                       /* Obsolete */
+                    int width, height;              /* Obsolete */
+                    int min_width, min_height;
+                    int max_width, max_height;
+                    int width_inc, height_inc;
+
+                    struct {
+                        int x;                      /* numerator */
+                        int y;                      /* denominator */
+                    } min_aspect, max_aspect;
+
+                    int base_width, base_height;
+                    int win_gravity;
+                    /* this structure may be extended in the future */
+                } XSizeHints;
+            \end{cppcode}
+            \begin{cppcode}
+                typedef struct {
+                    char *res_name;
+                    char *res_class;
+                } XClassHint;
+            \end{cppcode}
+            \begin{cppcode}
+            typedef struct {
+                int min_width, min_height;
+                int max_width, max_height;
+                int width_inc, height_inc;
+            } XIconSize;
+            \end{cppcode}
+
+        \item \textbf{Allocating XSizeHints}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XSizeHints *XAllocSizeHints()
+            \end{cppcode}
+            \bigbreak \noindent
+            Allocates and returns an XSizeHints structure.
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented. Returns \texttt{NULL} if insufficient client memory is available.
+            \end{itemize}
+        \item \textbf{Reading WM\_NORMAL\_HINTS (size hints)}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            Status XGetWMNormalHints(Display* display, Window w, XSizeHints* hints_return, long* supplied_return)
+            \end{cppcode}
+            \bigbreak \noindent
+            Retrieves the normal size hints for the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window.
+                \item hints\_return Returns the size hints for the window in its normal state.
+                \item supplied\_return Returns the hints that were supplied by the user.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: \texttt{BadWindow}.
+                \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
+            \end{itemize}
+
+        \item \textbf{Allocating XWMHints}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XWMHints *XAllocWMHints()
+            \end{cppcode}
+            \bigbreak \noindent
+            Allocates and returns an XWMHints structure.
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented. Returns \texttt{NULL} if insufficient client memory is available.
+            \end{itemize}
+
+        \item \textbf{Reading WM\_HINTS}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XWMHints *XGetWMHints(display, w)
+            \end{cppcode}
+            \bigbreak \noindent
+            Retrieves the window manager hints property from the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: \texttt{BadWindow}.
+            \end{itemize}
+
+        \item \textbf{Allocating XClassHint}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                XClassHint *XAllocClassHint()
+            \end{cppcode}
+            \bigbreak \noindent
+            Allocates and returns an XClassHint structure.
+            \begin{itemize}
+                \item \textbf{Possible errors}: None documented. Returns \texttt{NULL} if insufficient client memory is available.
+            \end{itemize}
+
+        \item \textbf{Reading WM\_CLASS}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XGetClassHint(Display* display, Window w, XClassHint* class_hints_return)
+            \end{cppcode}
+            \bigbreak \noindent
+            Retrieves the resource class and resource name hints for the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window.
+                \item class\_hints\_return Returns the XClassHint structure.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: \texttt{BadWindow}.
+                \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
+            \end{itemize}
+        \item \textbf{Reading WM\_PROTOCOLS}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XGetWMProtocols(Display* display, Window w, Atom** protocols_return, int* count_return)
+            \end{cppcode}
+            \bigbreak \noindent
+            Retrieves the list of window manager protocols supported by the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window.
+                \item protocols\_return Returns the list of protocols.
+                \item count\_return Returns the number of protocols in the list.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}: \texttt{BadWindow}.
+                \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
+            \end{itemize}
+            \textbf{Note:} The important protocols are 
+            \begin{itemize}
+                \item \textbf{WM\_TAKE\_FOCUS}
+                \item \textbf{WM\_DELETE\_WINDOW}
+            \end{itemize}
+
+
+
+
+
+
+
+
 
     \end{itemize}
 

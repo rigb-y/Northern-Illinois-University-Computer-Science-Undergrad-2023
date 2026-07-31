@@ -5861,12 +5861,10 @@
             \end{cppcode}
             \bigbreak \noindent
             Retrieves the window manager hints property from the specified window.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}: \texttt{BadWindow}.
             \end{itemize}
@@ -5902,14 +5900,12 @@
             \end{cppcode}
             \bigbreak \noindent
             Retrieves the normal size hints for the specified window.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
                 \item hints\_return Returns the size hints for the window in its normal state.
                 \item supplied\_return Returns the hints that were supplied by the user.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}: \texttt{BadWindow}.
                 \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
@@ -5943,7 +5939,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Retrieves size hints from the specified window using the given property.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -5951,7 +5946,6 @@
                 \item supplied\_return Returns the hints that were supplied by the user.
                 \item property Specifies the property name.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}: \texttt{BadAtom}, \texttt{BadWindow}.
                 \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.
@@ -5962,7 +5956,6 @@
             \end{cppcode}
             \bigbreak \noindent
             Allocates and returns an XClassHint structure.
-
             \begin{itemize}
                 \item \textbf{Possible errors}: None documented. Returns \texttt{NULL} if insufficient client memory is available.
             \end{itemize}
@@ -5972,13 +5965,11 @@
             \end{cppcode}
             \bigbreak \noindent
             Sets the resource class and resource name hints for the specified window.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
                 \item class\_hints Specifies the XClassHint structure that is to be used.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}: \texttt{BadAlloc}, \texttt{BadWindow}.
             \end{itemize}
@@ -5988,13 +5979,11 @@
             \end{cppcode}
             \bigbreak \noindent
             Retrieves the resource class and resource name hints for the specified window.
-
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
                 \item class\_hints\_return Returns the XClassHint structure.
             \end{itemize}
-
             \begin{itemize}
                 \item \textbf{Possible errors}: \texttt{BadWindow}.
                 \item \textbf{Possible Status identifiers}: \texttt{True}, \texttt{False}.

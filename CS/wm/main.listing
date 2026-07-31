@@ -1,2 +1,1 @@
-                extern Workspaces workspaces;
-                extern int current_workspace;
+                Status XGetWMProtocols(Display* display, Window w, Atom** protocols_return, int* count_return)

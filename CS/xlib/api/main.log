@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  15 JUL 2026 10:36
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  27 JUL 2026 18:52
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260715103627 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260727185221 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260715103627 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260727185221 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/00F536CC4EEFFC3ADBBE7C333C017518.highlight.minted) [3]
 \openout7 = main.listing
  (./_minted/FC2992C8A187854151600D5CBDB3B0D8.highlight.minted)
@@ -2691,7 +2691,7 @@ Here is how much of LuaTeX's memory you used:
  71 fonts using 5225559 bytes
  99i,13n,108p,815b,1428s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
-Output written on main.pdf (134 pages, 386095 bytes).
+Output written on main.pdf (134 pages, 386098 bytes).
 
 PDF statistics: 800 PDF objects out of 1000 (max. 8388607)
  608 compressed objects within 7 object streams

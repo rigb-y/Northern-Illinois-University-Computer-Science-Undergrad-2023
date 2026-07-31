@@ -296,6 +296,7 @@
             \begin{cppcode}
             Display *XOpenDisplay(char* display_name)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display\_name} Specifies the hardware display name, which determines the display and communications domain to be used. On a POSIX-conformant system, if the display\_name is NULL, it defaults to the value of the DISPLAY environment variable.
             \end{itemize}
@@ -375,6 +376,7 @@
             BlackPixel(display, screen_number) 
             unsigned long XBlackPixel (display, screen_number)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item screen\_number Specifies the appropriate screen number on the host server.
@@ -414,6 +416,7 @@
             \begin{cppcode}
             int* XListDepths(display, screen_number, count_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item count\_return returns the number of depths
             \end{itemize}
@@ -578,6 +581,7 @@
             XYPixmap
             ZPixmap
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{Z format (ZPixmap)}: ZPixmap stores pixels pixel-by-pixel. Each pixel value contains all of its plane bits together. For a 24-bit image, one pixel might contain something like: 
                     \begin{center}
@@ -800,6 +804,7 @@
                 DefaultColormapOfScreen (screen)
                 Colormap XDefaultColormapOfScreen (screen)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{Screen* screen}: screen Specifies the appropriate Screen structure.
             \end{itemize}
@@ -944,6 +949,7 @@
             \begin{cppcode}
                 XSetCloseDownMode (Display* display, int close_mode)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{close\_mode}: close\_mode Specifies the client close-down mode. You can pass \textbf{DestroyAll,} \textbf{RetainPermanent,} or \textbf{RetainTemporary.}
             \end{itemize}
@@ -962,6 +968,7 @@
             SECONDARY
             CLIPBOARD
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{PRIMARY}    usually the currently highlighted text
                 \item \textbf{CLIPBOARD}  usually explicit copy/paste, like Ctrl+C / Ctrl+V
@@ -1031,6 +1038,7 @@
             SelectionRequest
             SelectionNotify
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{SelectionClear}: You lost ownership of the selection.
                 \item \textbf{SelectionRequest}: Another client is asking you for the selection data.
@@ -1064,6 +1072,7 @@
                 Time time
             );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display	Specifies the connection to the X server.
                 \item grab\_window	Specifies the grab window.
@@ -1090,6 +1099,7 @@
                     Time time
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display	Specifies the connection to the X server.
                 \item grab\_window	Specifies the grab window.
@@ -1133,6 +1143,7 @@
                     int keyboard_mode
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display	Specifies the connection to the X server.
                 \item keycode	Specifies the KeyCode or \textbf{AnyKey.}
@@ -1160,6 +1171,7 @@
                     Cursor cursor
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display	Specifies the connection to the X server.
                 \item button	Specifies the pointer button that is to be grabbed or \textbf{AnyButton.}
@@ -1216,6 +1228,7 @@
                     Time time
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display	Specifies the connection to the X server.
                 \item event\_mode	Specifies the event mode. You can pass \textbf{AsyncPointer,} \textbf{SyncPointer,} \textbf{AsyncKeyboard,} \textbf{SyncKeyboard,} \textbf{ReplayPointer,} \textbf{ReplayKeyboard,} \textbf{AsyncBoth,} or \textbf{SyncBoth.}
@@ -1353,6 +1366,7 @@
 
                 Status XAddConnectionWatch (Display* display, XConnectionWatchProc procedure, XPointer client_data)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item procedure Specifies the procedure to be called.
                 \item client\_data Specifies the additional client data.
@@ -1469,6 +1483,7 @@
                     int* nitems_return
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item vinfo\_mask	Specifies the visual mask value.
                 \item vinfo\_template	Specifies the visual attributes that are to be used in matching the visual structures.
@@ -1504,6 +1519,7 @@
                     &nitems
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{Class}: The class field tells you what kind of color model the visual uses. There are six visual classes
                     \begin{enumerate}
@@ -1641,6 +1657,7 @@
                     Cursor cursor;                  /* cursor to be displayed (or None) */
                 } XSetWindowAttributes;
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{background\_pixmap}: Background\_pixmap is a pixmap resource used as a tiled background. It can be:
                     \bigbreak \noindent 
@@ -1649,6 +1666,7 @@
                         ParentRelative
                         some_pixmap
                     \end{cppcode}
+                    \bigbreak \noindent
                     \begin{itemize}
                         \item \textbf{None:} None means the window has no automatic background. X will not repaint the background for you.
                         \item \textbf{ParentRelative}: ParentRelative means the window uses the parent window’s background. This is only valid for windows with the same depth as the parent.
@@ -1841,6 +1859,7 @@
                     XSetWindowAttributes* attributes
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{parent}: Specifies the parent window.
@@ -1875,6 +1894,7 @@
                     unsigned long background
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the $X$ server.
                 \item \textbf{parent}: Specifies the parent window.
@@ -2104,6 +2124,7 @@
             \begin{cppcode}
                 XConfigureWindow(Display* display, Window w, unsigned int value_mask, XWindowChanges* values)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item value\_mask Specifies which values are to be set using information in the values structure. This mask is the bitwise inclusive OR of the valid configure window values bits.
                 \item values Specifies the \textbf{XWindowChanges} structure.
@@ -2121,6 +2142,7 @@
             \begin{cppcode}
                 XMoveWindow(display, w, x, y)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item $x$, $y$ Specify the $x$ and $y$ coordinates, which define the new location of the top-left pixel of the window’s border or the window itself if it has no border.
             \end{itemize}
@@ -2135,6 +2157,7 @@
             \begin{cppcode}
                 XResizeWindow(Display* display, Window w, unsigned int width, unsigned int height)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item width, height Specify the width and height, which are the interior dimensions of the window after the call completes.
             \end{itemize}
@@ -2148,6 +2171,7 @@
             \begin{cppcode}
                 XMoveResizeWindow(Display* display, Window w, int $x$, int y, unsigned int width, unsigned int height)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item $x$, $y$ Specify the $x$ and $y$ coordinates, which define the new position of the window relative to its parent.
                 \item width, height Specify the width and height, which define the interior size of the window.
@@ -2197,6 +2221,7 @@
             \begin{cppcode}
                 XCirculateSubwindows(Display* display, Window w, int direction)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item direction Specifies the direction (up or down) that you want to circulate the window. You can pass \textbf{RaiseLowest} or \textbf{LowerHighest.}
             \end{itemize}
@@ -2227,6 +2252,7 @@
             \begin{cppcode}
                 XRestackWindows (Display* display, Window windows[], int nwindows);
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item windows Specifies an array containing the windows to be restacked.
                 \item nwindows Specifies the number of windows to be restacked.
@@ -2283,6 +2309,7 @@
             \begin{cppcode}
                 XChangeWindowAttributes(Display* display, Window w, unsigned long valuemask, XSetWindowAttributes* attributes)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item valuemask Specifies which window attributes are defined in the attributes argument. This mask is the bitwise inclusive OR of the valid attribute mask bits. If valuemask is zero, the attributes are ignored and are not referenced. The values and restrictions are the same as for XCreateWindow.
                 \item attributes Specifies the structure from which the values (as specified by the value mask) are to be taken. The value mask should have the appropriate bits set to indicate which attributes have been set in the structure
@@ -2298,6 +2325,7 @@
             \begin{cppcode}
                 XSetWindowBackground (Display* display, Window w, unsigned long background_pixel)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item background\_pixel Specifies the pixel that is to be used for the background.
             \end{itemize}
@@ -2322,6 +2350,7 @@
             \begin{cppcode}
                 XSetWindowBorder (display, w, unsigned long border_pixel)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item border\_pixel Specifies the entry in the colormap.
             \end{itemize}
@@ -2334,6 +2363,7 @@
             \begin{cppcode}
                 XSetWindowBorderPixmap (display, w, Pixmap border_pixmap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item border\_pixmap Specifies the border pixmap or CopyFromParent.
             \end{itemize}
@@ -2355,6 +2385,7 @@
             \begin{cppcode}
                 XDefineCursor (display, w, Cursor cursor)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item cursor Specifies the cursor that is to be displayed or None.
             \end{itemize}
@@ -2389,6 +2420,7 @@
             \begin{cppcode}
             Status XQueryTree (Display* display, Window w, Window* root_return, Window* parent_return, Window** children_return, unsigned int* nchildren_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item root\_return Returns the root window.
                 \item parent\_return Returns the parent window.
@@ -2404,6 +2436,7 @@
             \begin{cppcode}
                 Status XGetWindowAttributes (display, w, XWindowAttributes* window_attributes_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{window\_attributes\_return}: Returns the specified window’s attributes in the XWindowAttributes structure.
             \end{itemize}
@@ -2488,6 +2521,7 @@
                     unsigned int* depth_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item d Specifies the drawable, which can be a window or a pixmap.
                 \item root\_return Returns the root window.
@@ -2512,6 +2546,7 @@
                     Window* child_return
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item src\_w Specifies the source window.
@@ -2536,6 +2571,7 @@
                     unsigned int* mask_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -2661,6 +2697,7 @@
         \begin{cppcode}
             Atom XInternAtom(Display* display, char* atom_name, Bool only_if_exists)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item atom\_name Specifies the name associated with the atom you want returned.
@@ -2675,6 +2712,7 @@
         \begin{cppcode}
             Status XInternAtoms(Display* display, char** names, int count, Bool only_if_exists, Atom* atoms_return)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item names Specifies the array of atom names.
@@ -2691,6 +2729,7 @@
         \begin{cppcode}
         char *XGetAtomName(Display display, Atom atom)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item atom Specifies the atom for the property name you want returned.
@@ -2704,6 +2743,7 @@
         \begin{cppcode}
             Status XGetAtomNames(Display* display, Atom* atoms, int count, char** names_return)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item atoms Specifies the array of atoms.
@@ -2740,6 +2780,7 @@
                 unsigned char** prop_return
             )
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window whose property you want to obtain.
@@ -2802,6 +2843,7 @@
         \begin{cppcode}
             Atom* XListProperties(Display* display, Window w, int* num_prop_return)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window whose property list you want to obtain.
@@ -2824,6 +2866,7 @@
                 int nelements
             )
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window whose property you want to change.
@@ -2850,6 +2893,7 @@
         \begin{cppcode}
             XRotateWindowProperties (display, w, properties, num_prop, npositions)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window.
@@ -2899,6 +2943,7 @@
         \begin{cppcode}
             XDeleteProperty (display, w, property)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window whose property you want to delete.
@@ -2953,6 +2998,7 @@
         \begin{cppcode}
             XSetSelectionOwner(Display* display, Atom selection, Window owner, Time time)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item selection Specifies the selection atom.
@@ -2972,6 +3018,7 @@
         \begin{cppcode}
             Window XGetSelectionOwner (Display* display, Atom selection)
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item selection Specifies the selection atom whose owner you want returned.
@@ -2992,6 +3039,7 @@
                 Time time
             )
         \end{cppcode}
+        \bigbreak \noindent
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item selection Specifies the selection atom.
@@ -3074,6 +3122,7 @@
             \begin{cppcode}
                 Pixmap XCreatePixmap(Display* display, Drawable d, unsigned int width, unsigned int height, unsigned int depth)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item d Specifies which screen the pixmap is created on.
@@ -3093,6 +3142,7 @@
             \begin{cppcode}
                 XFreePixmap(Display* display, Pixmap pixmap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item pixmap Specifies the pixmap.
@@ -3292,6 +3342,7 @@
 
                 Cursor XCreateFontCursor(Display *display, unsigned int shape);
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display} specifies the connection to the X server.
                 \item \textit{shape} specifies the shape of the cursor.
@@ -3318,6 +3369,7 @@
                     XColor *background_color
                 );
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display} specifies the connection to the X server.
                 \item \textit{source\_font} specifies the font for the source glyph.
@@ -3414,6 +3466,7 @@
                     unsigned int* width_return, height_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display} Specifies the connection to the X server.
                 \item \textit{d} Specifies the drawable, which indicates the screen.
@@ -3429,6 +3482,7 @@
             \begin{cppcode}
                 XRecolorCursor (display, cursor, foreground_color, background_color)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item cursor Specifies the cursor.
@@ -3444,6 +3498,7 @@
             \begin{cppcode}
                 XFreeCursor(display, cursor)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item cursor Specifies the cursor.
@@ -3721,6 +3776,7 @@
                     int alloc
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{w}: Specifies the window on whose screen you want to create a colormap.
@@ -3744,6 +3800,7 @@
                     Colormap colormap
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{colormap}: Specifies the colormap.
@@ -3784,6 +3841,7 @@
             \begin{cppcode}
                 XFreeColormap(Display *display, Colormap colormap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{colormap}: Specifies the colormap that you want to destroy.
@@ -3806,6 +3864,7 @@
                     XColor *screen_def_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{colormap}: Specifies the colormap.
@@ -3828,6 +3887,7 @@
                     XColor *exact_def_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{colormap}: Specifies the colormap.
@@ -3851,6 +3911,7 @@
                     XcmsColorFormat result_format
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textbf{display}: Specifies the connection to the X server.
                 \item \textbf{colormap}: Specifies the colormap.
@@ -3887,6 +3948,7 @@
                     XColor *screen_in_out
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -3907,6 +3969,7 @@
                     XcmsColorFormat result_format
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -3929,6 +3992,7 @@
                     XColor *exact_def_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -3953,6 +4017,7 @@
                     XcmsColorFormat result_format
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -3981,6 +4046,7 @@
                     unsigned int npixels
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4016,6 +4082,7 @@
                     unsigned long *bmask_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4074,6 +4141,7 @@
                     unsigned long planes
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4098,6 +4166,7 @@
                     XColor *color
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4120,6 +4189,7 @@
                     int ncolors
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4142,6 +4212,7 @@
                     XcmsColor *color
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4167,6 +4238,7 @@
                     Bool compression_flags_return[]
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4194,6 +4266,7 @@
                     int flags
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4219,6 +4292,7 @@
                     XColor *def_in_out
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4239,6 +4313,7 @@
                     int ncolors
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4260,6 +4335,7 @@
                     XcmsColorFormat result_format
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4282,6 +4358,7 @@
                     XcmsColorFormat result_format
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item \textit{display}: Specifies the connection to the X server.
                 \item \textit{colormap}: Specifies the colormap.
@@ -4383,6 +4460,7 @@
             \begin{cppcode}
             XReparentWindow(Display* display, Window w, Window parent, int x, int y)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -4411,6 +4489,7 @@
             \begin{cppcode}
                 XChangeSaveSet(Display* display, Window w, int change_mode)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window that you want to add to or delete from the client’s save-set.
@@ -4425,6 +4504,7 @@
             \begin{cppcode}
             XAddToSaveSet(Display* display, Window w)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window that you want to add to the client’s save-set.
@@ -4438,6 +4518,7 @@
             \begin{cppcode}
             XRemoveFromSaveSet(Display* display, Window w)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window that you want to delete from the client’s save-set.
@@ -4454,6 +4535,7 @@
             \begin{cppcode}
                 XInstallColormap(Display* display, Colormap colormap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item colormap Specifies the colormap.
@@ -4469,6 +4551,7 @@
             \begin{cppcode}
                 XUninstallColormap(Display* display, Colormap colormap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item colormap Specifies the colormap.
@@ -4484,6 +4567,7 @@
             \begin{cppcode}
             Colormap *XListInstalledColormaps(Display* display, Window w, int* num_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window that determines the screen.
@@ -4499,6 +4583,7 @@
             \begin{cppcode}
             XSetFontPath(Display* display, char** directories, int ndirs)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item directories Specifies the directory path used to look for a font. Setting the path to the empty list restores the default path defined for the X server.
@@ -4513,6 +4598,7 @@
             \begin{cppcode}
             char** XGetFontPath(Display* display, int* npaths_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item npaths\_return Returns the number of strings in the font path array.
@@ -4522,6 +4608,7 @@
             \begin{cppcode}
             XFreeFontPath(char** list)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item list Specifies the array of strings you want to free.
             \end{itemize}
@@ -4533,6 +4620,7 @@
             \begin{cppcode}
                 XGrabServer(Display* display)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
             \end{itemize}
@@ -4543,6 +4631,7 @@
             \begin{cppcode}
                 XUngrabServer(Display* display)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
             \end{itemize}
@@ -4552,6 +4641,7 @@
             \begin{cppcode}
                 XKillClient(Display* display, XID resource)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item resource Specifies any resource associated with the client that you want to destroy or AllTemporary
@@ -4566,6 +4656,7 @@
             \begin{cppcode}
             XSetScreenSaver(Display* display, int timeout, int interval, int prefer_blanking, int allow_exposures)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item timeout Specifies the timeout, in seconds, until the screen saver turns on.
@@ -4586,6 +4677,7 @@
             \begin{cppcode}
             XForceScreenSaver(Display* display, int mode)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item mode Specifies the mode that is to be applied. You can pass ScreenSaverActive or ScreenSaverReset
@@ -4616,6 +4708,7 @@
                     int* allow_exposures_return
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item timeout\_return Returns the timeout, in seconds, until the screen saver turns on.
@@ -5762,6 +5855,7 @@
             \begin{cppcode}
             XNextEvent (Display* display, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_return Returns the next event in the queue
@@ -5782,6 +5876,7 @@
             \begin{cppcode}
             Bool (*predicate)(Display* display, XEvent* event, XPointer arg)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event Specifies the XEvent structure.
@@ -5799,6 +5894,7 @@
                     XPointer arg
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event_return Returns the matched event’s associated structure.
@@ -5812,6 +5908,7 @@
             \begin{cppcode}
             Bool XCheckIfEvent (Display* display, XEvent event_return, predicate, XPointer arg)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_return Returns a copy of the matched event’s associated structure.
@@ -5825,6 +5922,7 @@
             \begin{cppcode}
             XPeekIfEvent (Display* display, XEvent* event_return, predicate, XPointer arg)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_return Returns a copy of the matched event’s associated structure.
@@ -5840,6 +5938,7 @@
             \begin{cppcode}
             XWindowEvent(Display* display, Window w, long event_mask, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window whose events you are interested in.
@@ -5854,6 +5953,7 @@
             \begin{cppcode}
             Bool XCheckWindowEvent(Display* display, Window w, long event_mask, XEvent event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window whose events you are interested in.
@@ -5867,6 +5967,7 @@
             \begin{cppcode}
             XMaskEvent(Display* display, long event_mask, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event_mask Specifies the event mask.
@@ -5879,6 +5980,7 @@
             \begin{cppcode}
             Bool XCheckMaskEvent(Display* display, long event_mask, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_mask Specifies the event mask.
@@ -5893,6 +5995,7 @@
             \begin{cppcode}
                 Bool XCheckTypedEvent(Display* display, int event_type, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_type Specifies the event type to be compared.
@@ -5905,6 +6008,7 @@
             \begin{cppcode}
             Bool XCheckTypedWindowEvent(Display* display, Window w, int event_type, XEvent* event_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -5917,6 +6021,7 @@
             \begin{cppcode}
             XPutBackEvent (Display* display, XEvent* event)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event Specifies the event
@@ -5927,6 +6032,7 @@
             \begin{cppcode}
             Status XSendEvent (Display* display, Window w, Bool propagate, long event_mask, XEvent* event_send)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window the event is to be sent to, or PointerWindow, or InputFocus.
@@ -5978,6 +6084,7 @@
             \begin{cppcode}
             XTimeCoord* XGetMotionEvents(Display* display, Window w, Time start, Time stop, int* nevents_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -5995,6 +6102,7 @@
             \begin{cppcode}
             int (*XSetAfterFunction(Display* display, int (*procedure)()))()
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item procedure Specifies the procedure to be called.
@@ -6006,6 +6114,7 @@
             \begin{cppcode}
             int (*XSynchronize(Display* display, Bool onoff))()
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item onoff Specifies a Boolean value that indicates whether to enable or disable synchronization.
@@ -6020,6 +6129,7 @@
                 int (*XSetErrorHandler(handler))(Display*, XErrorEvent*)
                     int (*handler)(Display *, XErrorEvent *)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item handler Specifies the program’s supplied error handler.
             \end{itemize}
@@ -6086,6 +6196,7 @@
             \begin{cppcode}
                 XGetErrorText(Display* display, int code, char* buffer_return, int length)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item code Specifies the error code for which you want to obtain a description.
@@ -6106,6 +6217,7 @@
                     int length
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item name Specifies the name of the application.
@@ -6127,6 +6239,7 @@
             \begin{cppcode}
             char* XDisplayName(char* string);
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item string specifies the character string
             \end{itemize}
@@ -6138,6 +6251,7 @@
                 int (*XSetIOErrorHandler(handler))()
                     int (*handler)(Display *);
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item handler Specifies the program’s supplied error handler.
             \end{itemize}
@@ -6187,6 +6301,7 @@
                 Time time
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item grab\_window Specifies the grab window.
@@ -6226,6 +6341,7 @@
             \begin{cppcode}
                 XUngrabPointer(Display* display, Time time)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item time Specifies the time. You can pass either a timestamp or CurrentTi
@@ -6236,6 +6352,7 @@
             \begin{cppcode}
                 XChangeActivePointerGrab (Display* display, unsigned int event_mask, Cursor cursor, Time time)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Speciﬁes the connection to the X server.
                 \item event\_mask Speciﬁes which pointer events are reported to the client. The mask is the bitwise
@@ -6260,6 +6377,7 @@
                 Cursor cursor
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item button Specifies the pointer button that is to be grabbed or AnyButton.
@@ -6339,6 +6457,7 @@
                     Time time
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item grab\_window Specifies the grab window.
@@ -6362,6 +6481,7 @@
             \begin{cppcode}
             XUngrabKeyboard(display, time);
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item time Specifies the time. You can pass either a timestamp or CurrentTime.
@@ -6381,6 +6501,7 @@
                     int pointer_mode, keyboard_mode
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item keycode Specifies the KeyCode or AnyKey.
@@ -6409,6 +6530,7 @@
             \begin{cppcode}
                 XUngrabKey (Display display, int keycode, unsigned int modifiers, Window grab_window)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item keycode Specifies the KeyCode or AnyKey.
@@ -6426,6 +6548,7 @@
             \begin{cppcode}
             XAllowEvents(Display* display, int event_mode, Time time)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item event\_mode Specifies the event mode. You can pass AsyncPointer, SyncPointer, AsyncKeyboard, SyncKeyboard, ReplayPointer, ReplayKeyboard, AsyncBoth, or SyncBoth.
@@ -6462,6 +6585,7 @@
                     dest_x, dest_y
                 )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item src\_w Specifies the source window or None.
@@ -6484,6 +6608,7 @@
             \begin{cppcode}
             XSetInputFocus(Display* display, Window focus, int revert_to, Time time)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item focus Specifies the window, PointerRoot, or None.
@@ -6512,6 +6637,7 @@
             \begin{cppcode}
             XGetInputFocus (Display* display, Window* focus_return, int* revert_to_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item focus\_return Returns the focus window, PointerRoot, or None.
@@ -6562,6 +6688,7 @@
             \begin{cppcode}
             XChangeKeyboardControl(Display* display, unsigned long value_mask, XKeyboardControl values)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item value\_mask Specifies which controls to change. This mask is the bitwise inclusive OR of the valid control mask bits.
@@ -6576,6 +6703,7 @@
             \begin{cppcode}
             XGetKeyboardControl(Display* display, XKeyboardState* values_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item values\_return Returns the current keyboard controls in the specified XKeyboardState structure.
@@ -6600,6 +6728,7 @@
             \begin{cppcode}
                 XAutoRepeatOn(Display* display)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
             \end{itemize}
@@ -6610,6 +6739,7 @@
             \begin{cppcode}
                 XAutoRepeatOff(Display* display)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
             \end{itemize}
@@ -6620,6 +6750,7 @@
             \begin{cppcode}
             XBell (Display* display, int percent)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Speciﬁes the connection to the X server.
                 \item percent Speciﬁes the volume for the bell, which can range from −100 to 100 inclusive.
@@ -6635,6 +6766,7 @@
             \begin{cppcode}
                 XQueryKeymap(Display* display, char keys_return[32])
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item keys\_return Returns an array of bytes that identifies which keys are pressed down. Each bit represents one key of the keyboard.
@@ -6648,6 +6780,7 @@
             \begin{cppcode}
             int XSetPointerMapping(display, map, nmap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item map Specifies the mapping list.
@@ -6662,6 +6795,7 @@
             \begin{cppcode}
                 int XGetPointerMapping(Display* display, unsigned char map_return[], int nmap)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item map\_return Returns the mapping list.
@@ -6683,6 +6817,7 @@
                 int threshold
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item do\_accel Specifies a Boolean value that controls whether the values for the accel\_numerator or accel\_denominator are used.
@@ -6705,6 +6840,7 @@
                 int* threshold_return
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item accel\_numerator\_return
@@ -6727,6 +6863,7 @@
             \begin{cppcode}
             KeySym XLookupKeysym(XKeyEvent* key_event, int index)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item key\_event Specifies the KeyPress or KeyRelease event.
                 \item index Specifies the index into the KeySyms list for the event’s KeyCode.
@@ -6738,6 +6875,7 @@
             \begin{cppcode}
             KeySym XKeycodeToKeysym (Display* display, KeyCode keycode, int index)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item keycode Specifies the KeyCode.
@@ -6750,6 +6888,7 @@
             \begin{cppcode}
             KeyCode XKeysymToKeycode(Display* display, KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item keysym Specifies the KeySym that is to be searched for.
@@ -6761,6 +6900,7 @@
             \begin{cppcode}
             XRefreshKeyboardMapping(XMappingEvent* event_map)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item event\_map Specifies the mapping event that is to be used.
             \end{itemize}
@@ -6771,6 +6911,7 @@
             \begin{cppcode}
                 void XConvertCase(KeySym keysym, KeySym* lower_return, KeySym* upper_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be converted.
                 \item upper\_return Returns the uppercase form of keysym, or keysym.
@@ -6783,6 +6924,7 @@
             \begin{cppcode}
             KeySym XStringToKeysym(char* string)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item string Specifies the name of the KeySym that is to be converted.
             \end{itemize}
@@ -6795,6 +6937,7 @@
             \begin{cppcode}
             char *XKeysymToString(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be converted.
             \end{itemize}
@@ -6804,6 +6947,7 @@
             \begin{cppcode}
                 IsCursorKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6812,6 +6956,7 @@
             \begin{cppcode}
                 IsFunctionKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6820,6 +6965,7 @@
             \begin{cppcode}
                 IsKeypadKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6828,6 +6974,7 @@
             \begin{cppcode}
                 IsPrivateKeypadKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6836,6 +6983,7 @@
             \begin{cppcode}
                 IsMiscFunctionKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6844,6 +6992,7 @@
             \begin{cppcode}
                 IsModifierKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6852,6 +7001,7 @@
             \begin{cppcode}
                 IsPFKey(KeySym keysym)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item keysym Specifies the KeySym that is to be tested.
             \end{itemize}
@@ -6920,6 +7070,7 @@
             \begin{cppcode}
                 Status XIconifyWindow(Display* display, Window w, int screen_number)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -6932,6 +7083,7 @@
             \begin{cppcode}
             Status XWithdrawWindow(Display* display, Window w, int screen_number)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -6946,6 +7098,7 @@
             \begin{cppcode}
             Status XReconfigureWMWindow(Display* display, Window w, int screen_number, unsigned int value_mask, XWindowChanges* values)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -6978,6 +7131,7 @@
             \begin{cppcode}
             void XSetTextProperty(Display* display, Window w, XTextProperty* text_prop, Atom property)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -6993,6 +7147,7 @@
             \begin{cppcode}
                 Status XGetTextProperty(Display* display, Window w, XTextProperty* text_prop_return, Atom property)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7011,6 +7166,7 @@
             \begin{cppcode}
                 void XSetWMName(Display* display, Window w, XTextProperty* text_prop)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7023,6 +7179,7 @@
             \begin{cppcode}
             Status XGetWMName(Display* display, Window w, XTextProperty* text_prop_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7037,6 +7194,7 @@
             \begin{cppcode}
             XStoreName(Display* display, Window w, char* window_name)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7053,6 +7211,7 @@
             \begin{cppcode}
             Status XFetchName(Display* display, Window w, char** window_name_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7071,6 +7230,7 @@
             \begin{cppcode}
             void XSetWMIconName(Display* display, Window w, XTextProperty* text_prop)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7083,6 +7243,7 @@
             \begin{cppcode}
                 Status XGetWMIconName(Display* display, Window w, XTextProperty* text_prop_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7097,6 +7258,7 @@
             \begin{cppcode}
             XSetIconName (Display* display, Window w, char* icon_name)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7109,6 +7271,7 @@
             \begin{cppcode}
             Status XGetIconName(Display* display, Window w, char** icon_name_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7180,6 +7343,7 @@
             \begin{cppcode}
             XSetWMHints (Display* display, Window w, XWMHints* wmhints)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7194,6 +7358,7 @@
             \begin{cppcode}
                 XWMHints *XGetWMHints(display, w)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7267,6 +7432,7 @@
             \begin{cppcode}
                 void XSetWMNormalHints(Display* display, Window w, XSizeHints* hints)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7281,6 +7447,7 @@
             \begin{cppcode}
             Status XGetWMNormalHints(Display* display, Window w, XSizeHints* hints_return, long* supplied_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7308,6 +7475,7 @@
             \begin{cppcode}
             void XSetWMSizeHints(Display* display, Window w, XSizeHints* hints, Atom property)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7329,6 +7497,7 @@
                 Atom property
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7377,6 +7546,7 @@
             \begin{cppcode}
             XSetClassHint(Display* display, Window w, XClassHint* class_hints)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7387,6 +7557,7 @@
             \begin{cppcode}
             Status XGetClassHint(Display* display, Window w, XClassHint* class_hints_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7402,11 +7573,13 @@
             \begin{cppcode}
             XSetTransientForHint (Display* display, Window w, Window prop_window)
             \end{cppcode}
+            \bigbreak \noindent 
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
                 \item prop\_window Specifies the window that the WM\_TRANSIENT\_FOR property is to be set to.
             \end{itemize}
+            \bigbreak \noindent 
             The XSetTransientForHint function sets the WM\_TRANSIENT\_FOR property of the specified window to the specified prop\_window.
             \bigbreak \noindent 
             XSetTransientForHint can generate BadAlloc and BadWindow errors.
@@ -7416,6 +7589,7 @@
             \begin{cppcode}
                 Status XGetTransientForHint(Display* display, Window w, Window* prop\_window\_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7431,6 +7605,7 @@
             \begin{cppcode}
                 Status XSetWMProtocols(Display* display, Window w, Atom* protocols, int count)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7446,6 +7621,7 @@
             \begin{cppcode}
                 Status XGetWMProtocols(Display* display, Window w, Atom** protocols_return, int* count_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7463,6 +7639,7 @@
             \begin{cppcode}
                 Status XSetWMColormapWindows(Display* display, Window w, Window* colormap_windows, int count)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item $w$ Specifies the window.
@@ -7478,6 +7655,7 @@
             \begin{cppcode}
             Status XGetWMColormapWindows(Display* display, Window w, Window** colormap_windows_return, int count_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item w Specifies the window.
@@ -7515,6 +7693,7 @@
             \begin{cppcode}
                 XSetIconSizes(Display* display, Window w, XIconSize* size_list, int count)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item w Specifies the window.
@@ -7528,6 +7707,7 @@
             \begin{cppcode}
                 Status XGetIconSizes(Display* display, Window w, XIconSize** size_list_return, int* count_return)
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item w Specifies the window.
@@ -7550,6 +7730,7 @@
                 XClassHint* class_hints
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item w Specifies the window.
@@ -7591,6 +7772,7 @@
                 XClassHint* class_hints
             )
             \end{cppcode}
+            \bigbreak \noindent
             \begin{itemize}
                 \item display Specifies the connection to the X server.
                 \item w Specifies the window.

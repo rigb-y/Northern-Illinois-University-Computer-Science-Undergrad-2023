@@ -1,5 +1,5 @@
 # Fdb version 4
-["lualatex"] 1784129787.24577 "main.tex" "main.pdf" "main" 1784129807.80796 2
+["lualatex"] 1785196341.02483 "main.tex" "main.pdf" "main" 1785196359.22774 2
   "/home/angel/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5brands-regular-400.luc" 1782059655.11045 180102 f7147e17e8de42719f8456d2132a6f53 ""
   "/home/angel/.texlive/texmf-var/luatex-cache/generic/fonts/otl/fontawesome5free-solid-900.luc" 1782059655.01545 380927 d6fe6e53c3a00de94cfec2728177f905 ""
   "/home/angel/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc" 1782059657.91145 81824 2fc419936fbca23a4af140905084b7a2 ""
@@ -780,9 +780,9 @@
   "_minted/FE3102BA167F61B24A95EA64679A4AF0.highlight.minted" 1782262353.55568 298 912a700a79bd86fd6b4aa695f832231a ""
   "_minted/FF7611305C559BD01ACD98AA9E8BAF95.highlight.minted" 1782262356.49976 461 176f814b1040a64ff6bf123d14c3b3c5 ""
   "_minted/xcode.style.minted" 1782251794.17885 5479 4086d434ede5ff047aa9b1f026826aa5 ""
-  "main.aux" 1784129807.34659 14602 ea6341753947f80215a1c9c82e730a9d "lualatex"
-  "main.tex" 1784129766.54959 289258 c5f2b7982ce8397e92fce6872cd560c0 ""
-  "main.toc" 1784129807.35659 1942 ae4244bb6f6512981ab4044b3750637d "lualatex"
+  "main.aux" 1785196358.83268 14602 210b5c08ed1e871e0b9422164539f32c "lualatex"
+  "main.tex" 1785196324.27068 289247 c3f826081ba25ca5d445e9c3fddffb86 ""
+  "main.toc" 1785196358.84268 1942 ae4244bb6f6512981ab4044b3750637d "lualatex"
   (generated)
   "main.aux"
   "main.listing"
