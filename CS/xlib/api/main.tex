@@ -1983,7 +1983,14 @@
 
         \item \textbf{Functions}
             \begin{cppcode}
-            Status XQueryTree(Display* display, Window w, Window* root_return, Window* parent_return, Window** children_return, unsigned int* nchildren_return)
+            Status XQueryTree(
+                Display* display,
+                Window w,
+                Window* root_return,
+                Window* parent_return,
+                Window** children_return,
+                unsigned int* nchildren_return
+            )
             \end{cppcode}
             \bigbreak \noindent
             Queries the window hierarchy for the specified window and returns its root, parent, children, and number of children.
@@ -2250,7 +2257,8 @@
                     \end{itemize}
                 \item \textbf{Return identifiers}:
                     \begin{itemize}
-                        \item \textbf{Success}
+                        \item \textbf{Success}: Nonzero
+                        \item \textbf{Failure}: Zero
                     \end{itemize}
             \end{itemize}
 
@@ -4609,7 +4617,6 @@
         \end{cppcode}
         \bigbreak \noindent
         Sends a synthetic event to another client or window according to the destination window, propagation flag, and event mask.
-
         \begin{itemize}
             \item display Specifies the connection to the X server.
             \item $w$ Specifies the window the event is to be sent to, or PointerWindow, or InputFocus.
@@ -4617,7 +4624,6 @@
             \item event\_mask Specifies the event mask.
             \item event\_send Specifies the event that is to be sent.
         \end{itemize}
-
         \begin{itemize}
             \item \textbf{Possible errors}:
                 \begin{itemize}
@@ -4815,7 +4821,22 @@
                     char auto_repeats[32];
                 } XKeyboardState;  
             \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int max_keypermod;	/* This server's max number of keys per modifier */
+                    KeyCode *modifiermap;	/* An 8 by max_keypermod array of the modifiers */
+                } XModifierKeymap;
+            \end{cppcode}
     \item \textbf{Functions}:
+        \begin{cppcode}
+        XModifierKeymap* XGetModifierMapping(Display* display) 
+        \end{cppcode}
+        \bigbreak \noindent 
+        \begin{cppcode}
+        XFreeModifiermap(XModifierKeymap* modmap);
+        \end{cppcode}
+        \bigbreak \noindent 
         \begin{cppcode}
         int XGrabPointer(
             Display* display,

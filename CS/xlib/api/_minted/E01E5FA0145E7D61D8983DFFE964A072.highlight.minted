@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{typedef}\PYG{+w}{ }\PYG{k}{struct}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{max\PYGZus{}keypermod}\PYG{p}{;}\PYG{+w}{	}\PYG{c+cm}{/* This server\PYGZsq{}s max number of keys per modifier */}
+\PYG{+w}{    }\PYG{n}{KeyCode}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{modifiermap}\PYG{p}{;}\PYG{+w}{	}\PYG{c+cm}{/* An 8 by max\PYGZus{}keypermod array of the modifiers */}
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{XModifierKeymap}\PYG{p}{;}
+\end{MintedVerbatim}

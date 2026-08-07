@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  27 JUL 2026 18:52
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  5 AUG 2026 18:54
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260727185221 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260805185404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260727185221 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260805185404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/00F536CC4EEFFC3ADBBE7C333C017518.highlight.minted) [3]
 \openout7 = main.listing
  (./_minted/FC2992C8A187854151600D5CBDB3B0D8.highlight.minted)
@@ -2182,18 +2182,22 @@ Overfull \hbox (3.35999pt too wide) in paragraph at lines 1294--1295
 \openout7 = main.listing
  (./_minted/44A7CA1AB0D8032E9648E13697A079ED.highlight.minted)
 \openout7 = main.listing
- (./_minted/48E62943287429F9633D7A717D43BE3B.highlight.minted) [41]
+
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted highlight  --timestamp 20260805185404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./_minted/4B213441D9D0CE1045DA6321E38BB2DE.highlight.minted) [41]
 \openout7 = main.listing
  (./_minted/D71F11A258608A72AB3960D078AA2E5B.highlight.minted)
 \openout7 = main.listing
- (./_minted/8B2F95BE6D71E1D91AB7BC24A8ABC600.highlight.minted)
-Overfull \hbox (8.60693pt too wide) in paragraph at lines 2049--2050
+ (./_minted/8B2F95BE6D71E1D91AB7BC24A8ABC600.highlight.minted) [42]
+Overfull \hbox (8.60693pt too wide) in paragraph at lines 2056--2057
 []\TU/lmr/m/n/10 width_re-turn, height_re-turn Re-turn the draw-able’s di-men-sions (width and height).
  []
 
-[42]
+
 \openout7 = main.listing
- (./_minted/FA25D9A1B1AC5A194FD34716D8363B2E.highlight.minted)
+(./_minted/FA25D9A1B1AC5A194FD34716D8363B2E.highlight.minted)
 \openout7 = main.listing
  (./_minted/12CA90C30A1AA6272D2DA989097A34FD.highlight.minted) [43]
 \openout7 = main.listing
@@ -2205,22 +2209,22 @@ Overfull \hbox (8.60693pt too wide) in paragraph at lines 2049--2050
 \openout7 = main.listing
  (./_minted/8AD0A8553D0764C13F774491E2050A00.highlight.minted)
 \openout7 = main.listing
- (./_minted/76EF1A32FC3C5A08805119FE68489B71.highlight.minted)
-Overfull \hbox (18.67497pt too wide) in paragraph at lines 2236--2237
+ (./_minted/76EF1A32FC3C5A08805119FE68489B71.highlight.minted) [45]
+Overfull \hbox (18.67497pt too wide) in paragraph at lines 2243--2244
 []\TU/lmr/m/n/10 req_type Spec-i-fies the atom iden-ti-fier as-so-ci-ated with the prop-erty type or \TU/lmr/bx/n/10 AnyProp-
  []
 
-[45]
+
 \openout7 = main.listing
- (./_minted/DDA061FE82CE2E0316CAA0E26CB0F260.highlight.minted)
+(./_minted/DDA061FE82CE2E0316CAA0E26CB0F260.highlight.minted)
 \openout7 = main.listing
  (./_minted/95C6462239815EF8A608534247F13859.highlight.minted) [46]
 \openout7 = main.listing
  (./_minted/FC4470E90AFB0D8C18CCF48776BF35A5.highlight.minted)
 \openout7 = main.listing
- (./_minted/39D738E4B1DE95A1DC42D8F661387F62.highlight.minted)
+ (./_minted/39D738E4B1DE95A1DC42D8F661387F62.highlight.minted) [47]
 \openout7 = main.listing
- (./_minted/555C215C8F26EAF4409AFA0B21D56358.highlight.minted) [47]
+ (./_minted/555C215C8F26EAF4409AFA0B21D56358.highlight.minted)
 \openout7 = main.listing
  (./_minted/555C215C8F26EAF4409AFA0B21D56358.highlight.minted)
 \openout7 = main.listing
@@ -2337,17 +2341,17 @@ Overfull \hbox (18.67497pt too wide) in paragraph at lines 2236--2237
 \openout7 = main.listing
  (./_minted/AA629BEBF8E6475D70DBF7B034917FA6.highlight.minted)
 [75] [76]
-Underfull \hbox (badness 10000) in paragraph at lines 3707--3707
+Underfull \hbox (badness 10000) in paragraph at lines 3715--3715
 []|\TU/lmr/m/n/10 Cir-cu-lateRequest, Con-fig-ur-eRequest,
  []
 
 
-Underfull \hbox (badness 1590) in paragraph at lines 3707--3707
+Underfull \hbox (badness 1590) in paragraph at lines 3715--3715
 []|\TU/lmr/m/n/10 ClientMes-sage, Prop-er-tyNo-tify, Se-lec-tion-
  []
 
 
-Overfull \hbox (25.0pt too wide) in paragraph at lines 3707--3708
+Overfull \hbox (25.0pt too wide) in paragraph at lines 3715--3716
  [] 
  []
 
@@ -2487,62 +2491,68 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 3707--3708
 \openout7 = main.listing
  (./_minted/2E7E887E4875EDB50AD29586C9D612F2.highlight.minted)
 \openout7 = main.listing
+ (./_minted/E01E5FA0145E7D61D8983DFFE964A072.highlight.minted)
+\openout7 = main.listing
+ (./_minted/426E1735A7F0DCB5177DBD28FA68ADEA.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A484E171C31518B724619D774C5BDF48.highlight.minted)
+\openout7 = main.listing
  (./_minted/4866FB75DBE891DB46780C27460FBAF3.highlight.minted) [102]
 \openout7 = main.listing
  (./_minted/C0621F1FC2D9B6AB339FE7F0DBD1EFAA.highlight.minted)
 \openout7 = main.listing
  (./_minted/DAC4EAFA739A25D1129179278A761D1A.highlight.minted) [103]
 \openout7 = main.listing
- (./_minted/D1420AB0E5772DA3F77FDC4800C9A936.highlight.minted)
+ (./_minted/D1420AB0E5772DA3F77FDC4800C9A936.highlight.minted) [104]
 \openout7 = main.listing
- (./_minted/B3A7B4708F77A4C03830E94821672878.highlight.minted) [104]
+ (./_minted/B3A7B4708F77A4C03830E94821672878.highlight.minted)
 \openout7 = main.listing
- (./_minted/E09AB836B97EBA1E9FE4734BB034E21A.highlight.minted)
+ (./_minted/E09AB836B97EBA1E9FE4734BB034E21A.highlight.minted) [105]
 \openout7 = main.listing
  (./_minted/9C73FC25381F699A4FC61CBAA126F99A.highlight.minted)
 \openout7 = main.listing
- (./_minted/72F9BF2783AA7D99979EFB8322BF8702.highlight.minted) [105]
+ (./_minted/72F9BF2783AA7D99979EFB8322BF8702.highlight.minted)
 \openout7 = main.listing
- (./_minted/E9C6587F2541E2A0BB0393E1030FDF35.highlight.minted)
+ (./_minted/E9C6587F2541E2A0BB0393E1030FDF35.highlight.minted) [106]
 \openout7 = main.listing
- (./_minted/F6AB1CF10A79B1092D2B51E7599B3036.highlight.minted) [106]
+ (./_minted/F6AB1CF10A79B1092D2B51E7599B3036.highlight.minted)
 \openout7 = main.listing
- (./_minted/F251A15042D226CF581509EC7A7DC337.highlight.minted)
+ (./_minted/F251A15042D226CF581509EC7A7DC337.highlight.minted) [107]
 \openout7 = main.listing
  (./_minted/384FEC2833E2C3B2997AB6DE686B24C9.highlight.minted)
 \openout7 = main.listing
- (./_minted/A6097B2CD8C4C50EC4BF385F631EC386.highlight.minted) [107]
+ (./_minted/A6097B2CD8C4C50EC4BF385F631EC386.highlight.minted)
 \openout7 = main.listing
- (./_minted/5AF0E18DFD4C05E9DA03AFB217A03EA4.highlight.minted)
+ (./_minted/5AF0E18DFD4C05E9DA03AFB217A03EA4.highlight.minted) [108]
 \openout7 = main.listing
  (./_minted/75D0030854E9A5B173FF7922CDD42D8A.highlight.minted)
 \openout7 = main.listing
- (./_minted/DCA7CC73F54CBDDB3A8BC3EE426C8C18.highlight.minted) [108]
+ (./_minted/DCA7CC73F54CBDDB3A8BC3EE426C8C18.highlight.minted)
 \openout7 = main.listing
  (./_minted/CB04588AF71BB2B176E95250FB271815.highlight.minted)
 \openout7 = main.listing
  (./_minted/02C701F5328CC4DA0991A41DAA981485.highlight.minted)
 \openout7 = main.listing
- (./_minted/05749DBAF34D06BBAE6F665411C5E55D.highlight.minted)
+ (./_minted/05749DBAF34D06BBAE6F665411C5E55D.highlight.minted) [109]
 \openout7 = main.listing
- (./_minted/8C0DF49145A52ABD24920B925847F47D.highlight.minted) [109]
+ (./_minted/8C0DF49145A52ABD24920B925847F47D.highlight.minted)
 \openout7 = main.listing
  (./_minted/65FE5BCC8FCB9DFB02BEDCA1B3CFC8BA.highlight.minted)
 \openout7 = main.listing
- (./_minted/FC85C47DFA909B4B9212F275553916B7.highlight.minted)
+ (./_minted/FC85C47DFA909B4B9212F275553916B7.highlight.minted) [110]
 \openout7 = main.listing
- (./_minted/1F5EDBF51F8DCB3F9E681BA054BDB0B5.highlight.minted) [110] [111]
+ (./_minted/1F5EDBF51F8DCB3F9E681BA054BDB0B5.highlight.minted) [111]
 \openout7 = main.listing
  (./_minted/375688D1AC5B97CBA1F2AE6038649777.highlight.minted)
 \openout7 = main.listing
- (./_minted/B695E4C4E953291372C5055E309A4440.highlight.minted)
+
+(./_minted/B695E4C4E953291372C5055E309A4440.highlight.minted)
 \openout7 = main.listing
  (./_minted/C12119698C076AF4FC32D7121E48ACDD.highlight.minted)
 \openout7 = main.listing
  (./_minted/6AD6C288EACAF248E78A09FA54459CE3.highlight.minted)
 \openout7 = main.listing
-
-(./_minted/C4736F0FFFDF55669107ACAD3B957E6A.highlight.minted) [112]
+ (./_minted/C4736F0FFFDF55669107ACAD3B957E6A.highlight.minted) [112]
 \openout7 = main.listing
  (./_minted/7ED1CB0E5D0850220260DC2E92DFF344.highlight.minted)
 \openout7 = main.listing
@@ -2598,14 +2608,14 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 3707--3708
 \openout7 = main.listing
  (./_minted/1C0A0B18B4A0514F8CD86E26108AA88A.highlight.minted) [120]
 \openout7 = main.listing
- (./_minted/1F2D8F43CA2E54096DD7BEE28A8BD9F2.highlight.minted)
+
+(./_minted/1F2D8F43CA2E54096DD7BEE28A8BD9F2.highlight.minted)
 \openout7 = main.listing
  (./_minted/984D0B49B22C953407A0B6632C7475EC.highlight.minted)
 \openout7 = main.listing
  (./_minted/FD88E6DAE1E7AA549409F1501B83316C.highlight.minted)
 \openout7 = main.listing
-
-(./_minted/8B8A26AA01F8C96D5B816D112EAD7CBF.highlight.minted)
+ (./_minted/8B8A26AA01F8C96D5B816D112EAD7CBF.highlight.minted)
 \openout7 = main.listing
  (./_minted/B49D88B145FF5CB81DFFBD5241694773.highlight.minted) [121]
 \openout7 = main.listing
@@ -2661,20 +2671,24 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 3707--3708
 \openout7 = main.listing
  (./_minted/3A42977AAB4BA1C2E4D20CD66FB7AF99.highlight.minted)
 \openout7 = main.listing
- (./_minted/E8AA5BC0E35ED56C094027AB4AE5D901.highlight.minted) [130] [131]
+
+(./_minted/E8AA5BC0E35ED56C094027AB4AE5D901.highlight.minted) [130] [131]
 \openout7 = main.listing
  (./_minted/4AD270C720155371357D525361443F61.highlight.minted)
 \openout7 = main.listing
  (./_minted/10CF238E1B2FD89C19735FEC9A571108.highlight.minted)
 \openout7 = main.listing
-
-(./_minted/72A1741794AF23EFA456329C1CFA07A8.highlight.minted)
+ (./_minted/72A1741794AF23EFA456329C1CFA07A8.highlight.minted)
 \openout7 = main.listing
  (./_minted/275F89C4ACC54B3D0091D43EF167F9CA.highlight.minted)
 \openout7 = main.listing
  (./_minted/B99AE7FA2BC83CF531B99871DC86EDA4.highlight.minted) [132]
 \openout7 = main.listing
- (./_minted/6DAC73B4DD87CC6CA561F3C0A3546232.highlight.minted) [133] (./main.aux)
+ (./_minted/6DAC73B4DD87CC6CA561F3C0A3546232.highlight.minted) [133]
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted clean  --timestamp 20260805185404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2682,16 +2696,16 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 66479 strings out of 476076
+ 66522 strings out of 476076
  244188,2373549 words of node,token memory allocated
  1874 words of node memory still in use:
    31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 85 attribute, 162 glue_spec, 85 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:3,2:11528,3:862,4:796,5:3085,6:127,7:13661,8:4,9:8012,10:84,11:2290
- 84357 multiletter control sequences out of 65536+600000
+   avail lists: 1:3,2:11528,3:861,4:798,5:2736,6:127,7:13661,8:4,9:7886,10:84,11:2085
+ 84372 multiletter control sequences out of 65536+600000
  71 fonts using 5225559 bytes
  99i,13n,108p,815b,1428s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
-Output written on main.pdf (134 pages, 386098 bytes).
+Output written on main.pdf (134 pages, 386606 bytes).
 
 PDF statistics: 800 PDF objects out of 1000 (max. 8388607)
  608 compressed objects within 7 object streams

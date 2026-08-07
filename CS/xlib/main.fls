@@ -401,6 +401,7 @@ OUTPUT main.aux
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+INPUT 'inkscape' -V 
 INPUT /usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 INPUT /usr/share/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 INPUT /usr/share/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
@@ -411,7 +412,6 @@ INPUT /home/angel/niu/seal.png
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /home/angel/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-regular.luc
 INPUT /home/angel/.texlive/texmf-var/luatex-cache/generic/fonts/otl/lmroman12-bold.luc
-INPUT ./main.toc
 OUTPUT main.toc
 INPUT /usr/share/texmf-dist/tex/latex/lm/ot1lmr.fd
 INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmr10.tfm
@@ -1215,6 +1215,7 @@ INPUT ./_minted/8B8A26AA01F8C96D5B816D112EAD7CBF.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/87769FE7C857DB50B7CF078CCC61EAE1.highlight.minted
 OUTPUT main.listing
+OUTPUT _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
 INPUT ./_minted/3A78CFE5FF8794B808E0944729B6722B.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/F1A2FDD1D15E2668767E04827356F84B.highlight.minted
@@ -1276,6 +1277,7 @@ OUTPUT main.listing
 INPUT ./_minted/22426F27525A12EA2503F9A6A78248C6.highlight.minted
 OUTPUT main.listing
 INPUT ./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted
+OUTPUT _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
 INPUT ./main.aux
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb

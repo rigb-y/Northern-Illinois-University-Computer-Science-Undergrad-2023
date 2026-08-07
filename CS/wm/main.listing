@@ -1,1 +1,7 @@
-                Status XGetWMProtocols(Display* display, Window w, Atom** protocols_return, int* count_return)
+                Status XSendEvent(
+                    Display* display,
+                    Window w,
+                    Bool propagate,
+                    long event_mask,
+                    XEvent* event_send
+                )

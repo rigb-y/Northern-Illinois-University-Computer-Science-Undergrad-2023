@@ -2005,6 +2005,8 @@
             \end{enumerate}
     \end{itemize}
 
+
+
     \pagebreak 
     \unsect{ICCCM / EWMH Discussion}
     \begin{itemize}
@@ -3836,7 +3838,59 @@
     \end{itemize}
 
     \pagebreak 
-    \subsection{Keymaps}
+    \subsection{Keyboard}
+    \begin{itemize}
+        \item \textbf{XMappingNotify}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* MappingNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* unused */
+                    int request;            /* one of MappingModifier, MappingKeyboard,
+                    MappingPointer */
+                    int first_keycode;      /* first keycode */
+                    int count;              /* defines range of change w. first_keycode*/
+                } XMappingEvent;
+            \end{cppcode}
+            \bigbreak \noindent 
+            \textbf{Note:} No mask must be selected to receive \textbf{MappingNotify} events. It is sent automatically.
+        \item \textbf{XRefreshKeyboardMapping}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XRefreshKeyboardMapping(XMappingEvent* event_map)
+            \end{cppcode}
+            \bigbreak \noindent
+            The XRefreshKeyboardMapping function updates Xlib's internal keyboard mapping information after a MappingNotify event.
+            \begin{itemize}
+                \item event\_map Specifies the mapping event that is to be used.
+            \end{itemize}
+
+            \textbf{Possible errors}:
+            \begin{itemize}
+                \item None.
+            \end{itemize}
+        \item \textbf{XMappingEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* MappingNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;          /* unused */
+                    int request;            /* one of MappingModifier, MappingKeyboard,
+                    MappingPointer */
+                    int first_keycode;      /* first keycode */
+                    int count;              /* defines range of change w. first_keycode*/
+                } XMappingEvent;
+            \end{cppcode}
+
+    \end{itemize}
+
+    \subsubsection{Keymaps}
     \begin{itemize}
         \item \textbf{XKeyEvent} 
             \bigbreak \noindent 
@@ -3935,6 +3989,11 @@
             For both XGrabKeyboard and XGrabKey, Xlib says that when owner\_events is false, generated key events are reported with respect to the grab window. When owner\_events is true, events are reported normally if they would normally go to the grabbing client; otherwise they fall back to the grab window.
             \bigbreak \noindent 
             To find the window of interest for the KeyEvent, we likely want to use XGetInputFocus
+        \item \textbf{Ungrab all passive grabs}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XUngrabKey(dp, AnyKey, AnyModifier, root);
+            \end{cppcode}
 
 
     \end{itemize}
@@ -4525,6 +4584,25 @@
                 int width_inc, height_inc;
             } XIconSize;
             \end{cppcode}
+        \item \textbf{XInternAtom}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Atom XInternAtom(Display* display, char* atom_name, Bool only_if_exists)
+            \end{cppcode}
+            \bigbreak \noindent
+            Returns the atom identifier associated with the specified atom name, optionally creating it if it does not already exist.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item atom\_name Specifies the name associated with the atom you want returned.
+                \item only\_if\_exists Specifies a Boolean value that indicates whether the atom must be created.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadAlloc}
+                        \item \textbf{BadValue}
+                    \end{itemize}
+            \end{itemize}
 
         \item \textbf{Allocating XSizeHints}
             \bigbreak \noindent 
@@ -4629,6 +4707,196 @@
                 \item \textbf{WM\_TAKE\_FOCUS}
                 \item \textbf{WM\_DELETE\_WINDOW}
             \end{itemize}
+        \item \textbf{XSendEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XSendEvent(Display* display, Window w, Bool propagate, long event_mask, XEvent* event_send)
+            \end{cppcode}
+            \bigbreak \noindent
+            Sends a synthetic event to another client or window according to the destination window, propagation flag, and event mask.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window the event is to be sent to, or PointerWindow, or InputFocus.
+                \item propagate Specifies a Boolean value.
+                \item event\_mask Specifies the event mask.
+                \item event\_send Specifies the event that is to be sent.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \texttt{BadValue}
+                        \item \texttt{BadWindow}
+                    \end{itemize}
+                \item \textbf{Status return identifiers}:
+                    \begin{itemize}
+                        \item \texttt{0}: Conversion to wire protocol format failed.
+                        \item \texttt{Nonzero}: Conversion to wire protocol format succeeded.
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{Sending message}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void send_client_message(Window win, Atom atom, Time time) {
+                    XEvent event = {0};
+
+                    event.xclient.type = ClientMessage;
+                    event.xclient.window = win;
+                    event.xclient.message_type = wm_protocols;
+                    event.xclient.format = 32;
+                    event.xclient.data.l[0] = atom;
+                    event.xclient.data.l[1] = time != (Time)NULL ? time : CurrentTime;
+
+                    XSendEvent(dp, win, false, NoEventMask, &event);
+                }
+            \end{cppcode}
+        \item \textbf{XChangeProperty}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            XChangeProperty(
+                Display* display,
+                Window w,
+                Atom property, type,
+                int format,
+                int mode,
+                unsigned char* data,
+                int nelements
+            )
+            \end{cppcode}
+            \bigbreak \noindent
+            Changes, replaces, prepends, or appends data to a property on the specified window.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window whose property you want to change.
+                \item property Specifies the property name.
+                \item type Specifies the type of the property. The X server does not interpret the type but simply passes it back to an application that later calls \textbf{XGetWindowProperty.}
+                \item format Specifies whether the data should be viewed as a list of 8-bit, 16-bit, or 32-bit quantities. Possible values are 8, 16, and 32. This information allows the X server to correctly perform byte-swap operations as necessary. If the format is 16-bit or 32-bit, you must explicitly cast your data pointer to an (unsigned char *) in the call to \textbf{XChangeProperty.}
+                \item mode Specifies the mode of the operation. You can pass \textbf{PropModeReplace,} \textbf{PropModePrepend,} or \textbf{PropModeAppend.}
+                \item data Specifies the property data.
+                \item nelements Specifies the number of elements of the specified data format.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadAlloc}
+                        \item \textbf{BadAtom}
+                        \item \textbf{BadMatch}
+                        \item \textbf{BadValue}
+                        \item \textbf{BadWindow}
+                    \end{itemize}
+            \end{itemize}
+
+        \item \textbf{XPropertyEvent}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* PropertyNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window window;
+                    Atom atom;
+                    Time time;
+                    int state;              /* PropertyNewValue or PropertyDelete */
+                } XPropertyEvent;
+            \end{cppcode}
+        \item \textbf{XGetWindowProperty}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            int XGetWindowProperty(
+                Display* display,
+                Window w,
+                Atom property,
+                long long_offset, long_length,
+                Bool delete,
+                Atom req_type,
+                Atom* actual_type_return,
+                int* actual_format_return,
+                unsigned long* nitems_return,
+                unsigned long* bytes_after_return,
+                unsigned char** prop_return
+            )
+            \end{cppcode}
+            \bigbreak \noindent
+            Retrieves data from a window property and returns its actual type, format, item count, remaining byte count, and property contents.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window whose property you want to obtain.
+                \item property Specifies the property name.
+                \item long\_offset Specifies the offset in the specified property (in 32-bit quantities) where the data is to be retrieved.
+                \item long\_length Specifies the length in 32-bit multiples of the data to be retrieved.
+                \item delete Specifies a Boolean value that determines whether the property is deleted.
+                \item req\_type Specifies the atom identifier associated with the property type or \textbf{AnyPropertyType}.
+                \item actual\_type\_return Returns the atom identifier that defines the actual type of the property.
+                \item actual\_format\_return Returns the actual format of the property.
+                \item nitems\_return Returns the actual number of 8-bit, 16-bit, or 32-bit items stored in the prop\_return data.
+                \item bytes\_after\_return Returns the number of bytes remaining to be read in the property if a partial read was performed.
+                \item prop\_return Returns the data in the specified format.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \textbf{BadAtom}
+                        \item \textbf{BadValue}
+                        \item \textbf{BadWindow}
+                    \end{itemize}
+                \item \textbf{Return identifiers}:
+                    \begin{itemize}
+                        \item \textbf{Success}: Nonzero
+                        \item \textbf{Failure}: Zero
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{XConfigureEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct {
+                    int type;               /* ConfigureNotify */
+                    unsigned long serial;   /* # of last request processed by server */
+                    Bool send_event;        /* true if this came from a SendEvent request */
+                    Display *display;       /* Display the event was read from */
+                    Window event;
+                    Window window;
+                    int x, y;
+                    int width, height;
+                    int border_width;
+                    Window above;
+                    Bool override_redirect;
+                } XConfigureEvent;
+            \end{cppcode}
+        \item \textbf{XSendEvent}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Status XSendEvent(
+                    Display* display,
+                    Window w,
+                    Bool propagate,
+                    long event_mask,
+                    XEvent* event_send
+                )
+            \end{cppcode}
+            \bigbreak \noindent
+            Sends a synthetic event to another client or window according to the destination window, propagation flag, and event mask.
+            \begin{itemize}
+                \item display Specifies the connection to the X server.
+                \item $w$ Specifies the window the event is to be sent to, or PointerWindow, or InputFocus.
+                \item propagate Specifies a Boolean value.
+                \item event\_mask Specifies the event mask.
+                \item event\_send Specifies the event that is to be sent.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Possible errors}:
+                    \begin{itemize}
+                        \item \texttt{BadValue}
+                        \item \texttt{BadWindow}
+                    \end{itemize}
+                \item \textbf{Status return identifiers}:
+                    \begin{itemize}
+                        \item \texttt{0}: Conversion to wire protocol format failed.
+                        \item \texttt{Nonzero}: Conversion to wire protocol format succeeded.
+                    \end{itemize}
+            \end{itemize}
+
+
+
 
 
 

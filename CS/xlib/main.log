@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  28 JUL 2026 10:43
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  6 AUG 2026 10:46
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1788,7 +1788,7 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-)) (/usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
+)) ("|'inkscape' -V ") (/usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 30.
@@ -1813,7 +1813,8 @@ Package luatex.def Info: ~/niu/seal.png  used on input line 50.
 (luatex.def)             Requested size: 158.99156pt x 122.81187pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}</home/angel/niu/seal.png>] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}</home/angel/niu/seal.png>]
+No file main.toc.
 \tf@toc=\write6
 
 \openout6 = main.toc
@@ -1864,9 +1865,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260728104315 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260806104618 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260728104315 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260806104618 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/240A0FFCE43C285066A9D1ED9DCEB326.highlight.minted)
 \openout7 = main.listing
  (./_minted/18D3BD4308834DB623A719909126741E.highlight.minted
@@ -2057,13 +2058,13 @@ Overfull \hbox (0.155pt too wide) in paragraph at lines 1156--1157
  (./_minted/FA708C43EC073C2E35ADBB6914A806DE.highlight.minted)
 \openout7 = main.listing
  (./_minted/5CF63315A8FED72CF52146D1211C3144.highlight.minted)
-<./figures/1.png, id=227, 108.405pt x 77.28876pt>
+<./figures/1.png, id=200, 108.405pt x 77.28876pt>
 File: ./figures/1.png Graphic file (type png)
 <use ./figures/1.png>
 Package luatex.def Info: ./figures/1.png  used on input line 1273.
 (luatex.def)             Requested size: 108.40472pt x 77.28856pt.
  [34]
-<./figures/2.png, id=232, 108.405pt x 112.42pt>
+<./figures/2.png, id=205, 108.405pt x 112.42pt>
 File: ./figures/2.png Graphic file (type png)
 <use ./figures/2.png>
 Package luatex.def Info: ./figures/2.png  used on input line 1277.
@@ -3214,6 +3215,10 @@ deleted material, e.g., by typing `I$}'.
 \openout7 = main.listing
  (./_minted/87769FE7C857DB50B7CF078CCC61EAE1.highlight.minted)
 \openout7 = main.listing
+
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted highlight  --timestamp 20260806104618 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/3A78CFE5FF8794B808E0944729B6722B.highlight.minted) [217]
 \openout7 = main.listing
  (./_minted/F1A2FDD1D15E2668767E04827356F84B.highlight.minted) [218]
@@ -3343,7 +3348,11 @@ Overfull \hbox (1.71698pt too wide) in paragraph at lines 7746--7748
 
 [228]
 \openout7 = main.listing
- (./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted) [229] [230] (./main.aux)
+ (./_minted/09A324EDA8EBD241D0D202C6D838BB43.highlight.minted) [229] [230]
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted clean  --timestamp 20260806104618 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -3351,19 +3360,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 67188 strings out of 476076
+ 67187 strings out of 476076
  244170,2373549 words of node,token memory allocated
  1887 words of node memory still in use:
    32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
    avail lists: 1:4,2:8905,3:1884,4:638,5:2678,6:143,7:11977,8:258,9:6891,10:84,11:2006
- 84611 multiletter control sequences out of 65536+600000
+ 84610 multiletter control sequences out of 65536+600000
  74 fonts using 5620623 bytes
  99i,13n,108p,1424b,1431s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman7-italic.otf>{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
-Output written on main.pdf (231 pages, 854572 bytes).
+Output written on main.pdf (231 pages, 853548 bytes).
 
-PDF statistics: 1199 PDF objects out of 1200 (max. 8388607)
- 897 compressed objects within 9 object streams
+PDF statistics: 1184 PDF objects out of 1200 (max. 8388607)
+ 882 compressed objects within 9 object streams
  263 named destinations out of 1000 (max. 1048576)
  368 words of extra memory for PDF output out of 10000 (max. 100000000)
 

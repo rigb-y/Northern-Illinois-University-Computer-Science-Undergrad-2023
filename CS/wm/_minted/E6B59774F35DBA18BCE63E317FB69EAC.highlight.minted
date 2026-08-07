@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{send\PYGZus{}client\PYGZus{}message}\PYG{p}{(}\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{win}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Atom}\PYG{+w}{ }\PYG{n}{atom}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Time}\PYG{+w}{ }\PYG{n}{time}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{XEvent}\PYG{+w}{ }\PYG{n}{event}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{0}\PYG{p}{\PYGZcb{}}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{type}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ClientMessage}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{window}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{win}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{message\PYGZus{}type}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{wm\PYGZus{}protocols}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{format}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{32}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{data}\PYG{p}{.}\PYG{n}{l}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{atom}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{event}\PYG{p}{.}\PYG{n}{xclient}\PYG{p}{.}\PYG{n}{data}\PYG{p}{.}\PYG{n}{l}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{time}\PYG{+w}{ }\PYG{o}{!}\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Time}\PYG{p}{)}\PYG{n+nb}{NULL}\PYG{+w}{ }\PYG{o}{?}\PYG{+w}{ }\PYG{n}{time}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n}{CurrentTime}\PYG{p}{;}
+
+\PYG{+w}{    }\PYG{n}{XSendEvent}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{win}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{NoEventMask}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{event}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -30,16 +30,17 @@
 \contentsline {subsection}{\numberline {17.12}Event loop}{92}{subsection.0.17.12}%
 \contentsline {subsection}{\numberline {17.13}Focus}{94}{subsection.0.17.13}%
 \contentsline {subsection}{\numberline {17.14}KeySyms and KeyCodes}{100}{subsection.0.17.14}%
-\contentsline {subsection}{\numberline {17.15}Keymaps}{102}{subsection.0.17.15}%
-\contentsline {subsection}{\numberline {17.16}Window map}{105}{subsection.0.17.16}%
-\contentsline {subsection}{\numberline {17.17}Colors}{106}{subsection.0.17.17}%
-\contentsline {subsection}{\numberline {17.18}Borders}{108}{subsection.0.17.18}%
-\contentsline {subsection}{\numberline {17.19}Backgrounds}{109}{subsection.0.17.19}%
-\contentsline {subsection}{\numberline {17.20}Window spawning}{110}{subsection.0.17.20}%
-\contentsline {subsection}{\numberline {17.21}Raising windows}{111}{subsection.0.17.21}%
-\contentsline {subsection}{\numberline {17.22}Tracking pointer}{112}{subsection.0.17.22}%
-\contentsline {subsection}{\numberline {17.23}Floating windows}{114}{subsection.0.17.23}%
-\contentsline {subsubsection}{\numberline {17.23.1}Dragging windows}{114}{subsubsection.0.17.23.1}%
-\contentsline {subsection}{\numberline {17.24}Workspaces}{116}{subsection.0.17.24}%
-\contentsline {subsection}{\numberline {17.25}ICCCM}{117}{subsection.0.17.25}%
-\contentsline {subsection}{\numberline {17.26}Notes}{121}{subsection.0.17.26}%
+\contentsline {subsection}{\numberline {17.15}Keyboard}{102}{subsection.0.17.15}%
+\contentsline {subsubsection}{\numberline {17.15.1}Keymaps}{103}{subsubsection.0.17.15.1}%
+\contentsline {subsection}{\numberline {17.16}Window map}{106}{subsection.0.17.16}%
+\contentsline {subsection}{\numberline {17.17}Colors}{107}{subsection.0.17.17}%
+\contentsline {subsection}{\numberline {17.18}Borders}{109}{subsection.0.17.18}%
+\contentsline {subsection}{\numberline {17.19}Backgrounds}{110}{subsection.0.17.19}%
+\contentsline {subsection}{\numberline {17.20}Window spawning}{111}{subsection.0.17.20}%
+\contentsline {subsection}{\numberline {17.21}Raising windows}{112}{subsection.0.17.21}%
+\contentsline {subsection}{\numberline {17.22}Tracking pointer}{113}{subsection.0.17.22}%
+\contentsline {subsection}{\numberline {17.23}Floating windows}{115}{subsection.0.17.23}%
+\contentsline {subsubsection}{\numberline {17.23.1}Dragging windows}{115}{subsubsection.0.17.23.1}%
+\contentsline {subsection}{\numberline {17.24}Workspaces}{117}{subsection.0.17.24}%
+\contentsline {subsection}{\numberline {17.25}ICCCM}{118}{subsection.0.17.25}%
+\contentsline {subsection}{\numberline {17.26}Notes}{127}{subsection.0.17.26}%
