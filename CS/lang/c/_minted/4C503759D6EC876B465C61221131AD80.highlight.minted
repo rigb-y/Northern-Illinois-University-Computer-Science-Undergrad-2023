@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define MAKE\PYGZus{}ENUM(name) TOKEN\PYGZus{}\PYGZsh{}\PYGZsh{}name,}
+
+\PYG{k}{enum}\PYG{+w}{ }\PYG{n+nc}{Token}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}LIST}\PYG{p}{(}\PYG{n}{MAKE\PYGZus{}ENUM}\PYG{p}{)}
+\PYG{p}{\PYGZcb{}}\PYG{p}{;}
+
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{undef MAKE\PYGZus{}ENUM}
+\end{MintedVerbatim}

@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{enum}\PYG{+w}{ }\PYG{n+nc}{Token}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define X(name, text) TOKEN\PYGZus{}\PYGZsh{}\PYGZsh{}name,}
+\PYG{+w}{    }\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}tokens.def\PYGZdq{}}
+\PYG{+w}{    }\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{undef X}
+\PYG{p}{\PYGZcb{}}\PYG{p}{;}
+\end{MintedVerbatim}

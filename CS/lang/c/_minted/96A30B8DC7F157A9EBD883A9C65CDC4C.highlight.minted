@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define X(name, symbol, precedence) \PYGZbs{}}
+\PYG{c+cp}{    [OP\PYGZus{}\PYGZsh{}\PYGZsh{}name] = symbol,}
+
+\PYG{k}{static}\PYG{+w}{ }\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{operator\PYGZus{}strings}\PYG{p}{[}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{OPERATOR\PYGZus{}LIST}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+\PYG{p}{\PYGZcb{}}\PYG{p}{;}
+
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{undef X}
+\end{MintedVerbatim}

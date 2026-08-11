@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+c1}{// tokens.def}
+
+\PYG{n}{X}\PYG{p}{(}\PYG{n}{INT}\PYG{p}{,}\PYG{+w}{   }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{int}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{X}\PYG{p}{(}\PYG{n}{REAL}\PYG{p}{,}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{real}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{X}\PYG{p}{(}\PYG{n}{PLUS}\PYG{p}{,}\PYG{+w}{  }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{+}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{X}\PYG{p}{(}\PYG{n}{MINUS}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZhy{}}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  13 JUL 2026 10:07
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  11 AUG 2026 13:55
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260713100703 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260811135546 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260713100703 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260811135546 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/AA3E6F025BA114D1C48F6180BB48E03F.highlight.minted)
 \openout7 = main.listing
  (./_minted/E65ADC48653FB75ED9203260BC8ECA1E.highlight.minted)
@@ -2467,19 +2467,100 @@ Overfull \hbox (25.0pt too wide) in paragraph at lines 3596--3597
 (./_minted/BDEBD76EA723DA80B56AC6E3B3EDC930.highlight.minted) [89]
 \openout7 = main.listing
  (./_minted/3E964482B10FFC7F9E3A549A1F2CD0AE.highlight.minted) [90]
+\openout7 = main.listing
+ (./_minted/1EECA602869F2F82AFBFB0DF1A3E914E.highlight.minted)
+\openout7 = main.listing
+ (./_minted/127CDF4A720F049F00145CE5C7A54BB8.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E35A08EA137DC3C203FD87761E9EC37A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/01808757264A776D15149AD08B34A682.highlight.minted)
+\openout7 = main.listing
+ (./_minted/CD90B2A51D294EB18F360129F2AC4404.highlight.minted)
+\openout7 = main.listing
+ (./_minted/C7675AE8453769E811830D65EBC1B894.highlight.minted) [91]
+\openout7 = main.listing
+ (./_minted/FF0192C74600F52372A5751E99C05381.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4C503759D6EC876B465C61221131AD80.highlight.minted)
+\openout7 = main.listing
+ (./_minted/DDE4D8CFF328FE507E50154726F79724.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2A256416AB0E2B9C70997CE81CEDEE02.highlight.minted) [92]
+\openout7 = main.listing
+ (./_minted/087EB2FFCF3B799D33C6AE4C376B0CF9.highlight.minted)
+\openout7 = main.listing
+ (./_minted/DA5B9CF32939BB39F8E1A09279DD9A24.highlight.minted)
+\openout7 = main.listing
+ (./_minted/AAE9C487E6538E80F614B6B585DB480F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/96A30B8DC7F157A9EBD883A9C65CDC4C.highlight.minted) [93]
+\openout7 = main.listing
+ (./_minted/84CDD6BC7D5F375826313926E2582FBD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/DE8F40C9E0DA1802B30E93F37224CBA9.highlight.minted)
+\openout7 = main.listing
+ (./_minted/FAF31DB1E8FCCF9B96B31C514B81A1E2.highlight.minted)
+\openout7 = main.listing
+ (./_minted/48795D17E02EC35469243EB95F77C7B1.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A24653FDE9F41BE9F36065C82E877200.highlight.minted) [94]
+\openout7 = main.listing
+ (./_minted/F1E75D82A2B5DCF713024A39B99E9A11.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A90D66693299E9CA7011DBA94110E499.highlight.minted)
+\openout7 = main.listing
+ (./_minted/619C1F368E673391AAF19EB97D470AB6.highlight.minted)
+\openout7 = main.listing
+ (./_minted/79FE7F7570CD1E2C699D0E0EABD1A28C.highlight.minted) [95]
+\openout7 = main.listing
+ (./_minted/11E905F4D7692DD82F54DFB24C88C279.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A46F0191403D8EA0E413A714D51A94AD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/6C91A0A03540DD8988E9A879A4F90F2A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/9EC8DD9B07708CBFDAA8C553D8060F74.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A45C3503AEBE50713A943449E249A29F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/AA2EA3AED087F0F3328F37218221EC96.highlight.minted) [96]
+\openout7 = main.listing
 
-./main.tex:3621: LaTeX Error: Something's wrong--perhaps a missing \item.
+(./_minted/5983F04372E69B00AA8C69C5A40943E4.highlight.minted)
+\openout7 = main.listing
+ (./_minted/86C897BA546407DC7705B3347DFC4718.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2D34B39B2DF0E7AB999B393765256C69.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E4EC68810837634A2558F6ABEF77369C.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F694D182A671D21A20D2C855A796AB53.highlight.minted)
+\openout7 = main.listing
+ (./_minted/9529EACCF7F835455095C0C805ED35FD.highlight.minted) [97]
+\openout7 = main.listing
+
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted highlight  --timestamp 20260811135546 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./_minted/B800A91E3042678EA4ECEA36F2A8EB9E.highlight.minted) [98]
+
+./main.tex:4002: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.3621         \end{itemize}
+l.4002         \end{itemize}
                             
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[91] (./main.aux)
+[99]
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted clean  --timestamp 20260811135546 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2487,19 +2568,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 65414 strings out of 476076
+ 65902 strings out of 476076
  156265,2373549 words of node,token memory allocated
  1883 words of node memory still in use:
    32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 85 attribute, 162 glue_spec, 85 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:2,2:5775,3:1441,4:788,5:1664,6:221,7:8106,8:56,9:4693,10:89,11:1380
- 83954 multiletter control sequences out of 65536+600000
+   avail lists: 1:2,2:5775,3:1441,4:788,5:1667,6:257,7:8106,8:56,9:4693,10:89,11:1380
+ 84138 multiletter control sequences out of 65536+600000
  66 fonts using 4812095 bytes
  99i,13n,108p,815b,1375s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (92 pages, 389386 bytes).
+Output written on main.pdf (100 pages, 409838 bytes).
 
-PDF statistics: 788 PDF objects out of 1000 (max. 8388607)
- 632 compressed objects within 7 object streams
- 208 named destinations out of 1000 (max. 1048576)
- 536 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 840 PDF objects out of 1000 (max. 8388607)
+ 676 compressed objects within 7 object streams
+ 220 named destinations out of 1000 (max. 1048576)
+ 568 words of extra memory for PDF output out of 10000 (max. 100000000)
 

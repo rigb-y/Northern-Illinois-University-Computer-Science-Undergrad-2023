@@ -4895,15 +4895,187 @@
                     \end{itemize}
             \end{itemize}
 
+    \end{itemize}
+    
+    \pagebreak 
+    \subsection{Multiple monitors}
+    \begin{itemize}
+        \item \textbf{Testing}: To start, use Xephyr to get multiple screens on a fake display.        
+            \bigbreak \noindent 
+            \begin{bashcode}
+            nohup xephyr :1 +extension RANDR \
+                -screen 1920x1080+0+0 \
+                -ac -br -noreset \
+                >/dev/null 2>&1 &
+            \end{bashcode}
+            \bigbreak \noindent 
+            Then,
+            \bigbreak \noindent 
+            \begin{bashcode}
+            DISPLAY=:1 xrandr # default connected 1920x1080+0+0
+            \end{bashcode}
+            \bigbreak \noindent 
+            Use that output name for the first virtual monitor. For example, if it is default:
+            \bigbreak \noindent 
+            \begin{bashcode}
+                DISPLAY=:1 xrandr \
+                    --setmonitor LEFT 960/254x1080/286+0+0 default
 
+                DISPLAY=:1 xrandr \
+                    --setmonitor RIGHT 960/254x1080/286+960+0 none
+            \end{bashcode}
+            \bigbreak \noindent 
+            There is one root window and one continuous coordinate system.
+            \begin{verbatim}
+                Xephyr window / X screen / root window
+                1920 x 1080
+                +----------------------+----------------------+
+                |                      |                      |
+                |       LEFT           |       RIGHT          |
+                |     960x1080         |      960x1080        |
+                |                      |                      |
+                | x=0..959             | x=960..1919          |
+                |                      |                      |
+                +----------------------+----------------------+
+            \end{verbatim}
+            \bigbreak \noindent 
+            This is excellent for testing monitor geometry, window placement, focus movement, monitor selection, etc., but it does not fully simulate output hotplug or two independent physical RandR outputs.
+            \bigbreak \noindent 
+            \textbf{Note}: \texttt{none} means there is no RandR output backing that logical monitor.
+        \item \textbf{Set monitor as primary}: With real Xorg outputs, we set a primary output with \texttt{\texttt{--}primary}, for example
+            \bigbreak \noindent 
+            \begin{bashcode}
+            xrandr --output HDMI-1-0 --primary --mode 1920x1080 --rate 144
+            \end{bashcode}
+            \bigbreak \noindent 
+            However, \texttt{\texttt{--}setmonitor} does not have this flag. Instead, we can prefix the name of the monitor with an asterisk.
+            \bigbreak \noindent 
+            \begin{bashcode}
+            DISPLAY=:1 xrandr --setmonitor "*LEFT" 960/254x1080/286+0+0 default
+            \end{bashcode}
+            \bigbreak \noindent 
+            This sets \textbf{LEFT} as primary.
+            
+        \item \textbf{Query monitors with xrandr}: The simplest modern interface is XRRGetMonitors()
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #include <X11/extensions/Xrandr.h>
+            XRRMonitorInfo *XRRGetMonitors(
+                Display *dpy,
+                Window window,
+                Bool get_active,
+                int *nmonitors
+            );
 
+            void XRRFreeMonitors(XRRMonitorInfo* info);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Where
+            \begin{itemize}
+                \item \textbf{dpy:} Connection to the X server.
+                \item \textbf{window:} Root window to select the screen/display.
+                \item \textbf{get\_active:} Boolean flag to fetch only active monitors.
+                \item \textbf{nmonitors:} Pointer to an integer returning the count of detected monitors.
+            \end{itemize}
+            \textbf{Note:} Link the program against \textbf{XRandr}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            -lXrandr
+            \end{cppcode}
+        \item \textbf{XRRMonitorInfo}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct _XRRMonitorInfo {
+                    Atom name;
+                    Bool primary;
+                    Bool automatic;
+                    int noutput;
+                    int x;
+                    int y;
+                    int width;
+                    int height;
+                    int mwidth;
+                    int mheight;
+                    RROutput *outputs;
+                } XRRMonitorInfo;
+            \end{cppcode}
+            \begin{itemize}
+                \item \textbf{Atom name:} Monitor name identifier.
+                \item \textbf{Bool primary:} True if set as primary monitor.
+                \item \textbf{Bool automatic:} True if dynamically sized/configured.
+                \item \textbf{int noutput:} Number of active outputs attached.
+                \item \textbf{int x, y:} Pixel position offset on the screen.
+                \item \textbf{int width, height:} Dimensions in pixels.
+                \item \textbf{int mwidth, mheight:} Physical dimensions in millimeters.
+                \item \textbf{RROutput *outputs:} Array of outputs tied to the monitor.
+            \end{itemize}
+            The key thing to understand is that XRRMonitorInfo describes a logical monitor rectangle, not necessarily one physical connector. A monitor can be backed by one or more RandR outputs.
+            \bigbreak \noindent 
+            \texttt{name} is an \textbf{Atom}. To get a string that represents the name, use \textbf{XGetAtomName}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            char *name = XGetAtomName(display, monitor.name);
+            XFree(name);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The important distinction is that this is the name of the RandR monitor object, not necessarily the name of the underlying physical output.
+            \bigbreak \noindent 
+            An output is a display pipeline/connector such as HDMI-1 or DP-1, while a monitor is a logical region of the X screen that applications and window managers can treat as one monitor.
+            \bigbreak \noindent 
+            \texttt{Automatic} indicates that RandR considers this monitor automatically generated/configured, rather than an explicitly defined logical monitor.
+        \item \textbf{Screens, outputs, and monitors}: In X11, screen, output, and monitor are three different abstractions.
+            \begin{verbatim}
+                X Display
+                |
+                +-- X Screen
+                      |
+                      +-- Root Window
+                      |
+                      +-- RandR Outputs
+                      |     |
+                      |     +-- DP-1
+                      |     +-- HDMI-1
+                      |
+                      +-- RandR Monitors
+                            |
+                            +-- LEFT
+                            +-- RIGHT
+            \end{verbatim}
+            \begin{itemize}
+                \item \textbf{Screen}: An X screen is an old, fundamental X11 concept. It is essentially an independent desktop with its own:
+                    \begin{itemize}
+                        \item root window
+                        \item coordinate system
+                        \item dimensions
+                        \item visuals
+                        \item colormaps
+                        \item depth information
+                    \end{itemize}
+                    For example, 
+                    \bigbreak \noindent 
+                    \begin{bashcode}
+                        DISPLAY=:0.0
+                        DISPLAY=:0.1
+                    \end{bashcode}
+                    \bigbreak \noindent 
+                    \begin{itemize}
+                        \item :0     = X server/display
+                        \item .0     = X screen 0
+                        \item .1     = X screen 1
+                    \end{itemize}
+                    A window belongs to a particular screen. You cannot simply move an ordinary X window from screen 0's root window to screen 1's root window as though they were adjacent coordinates.
+                \item \textbf{Output}: An output represents a display endpoint exposed by the display driver. For example,
+                    \bigbreak \noindent 
+                    \begin{bashcode}
+                        eDP-1
+                        HDMI-1
+                        DP-1
+                        DP-2
+                    \end{bashcode}
+                \item \textbf{Monitor}: A RandR monitor is a logical rectangular region of an X screen. A monitor therefore answers the question: "What logical regions should applications treat as monitors?" rather than: "What physical connector is attached?"
+            \end{itemize}
 
-
-
-
-
-
-
+    
 
 
     \end{itemize}

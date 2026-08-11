@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define print(x) \PYGZus{}Generic((x), \PYGZbs{}}
+\PYG{c+cp}{    int:         print\PYGZus{}int,    \PYGZbs{}}
+\PYG{c+cp}{    double:      print\PYGZus{}double, \PYGZbs{}}
+\PYG{c+cp}{    const char *: print\PYGZus{}string \PYGZbs{}}
+\PYG{c+cp}{)(x)}
+\end{MintedVerbatim}

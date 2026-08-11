@@ -1,7 +1,4 @@
-                Status XSendEvent(
-                    Display* display,
-                    Window w,
-                    Bool propagate,
-                    long event_mask,
-                    XEvent* event_send
-                )
+                        eDP-1
+                        HDMI-1
+                        DP-1
+                        DP-2

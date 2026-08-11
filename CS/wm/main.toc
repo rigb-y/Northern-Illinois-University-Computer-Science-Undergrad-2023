@@ -43,4 +43,5 @@
 \contentsline {subsubsection}{\numberline {17.23.1}Dragging windows}{115}{subsubsection.0.17.23.1}%
 \contentsline {subsection}{\numberline {17.24}Workspaces}{117}{subsection.0.17.24}%
 \contentsline {subsection}{\numberline {17.25}ICCCM}{118}{subsection.0.17.25}%
-\contentsline {subsection}{\numberline {17.26}Notes}{127}{subsection.0.17.26}%
+\contentsline {subsection}{\numberline {17.26}Multiple monitors}{127}{subsection.0.17.26}%
+\contentsline {subsection}{\numberline {17.27}Notes}{131}{subsection.0.17.27}%

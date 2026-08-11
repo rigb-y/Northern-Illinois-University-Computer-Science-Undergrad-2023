@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nv}{DISPLAY}\PYG{o}{=}:1\PYG{+w}{ }xrandr\PYG{+w}{ }\PYGZhy{}\PYGZhy{}setmonitor\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}*LEFT\PYGZdq{}}\PYG{+w}{ }\PYG{l+m}{960}/254x1080/286+0+0\PYG{+w}{ }default
+\end{MintedVerbatim}

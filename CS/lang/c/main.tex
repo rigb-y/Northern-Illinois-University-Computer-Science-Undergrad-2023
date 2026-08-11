@@ -3614,6 +3614,387 @@
         \end{itemize}
 
         \pagebreak 
+        \unsect{Advanced C}
+        \subsection{X-macros}
+        \begin{itemize}
+            \item \textbf{Stringification operator}: In a C macro, \# is the stringification operator. It converts a macro argument into a string literal.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                #define TO_STRING(X) #x
+
+                printf("%s\n", TO_STRING((hello))); // "hello"
+                \end{cppcode}
+            \item \textbf{Token concatenation}: There is also \#\#
+                \bigbreak \noindent 
+                \begin{cppcode}
+                #define MAKE_TOKEN(name) TOKEN_##name
+
+                MAKE_TOKEN(INT) // TOKEN_INT
+                \end{cppcode}
+            \item \textbf{Variadic macro arguments}: An important special macro facility
+                \bigbreak \noindent 
+                \begin{cppcode}
+                #define LOG(fmt, ...) printf(fmt, __VA_ARGS__)
+                \end{cppcode}
+                \bigbreak \noindent 
+                Modern C provides \_\_VA\_OPT\_\_, standardized in C23. It expands its contents only when the variadic argument contains tokens:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define LOG(fmt, ...) \
+                        printf(fmt __VA_OPT__(,) __VA_ARGS__)
+                \end{cppcode}
+                \bigbreak \noindent 
+                Now both work
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    LOG("hello\n");
+                    LOG("%d\n", 42);
+                \end{cppcode}
+            \item \textbf{X-macros}: X-macros are a C preprocessor technique for keeping a single master list of data and expanding that same list in multiple ways. They are especially useful when several pieces of code must stay synchronized: enums, strings, lookup tables, function declarations, dispatch tables, opcodes, AST node types, error codes, and similar structures. 
+                \bigbreak \noindent 
+                For example, instead of repeating this
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    enum Token {
+                        TOKEN_INT,
+                        TOKEN_REAL,
+                        TOKEN_PLUS,
+                        TOKEN_MINUS
+                    };
+
+                    const char *token_names[] = {
+                        "INT",
+                        "REAL",
+                        "PLUS",
+                        "MINUS"
+                    };
+                \end{cppcode}
+                \bigbreak \noindent 
+                you define the token list once. 
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define TOKEN_LIST(X) \
+                        X(INT)            \
+                        X(REAL)           \
+                        X(PLUS)           \
+                        X(MINUS)
+                \end{cppcode}
+                \bigbreak \noindent 
+                TOKEN\_LIST does not itself decide what each entry means. It accepts another macro, X, and applies X to every entry.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define MAKE_ENUM(name) TOKEN_##name,
+
+                    enum Token {
+                        TOKEN_LIST(MAKE_ENUM)
+                    };
+
+                    #undef MAKE_ENUM
+                \end{cppcode}
+                \bigbreak \noindent 
+                The preprocessor produces
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    enum Token {
+                        TOKEN_INT,
+                        TOKEN_REAL,
+                        TOKEN_PLUS,
+                        TOKEN_MINUS,
+                    };
+                \end{cppcode}
+                \bigbreak \noindent 
+                Then the exact same list can generate strings:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define MAKE_STRING(name) [TOKEN_##name] = #name,
+
+                    const char *token_names[] = {
+                        TOKEN_LIST(MAKE_STRING)
+                    };
+
+                    #undef MAKE_STRING
+                \end{cppcode}
+                \bigbreak \noindent 
+                Which expands to 
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    const char *token_names[] = {
+                        [TOKEN_INT]   = "INT",
+                        [TOKEN_REAL]  = "REAL",
+                        [TOKEN_PLUS]  = "PLUS",
+                        [TOKEN_MINUS] = "MINUS",
+                    };
+                \end{cppcode}
+            \item \textbf{Multiple-field X macros}: X-macros become much more valuable when each row contains several pieces of information.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define OPERATOR_LIST(X)             \
+                    X(ADD, "+", 10)                      \
+                    X(SUB, "-", 10)                      \
+                    X(MUL, "*", 20)                      \
+                    X(DIV, "/", 20)
+                \end{cppcode}
+                \bigbreak \noindent 
+                From that one definition, you can generate an enum:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define X(name, symbol, precedence) OP_##name,
+
+                    enum Operator {
+                        OPERATOR_LIST(X)
+                        OP_COUNT
+                    };
+
+                    #undef X
+                \end{cppcode}
+                \bigbreak \noindent 
+                Generate strings:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define X(name, symbol, precedence) \
+                        [OP_##name] = symbol,
+
+                    static const char *operator_strings[] = {
+                        OPERATOR_LIST(X)
+                    };
+
+                    #undef X
+                \end{cppcode}
+                \bigbreak \noindent 
+                Generate precedence:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define X(name, symbol, precedence) \
+                        [OP_##name] = precedence,
+
+                    static const int operator_precedence[] = {
+                        OPERATOR_LIST(X)
+                    };
+
+                    #undef X
+                \end{cppcode}
+                \bigbreak \noindent 
+                Now adding exponentiation requires changing exactly one place:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define OPERATOR_LIST(X)             \
+                    X(ADD, "+", 10)                      \
+                    X(SUB, "-", 10)                      \
+                    X(MUL, "*", 20)                      \
+                    X(DIV, "/", 20)                      \
+                    X(POW, "^", 30)
+                \end{cppcode}
+                \bigbreak \noindent 
+                The enum, spelling table, and precedence table all update automatically. That is the main reason X-macros are valuable: they eliminate parallel maintenance.
+            \item \textbf{.def files}: A .def file is not a special C language feature. It is just a conventional file extension often used to hold repeated macro definitions or X-macro data.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                // tokens.def
+
+                X(INT,   "int")
+                X(REAL,  "real")
+                X(PLUS,  "+")
+                X(MINUS, "-")
+                \end{cppcode}
+                \bigbreak \noindent 
+                Then include that same file multiple times, redefining X differently each time.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    enum Token {
+                        #define X(name, text) TOKEN_##name,
+                        #include "tokens.def"
+                        #undef X
+                    };
+                \end{cppcode}
+            \item \textbf{Multi-statement macro}:  The do { ... } while (0) pattern makes a multi-statement macro behave syntactically like a single statement. Consider
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define SWAP(a, b) \
+                    typeof(a) tmp = (a); \
+                    (a) = (b);           \
+                    (b) = tmp 
+                \end{cppcode}
+                \bigbreak \noindent 
+                Then,
+                \bigbreak \noindent 
+                \begin{cppcode}
+                if (condition)
+                    SWAP(x,y);
+                else
+                    foo();
+                \end{cppcode}
+                \bigbreak \noindent 
+                But after macro expansion, the compiler effectively sees:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    if (condition)
+                        typeof(x) tmp = (x);
+
+                    (x) = (y);
+                    (y) = tmp;
+                    else
+                        foo();
+                \end{cppcode}
+                \bigbreak \noindent 
+                Wrapping the macro in:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define SWAP(a, b) do { \
+                        typeof(a) tmp = (a); \
+                        (a) = (b);           \
+                        (b) = tmp;           \
+                    } while (0)
+                \end{cppcode}
+                \bigbreak \noindent 
+                makes the expansion:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    if (condition)
+                    do {
+                        typeof(x) tmp = (x);
+                        x = y;
+                        y = tmp;
+                    } while (0);
+                    else
+                        foo();
+                \end{cppcode}
+        \end{itemize}
+
+        \pagebreak 
+        \subsection{Generics}
+        \begin{itemize}
+            \item \textbf{\_Generic}: C11 introduced \_Generic, which provides compile-time type selection. Suppose you have
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    void print_int(int x);
+                    void print_double(double x);
+                    void print_string(const char *x);
+                \end{cppcode}
+                \bigbreak \noindent 
+                Normally, you have to explicitly choose:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    print_int(10);
+                    print_double(3.14);
+                    print_string("hello");
+                \end{cppcode}
+                \bigbreak \noindent 
+                With \_Generic, you can create one print() interface:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define print(x) _Generic((x), \
+                        int:         print_int,    \
+                        double:      print_double, \
+                        const char *: print_string \
+                    )(x)
+                \end{cppcode}
+                \bigbreak \noindent 
+                The general syntax is 
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    _Generic(expression,
+                        type1: result1,
+                        type2: result2,
+                        type3: result3,
+                        default: result4
+                    )
+                \end{cppcode}
+                \bigbreak \noindent 
+                For example
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    int x = _Generic(3.14,
+                        int:    100,
+                        double: 200,
+                        default: 300
+                    );
+                \end{cppcode}
+                \bigbreak \noindent 
+                Because 3.14 has type double, this is effectively:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                int x = 200;
+                \end{cppcode}
+                \bigbreak \noindent 
+                An important property is that the controlling expression is used to determine its type, not to evaluate it.
+
+        \end{itemize}
+
+        \pagebreak 
+        \subsection{Arena allocation}
+        \begin{itemize}
+            \item \textbf{Arena allocation}: Arena allocation is a memory-management strategy where you allocate many objects from one large region of memory and then free all of them together
+                \bigbreak \noindent 
+                An arena can be surprisingly simple:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    typedef struct {
+                        unsigned char *memory;
+                        size_t capacity;
+                        size_t offset;
+                    } Arena;
+                \end{cppcode}
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    Arena arena = {
+                        .memory = malloc(1024 * 1024),
+                        .capacity = 1024 * 1024,
+                        .offset = 0,
+                    };
+                \end{cppcode}
+                \bigbreak \noindent 
+                Allocation can then be 
+                \bigbreak \noindent 
+                \begin{cppcode}
+                void *arena_alloc(Arena *arena, size_t size) {
+                    if (arena->offset + size > arena->capacity)
+                        return NULL;
+
+                    void *result = arena->memory + arena->offset;
+
+                    arena->offset += size;
+
+                    return result;
+                }
+                \end{cppcode}
+                \bigbreak \noindent 
+                Then,
+                \bigbreak \noindent 
+                \begin{cppcode}
+                Node *node = arena_alloc(&arena, sizeof *node);
+                \end{cppcode}
+                \bigbreak \noindent 
+                This form of an arena is called a \textbf{bump allocator}. The pointer simply keeps "bumping" forward. No free-list search is necessary.
+                \bigbreak \noindent 
+                The simplistic implementation above isn't sufficient for arbitrary C objects. We must account for alignment.
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    void *arena_alloc(
+                        Arena *arena,
+                        size_t size,
+                        size_t alignment
+                    );
+                \end{cppcode}
+                \bigbreak \noindent 
+                \begin{cppcode}
+                Node *node = arena_alloc(
+                    &arena,
+                    sizeof(Node),
+                    _Alignof(Node)
+                );
+                \end{cppcode}
+                \bigbreak \noindent 
+                A more ergonomic macro could hide that:
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    #define ARENA_NEW(arena, T) \
+                        arena_alloc((arena), sizeof(T), _Alignof(T))
+                \end{cppcode}
+
+
+        \end{itemize}
+
+        \pagebreak 
         \unsect{GCC complier flags}
         \subsection{Warnings}
         \begin{itemize}

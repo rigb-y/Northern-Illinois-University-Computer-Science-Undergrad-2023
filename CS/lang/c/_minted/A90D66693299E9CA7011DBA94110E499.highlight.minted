@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{condition}\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{typeof}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{tmp}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tmp}\PYG{p}{;}
+\PYG{k}{else}
+\PYG{+w}{    }\PYG{n}{foo}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

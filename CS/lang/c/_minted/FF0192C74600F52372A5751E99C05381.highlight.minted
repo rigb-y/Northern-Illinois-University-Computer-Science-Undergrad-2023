@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define TOKEN\PYGZus{}LIST(X) \PYGZbs{}}
+\PYG{c+cp}{    X(INT)            \PYGZbs{}}
+\PYG{c+cp}{    X(REAL)           \PYGZbs{}}
+\PYG{c+cp}{    X(PLUS)           \PYGZbs{}}
+\PYG{c+cp}{    X(MINUS)}
+\end{MintedVerbatim}

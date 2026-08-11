@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define SWAP(a, b) \PYGZbs{}}
+\PYG{c+cp}{typeof(a) tmp = (a); \PYGZbs{}}
+\PYG{c+cp}{(a) = (b);           \PYGZbs{}}
+\PYG{c+cp}{(b) = tmp}
+\end{MintedVerbatim}

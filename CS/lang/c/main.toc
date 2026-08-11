@@ -31,5 +31,9 @@
 \contentsline {section}{\numberline {13}Finding memory leaks}{79}{section.0.13}%
 \contentsline {section}{\numberline {14}Unix / POSIX}{83}{section.0.14}%
 \contentsline {subsection}{\numberline {14.1}unistd.h and sys/types.h}{83}{subsection.0.14.1}%
-\contentsline {section}{\numberline {15}GCC complier flags}{91}{section.0.15}%
-\contentsline {subsection}{\numberline {15.1}Warnings}{91}{subsection.0.15.1}%
+\contentsline {section}{\numberline {15}Advanced C}{91}{section.0.15}%
+\contentsline {subsection}{\numberline {15.1}X-macros}{91}{subsection.0.15.1}%
+\contentsline {subsection}{\numberline {15.2}Generics}{96}{subsection.0.15.2}%
+\contentsline {subsection}{\numberline {15.3}Arena allocation}{97}{subsection.0.15.3}%
+\contentsline {section}{\numberline {16}GCC complier flags}{99}{section.0.16}%
+\contentsline {subsection}{\numberline {16.1}Warnings}{99}{subsection.0.16.1}%

@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.5.23)  8 JUN 2026 16:46
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  11 AUG 2026 11:05
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -8,7 +8,7 @@ L3 programming layer <2026-01-19>
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
 Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
 Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended collection.
-luaotfload | conf : Root cache directory is "/home/datura/.texlive/texmf-var/luatex-cache/generic/names".
+luaotfload | conf : Root cache directory is "/home/angel/.texlive/texmf-var/luatex-cache/generic/names".
 luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-resolved path "/usr/share/texmf-dist/tex/luatex/luaotfload/fontloader-2023-12-28.lua".
 Lua-only attribute luaotfload@noligature = 1
 luaotfload | init : Context OpenType loader version 3.134
@@ -17,7 +17,7 @@ Inserting `luaotfload.node_processor' in `hpack_filter'.
 Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
 Inserting `luaotfload.define_font' in `define_font'.
 Lua-only attribute luaotfload_color_attribute = 2
-luaotfload | conf : Root cache directory is "/home/datura/.texlive/texmf-var/luatex-cache/generic/names".
+luaotfload | conf : Root cache directory is "/home/angel/.texlive/texmf-var/luatex-cache/generic/names".
 Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
 Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
 Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
@@ -39,7 +39,7 @@ Inserting `tracingstacklevels' in `input_level_string'. (/usr/share/texmf-dist/t
 Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
 (/usr/share/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
-luaotfload | db : Font names database loaded from /home/datura/.texlive/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz)
+luaotfload | db : Font names database loaded from /home/angel/.texlive/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz)
 \c@part=\count273
 \c@chapter=\count274
 \c@section=\count275
@@ -52,7 +52,7 @@ luaotfload | db : Font names database loaded from /home/datura/.texlive/texmf-va
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen147
-) (/home/datura/dev/latex/template/preamble.tex (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+) (/home/angel/dev/latex/template/preamble.tex (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
@@ -1426,7 +1426,7 @@ Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
 \LT@p@ftn=\toks66
 )
 
-/home/datura/dev/latex/template/preamble.tex:77: LaTeX Error: Command \span already defined.
+/home/angel/dev/latex/template/preamble.tex:77: LaTeX Error: Command \span already defined.
                Or name \end... illegal, see p.192 of the manual.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1440,7 +1440,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/datura/dev/latex/template/preamble.tex:84: LaTeX Error: Command \brack already defined.
+/home/angel/dev/latex/template/preamble.tex:84: LaTeX Error: Command \brack already defined.
                Or name \end... illegal, see p.192 of the manual.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1583,7 +1583,7 @@ File: tikzlibraryshadows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \c@mylabelcounter=\count575
 
 
-/home/datura/dev/latex/template/preamble.tex:1049: LaTeX Error: Command \abs already defined.
+/home/angel/dev/latex/template/preamble.tex:1049: LaTeX Error: Command \abs already defined.
                Or name \end... illegal, see p.192 of the manual.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1597,7 +1597,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/datura/dev/latex/template/preamble.tex:1050: LaTeX Error: Command \norm already defined.
+/home/angel/dev/latex/template/preamble.tex:1050: LaTeX Error: Command \norm already defined.
                Or name \end... illegal, see p.192 of the manual.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1699,7 +1699,7 @@ Package: thmdef-mdframed 2023/05/04 v0.76
 \c@tabletitle=\count582
 
 
-/home/datura/dev/latex/template/preamble.tex:1765: LaTeX Error: Command \endpf undefined.
+/home/angel/dev/latex/template/preamble.tex:1765: LaTeX Error: Command \endpf undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
@@ -1710,7 +1710,7 @@ l.1765 \renewcommand{\endpf}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-) (/home/datura/dev/latex/template/macros.tex)
+) (/home/angel/dev/latex/template/macros.tex)
 Package translations Info: No language package found. I am going to use `english' as default language. on input line 30.
  (./main.aux)
 \openout1 = main.aux
@@ -1788,7 +1788,7 @@ Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-)) ("|'inkscape' -V ") (/usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
+)) (/usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 30.
@@ -1813,14 +1813,15 @@ Package luatex.def Info: ~/niu/seal.png  used on input line 50.
 (luatex.def)             Requested size: 158.99156pt x 122.81187pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}</home/datura/niu/seal.png>]
-No file main.toc.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}</home/angel/niu/seal.png>] (./main.toc)
 \tf@toc=\write6
 
 \openout6 = main.toc
 
 warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
-[1] [2] (./main.aux)
+[1] [2]
+runsystem(latexminted cleantemp  --timestamp 20260811110545 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1828,19 +1829,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 61184 strings out of 476076
+ 61189 strings out of 476076
  100000,2373549 words of node,token memory allocated
  1870 words of node memory still in use:
    31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 84 attribute, 162 glue_spec, 84 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:1,2:137,3:43,4:21,5:80,6:18,7:478,8:2,9:129,10:2,11:18
- 82129 multiletter control sequences out of 65536+600000
+   avail lists: 1:1,2:135,3:43,4:21,5:80,6:18,7:478,8:2,9:129,10:2,11:18
+ 82130 multiletter control sequences out of 65536+600000
  24 fonts using 1780511 bytes
  99i,5n,108p,815b,1108s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf>
-Output written on main.pdf (3 pages, 33676 bytes).
+Output written on main.pdf (3 pages, 33887 bytes).
 
-PDF statistics: 87 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+PDF statistics: 89 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  4 named destinations out of 1000 (max. 1048576)
  264 words of extra memory for PDF output out of 10000 (max. 100000000)
 
