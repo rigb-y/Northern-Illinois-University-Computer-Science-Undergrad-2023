@@ -1,4 +1,1 @@
-                        eDP-1
-                        HDMI-1
-                        DP-1
-                        DP-2
+                    void XRRSelectInput(Display* dpy, Window window, int mask);

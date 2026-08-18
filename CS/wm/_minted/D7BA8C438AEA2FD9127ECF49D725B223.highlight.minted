@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{XRRSelectInput}\PYG{p}{(}
+\PYG{+w}{    }\PYG{n}{dp}\PYG{p}{,}
+\PYG{+w}{    }\PYG{n}{root}\PYG{p}{,}
+\PYG{+w}{    }\PYG{n}{RRScreenChangeNotifyMask}\PYG{+w}{ }
+\PYG{esc}{    RRCrtcChangeNotifyMask }
+\PYG{+w}{    }\PYG{n}{RROutputChangeNotifyMask}
+\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

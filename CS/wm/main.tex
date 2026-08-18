@@ -5073,7 +5073,204 @@
                         DP-2
                     \end{bashcode}
                 \item \textbf{Monitor}: A RandR monitor is a logical rectangular region of an X screen. A monitor therefore answers the question: "What logical regions should applications treat as monitors?" rather than: "What physical connector is attached?"
+                \item \textbf{Ensure the randr extension is available}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        Bool XRRQueryExtension(Display *dpy,
+                            int *event_base_return,
+                            int *error_base_return
+                        );
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The event base and error base are offsets X11 assigns to an extension so that extension-defined event/error numbers do not collide with core X11 events and errors.
+                    \bigbreak \noindent 
+                    RandR defines its events as offsets:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        #define RRScreenChangeNotify 0
+                        #define RRNotify             1
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The X server gives RandR some event base, say hypothetically 89. Then the actual X event numbers are the base plus the offset.
+                    \bigbreak \noindent 
+                    You must not assume what event\_base will be. Ask the server using XRRQueryExtension().
+                \end{itemize}
             \end{itemize}
+
+            \pagebreak 
+            \subsection{EWMH}
+            \begin{itemize}
+                
+            \end{itemize}
+
+            \pagebreak 
+            \subsection{Hotplugging}
+            \begin{itemize}
+                \item \textbf{Hot-Plugging}: hot-plugging means detecting and responding to changes in the monitor configuration while your WM is already running.
+                    \bigbreak \noindent 
+                    At startup, ask RandR to send your WM configuration-change events:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        XRRSelectInput(
+                            dp,
+                            root,
+                            RRScreenChangeNotifyMask |
+                            RRCrtcChangeNotifyMask |
+                            RROutputChangeNotifyMask
+                        );
+                    \end{cppcode}
+                \item \textbf{Events}: 
+                    \begin{itemize}
+                        \item \textbf{RRScreenChangeNotify}: This is the original RandR configuration-change event. The structure is
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                            XRRScreenChangeNotifyEvent
+                            \end{cppcode}
+                            \bigbreak \noindent 
+                            It contains information about changes to the overall screen configuration, including things such as the screen dimensions, rotation, and physical dimensions
+                            \bigbreak \noindent 
+                            Subscribe with
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                                RRScreenChangeNotifyMask
+                            \end{cppcode}
+                        \item \textbf{RRNotify}: RRNotify has a subtype telling you what kind of RandR object changed.
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                            RRNotify_CrtcChange
+                            RRNotify_OutputChange
+                            RRNotify_OutputProperty
+                            RRNotify_ProviderChange
+                            RRNotify_ProviderProperty
+                            RRNotify_ResourceChange
+                            \end{cppcode}
+                        \item \textbf{RRNotify\_CrtcChange}: A CRTC's configuration changed. A CRTC controls things such as:
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                                position
+                                mode
+                                rotation
+                                outputs it drives
+                            \end{cppcode}
+                            \bigbreak \noindent 
+                            Subscribe with
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                            RRCrtcChangeNotifyMask
+                            \end{cppcode}
+                        \item \textbf{RRNotify\_OutputChange}: An output's state/configuration changed. Subscribe with
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                            RROutputChangeNotifyMask
+                            \end{cppcode}
+                        \item \textbf{RRNotify\_ResourceChange}: This indicates that RandR resources have changed. It is another signal that your cached understanding of the RandR configuration may need to be refreshed.
+                            \bigbreak \noindent 
+                            Subscribe with
+                            \bigbreak \noindent 
+                            \begin{cppcode}
+                            RRResourceChangeNotifyMask
+                            \end{cppcode}
+                    \end{itemize}
+                \item \textbf{XRRUpdateConfiguration}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    int XRRUpdateConfiguration(XEvent *event);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Updates Xlib's internal understanding of the X screen configuration based on this RandR screen-change event. It is intended for an 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    RRScreenChangeNotify
+                    \end{cppcode}
+                \item \textbf{XRRScreenChangeNotifyEvent}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        typedef struct {
+                            int type;			/* event base */
+                            unsigned long serial;	/* # of last request processed by server */
+                            Bool send_event;		/* true if this came from a SendEvent request */
+                            Display *display;		/* Display the event was read from */
+                            Window window;		/* window which selected for this event */
+                            Window root;		/* Root window for changed screen */
+                            Time timestamp;		/* when the screen change occurred */
+                            Time config_timestamp;	/* when the last configuration change */
+                            SizeID size_index;
+                            SubpixelOrder subpixel_order;
+                            Rotation rotation;
+                            int width;
+                            int height;
+                            int mwidth;
+                            int mheight;
+                        } XRRScreenChangeNotifyEvent;
+                    \end{cppcode}
+                \item \textbf{XRRNotifyEvent}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        typedef struct {
+                            int type;			/* event base */
+                            unsigned long serial;	/* # of last request processed by server */
+                            Bool send_event;		/* true if this came from a SendEvent request */
+                            Display *display;		/* Display the event was read from */
+                            Window window;		/* window which selected for this event */
+                            int subtype;		/* RRNotify_ subtype */
+                        } XRRNotifyEvent;
+                    \end{cppcode}
+                \item \textbf{XRRCrtcChangeNotifyEvent}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        typedef struct {
+                            int type;			/* event base */
+                            unsigned long serial;	/* # of last request processed by server */
+                            Bool send_event;		/* true if this came from a SendEvent request */
+                            Display *display;		/* Display the event was read from */
+                            Window window;		/* window which selected for this event */
+                            int subtype;		/* RRNotify_CrtcChange */
+                            RRCrtc crtc;    		/* current crtc (or None) */
+                            RRMode mode;	    	/* current mode (or None) */
+                            Rotation rotation;		/* current rotation of associated crtc */
+                            int x, y;			/* position */
+                            unsigned int width, height;	/* size */
+                        } XRRCrtcChangeNotifyEvent;
+                    \end{cppcode}
+                \item \textbf{XRROutputChangeNotifyEvent}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        typedef struct {
+                            int type;			/* event base */
+                            unsigned long serial;	/* # of last request processed by server */
+                            Bool send_event;		/* true if this came from a SendEvent request */
+                            Display *display;		/* Display the event was read from */
+                            Window window;		/* window which selected for this event */
+                            int subtype;		/* RRNotify_OutputChange */
+                            RROutput output;		/* affected output */
+                            RRCrtc crtc;	    	/* current crtc (or None) */
+                            RRMode mode;	    	/* current mode (or None) */
+                            Rotation rotation;		/* current rotation of associated crtc */
+                            Connection connection;	/* current connection status */
+                            SubpixelOrder subpixel_order;
+                        } XRROutputChangeNotifyEvent;
+                    \end{cppcode}
+                \item \textbf{XRRResourceChangeNotifyEvent}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        typedef struct {
+                            int type;			/* event base */
+                            unsigned long serial;	/* # of last request processed by server */
+                            Bool send_event;		/* true if this came from a SendEvent request */
+                            Display *display;		/* Display the event was read from */
+                            Window window;		/* window which selected for this event */
+                            int subtype;		/* RRNotify_ResourceChange */
+                            Time timestamp;		/* time of change */
+                        } XRRResourceChangeNotifyEvent;
+                    \end{cppcode}
+                \item \textbf{XRRSelectInput}: 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    void XRRSelectInput(Display* dpy, Window window, int mask);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    This function must be used instead of the standard \textbf{XSelectInput} to select events belonging to the randr extension.
+
 
     
 

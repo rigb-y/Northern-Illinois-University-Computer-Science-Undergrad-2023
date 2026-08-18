@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{XRRSelectInput}\PYG{p}{(}\PYG{n}{Display}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{dpy}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{window}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{mask}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

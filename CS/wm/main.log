@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  9 AUG 2026 11:15
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  15 AUG 2026 15:56
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260809111526 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260815155645 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260809111526 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260815155645 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/1578A6D71A1FC43C18424C4DE131DE7C.highlight.minted)
 \openout7 = main.listing
  (./_minted/2B478BCAB008F38D371B9FB8DBFDC87C.highlight.minted)
@@ -2934,7 +2934,61 @@ Overfull \hbox (18.67497pt too wide) in paragraph at lines 4828--4829
 \openout7 = main.listing
  (./_minted/AB6E2C8D5742E81331CBD03A11EE1810.highlight.minted)
 \openout7 = main.listing
- (./_minted/D34233F48B341F2F3B6EE5C2B78B8401.highlight.minted) [130] [131] (./main.aux)
+ (./_minted/D34233F48B341F2F3B6EE5C2B78B8401.highlight.minted)
+\openout7 = main.listing
+ (./_minted/71975548DF084793378D1C2A00A73F71.highlight.minted)
+\openout7 = main.listing
+ (./_minted/49CFAE6CE6ED1462D85770911D76DD15.highlight.minted) [130]
+
+./main.tex:5104: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5104             \end{itemize}
+                                
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[131]
+\openout7 = main.listing
+ (./_minted/D7BA8C438AEA2FD9127ECF49D725B223.highlight.minted)
+\openout7 = main.listing
+ (./_minted/20CFF36245EB7338CD3F4BE25F03FDA7.highlight.minted)
+\openout7 = main.listing
+ (./_minted/1E46250ECA78599D2D821C9A3322BF50.highlight.minted)
+\openout7 = main.listing
+ (./_minted/CCC15B4CB5A225ACDD902AE81D1D518D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/9FE38E9D4A9FA6B3B899F2B61B71175A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/7018E5CB38B9B1ECD59A504524E75DD8.highlight.minted) [132]
+\openout7 = main.listing
+ (./_minted/83E6716CB62154D9D579146FC972212A.highlight.minted)
+Overfull \hbox (15.28891pt too wide) in paragraph at lines 5166--5167
+[]\TU/lmr/bx/n/10 RRNotify_Re-sourceChange\TU/lmr/m/n/10 : This in-di-cates that RandR re-sources have changed.
+ []
+
+
+\openout7 = main.listing
+(./_minted/54925807954B1238FA9CF3FF65090ACC.highlight.minted)
+\openout7 = main.listing
+ (./_minted/792796F725D1501D2AE456FFB14ABC83.highlight.minted)
+\openout7 = main.listing
+ (./_minted/E07603B3FEDA0361AE76478E7F2E6E0E.highlight.minted)
+\openout7 = main.listing
+ (./_minted/422D184344C91A227FE3125825771034.highlight.minted) [133]
+\openout7 = main.listing
+ (./_minted/3DB988840F54F8377DE0D2EA36D7174C.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F8AD35533BC365EE057380425ED29801.highlight.minted) [134]
+\openout7 = main.listing
+ (./_minted/0B8FA3892B796E09EA1D540447937B64.highlight.minted)
+\openout7 = main.listing
+ (./_minted/0165CDFB8A528F4A6CD6D149D5F9197B.highlight.minted) [135]
+\openout7 = main.listing
+ (./_minted/B0C6CD21B01B470B0E8472759158C30D.highlight.minted) [136] [137] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2942,19 +2996,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 65279 strings out of 476076
- 305240,2373549 words of node,token memory allocated
+ 65523 strings out of 476076
+ 305241,2373549 words of node,token memory allocated
  1887 words of node memory still in use:
    32 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:2,2:12752,3:1966,4:795,5:3106,6:138,7:14802,8:40,9:8684,10:83,11:2315
- 83867 multiletter control sequences out of 65536+600000
+   avail lists: 1:3,2:12752,3:1966,4:795,5:3109,6:138,7:14813,8:40,9:8693,10:83,11:2315
+ 83959 multiletter control sequences out of 65536+600000
  75 fonts using 5741431 bytes
  99i,13n,108p,815b,1384s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf>{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman9-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy6.pfb>
-Output written on main.pdf (132 pages, 445449 bytes).
+Output written on main.pdf (138 pages, 458094 bytes).
 
-PDF statistics: 1052 PDF objects out of 1200 (max. 8388607)
- 853 compressed objects within 9 object streams
- 293 named destinations out of 1000 (max. 1048576)
- 632 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 1086 PDF objects out of 1200 (max. 8388607)
+ 881 compressed objects within 9 object streams
+ 301 named destinations out of 1000 (max. 1048576)
+ 648 words of extra memory for PDF output out of 10000 (max. 100000000)
 

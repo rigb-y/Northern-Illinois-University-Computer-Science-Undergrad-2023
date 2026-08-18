@@ -1,0 +1,19 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{typedef}\PYG{+w}{ }\PYG{k}{struct}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{type}\PYG{p}{;}\PYG{+w}{			}\PYG{c+cm}{/* event base */}
+\PYG{+w}{    }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{serial}\PYG{p}{;}\PYG{+w}{	}\PYG{c+cm}{/* \PYGZsh{} of last request processed by server */}
+\PYG{+w}{    }\PYG{n}{Bool}\PYG{+w}{ }\PYG{n}{send\PYGZus{}event}\PYG{p}{;}\PYG{+w}{		}\PYG{c+cm}{/* true if this came from a SendEvent request */}
+\PYG{+w}{    }\PYG{n}{Display}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{display}\PYG{p}{;}\PYG{+w}{		}\PYG{c+cm}{/* Display the event was read from */}
+\PYG{+w}{    }\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{window}\PYG{p}{;}\PYG{+w}{		}\PYG{c+cm}{/* window which selected for this event */}
+\PYG{+w}{    }\PYG{n}{Window}\PYG{+w}{ }\PYG{n}{root}\PYG{p}{;}\PYG{+w}{		}\PYG{c+cm}{/* Root window for changed screen */}
+\PYG{+w}{    }\PYG{n}{Time}\PYG{+w}{ }\PYG{n}{timestamp}\PYG{p}{;}\PYG{+w}{		}\PYG{c+cm}{/* when the screen change occurred */}
+\PYG{+w}{    }\PYG{n}{Time}\PYG{+w}{ }\PYG{n}{config\PYGZus{}timestamp}\PYG{p}{;}\PYG{+w}{	}\PYG{c+cm}{/* when the last configuration change */}
+\PYG{+w}{    }\PYG{n}{SizeID}\PYG{+w}{ }\PYG{n}{size\PYGZus{}index}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{SubpixelOrder}\PYG{+w}{ }\PYG{n}{subpixel\PYGZus{}order}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{Rotation}\PYG{+w}{ }\PYG{n}{rotation}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{width}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{height}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{mwidth}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{mheight}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{n}{XRRScreenChangeNotifyEvent}\PYG{p}{;}
+\end{MintedVerbatim}
