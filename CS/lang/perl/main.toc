@@ -5,4 +5,7 @@
 \contentsline {section}{\numberline {5}Arrays}{8}{section.0.5}%
 \contentsline {section}{\numberline {6}Hashes}{10}{section.0.6}%
 \contentsline {section}{\numberline {7}Special variables}{12}{section.0.7}%
-\contentsline {section}{\numberline {8}Operators and functions}{13}{section.0.8}%
+\contentsline {section}{\numberline {8}More on strings}{13}{section.0.8}%
+\contentsline {section}{\numberline {9}Operators and functions}{14}{section.0.9}%
+\contentsline {subsection}{\numberline {9.1}Quote operators and siblings}{16}{subsection.0.9.1}%
+\contentsline {subsection}{\numberline {9.2}Important builtin functions}{17}{subsection.0.9.2}%

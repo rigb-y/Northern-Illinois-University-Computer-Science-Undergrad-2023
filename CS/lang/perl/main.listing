@@ -1,2 +1,4 @@
-                    "hello" . "world";
-                    "hello" x 3;
+                    sprintf(FORMAT, LIST);
+
+                    my $price = 19.9962;
+                    my $money = sprintf("%.2f", $price);

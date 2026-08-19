@@ -374,6 +374,33 @@
     \end{itemize}
 
     \pagebreak 
+    \unsect{More on strings}
+    \begin{itemize}
+        \item \textbf{Foldcase}: case folding is performed using the built-in fc function (introduced in Perl 5.16). Case folding converts strings into a canonical format meant for case-insensitive comparisons, handling complex Unicode character mappings.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use feature 'fc'; # or use v5.16;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $a = 'H';
+                $b = "h";
+
+                print fc($a) cmp fc($b); # 0
+            \end{perlcode}
+        \item \textbf{String escape sequences}: 
+            \begin{itemize}
+                \item \textbackslash u (Uppercase next): Capitalizes only the very next character.
+                \item \textbackslash l (Lowercase next): Lowers only the very next character.
+                \item \textbackslash U (Uppercase all): Capitalizes all characters that follow it.
+                \item \textbackslash L (Lowercase all): Lowers all characters that follow it.
+                \item \textbackslash F (Foldcase all): Case-folds all characters that follow it (ideal for Unicode case-insensitive matching).
+                \item \textbackslash E (End modification): Stops the effect of \textbackslash U, \textbackslash L, or \textbackslash F.
+            \end{itemize}
+
+    \end{itemize}
+
+    \pagebreak 
     \unsect{Operators and functions}
     \begin{itemize}
         \item \textbf{Operators}        
@@ -383,6 +410,15 @@
                     \textbf{Note}: In fact, the shortcut operators += and its siblings can be used for just about any operator. 
                     \bigbreak \noindent 
                     We also have post/pre increment/decrement.
+                \item \textbf{Logical}: \&\&, and, ||, or, !, not, xor, //
+                    \bigbreak \noindent 
+                    \textbf{Note}: The versions and, or, not, xor have extremely low precedence compared to \&\&, ||, and !, lower even than the assignment operator =. 
+                    \bigbreak \noindent 
+                    The // operator is defined-or, which returns the left side if it is defined, even if it is false (like 0 or "").
+                \item \textbf{Numeric conditional}: ==, !=, <, >, <=, >=, <=>
+                \item \textbf{String conditional}: eq, ne, lt, gt, le, ge, cmp
+                    \bigbreak \noindent 
+                    \textbf{Note:} <=> and cmp perform three-way sorting and evaluation. They return -1, 0, or 1 for less, equal, or greater.
                 \item \textbf{String}:  . (concat), x (repeat)
                     \bigbreak \noindent 
                     \begin{perlcode}
@@ -390,6 +426,87 @@
                     "hello" x 3;
                     \end{perlcode}
             \end{itemize}
+        \item \textbf{Function calling}: Perl does not insist that functions enclose their arguments within parentheses. Both print "Hello"; and print("Hello"); are correct. 
+        \item \textbf{Argument types}: 
+            \begin{itemize}
+                \item \textbf{SCALAR} -- Any scalar variable, for example: 42, "foo", or \$a.
+                \item \textbf{EXPR} -- An expression (possibly built out of terms and operators) which evaluates to a scalar.
+                \item \textbf{LIST} -- Any named or unnamed list (remember that a named list is an array).
+                \item \textbf{ARRAY} -- A named list; usually results in the array being modified.
+                \item \textbf{HASH} -- Any named or unnamed hash.
+                \item \textbf{PATTERN} -- A pattern to match on --- we’ll talk more about these later on, in Regular Expressions.
+                \item \textbf{FILEHANDLE} -- A filehandle indicating a file that you’ve opened or one of the pseudo-files that is automatically opened, such as STDIN, STDOUT, and STDERR.
+            \end{itemize}
+        \item \textbf{Data conversion functions}: 
+            \begin{itemize}
+                \item \textbf{hex:} Interprets a string as a hexadecimal number and converts it to decimal.
+                \item \textbf{oct:} Interprets a string as an octal number and converts it to decimal. If the string starts with 0x, it automatically parses it as hex, or with 0b as binary.
+                \item \textbf{int:} Strips the decimal portion of a floating-point number, truncating it to an integer.
+                \item \textbf{chr:} Converts an ASCII/Unicode numeric value into its corresponding character.
+                \item \textbf{ord:} The inverse of chr. Converts the first character of a string into its numeric ASCII/Unicode value.
+                \item \textbf{join:} Flattens a list or array into a single string, using a specified separator string.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        my $string = join("-", ("a", "b", "c")); # Returns "a-b-c"
+                    \end{perlcode}
+                \item \textbf{split:} The inverse of join. Breaks a string into a list of substrings using a regular expression delimiter.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        my @array = split(/-/, "a-b-c"); # Returns ('a', 'b', 'c')
+                    \end{perlcode}
+            \end{itemize}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Quote operators and siblings}
+    \begin{itemize}
+        \item \textbf{q// (Single Quote):} Behaves exactly like standard single quotes ('...'). It does not interpolate variables or escape sequences.
+        \item \textbf{qq// (Double Quote):} Behaves exactly like standard double quotes ("..."). It interpolates variables, math, and escape sequences (like \textbackslash n or \textbackslash U).
+        \item \textbf{qw// (Quote Words):} Splits a string on whitespace and returns a list of literal words. No variable interpolation occurs
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Important builtin functions}
+    \begin{itemize}
+        \item \textbf{Numeric}:
+            \begin{itemize}
+                \item abs(\$x)	Absolute value
+                \item sqrt(\$x)	Square root
+                \item exp(\$x)	e ** \$x
+                \item log(\$x)	Natural logarithm
+                \item sin(\$x)	Sine
+                \item cos(\$x)	Cosine
+                \item atan2(\$y, \$x)	Arctangent
+                \item rand(\$n)	Random number from 0 to < \$n
+                \item srand()	Seed random number generator
+            \end{itemize}
+        \item \textbf{String}:
+            \begin{itemize}
+                \item length(\$str)	String length
+                \item substr(\$str, ...)	Extract/replace substring
+                \item index(\$str, \$sub)	Find substring
+                \item rindex(\$str, \$sub)	Find substring from right
+                \item lc(\$str)	Lowercase entire string
+                \item uc(\$str)	Uppercase entire string
+                \item fc(\$str) foldcase entire string
+                \item lcfirst(\$str)	Lowercase first character
+                \item ucfirst(\$str)	Uppercase first character
+                \item chomp(\$str)	Remove input record separator, usually newline
+                \item chop(\$str)	Remove final character
+                \item sprintf(...)	Produce formatted string
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    sprintf(FORMAT, LIST);
+
+                    my $price = 19.9962;
+                    my $money = sprintf("%.2f", $price);
+                    \end{perlcode}
+                \item split(...)	Split string into list
+                \item join(...)	Combine list into string
+            \end{itemize}
+
 
 
     \end{itemize}

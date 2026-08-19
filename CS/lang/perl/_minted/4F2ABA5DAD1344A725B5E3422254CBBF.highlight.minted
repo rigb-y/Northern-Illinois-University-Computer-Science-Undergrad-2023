@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{sprintf}\PYG{p}{(}\PYG{n}{FORMAT}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LIST}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{price}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{19.9962}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{money}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{sprintf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZpc{}.2f\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{price}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}
