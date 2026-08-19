@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/perl}
+
+\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello world\PYGZdq{}}\PYG{p}{;}
+
+\PYG{c+cp}{\PYGZus{}\PYGZus{}END\PYGZus{}\PYGZus{}}
+\end{MintedVerbatim}

@@ -1,0 +1,402 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={Perl}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{Practical extraction and reporting language (Perl)}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Perl}
+    \begin{itemize}
+        \item \textbf{Practical extraction and reporting language (perl)}: Perl is a high-level, general-purpose, interpreted, dynamic programming language. Though Perl is not officially an acronym, \textbf{Practical Extraction and Reporting Language} is commonly used as a \textbf{backronym}.
+        \item \textbf{use version pragma}: The use VERSION pragma in Perl enforces a minimum version required to run a script and automatically enables modern language features 
+            \bigbreak \noindent 
+            You should place this declaration at the very top of your file. Modern Perl code uses the vX.Y v-string format rather than old-style decimals:
+            \begin{perlcode}
+                use v5.36
+            \end{perlcode}
+            \bigbreak \noindent 
+            Versions v5.10 and higher automatically activate the feature pragma for that release. For example, use v5.36; is equivalent to loading use feature ':5.36';. This gives you immediate access to built-in keywords like say, state, and updated signatures without typing extra code
+            \bigbreak \noindent 
+            Declaring use v5.11 or higher automatically turns on the strict pragma (use strict;) lexically across your file.
+            \bigbreak \noindent 
+            Declaring use v5.35 or higher automatically turns on the warnings pragma (use warnings;
+        \item \textbf{use feature}: In Perl, the use feature pragma allows you to enable newer syntactic features and capabilities without breaking backward compatibility for older programs. Because it is a lexical pragma, any feature you enable is only active from the line it is declared until the end of its enclosing code block.
+            \begin{itemize}
+                \item \textbf{Individual Features:} Pass a list of feature names to the pragma.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        use feature 'say';                        
+                        say "Hello, world!"; # Appends a newline
+                    \end{perlcode}
+                \item \textbf{Feature bundles}: Load all features mad available in a specific Perl release by prefixing the version with a colon
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        use feature ':5.36'
+                    \end{perlcode}
+                \item \textbf{Implicit loading}: Requiring a minimum Perl version automatically enables the feature bundle for that version
+            \end{itemize}
+        \item \textbf{Command Line Execution}:  Use the -E flag instead of -e to quickly test code snippets with all features enabled for your current Perl version.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                perl -E 'say "Fast one-liner testing'
+            \end{perlcode}
+        \item \textbf{Using the diagnostics pragma}: Another pragma that you may find useful is the diagnostics pragma. This translates the normally terse diagnostics emitted from the perl compiler and the perl interpreter into much more useful ones
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use diagnostics;
+            \end{perlcode}
+            \bigbreak \noindent 
+            The diagnostics pragma makes your warnings much more verbose, and it slows the start-up time of your script considerably. You should remove it before putting your code into production.
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Comments}
+    \begin{itemize}
+        \item \textbf{Standard comments}: Uses a hashtag
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Comment
+            \end{perlcode}
+        \item \textbf{Block comments}: We can also use Plain Old Documentation (POD)
+            \bigbreak \noindent 
+            \begin{perlcode}
+                =begin comment
+                ...
+                ...
+                =end comment
+
+                =cut
+            \end{perlcode}
+            \bigbreak \noindent 
+            =cut resumes Perl code execution. "Stop ignoring this text; switch back to executable Perl code."
+            \bigbreak \noindent 
+            =end comment closes a =begin comment region. "This specific comment block is done, but continue treating subsequent text as documentation."
+        \item \textbf{\_\_END\_\_}: You can signal to Perl the end of your program by using the special \_\_END\_\_ tag. Anything below \_\_END\_\_ will be ignored by Perl.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                #!/usr/bin/perl
+
+                print "Hello world";
+
+                __END__
+            \end{perlcode}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Command line options}
+    \begin{itemize}
+        \item \textbf{Warnings}: Turn on warnings with -w
+            \begin{perlcode}
+                #!/usr/bin/perl -w
+            \end{perlcode}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Variables}
+    \begin{itemize}
+        \item \textbf{Pragmatic information (pragma)}: A code pragma (short for "pragmatic information") is a special instruction or command embedded in source code. It tells a compiler, interpreter, or assembler how to process the program, but it does not change the actual logic or output of the software itself.
+        \item \textbf{Note about variables}: In Perl, it is not necessary to declare your variables before you begin. You can summon a variable into existence simply by using it, and it will be globally available to any routine in your program. If you’re used to programming in C or any of a number of other languages, this may seem odd and even dangerous to you. This is indeed the case. That’s why you want to use the strict pragma.
+        \item \textbf{Variable sigils (prefixes)}: In Perl, variable prefixes are called sigils, and they immediately identify the data type of the variable.
+            \begin{itemize}
+                \item \$ used for scalars
+                \item @ used for arrays
+                \item \% used for hashes. A hash is an unordered collection of key-value pairs (associative arrays).
+            \end{itemize}
+        \item \textbf{my, our, and state}: In Perl, my declares a truly private lexical variable, state creates a persistent static variable that initializes only once, and our creates a temporary shortcut to a global package variable
+            \bigbreak \noindent 
+            A lexical variable is a variable that is available only within a specific, textually defined part of a program, such as a function, a block, or a file.
+        \item \textbf{The strict pragma}: Once we use the strict pragma, we have to explicitly declare new variables with scope keywords my, our, or state.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                #!/usr/bin/perl -w
+                use strict;
+
+                my $x = 50; # Okay
+                $y = 100; # Bad
+            \end{perlcode}
+        \item \textbf{Variables with name $a$ or $b$}: \$a and \$b are special variables in Perl. they are implicitly used by Perl's built-in sort function. Inside the sort block, Perl automatically places the two values being compared into \$a and \$b. Consequently, strict 'vars' specifically permits \$a and \$b without requiring my
+        \item \textbf{Scalars}: A scalar is a single item of data
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $name = "Arthur";
+                my $whoami = ’Just Another Perl Hacker’;
+                my $meaning_of_life = 42;
+                my $number_less_than_1 = 0.000001;
+                my $very_large_number = 3.27e17; # 3.27 by 10 to the power of 17
+            \end{perlcode}
+            \bigbreak \noindent 
+            A scalar can be text of any length, and numbers of any precision (machine dependent, of course). Perl doesn’t need us to tell it what type of data we’re going to put into the scalar. In fact, Perl doesn’t care if the type of data in the scalar changes throughout your program. Perl magically converts between them when it needs to
+        \item \textbf{Single vs double quotes}: In Perl, quotes are required to distinguish strings from the language’s reserved words or other expressions. Either type of quote can be used, but there is one important difference: double quotes can include other variable names inside them, and those variables will then be interpolated
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $x = 50;
+                print "$x";
+            \end{perlcode}
+        \item \textbf{Special characters}: Special characters, such as the \textbackslash n newline character, are only available within double quotes. Single quotes will fail to expand these special characters just as they fail to expand variable names
+        \item \textbf{String concatenation}: Uses the dot notation
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print "Hello, " . "World!";
+            \end{perlcode}
+        \item \textbf{Bash style interpolation}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $x = "Hello";
+                print "${x}, World";
+            \end{perlcode}
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Arrays}
+    \begin{itemize}
+        \item \textbf{Creating arrays}: Arrays are initialised by creating a comma separated list of values:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @arr = (1,2,3);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Perl’s arrays, like those in many other languages, are indexed from zero
+        \item \textbf{Accessing}: As you would expect
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print $fruits[0];
+            \end{perlcode}
+            \bigbreak \noindent 
+            We use the dollar sign here because the indexing produces a scalar.
+        \item \textbf{Slicing}: If we wanted to only deal with a portion of the array, we use what we call an array slice. These are written as follows:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                @arr # entire array
+                @arr[1,3]
+                @arr[0..2]
+            \end{perlcode}
+        \item \textbf{Negative indexing}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print $arr[-1] # 3
+            \end{perlcode}
+        \item \textbf{Array size}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print $#arr + 1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note that \texttt{\$\#arr} gets the index of the last element. We can also use
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $size = @arr;
+                print my $size = @arr;
+            \end{perlcode}
+        \item \textbf{qw// (quote words)}: It takes whitespace separated words and turns them into a list
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @arr = qw/hello , world/
+            \end{perlcode}
+            \bigbreak \noindent 
+            Your list can stretch over multiple lines, and your delimiter doesn’t need to be a slash. Whatever punctuation character that you place after the qw becomes the delimiter. So if you prefer parentheses over slashes, that’s no problem at all
+        \item \textbf{Printing out arrays}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @arr = (1,2,3);
+                print @arr;
+                print join(", ", @arr);
+                print "@arr"
+            \end{perlcode}
+            \bigbreak \noindent 
+            The first method takes advantage of the fact that print takes a list of arguments to print and prints them out sequentially. The second uses join() which joins an array or list together by separating each element with the first argument. The third option uses double quote interpolation and a little bit of Perl magic to pick which character(s) to separate the words with.
+        \item \textbf{Context}: There’s a term you’ve heard used just recently but which hasn’t been explained: context. Context refers to how an expression or variable is evaluated in Perl. The two main contexts are:
+            \begin{itemize}
+                \item Scalar context
+                \item List context
+            \end{itemize}
+            Scalar variables are always evaluated in scalar context, however arrays and hashes can be evaluated in both scalar contexts (when we treat them as scalars) and list contexts (when we treat them as arrays and hashes).Scalar variables are always evaluated in scalar context, however arrays and hashes can be evaluated in both scalar contexts (when we treat them as scalars) and list contexts (when we treat them as arrays and hashes).
+            \bigbreak \noindent 
+            Many things in Perl are very specific about which context they require and will force lists into scalar context when required. For example the + (plus or addition) operator expects that its two arguments will be scalars. Hence:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @a = (1,2,3);
+                my @b = (4,5,6,7);
+                print @a + @b;
+            \end{perlcode}
+            \bigbreak \noindent 
+            will print 7. There’s also a third type of context, the null context, where the result of an operation is just thrown away. This usually isn’t discussed, because by its very definition we don’t care about what result is returned
+        \item \textbf{Lists}: A list is an unnamed array.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print ("Hello", ",", " ", "World", "\n");
+            \end{perlcode}
+            \bigbreak \noindent 
+            If you come across something that wants a LIST, you can either give it the elements of list as in the first example above, or you can pass it an array by name. If you come across something that wants an ARRAY, you have to actually give it the name of an array. Examples of functions which insist on wanting an ARRAY are push() and pop(), which can be used for adding and removing elements from the end of an array
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Hashes}
+    \begin{itemize}
+        \item \textbf{Hashes}: A hash is a two-dimensional array which contains keys and values, they’re sometimes called "associative arrays", or "lookup tables". Instead of looking up items in a hash by an array index, you can look up values by their keys.        
+            \bigbreak \noindent 
+            Hashes are initialised in exactly the same way as arrays, with a comma separated list of values:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my %monthdays = ("January", 31, "February", 28, "March", 31, ...);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Or,
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my %monthdays = (
+                    "January" => 31,
+                    "February" => 28,
+                    "March" => 31,
+                    ...
+                );
+            \end{perlcode}
+            \bigbreak \noindent 
+            The => operator is syntactically the same as the comma, but is used to distinguish hashes more easily from normal arrays. It’s pronounced "fat comma", or less often "fat arrow". It does have one difference, you don’t need to put quotes around a bare word immediately before the => operator as these are always treated as strings:
+        \item \textbf{Reading hash values}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print $monthdays{"January"}; # prints 31
+            \end{perlcode}
+            \bigbreak \noindent 
+            Bare words inside the braces of the hash-lookup will be interpreted in Perl as strings, so usually you can drop the quotes:
+        \item \textbf{Creating hash elements}: You can also create elements in a hash on the fly:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my %monthdays = ();
+                $monthdays{"January"} = 31;
+                $monthdays{February} = 28;
+                ...
+            \end{perlcode}
+        \item \textbf{Changing hash values}: To change a value in a hash, just assign the new value to your key:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $pizza_prices{small} = ’$6.00’; # Small pizza prices have gone up
+            \end{perlcode}
+        \item \textbf{Deleting hash values}: Use the delete function
+            \bigbreak \noindent 
+            \begin{perlcode}
+            delete($pizza_prices{medium}); # No medium pizzas anymore.
+            \end{perlcode}
+        \item \textbf{Finding out the size of a hash}: Strictly speaking there is no equivalent to using an array in a scalar context to get the size of a hash. If you take a hash in a scalar context you get back the number of buckets used in the hash, or zero if it is empty. This is only really useful to determine whether or not there are any items in the hash, not how many.
+            \bigbreak \noindent 
+            If you want to know the size of a hash, the number of key-value pairs, you can use the keys function in a scalar context. The keys function returns a list of all the keys in the hash.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $size = keys %monthdays;
+                print $size; 
+            \end{perlcode}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Special variables}
+    \begin{itemize}
+        \item \textbf{Intro}: Perl has many special variables. These are used to set or retrieve certain values which affect the way your program runs. For instance, you can set a special variable to turn interpreter warnings on and off (\$$\land$W), or read a special variable to find out the command line arguments passed to your script (@ARGV). 
+        \item \textbf{\$\_}: Represents the current thing that your Perl script’s working with --- often a line of text or an element of a list or hash. It can be set explicitly, or it can be set implicitly by certain looping constructs (which we’ll look at later). 
+            \bigbreak \noindent 
+            The special variable \$\_ is often the default argument for functions in Perl. For instance, the print() function defaults to printing \$\_.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $_ = "Hello, world!\n";
+                print;
+            \end{perlcode}
+        \item \textbf{@ARGV}: Command line args end up in this special array.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            # ./main.pl arg1 arg2
+            print "@{ARGV}" arg1 arg2
+            print my $argc = @ARGV; 2
+            \end{perlcode}
+        \item \textbf{\%ENV}: This hash contains the names and values of environment variables.
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Operators and functions}
+    \begin{itemize}
+        \item \textbf{Operators}        
+            \begin{itemize}
+                \item \textbf{Arithmetic}: +, -, *, /, \%, ** (exp), +=, -=, *=, /=, \%, **=
+                    \bigbreak \noindent 
+                    \textbf{Note}: In fact, the shortcut operators += and its siblings can be used for just about any operator. 
+                    \bigbreak \noindent 
+                    We also have post/pre increment/decrement.
+                \item \textbf{String}:  . (concat), x (repeat)
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    "hello" . "world";
+                    "hello" x 3;
+                    \end{perlcode}
+            \end{itemize}
+
+
+    \end{itemize}
+
+
+
+
+
+    
+\end{document}

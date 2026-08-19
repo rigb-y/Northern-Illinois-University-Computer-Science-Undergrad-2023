@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+c1}{\PYGZsh{} ./main.pl arg1 arg2}
+\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}@\PYGZob{}ARGV\PYGZcb{}\PYGZdq{}}\PYG{+w}{ }\PYG{n}{arg1}\PYG{+w}{ }\PYG{n}{arg2}
+\PYG{k}{print}\PYG{+w}{ }\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{argc}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nv}{@}\PYG{n+nv}{ARGV}\PYG{p}{;}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\end{MintedVerbatim}

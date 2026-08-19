@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{\PYGZus{}}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello, world!\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
+\PYG{k}{print}\PYG{p}{;}
+\end{MintedVerbatim}

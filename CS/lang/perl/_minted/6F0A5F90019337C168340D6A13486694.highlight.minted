@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{name}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Arthur\PYGZdq{}}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{whoami}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{err}{’}\PYG{n}{Just}\PYG{+w}{ }\PYG{n}{Another}\PYG{+w}{ }\PYG{n}{Perl}\PYG{+w}{ }\PYG{n}{Hacker}\PYG{err}{’}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{meaning\PYGZus{}of\PYGZus{}life}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{42}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{number\PYGZus{}less\PYGZus{}than\PYGZus{}1}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.000001}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{very\PYGZus{}large\PYGZus{}number}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{3.27e17}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} 3.27 by 10 to the power of 17}
+\end{MintedVerbatim}
