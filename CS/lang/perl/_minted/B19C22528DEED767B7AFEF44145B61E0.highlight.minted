@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello\PYGZdq{}}\PYG{+w}{ }\PYG{k}{while}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello\PYGZdq{}}\PYG{+w}{ }\PYG{k}{until}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\end{MintedVerbatim}

@@ -3,9 +3,11 @@
 \contentsline {section}{\numberline {3}Command line options}{5}{section.0.3}%
 \contentsline {section}{\numberline {4}Variables}{6}{section.0.4}%
 \contentsline {section}{\numberline {5}Arrays}{8}{section.0.5}%
-\contentsline {section}{\numberline {6}Hashes}{10}{section.0.6}%
-\contentsline {section}{\numberline {7}Special variables}{12}{section.0.7}%
-\contentsline {section}{\numberline {8}More on strings}{13}{section.0.8}%
-\contentsline {section}{\numberline {9}Operators and functions}{14}{section.0.9}%
-\contentsline {subsection}{\numberline {9.1}Quote operators and siblings}{16}{subsection.0.9.1}%
-\contentsline {subsection}{\numberline {9.2}Important builtin functions}{17}{subsection.0.9.2}%
+\contentsline {section}{\numberline {6}Hashes}{11}{section.0.6}%
+\contentsline {section}{\numberline {7}Special variables}{13}{section.0.7}%
+\contentsline {section}{\numberline {8}More on strings}{16}{section.0.8}%
+\contentsline {section}{\numberline {9}Operators and functions}{17}{section.0.9}%
+\contentsline {subsection}{\numberline {9.1}Quote operators and siblings}{19}{subsection.0.9.1}%
+\contentsline {subsection}{\numberline {9.2}Important builtin functions}{20}{subsection.0.9.2}%
+\contentsline {section}{\numberline {10}Constructs}{22}{section.0.10}%
+\contentsline {section}{\numberline {11}Input / output}{25}{section.0.11}%

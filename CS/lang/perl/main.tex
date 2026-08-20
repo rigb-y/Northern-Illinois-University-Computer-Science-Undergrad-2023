@@ -100,6 +100,7 @@
             \end{perlcode}
             \bigbreak \noindent 
             The diagnostics pragma makes your warnings much more verbose, and it slows the start-up time of your script considerably. You should remove it before putting your code into production.
+        \item \textbf{Memory management}: Perl 5 memory management is primarily based on reference counting, with a runtime that manages Perl values such as scalars, arrays, hashes, and objects for you.
 
 
 
@@ -202,6 +203,21 @@
                 my $x = "Hello";
                 print "${x}, World";
             \end{perlcode}
+        \item \textbf{References / dereferencing}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $x = 10;
+            my $y = \$x; # Creates a reference
+
+            $$y = 25; # $$ Dereferences
+            \end{perlcode}
+            \begin{itemize}
+                \item \textbackslash \$scalar
+                \item \textbackslash @array
+                \item \textbackslash \%hash
+                \item \textbackslash \&function
+            \end{itemize}
+
     \end{itemize}
 
     \pagebreak 
@@ -285,6 +301,34 @@
             \end{perlcode}
             \bigbreak \noindent 
             If you come across something that wants a LIST, you can either give it the elements of list as in the first example above, or you can pass it an array by name. If you come across something that wants an ARRAY, you have to actually give it the name of an array. Examples of functions which insist on wanting an ARRAY are push() and pop(), which can be used for adding and removing elements from the end of an array
+        \item \textbf{Anonymous array reference}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $ref = [1,2,3];
+            \end{perlcode}
+            \bigbreak \noindent 
+            The = [ ... ] syntax is used to create and assign an anonymous array reference. Square brackets [ ] create a memory reference to an array that has no name. This reference is a single scalar value, meaning it is stored in a standard scalar variable (\$).
+        \item \textbf{Multiple dimensional arrays}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $matrix = [
+                    [1,2,3],
+                    [4,5,6],
+                    [7,8,9]
+                ];
+            \end{perlcode}
+            \bigbreak \noindent 
+            Passing a reference to a subroutine avoids flattening your data structure and is much faster for large lists because Perl only copies the single memory address rather than the entire list.
+        \item \textbf{Dereferencing}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print $array_ref->[0]; # Outputs: apple
+
+            # Loop through all elements
+            for my $item (@$array_ref) {
+                print "$item\n";
+            }
+            \end{perlcode}
 
 
     \end{itemize}
@@ -368,6 +412,95 @@
             print my $argc = @ARGV; 2
             \end{perlcode}
         \item \textbf{\%ENV}: This hash contains the names and values of environment variables.
+        \item \textbf{\$!}: \$! contains the operating-system error corresponding roughly to errno in C.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                open(my $fh, "<", "foo.txt")
+                    or die "open failed: $!";
+            \end{perlcode}
+        \item \textbf{Input record separator \$/}: Normally, 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $/ = "\n";
+            \end{perlcode}
+        \item \textbf{Proc ID \$\$}: When used by itself without a variable name, \$\$ is a predefined global variable that returns the Process ID (PID) of the currently running Perl script.
+        \item \textbf{List of general special variables}: 
+            \begin{itemize}
+                \item \$\_	Default input / working variable
+                \item @\_	Arguments passed to the current subroutine
+                \item \$"	Separator used when interpolating arrays into strings
+                \item \$\$	Current process ID
+                \item \$0	Name of the running Perl program
+                \item \$(	Real group ID
+                \item \$)	Effective group ID
+                \item \$<	Real user ID
+                \item \$>	Effective user ID
+                \item \$;	Multidimensional array subscript separator; largely obsolete
+                \item \$a, \$b	Special comparison variables used by sort
+                \item \%ENV	Process environment variables
+                \item \$]	Perl version as a numeric value
+                \item \$$\land$V	Perl version as a version object
+                \item \$$\land$O	Operating system Perl was built for
+                \item \$$\land$X	Perl executable used to start the program
+                \item \$$\land$T	Program start time
+                \item \$$\land$F	Maximum system file descriptor
+                \item \$$\land$I	In-place editing extension (-i)
+                \item \$$\land$M	Emergency memory pool
+                \item @F	Autosplit fields when using -a
+                \item @INC	Module/library search paths
+                \item \%INC	Files/modules already loaded
+                \item \$INC	Current @INC hook index in newer Perl versions
+                \item @ISA	Parent classes of a package
+                \item \%SIG	Signal handlers
+                \item \%\{$\land$HOOK\}	Hooks for certain Perl operations
+                \item \$\{$\land$MAX\_NESTED\_EVAL\_BEGIN\_BLOCKS\}	Limit for nested eval/BEGIN processing
+            \end{itemize}
+        \item \textbf{Regex variables}
+            \begin{itemize}
+                \item \$1, \$2, \$3, ...	Captured groups
+                \item @\{$\land$CAPTURE\}	All capture-buffer contents
+                \item \$\&	Entire matched string
+                \item \$`	Text before the match
+                \item \$'	Text after the match
+                \item \$+	Highest-numbered capture that matched
+                \item \$$\land$N	Most recently closed capture
+                \item @-	Starting offsets of match/captures
+                \item @+	Ending offsets of match/captures
+                \item \%-	Named captures, including multiple captures with the same name
+                \item \%+	Named captures
+                \item \$\{$\land$MATCH\}	Entire /p match
+                \item \$\{$\land$PREMATCH\}	Text before a /p match
+                \item \$\{$\land$POSTMATCH\}	Text after a /p match
+                \item \$\{$\land$LAST\_SUCCESSFUL\_PATTERN\}	Last successful regex pattern
+                \item \$$\land$R	Result of regex (?\{ ... \}) evaluation
+                \item \$\{$\land$RE\_COMPILE\_RECURSION\_LIMIT\}	Regex compile nesting limit
+                \item \$\{$\land$RE\_DEBUG\_FLAGS\}	Regex debugging flags
+                \item \$\{$\land$RE\_TRIE\_MAXBUF\}	Regex trie optimization memory control
+            \end{itemize}
+        \item \textbf{Command-line and filehandle variables}: 
+            \begin{itemize}
+                \item @ARGV	Command-line arguments
+                \item \$ARGV	Current filename being processed by <>
+                \item ARGV	Special filehandle used by <>
+                \item ARGVOUT	Output filehandle used by in-place editing
+                \item \$.	Current input line number
+                \item \$/	Input record separator
+                \item \$\	Output record separator
+                \item \$,	Output field separator
+                \item \$\{$\land$LAST\_FH\}	Last filehandle read
+            \end{itemize}
+        \item \textbf{Error and process-result variables}: 
+            \begin{itemize}
+                \item \$!	OS/C-library error (errno)
+                \item \%!	Symbolic access to errno values
+                \item \$@	Exception from the most recent eval
+                \item \$?	Exit/wait status of the last external process
+                \item \$$\land$E	Extended OS-specific error information
+                \item \$\{$\land$CHILD\_ERROR\_NATIVE\}	Native child-process status
+                \item \$$\land$S	Interpreter/evaluation state
+                \item \$$\land$W	Global warning flag
+                \item \$\{$\land$WARNING\_BITS\}	Lexically enabled warning categories
+            \end{itemize}
 
 
 
@@ -424,6 +557,11 @@
                     \begin{perlcode}
                     "hello" . "world";
                     "hello" x 3;
+                    \end{perlcode}
+                \item \textbf{Ternary}: Uses C syntax
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    condition ? if_true : if_false
                     \end{perlcode}
             \end{itemize}
         \item \textbf{Function calling}: Perl does not insist that functions enclose their arguments within parentheses. Both print "Hello"; and print("Hello"); are correct. 
@@ -506,8 +644,264 @@
                 \item split(...)	Split string into list
                 \item join(...)	Combine list into string
             \end{itemize}
+        \item \textbf{Arrays}: 
+            \begin{itemize}
+                \item push(@a, \$x)	Add to end
+                \item pop(@a)	Remove from end
+                \item unshift(@a, \$x)	Add to beginning
+                \item shift(@a)	Remove from beginning
+                \item splice(@a, ...)	Insert/remove array elements
+                \item reverse(@a)	Reverse elements
+                \item sort(@a)	Sort elements
+                \item grep { ... } @a	Filter elements
+                \item map { ... } @a	Transform elements
+                \item join(\$sep, @a)	Convert array to string
+                \item scalar(@a)	Number of elements
+                \item each(@a)	Iterate index/value pairs on modern Perl
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @nums = (3, 1, 2);
+
+                push @nums, 4;
+
+                my $last = pop @nums;
+
+                my @sorted = sort { $a <=> $b } @nums;
+
+                my @even = grep { $_ % 2 == 0 } @nums;
+
+                my @doubled = map { $_ * 2 } @nums;
+            \end{perlcode}
+        \item \textbf{Hashes}:
+            \begin{itemize}
+                \item keys(\%h)	Get keys
+                \item values(\%h)	Get values
+                \item each(\%h)	Get key/value pairs while iterating
+                \item exists(\$h\{\$key\})	Check whether key exists
+                \item delete(\$h\{\$key\})	Remove key
+                \item scalar(keys \%h)	Number of keys
+            \end{itemize}
 
 
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Constructs}
+    \begin{itemize}
+        \item \textbf{If}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                if (cond) {
+                    ...
+                }
+
+                elsif (cond) {
+                    ...
+                }
+
+                else {
+                    ...
+                }
+            \end{perlcode}
+        \item \textbf{Unless}: inverse of an if
+            \bigbreak \noindent 
+            \begin{perlcode}
+                unless (cond) {
+                    ...
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note that the brackets are required, and there is no \texttt{elsunless}.
+        \item \textbf{Shorthand}: If if or unless require a single statement, we can put the statement before the check
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print "Hello" if 1;
+            \end{perlcode}
+        \item \textbf{Existence and definitiveness}: To find out if something is defined, use Perl’s defined function. The defined function is necessary to distinguish between a value that is false because it is undefined and a value that is false but defined, such as 0 (zero) or "" (the empty string).
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $skippy; # $skippy is undefined and false
+                $skippy = "bush kangaroo"; # true and defined
+                print "true" if $skippy; # prints true
+                print "defined" if defined($skippy); # prints defined
+
+                my $udef = undef;
+                print "defined" if defined($udef); # does not print
+                print "undefined" if not defined($udef); # prints undefined
+            \end{perlcode}
+        \item \textbf{undef}: When you pass a variable or expression to it, undef behaves as a function that un-defines the variable and frees its memory. The expression must be an lvalue
+            \bigbreak \noindent 
+            \begin{cppcode}
+            undef $scalar;       # Resets a scalar to the undefined state
+            \end{cppcode}
+            \bigbreak \noindent 
+            When used on its own without any arguments, it simply returns the undefined value.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $name = undef;    # Explicitly assigning the undefined value
+            \end{perlcode}
+        \item \textbf{While}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (cond) {
+                    ...
+                }
+            \end{perlcode}
+        \item \textbf{Until}: The opposite of a while
+            \bigbreak \noindent 
+            \begin{perlcode}
+                until (cond) {
+                    ...
+                }
+            \end{perlcode}
+        \item \textbf{Shorthand while / unless}: Similiar to if and unless,
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print "Hello" while 1;
+            print "Hello" until 0;
+            \end{perlcode}
+        \item \textbf{For}: Identical to C
+            \bigbreak \noindent 
+            \begin{perlcode}
+            for (my $i = 0; $i < $n; ++$i)
+            \end{perlcode}
+        \item \textbf{Foreach}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                foreach(@arr) {
+                    print "$_\n";
+                }
+
+                print "${_}\n" foreach(@arr);
+            \end{perlcode}
+            \bigbreak \noindent 
+            \textbf{Note:} When in a foreach loop, the variable representing the current element \textbf{is} the current element, not a copy of it.
+        \item \textbf{Foreach range syntax}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print "${_}" foreach (1..10) 
+            \end{perlcode}
+        \item \textbf{For / foreach and variable creation}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                for my $i (0..10) { ... }
+                foreach my $i ((1,2,3)) {...}
+            \end{perlcode}
+        \item \textbf{= do {...}}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $variable = do { ... };
+            \end{perlcode}
+            \bigbreak \noindent 
+            executes a block of code and returns the value of the last statement evaluated inside that block
+        \item \textbf{eval BLOCK}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                eval {...}
+            \end{perlcode}
+            \bigbreak \noindent 
+            acts like a try-catch block.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Example of trapping a division by zero error
+                eval {
+                    my $result = 10 / 0;
+                };
+
+                if ($@) {
+                    print "Error caught: $@";
+                }
+            \end{perlcode}
+        \item \textbf{eval EXPR}: This form compiles code string text dynamically
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Example of dynamically executing a string
+                my $code = '$x = 5 + 5;';
+                eval $code;
+                print $x; # Outputs 10
+            \end{perlcode}
+        \item \textbf{Named blocks}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Input / output}
+    \begin{itemize}
+        \item \textbf{Predefined file handles}: 
+            \begin{perlcode}
+                STDIN    # standard input
+                STDOUT   # standard output
+                STDERR   # standard error
+            \end{perlcode}
+        \item \textbf{<...> syntax}: Primarily a read operation on a filehandle
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $line = <STDIN>;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Read the next line from standard input.
+        \item \textbf{Writing to file handle}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print STDOUT "Hello\n";
+            \end{perlcode}
+            \bigbreak \noindent 
+            Although STDOUT is the default.
+        \item \textbf{readline}: Reads a line from a file handle
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $line = readline(STDIN); 
+            \end{perlcode}
+            \bigbreak \noindent 
+            Reads a line from
+        \item \textbf{say and printf}: Say is essentially C \texttt{puts}; takes a single string argument and appends a newline before printing it. 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use feature "say";
+            say "Hello, world";
+            printf "%s", "Hello, world";
+            \end{perlcode}
+        \item \textbf{Opening a file}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            open(HANDLE, MODE, PATH);
+            \end{perlcode}
+            \begin{itemize}
+                \item <     read
+                \item >     write, truncate existing file
+                \item >>    append
+                \item +<    read and write (starts at beginning)
+                \item +>    read and write, truncate
+                \item +>>   read and append (starts at end)
+            \end{itemize}
+        \item \textbf{Closing a file}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            close(HANDLE);
+            \end{perlcode}
+        \item \textbf{Empty diamond}: The empty diamond operator reads from all files specified on the command line (in order).
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<>) {
+                    print;
+                }
+            \end{perlcode}
+        \item \textbf{Slurp mode}: We can temporarily make the input separator undefined, then read a file.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            open(my $file, "<", "file.txt') 
+                or die "$!";
+
+            my $contents = do {
+                local $/;
+                <$file>;
+            }
+            \end{perlcode}
+            \bigbreak \noindent 
+            This is called \textbf{file slurping}
 
     \end{itemize}
 

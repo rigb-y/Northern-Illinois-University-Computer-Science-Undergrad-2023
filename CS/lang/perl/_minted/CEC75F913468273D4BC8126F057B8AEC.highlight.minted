@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{foreach}\PYG{p}{(}\PYG{n+nv}{@}\PYG{n+nv}{arr}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdl{}\PYGZus{}\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdl{}\PYGZob{}\PYGZus{}\PYGZcb{}\PYGZbs{}n\PYGZdq{}}\PYG{+w}{ }\PYG{k}{foreach}\PYG{p}{(}\PYG{n+nv}{@}\PYG{n+nv}{arr}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

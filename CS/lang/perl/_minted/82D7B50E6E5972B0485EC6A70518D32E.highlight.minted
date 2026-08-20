@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{use}\PYG{+w}{ }\PYG{n+nn}{feature}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}say\PYGZdq{}}\PYG{p}{;}
+\PYG{n}{say}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello, world\PYGZdq{}}\PYG{p}{;}
+\PYG{n+nb}{printf}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZpc{}s\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello, world\PYGZdq{}}\PYG{p}{;}
+\end{MintedVerbatim}

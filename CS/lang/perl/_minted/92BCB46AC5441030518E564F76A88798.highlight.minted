@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{HANDLE}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{MODE}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{PATH}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

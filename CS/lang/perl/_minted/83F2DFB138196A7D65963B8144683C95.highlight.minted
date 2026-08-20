@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n+nb}{open}\PYG{p}{(}\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{file}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZlt{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}file.txt\PYGZsq{})}
+\PYG{l+s}{    or die \PYGZdq{}}\PYG{n+nv+vg}{\PYGZdl{}!}\PYG{err}{\PYGZdq{}}\PYG{p}{;}
+
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{contents}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{do}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n+nb}{local}\PYG{+w}{ }\PYG{n+nv+vg}{\PYGZdl{}/}\PYG{p}{;}
+\PYG{+w}{    }\PYG{l+s+sr}{\PYGZlt{}\PYGZdl{}file\PYGZgt{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}
