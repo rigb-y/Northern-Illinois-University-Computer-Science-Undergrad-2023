@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+c1}{\PYGZsh{} Flatten two lists into one big list and put that in an array}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{@}\PYG{n+nv}{biglist}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{@}\PYG{n+nv}{list1}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nv}{@}\PYG{n+nv}{list2}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZsh{} Flatten (join) two hashes into one big list an put that in a hash}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZpc{}}\PYG{n+nv}{bighash}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{\PYGZpc{}}\PYG{n+nv}{hash1}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nv}{\PYGZpc{}}\PYG{n+nv}{hash2}\PYG{p}{)}\PYG{p}{;}
+\end{MintedVerbatim}

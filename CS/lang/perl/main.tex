@@ -822,7 +822,27 @@
                 eval $code;
                 print $x; # Outputs 10
             \end{perlcode}
-        \item \textbf{Named blocks}
+        \item \textbf{Labeled blocks}: You can assign a name (called a label) to any code block by placing the name followed by a colon (:) right before the opening brace. This allows you to jump out of or control specific nested blocks using loop control statements like last, next, or redo.
+            \bigbreak \noindent 
+            Always write labels in ALL CAPS to ensure they stand out and never conflict with reserved Perl keywords.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                OUTER_LOOP: while ($x < 10) {
+                    INNER_LOOP: while ($y < 10) {
+                        if ($condition) {
+                            # Exits BOTH loops completely, not just the inner one
+                            last OUTER_LOOP; 
+                        }
+                        $y++;
+                    }
+                    $x++;
+                }
+            \end{perlcode}
+            \begin{itemize}
+                \item redo restarts the current iteration immediately.
+                \item next skips to the next iteration 
+                \item last exits the loop completely (like break in C/Java).
+            \end{itemize}
 
 
     \end{itemize}
@@ -902,6 +922,69 @@
             \end{perlcode}
             \bigbreak \noindent 
             This is called \textbf{file slurping}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Subroutines}
+    \begin{itemize}
+        \item \textbf{Creating and calling subroutines}        
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub fn {
+                    ...
+                }
+
+                fn(); # Preferred method of calling
+                &fn();
+                &fn;
+                fn;
+            \end{perlcode}
+            \bigbreak \noindent 
+            The older ampersand syntax bypasses any defined prototypes and implicitly passes the caller's current @\_ argument array.
+            \bigbreak \noindent 
+            You can pass arguments to a subroutine by including them in the parentheses when you call it. The arguments end up in a special array called @\_ which is only visible inside the subroutine.
+        \item \textbf{Shift and unshift}: The Perl shift function removes and returns the first element of an array. This shortens the array by one and shifts all subsequent elements to the left. If the target array is empty, it returns undef
+            \bigbreak \noindent 
+            The unshift function adds one or more elements directly to the beginning of an array. It is the exact opposite of the shift function, which removes an item from the front.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub print_headers {
+                    my $title = shift || "Untitled";
+                    my $author = shift || "Anonymous";
+                    print "$title\n
+                    print "by\n
+                    print "$author\n";
+                }
+            \end{perlcode}
+        \item \textbf{Passing arrays and hashes}: To pass in a single array or hash to a subroutine, make it the final element in your argument list. 
+            \bigbreak \noindent 
+            Passing in more than one array or hash causes problems. This is because of list flattening. When Perl sees a number of items in parentheses these are combined into one big list.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Flatten two lists into one big list and put that in an array
+                my @biglist = (@list1, @list2);
+
+                # Flatten (join) two hashes into one big list an put that in a hash
+                my %bighash = (%hash1, %hash2);
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @colours = qw/red blue white green pink/;
+                my @chosen = qw/red white green/;
+
+                print_unchosen(@chosen, @colours);
+
+                sub print_unchosen {
+                    my (@chosen, @colours) = @_;
+
+                    # at this point @chosen contains:
+                    # (red white green red blue white green pink)
+                    # and @colours contains () - the empty list.
+                }
+            \end{perlcode}
+
+
 
     \end{itemize}
 

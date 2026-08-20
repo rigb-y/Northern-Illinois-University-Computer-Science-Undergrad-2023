@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  19 AUG 2026 20:12
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  20 AUG 2026 11:54
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260819201201 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260819201201 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/12C1EA3D9E47953544F3169ADE5E7E56.highlight.minted)
 \openout7 = main.listing
  (./_minted/F0A4E611FBB2C54938DE0A68DC5DFCF8.highlight.minted)
@@ -2438,7 +2438,9 @@ my insertion and my current dilemma will both disappear.
 \openout7 = main.listing
  (./_minted/F4D6836F719534C0A3BDACB3BEDCE8A6.highlight.minted)
 \openout7 = main.listing
- (./_minted/0172238EEE129500BC76DDFC74DD4A13.highlight.minted) [24]
+ (./_minted/0172238EEE129500BC76DDFC74DD4A13.highlight.minted)
+\openout7 = main.listing
+ (./_minted/3136B9559E57992660E6BAE2ED956291.highlight.minted) [24] [25]
 \openout7 = main.listing
  (./_minted/ABA61141E2A7EDFE7412F28EDF7665EA.highlight.minted)
 \openout7 = main.listing
@@ -2452,11 +2454,27 @@ my insertion and my current dilemma will both disappear.
 \openout7 = main.listing
  (./_minted/92BCB46AC5441030518E564F76A88798.highlight.minted)
 \openout7 = main.listing
- (./_minted/80BC9B8309364308A3495DD1B23F0E8E.highlight.minted) [25]
+ (./_minted/80BC9B8309364308A3495DD1B23F0E8E.highlight.minted) [26]
 \openout7 = main.listing
  (./_minted/1DF08B3C1F69C4AB8724635CE6011923.highlight.minted)
 \openout7 = main.listing
- (./_minted/83F2DFB138196A7D65963B8144683C95.highlight.minted) [26] (./main.aux)
+ (./_minted/83F2DFB138196A7D65963B8144683C95.highlight.minted) [27]
+\openout7 = main.listing
+ (./_minted/6D4B5DD48247448B6544DBDDE420A241.highlight.minted)
+\openout7 = main.listing
+ (./_minted/0EDE8646F2E612FEB0A0B3F5101265C4.highlight.minted)
+\openout7 = main.listing
+ (./_minted/C427FE3FF8AA380F6915772D2654B2A2.highlight.minted)
+\openout7 = main.listing
+
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted highlight  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./_minted/C6E79A819381518A713090E66003E47F.highlight.minted) [28] [29]
+\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+
+runsystem(latexminted clean  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2464,19 +2482,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 62678 strings out of 476076
+ 62752 strings out of 476076
  100000,2373549 words of node,token memory allocated
  1878 words of node memory still in use:
    31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:1,2:2509,3:919,4:354,5:618,6:100,7:5726,8:25,9:1410,10:82,11:434
- 82946 multiletter control sequences out of 65536+600000
+   avail lists: 1:1,2:2509,3:919,4:354,5:625,6:100,7:5726,8:25,9:1410,10:82,11:434
+ 82972 multiletter control sequences out of 65536+600000
  65 fonts using 4680407 bytes
  99i,13n,108p,815b,1419s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
-Output written on main.pdf (27 pages, 137002 bytes).
+Output written on main.pdf (30 pages, 143782 bytes).
 
-PDF statistics: 284 PDF objects out of 1000 (max. 8388607)
- 207 compressed objects within 3 object streams
- 40 named destinations out of 1000 (max. 1048576)
- 360 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 301 PDF objects out of 1000 (max. 8388607)
+ 221 compressed objects within 3 object streams
+ 44 named destinations out of 1000 (max. 1048576)
+ 368 words of extra memory for PDF output out of 10000 (max. 100000000)
 

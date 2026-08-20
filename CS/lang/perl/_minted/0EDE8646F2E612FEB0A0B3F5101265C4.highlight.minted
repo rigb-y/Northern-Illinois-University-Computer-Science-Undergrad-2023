@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{sub}\PYG{+w}{ }\PYG{n+nf}{print\PYGZus{}headers}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{title}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{shift}\PYG{+w}{ }\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Untitled\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{author}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{shift}\PYG{+w}{ }\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Anonymous\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdl{}title\PYGZbs{}n}
+\PYG{l+s}{    print \PYGZdq{}}\PYG{n}{by}\PYG{o}{\PYGZbs{}}\PYG{n}{n}
+\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdl{}author\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}
