@@ -12,3 +12,6 @@
 \contentsline {section}{\numberline {10}Constructs}{22}{section.0.10}%
 \contentsline {section}{\numberline {11}Input / output}{26}{section.0.11}%
 \contentsline {section}{\numberline {12}Subroutines}{28}{section.0.12}%
+\contentsline {section}{\numberline {13}Regular expressions}{30}{section.0.13}%
+\contentsline {section}{\numberline {14}Idioms}{33}{section.0.14}%
+\contentsline {section}{\numberline {15}Perl }{34}{section.0.15}%

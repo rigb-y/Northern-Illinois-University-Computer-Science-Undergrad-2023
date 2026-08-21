@@ -1,12 +1,4 @@
-                my @colours = qw/red blue white green pink/;
-                my @chosen = qw/red white green/;
+                my $user_input = "Hello";
 
-                print_unchosen(@chosen, @colours);
-
-                sub print_unchosen {
-                    my (@chosen, @colours) = @_;
-
-                    # at this point @chosen contains:
-                    # (red white green red blue white green pink)
-                    # and @colours contains () - the empty list.
-                }
+                my $pure_boolean = !!$user_input;
+                print $pure_boolean; # Outputs 1

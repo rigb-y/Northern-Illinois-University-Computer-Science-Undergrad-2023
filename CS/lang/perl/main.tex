@@ -329,6 +329,14 @@
                 print "$item\n";
             }
             \end{perlcode}
+            \bigbreak \noindent 
+            The syntax
+            \bigbreak \noindent 
+            \begin{perlcode}
+                @{$array_ref}
+            \end{perlcode}
+            \bigbreak \noindent 
+            is used to dereference an array reference.
 
 
     \end{itemize}
@@ -983,10 +991,209 @@
                     # and @colours contains () - the empty list.
                 }
             \end{perlcode}
+            \bigbreak \noindent 
+            We can avoid this problem by using references:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @colours = qw/red blue white green pink/;
+                my @chosen = qw/red white green/;
+                print_unchosen(\@chosen, \@colours);
+                sub print_unchosen {
+                    my ($chosen, $colours) = @_;
+                    my @chosen = @$chosen;
+                    my @colours = @$colours;
+                    # at this point @chosen contains:
+                    # (red white green)
+                    # and @colours contains (red blue white green pink)
+                }
+            \end{perlcode}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Regular expressions}
+    \begin{itemize}
+        \item \textbf{Matching operator}: The most basic regular expression operator is the matching operator, m/PATTERN/.
+            \begin{itemize}
+                \item Works on \$\_ by default.
+                \item In scalar context, returns true (1) if the match succeeds, or false (the empty string) if the match fails.
+                \item In list context, returns a list of any parts of the pattern which are enclosed in parentheses. If there are no parentheses, the entire pattern is treated as if it were parenthesised.
+                \item The m is optional if you use slashes as the pattern delimiters.
+                \item If you use the m you can use any delimiter you like instead of the slashes. This is very handy for matching on strings which contain slashes, for instance directory names or URLs.
+                \item Using the /i modifier on the end makes it case insensitive.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<>) {
+                    print if m/foo/;
+                }
+            \end{perlcode}
+        \item \textbf{s/pattern/replacement}: This is the substitution operator, and can be used to find text which matches a pattern and replace it with something else.
+            \begin{itemize}
+                \item Works on \$\_ by default.
+                \item In scalar context, returns the number of matches found and replaced.
+                \item In list context, behaves the same as in scalar context and returns the number of matches found and replaced (a cause of more than one mistake...).
+                \item You can use any delimiter you want, the same as the m// operator.
+                \item Using /g on the end of it matches globally, otherwise matches (and replaces) only the first instance of the pattern.
+                \item Using the /i modifier makes it case insensitive.
+            \end{itemize}
+        \item \textbf{Binding operators}: If we want to use m// or s/// to operate on something other than \$\_ we need to use binding operators to bind the match to another string.
+            \begin{itemize}
+                \item =$\sim$ True if the pattern matches
+                \item !$\sim$ True if the pattern doesn’t match
+            \end{itemize}
+            The most common use is to test if a string matches a regular expression. It returns a true value if it matches, and false if it doesn't.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $text = "The quick brown fox jumps over the lazy dog";
+
+                # Evaluates to true because "fox" is in the string
+                if ($text =~ /fox/) {
+                    print "Found a fox!\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            You can use $=\sim$ with the s/// operator to find a pattern and replace it. This modifies the original variable on the left
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $greeting = "Hello World";
+
+                # Replaces "World" with "Perl"
+                $greeting =~ s/World/Perl/; 
+
+                print $greeting; # Outputs: Hello Perl
+            \end{perlcode}
+            \bigbreak \noindent 
+            When you use matching parentheses () in your regular expression, $=\sim$ can be used to extract those specific pieces into variables.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $date = "2026-08-20";
+
+                # Captures the digits into $1, $2, and $3
+                if ($date =~ /(\d{4})-(\d{2})-(\d{2})/) {
+                    print "Year: $1, Month: $2, Day: $3\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            does not match a pattern, use the $!\sim$ operator instead.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $email = "user-at-domain.com";
+
+                if ($email !~ /@/) {
+                    print "Invalid email: Missing '@' symbol.\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            In Perl, \$1, \$2, \$3 (and so on) are special variables that hold captured text from the most recent successful regular expression match.
+        \item \textbf{Modifiers}: 
+            \begin{itemize}
+                \item /i Make match/substitute match case insensitive
+                \item /g Make substitute global (all occurrences are changed)
+                \item /m – Multi-line mode. Causes $\land$ and \$ to match the start and end of any line within the string rather than just the absolute string boundaries.
+                \item /s – Single-line mode. Treats the string as a single line, allowing the dot (.) metacharacter to match newline (\textbackslash n) characters.
+                \item /x – Extended legibility. Tells Perl to ignore unescaped whitespace and allow comments (\#) inside the regex pattern for clearer layout formatting
+                \item /e – Evaluate replacement. Treats the replacement side as a block of Perl code to execute, utilizing its return value as the final replacement text
+                \item /ee – Double evaluate. Evaluates the string on the replacement side as a Perl string, and then runs eval a second time on the result.
+                \item /r – Non-destructive substitution. Instead of modifying the original variable, it performs the operation and returns the mutated string copy.
+                \item /a – ASCII-only restrictions. Forces character classes like \textbackslash d, \textbackslash s, and \textbackslash w to strictly match ASCII characters only.
+                \item /u – Unicode rules. Forces character classes to abide by full Unicode rules (the default setting for most modern Perl scripts).
+                \item /l – Locale rules. Instructs Perl to use the underlying system's runtime locale setting.
+                \item /d – Default rules. Uses old, backwards-compatible platform defaults.
+
+            \end{itemize}
+            You can also activate or deactivate modifiers dynamically inside a regex pattern using the (?imsx-imsx) synt
+            \begin{itemize}
+                \item (?i)apple matches "Apple" or "APPLE" inline.
+                \item (?-i)apple turns off case-insensitivity from that point forward.
+            \end{itemize}
+        \item \textbf{Meta characters}: 
+            \begin{itemize}
+                \item $\land$ Start of string
+                \item \$ End of string
+                \item . Any single character except \textbackslash n
+                \item \textbackslash n Newline
+                \item \textbackslash t Matches a tab
+                \item \textbackslash s Any whitespace character, such as space, tab, or newline
+                \item \textbackslash S Any non-whitespace character
+                \item \textbackslash d Any digit (0 to 9)
+                \item \textbackslash D Any non-digit
+                \item \textbackslash w Any "word" character - alphanumeric plus underscore (\_)
+                \item \textbackslash W Any non-word character
+                \item \textbackslash b A word break - the zero-length point between a word character (as defined above) and a non-word character.
+                \item \textbackslash B A non-word break - anything other than a word break
+            \end{itemize}
+        \item \textbf{Quantifiers}
+            \begin{itemize}
+                \item ? 0 or 1
+                \item * 0 or more
+                \item + 1 or more
+                \item \{n\} match exactly n times
+                \item \{n,\} match n or more times
+                \item \{n,m\} match between n and m times
+            \end{itemize}
+        \item \textbf{Character classes}: Created the usual way with brackets
+            \begin{itemize}
+                \item $\land$ negates the class
+                \item - specifies a range of characters. To mach a literal -, it must be either the first or the last character in the class.
+                \item \$, ., (), \{\}, *, + and other meta characters taken literally
+            \end{itemize}
+        \item \textbf{Match variable (\$\&)}: This special variable holds whatever the last regex matched.
+        \item \textbf{Alternation}
+    
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Idioms}
+    \begin{itemize}
+        \item \textbf{Representation of true and false}: 
+            Perl does not have a native true or false keyword. Instead, it determines a value's truth by evaluating what it is.
+            \bigbreak \noindent 
+            Only a few specific values are considered false in Perl:
+            \begin{itemize}
+                \item The number 0 (or 0.0)
+                \item The string "0"
+                \item The empty string ""
+                \item undef (undefined)
+                \item An empty list ()
+            \end{itemize}
+            Everything else is true. When you use a single logical NOT (!), Perl evaluates the operand's truth and returns an absolute boolean result.
+            \begin{itemize}
+                \item If you pass it something false, it returns 1 (Perl's standard "true" value).
+                \item If you pass it something true, it must return a "false" value. By language design, Perl's logical operators return the empty string ("") to represent false.
+            \end{itemize}
+        \item \textbf{Goatse operator =()=}: Used to force an expression on its right-hand side into a list context while evaluating the entire assignment in a scalar context. It returns the number of items generated by the right-hand side expression
+            \bigbreak \noindent 
+            It is most frequently used to count regex matches in global matching mode (/g) without storing all the matched text in memory:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $text = "cat dog cat bird cat";
+                my $count = () = $text =~ /cat/g; 
+                print $count; # Outputs 3
+            \end{perlcode}
+        \item \textbf{Bang bang}: The bang bang operator forces any scalar value into a strict boolean 1 or empty string "" (which Perl treats as false). It is simply two consecutive logical NOT (!) operators.
+            \bigbreak \noindent 
+            The first ! evaluates the value and flips its truthiness to a strict boolean (making a true value "" and a false value 1). The second ! flips it back.
+            \bigbreak \noindent 
+            Perl doesn't have a dedicated boolean type. If a function returns an object, a string, or a number on success, using !! cleans up the data so it only returns a clean 1 (true) or "" (false).
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $user_input = "Hello"; 
+
+                my $pure_boolean = !!$user_input; 
+                print $pure_boolean; # Outputs 1
+            \end{perlcode}
+
 
 
 
     \end{itemize}
+
+    \pagebreak 
+    \unsect{Perl }
+
 
 
 

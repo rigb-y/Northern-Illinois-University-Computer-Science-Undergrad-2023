@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{text}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}cat dog cat bird cat\PYGZdq{}}\PYG{p}{;}
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{count}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{text}\PYG{+w}{ }\PYG{o}{=\PYGZti{}}\PYG{l+s+sr}{ /cat/g}\PYG{p}{;}
+\PYG{k}{print}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{count}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Outputs 3}
+\end{MintedVerbatim}

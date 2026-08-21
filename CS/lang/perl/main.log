@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  20 AUG 2026 11:54
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  21 AUG 2026 12:11
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1864,9 +1864,9 @@ warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260821121129 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted cleanconfig  --timestamp 20260821121129 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_minted/xcode.style.minted) (./_minted/12C1EA3D9E47953544F3169ADE5E7E56.highlight.minted)
 \openout7 = main.listing
  (./_minted/F0A4E611FBB2C54938DE0A68DC5DFCF8.highlight.minted)
@@ -2078,7 +2078,9 @@ my insertion and my current dilemma will both disappear.
 \openout7 = main.listing
  (./_minted/310E186B4E40446FDF96C3271F1B53BC.highlight.minted)
 \openout7 = main.listing
- (./_minted/23D77D56E73477BD79C596F9015A9EAE.highlight.minted) [10]
+ (./_minted/23D77D56E73477BD79C596F9015A9EAE.highlight.minted)
+\openout7 = main.listing
+ (./_minted/61C2287CB9918AE16DE0F3F5F88654FE.highlight.minted) [10]
 \openout7 = main.listing
  (./_minted/5B3315154D2B7050866E6CCB3006C5BD.highlight.minted)
 \openout7 = main.listing
@@ -2114,10 +2116,10 @@ my insertion and my current dilemma will both disappear.
 \openout7 = main.listing
  (./_minted/CB9CE825DC26839E85B9643F1CB7C296.highlight.minted) [18] [19]
 \openout7 = main.listing
- (./_minted/4F2ABA5DAD1344A725B5E3422254CBBF.highlight.minted)
-\openout7 = main.listing
 
-(./_minted/F60A5AF18C9F9D49BDA25E55E10A6356.highlight.minted) [20] [21]
+(./_minted/4F2ABA5DAD1344A725B5E3422254CBBF.highlight.minted)
+\openout7 = main.listing
+ (./_minted/F60A5AF18C9F9D49BDA25E55E10A6356.highlight.minted) [20] [21]
 \openout7 = main.listing
  (./_minted/0039F9A83677C5312A0DED13295470E3.highlight.minted)
 \openout7 = main.listing
@@ -2466,15 +2468,311 @@ my insertion and my current dilemma will both disappear.
 \openout7 = main.listing
  (./_minted/C427FE3FF8AA380F6915772D2654B2A2.highlight.minted)
 \openout7 = main.listing
+ (./_minted/C6E79A819381518A713090E66003E47F.highlight.minted) [28]
+\openout7 = main.listing
+ (./_minted/86BF99D635A156185E6DB68288CB35FF.highlight.minted) [29]
+\openout7 = main.listing
+ (./_minted/D4DD99160C9BA6B331FDA8EEA22E3A2F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A657A70172E25DFB02F9F4996FF37300.highlight.minted)
+\openout7 = main.listing
+ (./_minted/C62A30F502BB9CA89575D35EB2D67B7B.highlight.minted) [30]
+\openout7 = main.listing
 
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+(./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ... $1, $2, and $3\FancyVerbBreakStop }
+                                                  }}}
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
-runsystem(latexminted highlight  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./_minted/C6E79A819381518A713090E66003E47F.highlight.minted) [28] [29]
-\openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ...$1, $2, and $3\FancyVerbBreakStop }}
+                                                  }}
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
-runsystem(latexminted clean  --timestamp 20260820115404 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./main.aux)
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ...1, $2, and $3\FancyVerbBreakStop }}}
+                                                  }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ..., $2, and $3\FancyVerbBreakStop }}}}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+\@textcolor ...otect \leavevmode {\color #1{#2}#3}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing $ inserted.
+<inserted text> 
+                $
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ... $1, $2, and $3\FancyVerbBreakStop }
+                                                  }}}
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ...$1, $2, and $3\FancyVerbBreakStop }}
+                                                  }}
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ...1, $2, and $3\FancyVerbBreakStop }}}
+                                                  }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+<argument> ..., $2, and $3\FancyVerbBreakStop }}}}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+\@textcolor ...otect \leavevmode {\color #1{#2}#3}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
+\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
+                                                  
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing $ inserted.
+<inserted text> 
+                $
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
+<inserted text> 
+                }
+l.4 ...{} Captures the digits into $1, $2, and $3}
+                                                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+)
+\openout7 = main.listing
+ (./_minted/C17B6EB95246C3BAD3F98C293D47CEC2.highlight.minted) [31] [32]
+\openout7 = main.listing
+ (./_minted/DF12F0051B9B74C7817A2E9F5386D06D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/52EFF1B4401D415405A960E0428A0A52.highlight.minted) [33] [34] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2482,19 +2780,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 62752 strings out of 476076
+ 62876 strings out of 476076
  100000,2373549 words of node,token memory allocated
- 1878 words of node memory still in use:
-   31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 86 attribute, 162 glue_spec, 86 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:1,2:2509,3:919,4:354,5:625,6:100,7:5726,8:25,9:1410,10:82,11:434
- 82972 multiletter control sequences out of 65536+600000
+ 1874 words of node memory still in use:
+   31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 85 attribute, 162 glue_spec, 85 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
+   avail lists: 1:1,2:2511,3:919,4:354,5:645,6:100,7:5726,8:25,9:1410,10:82,11:434
+ 83020 multiletter control sequences out of 65536+600000
  65 fonts using 4680407 bytes
  99i,13n,108p,815b,1419s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
-Output written on main.pdf (30 pages, 143782 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
+Output written on main.pdf (35 pages, 180046 bytes).
 
-PDF statistics: 301 PDF objects out of 1000 (max. 8388607)
- 221 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 1048576)
- 368 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 342 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 1048576)
+ 392 words of extra memory for PDF output out of 10000 (max. 100000000)
 

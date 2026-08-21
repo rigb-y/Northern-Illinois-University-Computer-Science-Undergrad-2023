@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{text}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}The quick brown fox jumps over the lazy dog\PYGZdq{}}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZsh{} Evaluates to true because \PYGZdq{}fox\PYGZdq{} is in the string}
+\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{text}\PYG{+w}{ }\PYG{o}{=\PYGZti{}}\PYG{l+s+sr}{ /fox/}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Found a fox!\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}
