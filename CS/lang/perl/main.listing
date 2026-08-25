@@ -1,4 +1,0 @@
-                my $user_input = "Hello";
-
-                my $pure_boolean = !!$user_input;
-                print $pure_boolean; # Outputs 1

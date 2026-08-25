@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{\PYGZus{}Generic}\PYG{p}{(}\PYG{n}{expression}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nl}{type1}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{result1}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nl}{type2}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{result2}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nl}{type3}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{result3}\PYG{p}{,}
-\PYG{+w}{    }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{result4}
-\PYG{p}{)}
-\end{MintedVerbatim}

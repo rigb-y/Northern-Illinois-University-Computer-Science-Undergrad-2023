@@ -1,2 +1,0 @@
-                    #define ARENA_NEW(arena, T) \
-                        arena_alloc((arena), sizeof(T), _Alignof(T))

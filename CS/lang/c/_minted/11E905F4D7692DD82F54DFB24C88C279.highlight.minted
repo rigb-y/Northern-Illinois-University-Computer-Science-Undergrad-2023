@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{print\PYGZus{}int}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{)}\PYG{p}{;}
-\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{print\PYGZus{}double}\PYG{p}{(}\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{)}\PYG{p}{;}
-\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{print\PYGZus{}string}\PYG{p}{(}\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{x}\PYG{p}{)}\PYG{p}{;}
-\end{MintedVerbatim}

@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define CONTROL ControlMask}
-\PYG{n}{cursors}\PYG{p}{.}\PYG{n}{four\PYGZus{}df\PYGZus{}resize}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{XCreateFontCursor}\PYG{p}{(}\PYG{n}{dp}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{XC\PYGZus{}fleur}\PYG{p}{)}\PYG{p}{;}
-\end{MintedVerbatim}

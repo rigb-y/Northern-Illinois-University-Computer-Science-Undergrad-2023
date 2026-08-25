@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nv}{DISPLAY}\PYG{o}{=}:0.0
-\PYG{n+nv}{DISPLAY}\PYG{o}{=}:0.1
-\end{MintedVerbatim}

@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{enum}\PYG{+w}{ }\PYG{n+nc}{Token}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}INT}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}REAL}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}PLUS}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}MINUS}\PYG{p}{,}
-\PYG{p}{\PYGZcb{}}\PYG{p}{;}
-\end{MintedVerbatim}

@@ -1,2 +1,0 @@
-            shared_ptr<int> ptr1 = std::make_shared<int>(20);
-            cout << ptr1; // 0x55e55983b2c0

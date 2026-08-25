@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-gcc\PYG{+w}{ }\PYGZhy{}MMD\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }main.c\PYG{+w}{ }\PYGZhy{}o\PYG{+w}{ }main.o
-\end{MintedVerbatim}

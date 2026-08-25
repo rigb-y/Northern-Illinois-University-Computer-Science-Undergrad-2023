@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define RRScreenChangeNotify 0}
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define RRNotify             1}
-\end{MintedVerbatim}

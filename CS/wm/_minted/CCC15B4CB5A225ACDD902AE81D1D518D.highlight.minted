@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{RRNotify\PYGZus{}CrtcChange}
-\PYG{n}{RRNotify\PYGZus{}OutputChange}
-\PYG{n}{RRNotify\PYGZus{}OutputProperty}
-\PYG{n}{RRNotify\PYGZus{}ProviderChange}
-\PYG{n}{RRNotify\PYGZus{}ProviderProperty}
-\PYG{n}{RRNotify\PYGZus{}ResourceChange}
-\end{MintedVerbatim}

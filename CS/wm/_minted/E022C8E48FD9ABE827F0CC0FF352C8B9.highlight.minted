@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nv}{DISPLAY}\PYG{o}{=}:1\PYG{+w}{ }xrandr\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} default connected 1920x1080+0+0}
-\end{MintedVerbatim}

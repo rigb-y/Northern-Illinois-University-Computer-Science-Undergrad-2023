@@ -1,1 +1,0 @@
-    System.out.println("abc123".matches("\\w+\\d+")); // true

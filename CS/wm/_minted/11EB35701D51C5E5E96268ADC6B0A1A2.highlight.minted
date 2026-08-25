@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{key\PYGZus{}event}\PYG{p}{.}\PYG{n}{window}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{grab\PYGZus{}window}
-\end{MintedVerbatim}

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{OnClickListener}\PYG{p}{.}\PYG{n+na}{onClick}\PYG{p}{(}\PYG{n}{view}\PYG{p}{)}
-\end{MintedVerbatim}

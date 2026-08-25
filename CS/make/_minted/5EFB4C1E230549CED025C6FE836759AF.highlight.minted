@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nv}{CFLAGS}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYGZhy{}MMD\PYG{+w}{ }\PYGZhy{}MP
-
-\PYG{k}{\PYGZdl{}(}OBJDIR\PYG{k}{)}/\PYGZpc{}.o:\PYG{+w}{ }\PYGZpc{}.c
-\PYG{+w}{    }@mkdir\PYG{+w}{ }\PYGZhy{}p\PYG{+w}{ }\PYG{k}{\PYGZdl{}(}dir\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}@}\PYG{k}{)}
-\PYG{+w}{    }\PYG{k}{\PYGZdl{}(}CC\PYG{k}{)}\PYG{+w}{ }\PYG{k}{\PYGZdl{}(}CFLAGS\PYG{k}{)}\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYGZdl{}\PYGZlt{}\PYG{+w}{ }\PYGZhy{}o\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}@}
-
-\PYGZhy{}include\PYG{+w}{ }\PYG{k}{\PYGZdl{}(}OBJS:.o\PYG{o}{=}.d\PYG{k}{)}
-\end{MintedVerbatim}

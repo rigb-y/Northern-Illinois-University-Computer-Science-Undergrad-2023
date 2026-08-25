@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define ARENA\PYGZus{}NEW(arena, T) \PYGZbs{}}
-\PYG{c+cp}{    arena\PYGZus{}alloc((arena), sizeof(T), \PYGZus{}Alignof(T))}
-\end{MintedVerbatim}

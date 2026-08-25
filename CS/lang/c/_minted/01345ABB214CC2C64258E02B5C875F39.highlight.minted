@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{envp}\PYG{p}{[}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{HOME=/tmp}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{USER=testuser}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{PATH=/usr/bin:/bin}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{    }\PYG{n+nb}{NULL}
-\PYG{p}{\PYGZcb{}}\PYG{p}{;}
-\end{MintedVerbatim}

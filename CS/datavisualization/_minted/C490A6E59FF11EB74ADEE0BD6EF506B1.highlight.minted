@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nx}{selection}\PYG{p}{.}\PYG{n+nx}{text}\PYG{p}{(}\PYG{n+nx}{value}\PYG{o}{?}\PYG{p}{)}
-\end{MintedVerbatim}

@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{position}
-\PYG{n}{mode}
-\PYG{n}{rotation}
-\PYG{n}{outputs}\PYG{+w}{ }\PYG{n}{it}\PYG{+w}{ }\PYG{n}{drives}
-\end{MintedVerbatim}

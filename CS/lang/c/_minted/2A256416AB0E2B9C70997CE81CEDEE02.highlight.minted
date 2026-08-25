@@ -1,9 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define MAKE\PYGZus{}STRING(name) [TOKEN\PYGZus{}\PYGZsh{}\PYGZsh{}name] = \PYGZsh{}name,}
-
-\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{char}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{token\PYGZus{}names}\PYG{p}{[}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{n}{TOKEN\PYGZus{}LIST}\PYG{p}{(}\PYG{n}{MAKE\PYGZus{}STRING}\PYG{p}{)}
-\PYG{p}{\PYGZcb{}}\PYG{p}{;}
-
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{undef MAKE\PYGZus{}STRING}
-\end{MintedVerbatim}

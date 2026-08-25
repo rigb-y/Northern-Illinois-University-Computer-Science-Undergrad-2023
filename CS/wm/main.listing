@@ -1,1 +1,0 @@
-                    void XRRSelectInput(Display* dpy, Window window, int mask);

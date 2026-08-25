@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define OPERATOR\PYGZus{}LIST(X)             \PYGZbs{}}
-\PYG{c+cp}{X(ADD, \PYGZdq{}+\PYGZdq{}, 10)                      \PYGZbs{}}
-\PYG{c+cp}{X(SUB, \PYGZdq{}\PYGZhy{}\PYGZdq{}, 10)                      \PYGZbs{}}
-\PYG{c+cp}{X(MUL, \PYGZdq{}*\PYGZdq{}, 20)                      \PYGZbs{}}
-\PYG{c+cp}{X(DIV, \PYGZdq{}}\PYG{c+cp}{/}\PYG{c+cp}{\PYGZdq{}, 20)}
-\end{MintedVerbatim}

@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{extern}\PYG{+w}{ }\PYG{n}{Workspaces}\PYG{+w}{ }\PYG{n}{workspaces}\PYG{p}{;}
-\PYG{k}{extern}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{current\PYGZus{}workspace}\PYG{p}{;}
-\end{MintedVerbatim}

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{Cursor}\PYG{+w}{ }\PYG{n}{XCreateFontCursor}\PYG{p}{(}\PYG{n}{Display}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{display}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{shape}\PYG{p}{)}
-\end{MintedVerbatim}

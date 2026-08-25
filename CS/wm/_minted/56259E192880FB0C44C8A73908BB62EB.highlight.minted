@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-xrandr\PYG{+w}{ }\PYGZhy{}\PYGZhy{}output\PYG{+w}{ }HDMI\PYGZhy{}1\PYGZhy{}0\PYG{+w}{ }\PYGZhy{}\PYGZhy{}primary\PYG{+w}{ }\PYGZhy{}\PYGZhy{}mode\PYG{+w}{ }1920x1080\PYG{+w}{ }\PYGZhy{}\PYGZhy{}rate\PYG{+w}{ }\PYG{l+m}{144}
-\end{MintedVerbatim}

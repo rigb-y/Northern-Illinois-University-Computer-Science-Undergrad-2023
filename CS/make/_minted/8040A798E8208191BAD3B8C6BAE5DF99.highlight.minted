@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{ifdef HAVE\PYGZus{}IMLIB2}
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Imlib2.h\PYGZgt{}}
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{endif}
-\end{MintedVerbatim}

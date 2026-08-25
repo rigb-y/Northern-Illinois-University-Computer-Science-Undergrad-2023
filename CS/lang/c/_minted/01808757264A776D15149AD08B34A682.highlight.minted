@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define LOG(fmt, ...) \PYGZbs{}}
-\PYG{c+cp}{    printf(fmt \PYGZus{}\PYGZus{}VA\PYGZus{}OPT\PYGZus{}\PYGZus{}(,) \PYGZus{}\PYGZus{}VA\PYGZus{}ARGS\PYGZus{}\PYGZus{})}
-\end{MintedVerbatim}

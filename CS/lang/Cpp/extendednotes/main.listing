@@ -1,1 +1,0 @@
-                std::expected<int, std::string> result = 42;

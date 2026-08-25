@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{define MAKE\PYGZus{}TOKEN(name) TOKEN\PYGZus{}\PYGZsh{}\PYGZsh{}name}
-
-\PYG{n}{MAKE\PYGZus{}TOKEN}\PYG{p}{(}\PYG{n}{INT}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{// TOKEN\PYGZus{}INT}
-\end{MintedVerbatim}

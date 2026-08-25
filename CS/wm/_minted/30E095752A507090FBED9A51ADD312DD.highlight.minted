@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-nohup\PYG{+w}{ }xephyr\PYG{+w}{ }:1\PYG{+w}{ }+extension\PYG{+w}{ }RANDR\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
-\PYG{+w}{    }\PYGZhy{}screen\PYG{+w}{ }1920x1080+0+0\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
-\PYG{+w}{    }\PYGZhy{}ac\PYG{+w}{ }\PYGZhy{}br\PYG{+w}{ }\PYGZhy{}noreset\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
-\PYG{+w}{    }\PYGZgt{}/dev/null\PYG{+w}{ }\PYG{l+m}{2}\PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{1}\PYG{+w}{ }\PYG{p}{\PYGZam{}}
-\end{MintedVerbatim}

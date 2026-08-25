@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-main.o:\PYG{+w}{ }main.c\PYG{+w}{ }config.h
-\end{MintedVerbatim}

@@ -1,9 +1,0 @@
-\contentsline {section}{\numberline {1}Quiz 6: Awk}{2}{section.0.1}%
-\contentsline {section}{\numberline {2}Quiz 7: Sed}{3}{section.0.2}%
-\contentsline {section}{\numberline {3}Quiz 9: Systems Programming}{4}{section.0.3}%
-\contentsline {section}{\numberline {4}Quiz 10}{5}{section.0.4}%
-\contentsline {section}{\numberline {5}Quiz 11}{6}{section.0.5}%
-\contentsline {section}{\numberline {6}Quiz 12: Networking}{7}{section.0.6}%
-\contentsline {section}{\numberline {7}Quiz 13: UDP and TCP}{8}{section.0.7}%
-\contentsline {section}{\numberline {8}Quiz 14: TCP Server and Job control}{9}{section.0.8}%
-\contentsline {section}{\numberline {9}Quiz 15: Sys admin}{10}{section.0.9}%

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k+kn}{import static}\PYG{+w}{ }\PYG{n+nn}{packageName.ClassName.staticMemberName}\PYG{p}{;}
-\end{MintedVerbatim}
