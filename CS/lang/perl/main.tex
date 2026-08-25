@@ -271,7 +271,7 @@
                 *PI = \3.14159;
                 $PI = 4; # Compiles to a run-time error: "Modification of a read-only value..."
             \end{perlcode}
-        \item \textbf{Legacy filehandles}: In older Perl code, typeglobs or references to typeglobs (\texbackslash *FH) were required to pass filehandles into subroutines. Modern Perl handles this automatically via lexical scalar filehandles (open my \$fh, ...).
+        \item \textbf{Legacy filehandles}: In older Perl code, typeglobs or references to typeglobs (\textbackslash *FH) were required to pass filehandles into subroutines. Modern Perl handles this automatically via lexical scalar filehandles (open my \$fh, ...).
         \item \textbf{Slots in a typeglob}: Use
             \bigbreak \noindent 
             \begin{perlcode}
@@ -966,7 +966,7 @@
     \end{itemize}
 
     \pagebreak 
-    \unsect{Input / output}
+    \unsect{Intro to Perl IO}
     \begin{itemize}
         \item \textbf{Predefined file handles}: 
             \begin{perlcode}
@@ -1015,6 +1015,11 @@
                 \item +>    read and write, truncate
                 \item +>>   read and append (starts at end)
             \end{itemize}
+        \item \textbf{Two argument open syntax}: The mode and the file path are combined into a single string
+            \bigbreak \noindent 
+            \begin{perlcode}
+            open(HANDLE, "MODE PATH")
+            \end{perlcode}
         \item \textbf{Closing a file}: 
             \bigbreak \noindent 
             \begin{perlcode}
@@ -1450,7 +1455,129 @@
                 \item \textbf{Escaped characters:} Special shorthands (like \textbackslash d, \textbackslash w, or \textbackslash s).
                 \item \textbf{Grouped expressions:} Parentheses surrounding a sub-pattern (like (abc)) treated as one combined unit.
             \end{itemize}
-    
+        \item \textbf{Capturing matched strings to scalars}: Perl provides an easy way to extract matched sections of a regular expression for later use. Any part of a regular expression that is enclosed in parentheses is captured and stored into special variables. The substring that matches first set of parentheses will be stored in \$1, and the substring that matches the second set of parentheses will be stored in \$2 and so on. There is no limit on the number of parentheses and associated numbered variables that you can use.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                /(\w)(\w)/; # matches 2 word characters and stores them in $1, $2
+                /(\w+)/; # matches one or more word characters and stores them in $1
+            \end{perlcode}
+            \bigbreak \noindent 
+            Parentheses are numbered from left to right by the opening parenthesis.
+        \item \textbf{List context}: Evaluating a regular expression in list context is another way to capture information, with parenthesised sub-expressions being returned as a list. We can use this instead of numbered variables if we like:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $_ = "Our server is training.perltraining.com.au.";
+                my ($full, $host, $domain) = /(([\w-]+)\.([\w.-]+))/;
+
+                print "$1\n"; # prints "training.perltraining.com.au."
+                print "$full\n"; # prints "training.perltraining.com.au."
+                print "$2 : $3\n"; # prints "training : perltraining.com.au."
+                print "$host : $domain\n" # prints "training : perltraining.com.au."
+            \end{perlcode}
+            \bigbreak \noindent 
+            \textbf{Note:} A regular expression that fails to match the given string does not always reset \$1, \$2 etc.
+        \item \textbf{Extended regular expressions}: Regular expressions can difficult to follow at times, especially if they’re long or complex. Luckily, Perl gives us a way to split a regular expression across multiple lines, and to embed comments into our regular expression. These are known as extended regular expressions.
+            \begin{itemize}
+                \item Spaces (including tabs and newlines) in the regular expression are ignored.
+                \item Anything after an un-escaped hash (\#) is ignored, up until the end of line.
+            \end{itemize}
+            Extended regular expressions do not alter the format of the second part in a substitution. This must still be written exactly as you wish it to appear.
+            \bigbreak \noindent 
+            If you need to include a literal space or hash in an extended expression you can do so by preceding it with a backslash.
+            \bigbreak \noindent 
+            By using extended regular expressions, we can change this:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Parse a line from ’ls -l’
+                m{^([\w-]+)\s+(\d+)\s+(\w+)\s+(\w+)\s+(\d+)\s+(\w+\s+\d+\s+[\d:]+)\s+(.*)$};
+            \end{perlcode}
+            \bigbreak \noindent 
+            into
+            \bigbreak \noindent 
+            \begin{perlcode}
+                m{
+                    ^                               # Start of line.
+                    ([\w-]+)\s+                     # $1 - File permissions.
+                    (\d+)\s+                        # $2 - Hard links.
+                    (\w+)\s+                        # $3 - User
+                    (\w+)\s+                        # $4 - Group
+                    (\d+)\s+                        # $5 - File size
+                    (\w+\s+\d+\s+[\d:]+)\s+         # $6 - Date and time.
+                    (.*)                            # $7 - Filename.
+                    $                               # End of line.
+                }x;
+            \end{perlcode}
+        \item \textbf{Greediness}: Regular expressions are, by default, "greedy". This means that any regular expression, for instance .*, will try to match the biggest thing it possibly can. Greediness is sometimes referred to as "maximal matching"
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $_ = "The cat sat on the mat";
+
+                /(c.*t)(.*)(m.*t)/;
+
+                print $1; # prints "cat sat on t"
+                print $2; # prints "he "
+                print $3; # prints "mat";
+            \end{perlcode}
+            \bigbreak \noindent 
+            It is possible in this example for another set of matches to occur. The first expression c.*t could have matched cat leaving sat on the to be matched by the second expression .*. However, to do that, we need to stop c.*t from being so greedy.
+            \bigbreak \noindent 
+            To make a regular expression quantifier not greedy, follow it with a question mark. For example .*?. This is sometimes referred to as "minimal matching".
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $_ = "The fox is in the box.";
+                /(f.*x)/; # greedy -- $1 = "fox is in the box"
+                /(f.*?x)/; # not greedy -- $1 = "fox"
+            \end{perlcode}
+        \item \textbf{More meta characters}: 
+            \begin{itemize}
+                \item \textbackslash cX Control character, i.e. CTRL-X
+                \item \textbackslash 0nn Octal character represented by nn
+                \item \textbackslash xnn Hexadecimal character represented by nn
+                \item \textbackslash l Lowercase next character
+                \item \textbackslash u Uppercase next character
+                \item \textbackslash L Lowercase until \textbackslash E
+                \item \textbackslash U Uppercase until \textbackslash E
+                \item \textbackslash Q Quote (disable) meta characters until \textbackslash E
+                \item \textbackslash E End of lowercase/uppercase/quote
+                \item \textbackslash A Beginning of string, regardless of whether /m is used.
+                \item \textbackslash Z End of string (or before newline at end), regardless of whether /m is used.
+                \item \textbackslash z Absolute end of string, regardless of whether /m is used.
+            \end{itemize}
+        \item \textbf{Regexp modifiers for multi-line data}: Perl has two modifiers for multi-line data. /s and /m. These can be used to treat the string you’re matching against as either a single line or as multiple lines. Their presence changes the behaviour of caret (\string^), dollar (\$) and dot (.).
+            \bigbreak \noindent 
+            By default caret matches the start of the string. Dollar matches the end of the string (regardless of newlines). Dot matches anything but a newline character.
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item Using /s forces Perl to treat the target string as a single continuous line, allowing the . character to match newlines as well.
+                \item Using /m tells Perl that the string contains multiple lines. It changes \string^ and \$ to match at the beginning and end of any line within the string (directly after or before an embedded newline).
+            \end{itemize}
+            With the /s modifier, caret and dollar behave the same as in the default case, but dot will match the newline character.
+            \bigbreak \noindent 
+            With the /m modifier, caret matches the start of any line within the string, dollar matches the end of any line within the string. Dot does not match the newline character.
+            \bigbreak \noindent 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXXl@{}}
+                    \toprule
+                    \textbf{Mode}& \textbf{Specified with}& \textbf{\string^ matches...}& \textbf{\$ matches...}& \textbf{Dot matches newline} \\
+                    \midrule
+                    default &neither /s nor /m &start of string &end of string &No\\[2ex]
+                    single-line &/s &start of string &end of string &Yes\\[2ex]
+                    multi-line &/m &start of line &end of line &No\\[2ex]
+                    clean multi-line &both /m and /s& start of line &end of line &Yes \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Back references}: There are several special variables related to regular expressions. The parenthesised names beside them are their long names if you use the English module.
+            \begin{itemize}
+                \item \$\& is the matched text (MATCH)
+                \item \$‘ (dollar backtick) is the unmatched text to the left of the matched text (PREMATCH)
+                \item \$’ (dollar forwardtick) is the unmatched text to the right of the matched text (POSTMATCH)
+                \item \$1, \$2, \$3, etc. The text matched by the 1st, 2nd, 3rd, etc sets of parentheses.
+            \end{itemize}
+            All these variables are modified when a match occurs, and can be used in the same way that other scalar variables can be used.
+            \bigbreak \noindent 
+            When Perl sees you using PREMATCH, MATCH, or POSTMATCH, it assumes that you may want to use them again. This means that it has to prepare these variables after every successful pattern match. This can slow a program down because these variables are "prepared" by copying the string you matched against to an internal location.
+        \item \textbf{Non-capturing parenthesis}: If you want to use parentheses simply for grouping, and don’t want them to set a $1 style variable, you can use a special kind of non-capturing parentheses, which look like (?: ... )
 
     \end{itemize}
 
@@ -2066,12 +2193,248 @@
             The base pragma takes care of ensuring that the Exporter module is loaded.
             \bigbreak \noindent 
             The base pragma is available for all versions of Perl above 5.6.0.
-
+        \item \textbf{Polluting the caller's namespace}: Exporting your symbols by default, by populating the @EXPORT array, means that anyone using your module will receive these symbols without having to ask for them. This is generally considered to be bad style, and is sometimes referred to as ’polluting’ the caller’s namespace.
+            \bigbreak \noindent 
+            Using @EXPORT\_OK allows the user to choose which symbols they wish to bring into their name space. All other symbols can be accessed by using their full name, such as People::Manage::invite(), when required.
+        \item \textbf{Importing symbols}: Once your module is written and it exports a few symbols, it’s time to use it. This is done with the use command that we’ve seen with strict and other modules. We can load our module in three ways:
+            \begin{enumerate}
+                \item use People::Manage; which imports all of the symbols stored in @People::Manage::EXPORT.
+                \item use People::Manage (); which imports none of the symbols in either @People::Manage::EXPORT or @People::Manage::EXPORT\_OK.
+                \item use People::Manage qw(\$name \$spouse invite); which imports all the listed symbols. If a symbol is mentioned which is not in either @People::Manage::EXPORT or @People::Manage::EXPORT\_OK then a fatal error will occur.
+            \end{enumerate}
 
 
 
     \end{itemize}
 
+    \pagebreak 
+    \unsect{Using Perl Objects (Perl OOP)}
+    \begin{itemize}
+        \item \textbf{OOP in perl}: In Perl, object-oriented programming (OOP) is built on a few deceptively simple rules rather than dedicated language keywords. Classic Perl OOP relies on three core principles: a class is simply a package, an object is a reference that "knows" its class, and a method is a standard subroutine
+            \bigbreak \noindent 
+            In Perl, there is no class keyword (in older/classic versions). Instead, a package acts as the class. The package defines a separate namespace to prevent variable and subroutine names from colliding with other parts of the program
+            \bigbreak \noindent 
+            reference to a hash that has been explicitly linked to a specific class. This linking is achieved using the built-in \textbf{bless} function.
+            \bigbreak \noindent 
+            By convention, the constructor method is named \textbf{new}, though you can technically name it anything
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package Animal;
+                use strict;
+                use warnings;
+
+                # The Constructor
+                sub new {
+                    my $class = shift;        # Captures the class name ("Animal")
+                    my $self = {              # Creates a reference to an empty hash
+                        name => shift,
+                        type => shift,
+                    };
+
+                    # "Blesses" the hash reference into the class namespace
+                    return bless $self, $class; 
+                }
+                1; # Packages must return a true value
+            \end{perlcode}
+            \bigbreak \noindent 
+            The \textbf{bless} function turns a standard reference into an object by associating it with a specific package (class).
+            \bigbreak \noindent 
+            Unlike languages with strict object-oriented syntax, an object in Perl is simply a regular data structure (usually a hash reference) that has been explicitly told which class it belongs to. Once a reference is "blessed", you can call the package's subroutines as object methods
+            \bigbreak \noindent 
+            two-argument form is highly recommended to support class inheritance safely:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            bless REF, CLASSNAME;
+            bless REF;
+            \end{perlcode}
+            \begin{itemize}
+                \item \textbf{REF:} Any valid Perl reference (Hash, Array, Scalar, Subroutine, etc.). Hash references are the most common because they allow you to store named attributes.
+                \item \textbf{CLASSNAME:} A string containing the name of the package/class. If omitted, Perl blesses the reference into the current package.
+                \item \textbf{Return Value:} It returns the newly blessed reference, allowing you to use it instantly or return it at the end of a constructor
+            \end{itemize}
+        \item \textbf{Methods and the arrow syntax}: Methods are just subroutines defined inside the package. When you invoke a method using the arrow operator (->), Perl automatically passes the object itself (or the package name, if it's a class method) as the first hidden argument
+            \begin{itemize}
+                \item \textbf{Defining a Method:} You must always shift the object (\$self) off the argument array (@\_) first.
+                \item \textbf{Getters and Setters:} Because attributes are just keys inside a blessed hash, you write subroutines to read or modify them
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub speak {
+                    my $self = shift; # The object itself is passed first
+                    print $self->{name} . " says hello!\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Animal;
+
+                # Create the object (instantiation)
+                my $dog = Animal->new("Fido", "Dog");
+
+                # Call a method
+                $dog->speak(); # Outputs: Fido says hello!
+            \end{perlcode}
+        \item \textbf{Inheritance}: Inheritance is handled by manipulating a special package array called @ISA (which stands for "is a"). Modern classic Perl uses the parent directive to manage this cleanly
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package Dog;
+                use parent 'Animal'; # Inherits all methods from Animal
+                1;
+            \end{perlcode}
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{File IO}
+    \begin{itemize}
+        \item \textbf{Line input operator in list context}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # reading lines from STDIN (or from files on the command line)
+                while (<>) {
+                    # Process the line of input in $_
+                }
+
+                # reading a single line of user input from STDIN
+                my $input = <STDIN>;
+
+                # reading all lines from STDIN into an array
+                my @input = <STDIN>;
+            \end{perlcode}
+            \bigbreak \noindent 
+            In scalar context, the line input operator yields the next line of the file referenced by the filehandle given.
+            \bigbreak \noindent 
+            In list context, the line input operator yields all remaining lines of the file referenced by the filehandle. (Be careful when using this as you may use up all your memory if the file is large).
+        \item \textbf{Failure}: You should always check for failure of an open() statement:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                open(LOGFILE, "< /var/log/httpd/access.log")
+                    or die "Can’t open /var/log/httpd/access.log: $!";
+            \end{perlcode}
+            \bigbreak \noindent 
+            Attempting to read from or write to an unopened file may cause unexpected results.
+        \item \textbf{The die function (die())}: die is a Perl function which takes an error message and terminates the program displaying that message to the user.
+            \bigbreak \noindent 
+            \$! is the special variable which contains the error message produced by the last system interaction.
+            \bigbreak \noindent 
+            Perl tries to be helpful when dying on errors and will append the appropriate filename and line number of your script to the end of the die message, with a newline. If you don’t want this behaviour, end the die message with a newline (\string\n) character.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # The following provides an error with file and line-number:
+                open(LOGFILE, "< $file") or die "Cannot open $file: $!";
+
+                # Here the file and line-number are omitted.
+                open(LOGFILE, "< $file") or die "Cannot open $file: $!\n";
+            \end{perlcode}
+        \item \textbf{Fatal}: An alternative to explicitly checking whether open and other functions succeeded is to use the Fatal module:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Fatal qw(open close);
+
+                open(LOGFILE, "< $file");   # no need to check!
+
+                close(LOGFILE);             # no need to check!
+            \end{perlcode}
+            \bigbreak \noindent 
+            The Fatal module creates its own functions for the ones you have passed in, and tells Perl to use those instead. These throw an exception (die) if the original function returns a false value. Care should be taken when retro-actively using Fatal on existing programs. It changes the behaviour of the specified functions for the whole program, not just for your file.
+        \item \textbf{Filehandles}: The first argument we pass to open is a filehandle. We can use this to have access to the file for the mode in which it was opened.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Open access.log for reading using LOGFILE as our filehandle
+                open(LOGFILE, "<", "/var/log/httpd/access.log")
+                    or die "Can’t open /var/log/httpd/access.log: $!";
+
+                # use the filehandle in the <> line input operator to read the contents
+                while (<LOGFILE>) {
+                    print if /perltraining.com.au/;
+                }
+                close LOGFILE;
+
+                # open a new logfile for appending
+                open(SCRIPTLOG, ">>", "myscript.log") or die "Can’t open myscript.log: $!";
+
+                # print() takes an optional filehandle argument - defaults to STDOUT
+                print SCRIPTLOG "Opened logfile successfully.\n";
+
+                close SCRIPTLOG;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note that you should always close a filehandle when you’re finished with it (even though any open filehandles will be automatically closed when your script exits).
+        \item \textbf{Scalar filehandles}: Under Perl version 5.6.0 and above, you can provide a scalar as the first argument to the open function. This means that your filehandles can have scope, and makes it easier to pass them to subroutines and put into structures such as hashes and arrays. Where possible it is a good idea to always use scalar filehandles.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $fh;
+                open($fh,"<", "/path/to/file") or die $!;
+
+                # We can also declare the variable inside the call to open
+                open(my $out_fh, "> /path/to/other/file") or die $!;
+            \end{perlcode}
+            \bigbreak \noindent 
+            In versions before 5.6.0 you can do the same thing by using the FileHandle module, but you need to declare your intentions first:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use FileHandle;
+                my $fh = FileHandle->new; # $fh is now a FileHandle object.
+                open ($fh, "<", "/path/to/file") or die $!;
+            \end{perlcode}
+        \item \textbf{Changing file contents}:  When manipulating files, we may wish to change their contents. A flexible way of reading and writing a file is to import the file into an array, manipulate the array, then output each element again. It is important to ensure that should anything go wrong we don’t lose our original data. As a result,
+            \bigbreak \noindent 
+            it’s considered best-practice to write our data out to a temporary file and them move that over the input file after everything has been successful.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # a program that reads in a file and writes the lines in sorted order.
+                use File::Copy;
+
+                open(my $infile, "<", "file.txt") or die "Can’t open file.txt for input: $!";
+                my @lines = <$infile>; # Slurps all the lines into @lines.
+                close $infile;
+
+                @lines = sort @lines;
+
+                # open temporary file to save our sorted data into
+                open(my $outfile, ">", "file.txt.tmp") or die "Can’t open file.txt for output: $!";
+
+                # use print’s ability to print lists
+                print {$outfile} @lines;
+
+                close $outfile;
+
+                # we know that we were successful, so write over the original file
+                move("file.txt.tmp", "file.txt") or die "Could not rename temp file: $!";
+            \end{perlcode}
+        \item \textbf{Secure temporary files}: In the above example we create our own temporary file using a predictable filename. This may cause our program to over-write a temporary file that’s currently in use, which is obviously a bad thing. To create and use unique temporary files we can use the File::Temp module:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use File::Temp qw(tempfile);
+
+            my ($tmp_fh, $tmp_name) = tempfile();
+
+            # use print’s ability to print lists
+            print {$tmp_fh} @lines;
+
+            close $tmp_fh;
+
+            move($tmp_name, "file.txt") or die "Could not rename $tmp_name: $!";
+            \end{perlcode}
+            \bigbreak \noindent 
+            The File::Temp module can also be used to create in-memory temporary files if required.
+        \item \textbf{Open a file for reading and writing (Read + write mode)}: Files can be opened for simultaneous read/write by putting a + in front of the > or < sign. +< is almost always preferable, as +> would overwrite the file before you had a chance to read from it.
+            \begin{itemize}
+                \item +< (Read + Write, No Truncation)
+                    \begin{itemize}
+                        \item \textbf{Behavior:} Opens an existing file for both reading and writing. It does not clear the file contents when opened. The file pointer starts at the beginning of the file.
+                        \item \textbf{File status:} The file must already exist (or it fails depending on usage, though standard behavior expects an existing file).
+                        \item \textbf{Use case:} When you want to read from a file, modify specific parts, or overwrite parts of it in place without losing the rest of the data.
+                    \end{itemize}
+                \item +> (Read + Write, Truncate/Clobber)
+                    \begin{itemize}
+                        \item \textbf{Behavior:} Opens a file for reading and writing, but deletes all existing contents (truncates the file to zero length) immediately when opened.
+                        \item \textbf{File status:} Creates the file if it does not exist.
+                        \item \textbf{Use case:} Rare; useful when you want a completely fresh scratchpad file that you can both write to and read back from during the same session.
+                    \end{itemize}
+            \end{itemize}
+
+
+    \end{itemize}
 
     \pagebreak 
     \unsect{Idioms}
