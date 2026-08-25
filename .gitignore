@@ -1,0 +1,9 @@
+main.fdb_latexmk
+main.listing
+main.aux
+main.fls
+main.log
+main.synctex.gz
+main.toc
+_minted/
+OutsideDepartemnts/

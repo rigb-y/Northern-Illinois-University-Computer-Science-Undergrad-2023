@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  21 AUG 2026 12:11
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026/Arch Linux)  (format=lualatex 2026.6.2)  24 AUG 2026 20:01
  system commands enabled.
  file:line:error style messages enabled.
 **main.tex
@@ -1851,928 +1851,350 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 LaTeX Font Info:    Trying to load font information for U+wasy on input line 10.
  (/usr/share/texmf-dist/tex/latex/wasysym/uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
-))
+)
+warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
+[1])
 \tf@toc=\write6
 
 \openout6 = main.toc
-
-warning  (pdf backend): ignoring duplicate destination with the name 'page.1'
-[1]
+ [2]
 \g__tcobox_out_iow=\write7
 
 \openout7 = main.listing
 \pydata@fh@0=\write8
 
 \openout8 = _FAD58DE7366495DB4650CFEFAC2FCD61.data.minted
-runsystem(latexminted config  --timestamp 20260821121129 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+runsystem(latexminted config  --timestamp 20260824200142 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
  (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260821121129 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
- (./_minted/xcode.style.minted) (./_minted/12C1EA3D9E47953544F3169ADE5E7E56.highlight.minted)
+runsystem(latexminted cleanconfig  --timestamp 20260824200142 FAD58DE7366495DB4650CFEFAC2FCD61)...executed.
+ (./_minted/xcode.style.minted) (./_minted/14FE7311197972F42C96ACE488AB0134.highlight.minted)
 \openout7 = main.listing
- (./_minted/F0A4E611FBB2C54938DE0A68DC5DFCF8.highlight.minted)
+ (./_minted/28343D40C11F210EE3D121C3025F1C78.highlight.minted)
 \openout7 = main.listing
- (./_minted/9C69C50CA9FC705FC5A275B49CBE68D4.highlight.minted)
+ (./_minted/5FEEDC5B9583FF1B41792A18B7BE8880.highlight.minted)
 \openout7 = main.listing
- (./_minted/F9AAF79B1CF452ECF28AC1D239D396C2.highlight.minted)
+ (./_minted/28AD46DF6113DC5B3AF78EA8402DD354.highlight.minted)
 \openout7 = main.listing
- (./_minted/A27DC8B240EA3316409E53509EDCD737.highlight.minted) [2] [3]
+ (./_minted/53B049E492A99DD669105E422609E6A5.highlight.minted) [3] [4]
 \openout7 = main.listing
- (./_minted/8335D81447707F45E91817316F34D6C1.highlight.minted)
+ (./_minted/1D0D773DE744EFC21D18B4C475FE08F8.highlight.minted)
 \openout7 = main.listing
- (./_minted/5814847282B844789AE2ECABC6167B40.highlight.minted)
+ (./_minted/70E37923705FE9D7A6DEDED22C9934D9.highlight.minted)
 \openout7 = main.listing
- (./_minted/A52C41D45035F353F84F6C99E75247C8.highlight.minted) [4]
+ (./_minted/343440789A4A90D6EC3A540288F9D130.highlight.minted) [5]
 \openout7 = main.listing
- (./_minted/D64646274120B2C1D06535965CF3318D.highlight.minted) [5]
+ (./_minted/D8EF083BA6AE22E4B1A39E3DE1240CF1.highlight.minted) [6]
 \openout7 = main.listing
- (./_minted/43E2B6C1F449133116A7FF580E99F8D2.highlight.minted)
+ (./_minted/53C503D03E8F1D2034D61BA4C3744334.highlight.minted)
 \openout7 = main.listing
- (./_minted/6F0A5F90019337C168340D6A13486694.highlight.minted
+ (./_minted/4654F52C2077120A125EF961D5CE0B9A.highlight.minted
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 6.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 6.
-) [6]
-\openout7 = main.listing
- (./_minted/A9B5A29E5BA62B6A9B39B45AFBBF3069.highlight.minted)
-\openout7 = main.listing
- (./_minted/74B6F2826F99D6A8E851BDAB7B0A4980.highlight.minted)
-\openout7 = main.listing
- (./_minted/7E4688521820FF0F604706D8A175A707.highlight.minted)
-\openout7 = main.listing
- (./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-<argument> ...$$ Dereferences\FancyVerbBreakStop }
-                                                  }}}
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-<argument> ...$ Dereferences\FancyVerbBreakStop }}
-                                                  }}
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-<argument> ... Dereferences\FancyVerbBreakStop }}}
-                                                  }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-<argument> ...Dereferences\FancyVerbBreakStop }}}}
-                                                  
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-\@textcolor ...otect \leavevmode {\color #1{#2}#3}
-                                                  
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Extra }, or forgotten $.
-\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
-                                                  
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing $ inserted.
-<inserted text> 
-                $
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Display math should end with $$.
-<to be read again> 
-                   \endgroup 
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-The `$' that I just saw supposedly matches a previous `$$'.
-So I shall assume that you typed `$$' both times.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/989066EE4D5B3DD74F81C63FC876F322.highlight.minted:5: Missing } inserted.
-<inserted text> 
-                }
-l.5 ...+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
 ) [7]
 \openout7 = main.listing
- (./_minted/E2B73DDFFE38C802C4FE7FE7449ED3C2.highlight.minted)
+ (./_minted/808F00E56EAB8E02BC3F4DF9DA8CDDA3.highlight.minted)
 \openout7 = main.listing
- (./_minted/855DC1CCEEEFEC6EF422CFEAD78442EC.highlight.minted)
+ (./_minted/B6A92A1A972349944AF44103E366F56D.highlight.minted)
 \openout7 = main.listing
- (./_minted/F14566C66D3378931E87179C6B2D26AB.highlight.minted)
+ (./_minted/5B7B3D399CDD64E509469ED76CC9ABA5.highlight.minted)
 \openout7 = main.listing
- (./_minted/65CBE0C685885FB18DC5C847533933F2.highlight.minted)
+ (./_minted/083AB11B56FF8771C76D7D0F83E18D6D.highlight.minted)
+Overfull \hbox (25.0pt too wide) in paragraph at lines 239--240
+ [] 
+ []
+
+[8]
 \openout7 = main.listing
- (./_minted/7A59CDD5615D0FD5F934D95D3AABE8E5.highlight.minted)
+ (./_minted/746EBD155E1676281C51845A335CA89D.highlight.minted)
 \openout7 = main.listing
- (./_minted/85B57A81CCA54DED2905B501F56720BA.highlight.minted)
+ (./_minted/09AE182277D999F2EE4616B402148563.highlight.minted)
 \openout7 = main.listing
- (./_minted/075D5521533AB8C7E6FD79735382CD14.highlight.minted)
+ (./_minted/4D7DE253C92B98EF577212D0F91A9460.highlight.minted)
 \openout7 = main.listing
- (./_minted/39D603CBD76EB4C9599A9E104DFBE1F0.highlight.minted) [8]
+ (./_minted/9818C7A16FB976F45B95A572C2AA80DA.highlight.minted)
 \openout7 = main.listing
- (./_minted/41FDBEA40FA23F321AAD87B606171936.highlight.minted)
+ (./_minted/343D685FC90992A3FAA618439B9FA69B.highlight.minted)
+./main.tex:274: Undefined control sequence.
+l.274 ...or references to typeglobs (\texbackslash
+                                                   *FH) were required to pas...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 \openout7 = main.listing
- (./_minted/A38B4E69AF5EC95FCCCD86AEAC012122.highlight.minted)
+(./_minted/7A66C85407BC50A387E68B9083942660.highlight.minted) [9]
 \openout7 = main.listing
- (./_minted/56FAA534E622B3ED87628A1D26B6FD3F.highlight.minted) [9]
+ (./_minted/D93188C1A5F7D40B216A08B63FA6851D.highlight.minted)
 \openout7 = main.listing
- (./_minted/310E186B4E40446FDF96C3271F1B53BC.highlight.minted)
+ (./_minted/7619D2BAFE856052A9F37E5AE41B85E6.highlight.minted) [10]
 \openout7 = main.listing
- (./_minted/23D77D56E73477BD79C596F9015A9EAE.highlight.minted)
+ (./_minted/907946574EF5154058311FF064A5499B.highlight.minted)
 \openout7 = main.listing
- (./_minted/61C2287CB9918AE16DE0F3F5F88654FE.highlight.minted) [10]
+ (./_minted/83C66417DEBE0D1AC22E5D39FF7DCFBA.highlight.minted)
 \openout7 = main.listing
- (./_minted/5B3315154D2B7050866E6CCB3006C5BD.highlight.minted)
+ (./_minted/DA7862C3F6D3F4102FFB1D3A880FF0EA.highlight.minted)
 \openout7 = main.listing
- (./_minted/4CD419C7988383BD98675915E6078BE5.highlight.minted)
+ (./_minted/D792D6E17FD31F1850D31E7641F8439C.highlight.minted)
 \openout7 = main.listing
- (./_minted/C45E296E7450F2AA75CC357C7CCFE432.highlight.minted)
+ (./_minted/C868AF4EEE1FF2BE0D1A6494E99811E0.highlight.minted)
 \openout7 = main.listing
- (./_minted/6435308D91F37E291A06C67A358B3F78.highlight.minted)
+ (./_minted/5043B0BC5752F6109FE605719A307088.highlight.minted)
 \openout7 = main.listing
- (./_minted/AD755CE97698E6324441C190DFBC2506.highlight.minted)
+ (./_minted/E59A9A9B32091A5B903094DCAD60B26C.highlight.minted)
 \openout7 = main.listing
- (./_minted/DD8D6775096E38194B32C00BDB880352.highlight.minted) [11]
+ (./_minted/E703CAA43209068A75BA3B7AA768D008.highlight.minted) [11]
 \openout7 = main.listing
- (./_minted/4B0767AE668027850EDDCAF24BE7337F.highlight.minted) [12]
+ (./_minted/810873F70761D52CC763CD8341A6A3A9.highlight.minted)
 \openout7 = main.listing
- (./_minted/A7089275682D598C28BF6EF151FC6B76.highlight.minted)
+ (./_minted/A84FE413EC99EDE7EECC96C4F9659ACB.highlight.minted)
 \openout7 = main.listing
- (./_minted/CAEA796085985633368F7CA1937872E2.highlight.minted)
+ (./_minted/89AE98970267655B1674D9E1C4C5876F.highlight.minted) [12]
 \openout7 = main.listing
- (./_minted/83F6D2E24F424348FA681F30596E1D6F.highlight.minted)
+ (./_minted/91757703B2258490215EC1B8FB546FFC.highlight.minted)
 \openout7 = main.listing
- (./_minted/B89C29665F3DD778AEAA62AF57BB717B.highlight.minted) [13] [14] [15]
+ (./_minted/91C7C29285D99AD182FDEC1D272C2C82.highlight.minted)
 \openout7 = main.listing
- (./_minted/0AEBF16D47CED243C6A6E90AB11C3D64.highlight.minted)
+ (./_minted/A83D7085F033CF9E4BF4EFDCDC8FD447.highlight.minted) [13]
 \openout7 = main.listing
- (./_minted/24528FBBB3C1DECB78C797E058B90CC3.highlight.minted) [16]
+ (./_minted/500043A7468CF5C2F34B56D0B26EE6CB.highlight.minted)
 \openout7 = main.listing
- (./_minted/8D8BE685189E8DA7EC4260483F6A96E7.highlight.minted)
+ (./_minted/40B1043C9B78F959D8FDE0532BC51D1C.highlight.minted)
 \openout7 = main.listing
- (./_minted/3FFEBA741D62B702AE8125AD7939EC27.highlight.minted) [17]
+ (./_minted/E48F35DD955F316528947004F32048AF.highlight.minted)
 \openout7 = main.listing
- (./_minted/F8F85538B016C33AAD76FAF5EC75CDA2.highlight.minted)
+ (./_minted/A8646D662B9BAB75D312E5681001CEC2.highlight.minted)
 \openout7 = main.listing
- (./_minted/CB9CE825DC26839E85B9643F1CB7C296.highlight.minted) [18] [19]
+ (./_minted/E2E5420515F39799BF26EADFAEF36A0F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A80F4605DCFF3E3A3E53C2099135634F.highlight.minted) [14]
+\openout7 = main.listing
+ (./_minted/535A4ACFC665C6BDDE14626DBFF009DA.highlight.minted) [15]
+\openout7 = main.listing
+ (./_minted/3A73B5D7DD9E6C25A8A1EBB44A5AF389.highlight.minted)
+\openout7 = main.listing
+ (./_minted/963999748CB2DCF06A9AE018F02DF116.highlight.minted)
+\openout7 = main.listing
+ (./_minted/78DCCF9BD9DA2076C0FFF3B4C06A0DEB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B783A5E0E5815017A9B5E87DC72EC7F3.highlight.minted) [16] [17] [18]
+\openout7 = main.listing
+ (./_minted/ED3EF457E0DE105A81BEA06E1F0EF888.highlight.minted)
+\openout7 = main.listing
+ (./_minted/58EF5428889150FC7EF2AA40D4DA7560.highlight.minted) [19]
+\openout7 = main.listing
+ (./_minted/D8E784DE747B33F04ACFF92B8077ACF9.highlight.minted)
 \openout7 = main.listing
 
-(./_minted/4F2ABA5DAD1344A725B5E3422254CBBF.highlight.minted)
+(./_minted/753879002F438CFC6E6FB349ACF32F40.highlight.minted) [20]
 \openout7 = main.listing
- (./_minted/F60A5AF18C9F9D49BDA25E55E10A6356.highlight.minted) [20] [21]
+ (./_minted/A6AABF9A1CAE38832D967375E7583D1B.highlight.minted)
 \openout7 = main.listing
- (./_minted/0039F9A83677C5312A0DED13295470E3.highlight.minted)
+ (./_minted/8F3DEEA2B1B9C95F62574E1B99D6E722.highlight.minted) [21] [22]
 \openout7 = main.listing
- (./_minted/A793F8B72C3EAED1024134A5B569C2D0.highlight.minted)
+ (./_minted/3AAE1E57458D4EB43991E8B33168CA5A.highlight.minted)
 \openout7 = main.listing
- (./_minted/172B4DE016ACE90FD529D0DD0D7E895C.highlight.minted)
+ (./_minted/58992FEBE230566339E59333865ECC41.highlight.minted) [23] [24]
 \openout7 = main.listing
- (./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...fined and false\FancyVerbBreakStop }
-                                                  }}}
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ined and false\FancyVerbBreakStop }}
-                                                  }}
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ned and false\FancyVerbBreakStop }}}
-                                                  }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ed and false\FancyVerbBreakStop }}}}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-\@textcolor ...otect \leavevmode {\color #1{#2}#3}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing $ inserted.
-<inserted text> 
-                $
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...fined and false\FancyVerbBreakStop }
-                                                  }}}
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ined and false\FancyVerbBreakStop }}
-                                                  }}
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ned and false\FancyVerbBreakStop }}}
-                                                  }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-<argument> ...ed and false\FancyVerbBreakStop }}}}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-\@textcolor ...otect \leavevmode {\color #1{#2}#3}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Extra }, or forgotten $.
-\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
-                                                  
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing $ inserted.
-<inserted text> 
-                $
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/12C647F710F2B4C0872DE8F9F7B506B0.highlight.minted:2: Missing } inserted.
-<inserted text> 
-                }
-l.2 ...}{\PYGZsh{} $skippy is undefined and false}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-)
+ (./_minted/DA6E074784C7A63AFB8576D92676F8ED.highlight.minted)
 \openout7 = main.listing
- (./_minted/B7418852409F4211D02C6B1F56641E6F.highlight.minted)
+ (./_minted/3D5B19227115D0D8C07CED56E1ABB0BF.highlight.minted)
 \openout7 = main.listing
- (./_minted/23F81471B36489CA16EE033447C051D5.highlight.minted) [22]
+ (./_minted/EECB0083A340A10C6A80B122E4BF263F.highlight.minted)
 \openout7 = main.listing
- (./_minted/1B7EE45069B90B4D8F9920251ADA398A.highlight.minted)
+ (./_minted/1F6862A5F15C9C13CACC9B67A21F3C4A.highlight.minted)
 \openout7 = main.listing
- (./_minted/BE07DEF7376EC9275AAF2AC878F9B96A.highlight.minted)
+ (./_minted/CFDA956242DE8DAE6E65C5073836F389.highlight.minted)
 \openout7 = main.listing
- (./_minted/B19C22528DEED767B7AFEF44145B61E0.highlight.minted)
+ (./_minted/0B23DC28D1E8540132C7C0ACC8D7D22C.highlight.minted) [25]
 \openout7 = main.listing
- (./_minted/831F7D7E4E56260CA8008001FF4476CA.highlight.minted)
+ (./_minted/A6A8ACE9553A2BAFC73FF99DC6605545.highlight.minted)
 \openout7 = main.listing
- (./_minted/CEC75F913468273D4BC8126F057B8AEC.highlight.minted)
+ (./_minted/7E42C6BF76E8CB8FCC487E04A61FF3DC.highlight.minted)
 \openout7 = main.listing
- (./_minted/1E62FF963541A7A6B5111BB1E88BA35A.highlight.minted)
+ (./_minted/49E109C19280B768B6D595C7F03E30F4.highlight.minted)
 \openout7 = main.listing
- (./_minted/1BE22886054EC824CF386CBC55BD6C18.highlight.minted)
+ (./_minted/B95D7C6D9EF6F5B3B8E0C2469CC4597C.highlight.minted)
 \openout7 = main.listing
- (./_minted/9C3FFDD4E498F6310DA8C808B93AE935.highlight.minted) [23]
+ (./_minted/E19C83DAC39D4875E1AADF5B9D0701A6.highlight.minted)
 \openout7 = main.listing
- (./_minted/EAD908B1F58CA7CDBEB7EE5F5E3400DE.highlight.minted)
+ (./_minted/47ADDBE91B59E01F87AFA03BA6E3F7FF.highlight.minted)
 \openout7 = main.listing
- (./_minted/F4D6836F719534C0A3BDACB3BEDCE8A6.highlight.minted)
+ (./_minted/86BB2C09756D1427FEEEED858CD46C62.highlight.minted) [26]
 \openout7 = main.listing
- (./_minted/0172238EEE129500BC76DDFC74DD4A13.highlight.minted)
+ (./_minted/A84354C3E63F3EB365419C352A9DF056.highlight.minted)
 \openout7 = main.listing
- (./_minted/3136B9559E57992660E6BAE2ED956291.highlight.minted) [24] [25]
+ (./_minted/556121B2794F51EECE35CBFBB15CEAF1.highlight.minted)
 \openout7 = main.listing
- (./_minted/ABA61141E2A7EDFE7412F28EDF7665EA.highlight.minted)
+ (./_minted/569D445EA168411812184BC29AB01D8F.highlight.minted)
 \openout7 = main.listing
- (./_minted/CFC017F93C0F0C0059279142A198FF34.highlight.minted)
+ (./_minted/0C3BA0AB17232BA1B5398D0980654578.highlight.minted)
 \openout7 = main.listing
- (./_minted/E2D832BF967B6CD724BC4AA46D7EDE6B.highlight.minted)
+ (./_minted/6514728F9F8D089F1A5A10183E93EC58.highlight.minted)
 \openout7 = main.listing
- (./_minted/60BCCEECC7F4C87586AC28F6DED3E272.highlight.minted)
+ (./_minted/16464AE16D90B887867619A6142377DB.highlight.minted) [27]
 \openout7 = main.listing
- (./_minted/82D7B50E6E5972B0485EC6A70518D32E.highlight.minted)
+ (./_minted/92C7AD5860BBF608A5CF904D68DC9F14.highlight.minted)
 \openout7 = main.listing
- (./_minted/92BCB46AC5441030518E564F76A88798.highlight.minted)
+ (./_minted/D6F8F17BEA24EAFD107459A662A1C265.highlight.minted) [28]
 \openout7 = main.listing
- (./_minted/80BC9B8309364308A3495DD1B23F0E8E.highlight.minted) [26]
+ (./_minted/51DF01F529A40C818078DFE2A3B0D0A9.highlight.minted)
 \openout7 = main.listing
- (./_minted/1DF08B3C1F69C4AB8724635CE6011923.highlight.minted)
+ (./_minted/5CB9BCEBF19FF7164DA55D7CEDD01E76.highlight.minted)
 \openout7 = main.listing
- (./_minted/83F2DFB138196A7D65963B8144683C95.highlight.minted) [27]
+ (./_minted/0B91B506B1DF3C6EF46541A829AD81E5.highlight.minted)
 \openout7 = main.listing
- (./_minted/6D4B5DD48247448B6544DBDDE420A241.highlight.minted)
+ (./_minted/0655E9E8E4432A1A2F4C6B205DBDEE6A.highlight.minted)
 \openout7 = main.listing
- (./_minted/0EDE8646F2E612FEB0A0B3F5101265C4.highlight.minted)
-\openout7 = main.listing
- (./_minted/C427FE3FF8AA380F6915772D2654B2A2.highlight.minted)
-\openout7 = main.listing
- (./_minted/C6E79A819381518A713090E66003E47F.highlight.minted) [28]
-\openout7 = main.listing
- (./_minted/86BF99D635A156185E6DB68288CB35FF.highlight.minted) [29]
-\openout7 = main.listing
- (./_minted/D4DD99160C9BA6B331FDA8EEA22E3A2F.highlight.minted)
-\openout7 = main.listing
- (./_minted/A657A70172E25DFB02F9F4996FF37300.highlight.minted)
-\openout7 = main.listing
- (./_minted/C62A30F502BB9CA89575D35EB2D67B7B.highlight.minted) [30]
+ (./_minted/161C4E7C2224C72EE7F399978367025F.highlight.minted)
 \openout7 = main.listing
 
-(./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ... $1, $2, and $3\FancyVerbBreakStop }
-                                                  }}}
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ...$1, $2, and $3\FancyVerbBreakStop }}
-                                                  }}
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ...1, $2, and $3\FancyVerbBreakStop }}}
-                                                  }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ..., $2, and $3\FancyVerbBreakStop }}}}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-\@textcolor ...otect \leavevmode {\color #1{#2}#3}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing $ inserted.
-<inserted text> 
-                $
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ... $1, $2, and $3\FancyVerbBreakStop }
-                                                  }}}
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ...$1, $2, and $3\FancyVerbBreakStop }}
-                                                  }}
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ...1, $2, and $3\FancyVerbBreakStop }}}
-                                                  }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-<argument> ..., $2, and $3\FancyVerbBreakStop }}}}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-\@textcolor ...otect \leavevmode {\color #1{#2}#3}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Extra }, or forgotten $.
-\PYG@do ...ul {\PYG@it {\PYG@bf {\PYG@ff {#1}}}}}}
-                                                  
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing $ inserted.
-<inserted text> 
-                $
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-./_minted/1A8501624FBE848658B94891875E1DA2.highlight.minted:4: Missing } inserted.
-<inserted text> 
-                }
-l.4 ...{} Captures the digits into $1, $2, and $3}
-                                                  
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-)
+(./_minted/D90B022542E00F6296F6A37F33062EF2.highlight.minted)
 \openout7 = main.listing
- (./_minted/C17B6EB95246C3BAD3F98C293D47CEC2.highlight.minted) [31] [32]
+ (./_minted/BECDF493F39EE33A853B74FFA86D2615.highlight.minted) [29]
 \openout7 = main.listing
- (./_minted/DF12F0051B9B74C7817A2E9F5386D06D.highlight.minted)
+ (./_minted/F405800DE59DD5C77A8EE4BC19BFB99D.highlight.minted)
 \openout7 = main.listing
- (./_minted/52EFF1B4401D415405A960E0428A0A52.highlight.minted) [33] [34] (./main.aux)
+ (./_minted/A29BAEF5F22F5FE5D62115DD00B373B7.highlight.minted) [30]
+\openout7 = main.listing
+ (./_minted/469EA0B4E9FA02A8DF42B794EE6867C2.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A3B8EEDFDE832646A6C21DFCA9EED443.highlight.minted)
+\openout7 = main.listing
+ (./_minted/01756C6676A44EE149935D935810EB66.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B18B4627BDD6119F6C958CC3CC9D9E8F.highlight.minted) [31]
+\openout7 = main.listing
+ (./_minted/76203399A642FA64E1C82577EA1B5DE4.highlight.minted)
+\openout7 = main.listing
+ (./_minted/AE9A41095931646FADC55ECF2F884BDE.highlight.minted) [32]
+\openout7 = main.listing
+ (./_minted/9A90B63F5C0C736245B7EF8970A9C7A8.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BF1BC62AE2E4E3054570059F9E04F75F.highlight.minted) [33] [34]
+\openout7 = main.listing
+ (./_minted/2568B4DB1A2C066FBDE23599F8AD1A99.highlight.minted)
+\openout7 = main.listing
+ (./_minted/869A094B7DEE297F5B1F9991F7B9DDF9.highlight.minted)
+\openout7 = main.listing
+ (./_minted/50A117D670CDE1DDE02590F16D06F0A6.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2E58C92E745A802222E04B978F7D4A3A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BCC8D39695892D86E38B5CACBD716C8B.highlight.minted) [35]
+\openout7 = main.listing
+ (./_minted/4BAB6E2D3BB99A7A3C3DEE575D0C5842.highlight.minted)
+\openout7 = main.listing
+ (./_minted/38CA7F6BAA6F6AD81CEF1B929BB5CD93.highlight.minted)
+\openout7 = main.listing
+ (./_minted/30C2DF527B7B56579AEBBF28337802CA.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A0F1E404B80DB1A15BEE2D6D94596188.highlight.minted) [36]
+\openout7 = main.listing
+ (./_minted/B2A3B7B8F16217E826DE729D1EFC5F8A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/AA75547395D25EC7F43B3C691B309D74.highlight.minted)
+\openout7 = main.listing
+ (./_minted/76600F3256C0A6A6226A286BDCC11701.highlight.minted) [37]
+\openout7 = main.listing
+ (./_minted/C0E52C9AAE06BFB19900C5DE051C95D5.highlight.minted)
+\openout7 = main.listing
+ (./_minted/D8BFA05841758C79C8EF4DE6B01C0B7B.highlight.minted) [38]
+\openout7 = main.listing
+ (./_minted/C062181D713AB7BE6E6DAE28C788A2DC.highlight.minted) [39] [40]
+\openout7 = main.listing
+ (./_minted/234C196345AADF987025A5A07352B9FB.highlight.minted)
+\openout7 = main.listing
+ (./_minted/8FC6C758D39D63EB0215ED392924999F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/8C5A49F07C253269408A7254BE2B9B5E.highlight.minted) [41]
+\openout7 = main.listing
+ (./_minted/09CAF27D5D3F4EE041A0D226E5A327D4.highlight.minted)
+\openout7 = main.listing
+
+(./_minted/71E1AA994C5E6959DE30FA231EFF499E.highlight.minted) [42]
+\openout7 = main.listing
+ (./_minted/F702D2100105443052C983D23DD540E3.highlight.minted)
+\openout7 = main.listing
+ (./_minted/79F422AE11126B75C158F7B1E149EC3D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/7345AE36B07644AA8045AA73B49B2AF8.highlight.minted) [43]
+\openout7 = main.listing
+ (./_minted/ED8EDEFACE9357FF5B8598F4C9B08FFB.highlight.minted) [44]
+\openout7 = main.listing
+ (./_minted/FB34BA987BA941CB058B754587413D3D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/B85262036EB4E688A42F28163A0B7D85.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4B220031C7D9B16EBD3BD148104756EF.highlight.minted)
+\openout7 = main.listing
+ (./_minted/4EBB6707A92F43BDED477AE106626D1E.highlight.minted) [45]
+\openout7 = main.listing
+ (./_minted/86411ABF16599828543A4A1162369F6D.highlight.minted)
+\openout7 = main.listing
+ (./_minted/D6C790FABB9477BAA402FC49BF485316.highlight.minted) [46]
+\openout7 = main.listing
+ (./_minted/EB9E8D9FF168D25CC5CF56B48CC197FD.highlight.minted)
+\openout7 = main.listing
+ (./_minted/CFB651C9DB06B1E455175AF1572FB269.highlight.minted) [47]
+\openout7 = main.listing
+ (./_minted/86914545757159A10CD10F2B3063DE91.highlight.minted)
+\openout7 = main.listing
+ (./_minted/07755CD77B4D9327A8B8B553693F420F.highlight.minted) [48]
+\openout7 = main.listing
+ (./_minted/B5A0645D70370BC46D7E67C9E9463F06.highlight.minted)
+\openout7 = main.listing
+ (./_minted/CD57BC9F7ADFC40C727E357534BBF4D4.highlight.minted)
+\openout7 = main.listing
+ (./_minted/3B750AD0184F0BB9BA992D8B4217382A.highlight.minted)
+Underfull \hbox (badness 2644) in paragraph at lines 1821--1821
+[]|\TU/lmr/m/n/10 Only loads Perl Mod-ules (.pm
+ []
+
+
+Overfull \hbox (25.0pt too wide) in paragraph at lines 1821--1822
+ [] 
+ []
+
+[49]
+\openout7 = main.listing
+ (./_minted/7A32224FC3261131E683044179F74A30.highlight.minted)
+\openout7 = main.listing
+ (./_minted/88D2CD52416C691CD57AE848CBDD0B1C.highlight.minted) [50]
+\openout7 = main.listing
+ (./_minted/E68C123D44EC7D953053FF55DAEE31E7.highlight.minted)
+\openout7 = main.listing
+ (./_minted/395D1A5D8CDB60CE7B43564EFDB025A7.highlight.minted) [51]
+\openout7 = main.listing
+ (./_minted/95DBDB2ACC9C7B308187A25CAA391839.highlight.minted)
+\openout7 = main.listing
+ (./_minted/BA841FA20B2996BD49FD92F1B3E4B46A.highlight.minted)
+\openout7 = main.listing
+ (./_minted/6315BCC97ABC4B9B46DB95FA4CFCA9A1.highlight.minted) [52]
+\openout7 = main.listing
+ (./_minted/0CDC6727FA02B0CE5E1C67E10E4837CF.highlight.minted) [53]
+\openout7 = main.listing
+ (./_minted/8719AA38BAD19C6E1D5B567D8FE4F83F.highlight.minted) [54]
+\openout7 = main.listing
+ (./_minted/CCD52D19F6791E98DD07623270091145.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2456D423808CCA8E379A8965FFEA1311.highlight.minted)
+\openout7 = main.listing
+ (./_minted/A24A09F109C68DF7B3BC4944A87A6089.highlight.minted) [55]
+\openout7 = main.listing
+ (./_minted/A7D0BCE358A74DCE4833FEA29691FD23.highlight.minted)
+\openout7 = main.listing
+ (./_minted/2C6A542E48A2B8036FD585B0CFAD4783.highlight.minted)
+\openout7 = main.listing
+ (./_minted/0E467AE689D89697BA1D0006A1E4DD53.highlight.minted) [56] [57]
+\openout7 = main.listing
+ (./_minted/F26148E78F1D1955279C3AF20B48FC6F.highlight.minted)
+\openout7 = main.listing
+ (./_minted/34C558616F05021466F53F5485E283BC.highlight.minted) [58] [59] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -2780,19 +2202,19 @@ L3 programming layer <2026-01-19>
 )
 
 Here is how much of LuaTeX's memory you used:
- 62876 strings out of 476076
- 100000,2373549 words of node,token memory allocated
+ 63709 strings out of 476076
+ 125007,2373549 words of node,token memory allocated
  1874 words of node memory still in use:
    31 hlist, 2 vlist, 14 rule, 2 glue, 4 kern, 3 glyph, 85 attribute, 162 glue_spec, 85 attribute_list, 4 write, 24 pdf_literal, 24 pdf_colorstack nodes
-   avail lists: 1:1,2:2511,3:919,4:354,5:645,6:100,7:5726,8:25,9:1410,10:82,11:434
- 83020 multiletter control sequences out of 65536+600000
+   avail lists: 1:1,2:4813,3:871,4:524,5:1077,6:102,7:7290,8:3,9:2955,10:82,11:753
+ 83334 multiletter control sequences out of 65536+600000
  65 fonts using 4680407 bytes
  99i,13n,108p,815b,1419s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman5-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/lm/lmsy5.pfb>
-Output written on main.pdf (35 pages, 180046 bytes).
+Output written on main.pdf (60 pages, 254576 bytes).
 
-PDF statistics: 342 PDF objects out of 1000 (max. 8388607)
- 256 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 1048576)
- 392 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 465 PDF objects out of 1000 (max. 8388607)
+ 353 compressed objects within 4 object streams
+ 83 named destinations out of 1000 (max. 1048576)
+ 416 words of extra memory for PDF output out of 10000 (max. 100000000)
 

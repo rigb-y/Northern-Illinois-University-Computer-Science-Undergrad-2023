@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{@}\PYG{n+nv}{array}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{split}\PYG{p}{(}\PYG{l+s+sr}{/\PYGZhy{}/}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}a\PYGZhy{}b\PYGZhy{}c\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Returns (\PYGZsq{}a\PYGZsq{}, \PYGZsq{}b\PYGZsq{}, \PYGZsq{}c\PYGZsq{})}
-\end{MintedVerbatim}

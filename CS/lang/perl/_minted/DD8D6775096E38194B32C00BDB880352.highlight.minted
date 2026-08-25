@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nb}{delete}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{pizza\PYGZus{}prices}\PYG{p}{\PYGZob{}}\PYG{n}{medium}\PYG{p}{\PYGZcb{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} No medium pizzas anymore.}
-\end{MintedVerbatim}

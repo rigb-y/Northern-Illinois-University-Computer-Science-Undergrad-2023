@@ -101,6 +101,11 @@
             \bigbreak \noindent 
             The diagnostics pragma makes your warnings much more verbose, and it slows the start-up time of your script considerably. You should remove it before putting your code into production.
         \item \textbf{Memory management}: Perl 5 memory management is primarily based on reference counting, with a runtime that manages Perl values such as scalars, arrays, hashes, and objects for you.
+        \item \textbf{Compiled?}:  Every time you execute a script, the Perl interpreter first compiles your source code into an internal bytecode before immediately running it. Because this compilation happens seamlessly in the background right before execution, Perl is often colloquially categorized as an interpreted scripting language.
+            \begin{itemize}
+                \item \textbf{Compilation Phase:} The engine parses your source code. It converts text into optimized opcode structures.
+                \item \textbf{Execution Phase:} The internal Perl virtual machine runs that bytecode.
+            \end{itemize}
 
 
 
@@ -217,6 +222,78 @@
                 \item \textbackslash \%hash
                 \item \textbackslash \&function
             \end{itemize}
+        \item \textbf{Typeglobs}: In Perl, a typeglob (represented by the asterisk * sigil) is an internal data type that holds a complete symbol table entry for a given identifier.
+            \bigbreak \noindent 
+            Because Perl allows you to use the exact same name for different variable types simultaneously (e.g., \$apple, @apple, \%apple, and sub apple), Perl uses a typeglob to bundle all of these variables into a single slot in the package's symbol table. You can visualize a typeglob as a structure containing separate internal pointers for each variable type
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Slot / Prefix} \textbf{Data Type} \textbf{Example} \\
+                    \midrule
+                    \$ &Scalar &\$apple\\[2ex]
+                    @ &Array &@apple\\[2ex]
+                    \% &Hash &\%apple\\[2ex]
+                    \& &Subroutine / Code &apple()\\[2ex]
+                    * &IO / Filehandle &APPLE \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Typeglob uses}: Assigning one typeglob to another maps all variables of that name to the new name.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                *foo = *bar;
+                # Now $foo is an alias for $bar, @foo for @bar, %foo for %bar, etc.
+            \end{perlcode}
+            \bigbreak \noindent 
+            By assigning a reference to a typeglob slot, you can alias just one specific type
+            \bigbreak \noindent 
+            \begin{perlcode}
+                *foo = \$bar; 
+                # Only $foo and $bar are now the same variable. 
+                # @foo and @bar remain completely separate.
+            \end{perlcode}
+        \item \textbf{Creating constants}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $PI = \3.14;
+            \end{perlcode}
+            \bigbreak \noindent 
+            creates a reference to a read-only scalar constant containing the value 3.14.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            print $$PI;
+            $$PI = 10; # Error
+            \end{perlcode}
+
+        \item \textbf{Creating constants with typeglob}: You can generate read-only variables by assigning a reference to a constant value inside a typeglob.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                *PI = \3.14159;
+                $PI = 4; # Compiles to a run-time error: "Modification of a read-only value..."
+            \end{perlcode}
+        \item \textbf{Legacy filehandles}: In older Perl code, typeglobs or references to typeglobs (\texbackslash *FH) were required to pass filehandles into subroutines. Modern Perl handles this automatically via lexical scalar filehandles (open my \$fh, ...).
+        \item \textbf{Slots in a typeglob}: Use
+            \bigbreak \noindent 
+            \begin{perlcode}
+            *NAME{SLOT}
+            \end{perlcode}
+            \bigbreak \noindent 
+            Common slot names include:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                SCALAR
+                ARRAY
+                HASH
+                CODE
+                IO
+                FORMAT
+                GLOB
+            \end{perlcode}
+        \item \textbf{Inspecting prototypes}: If you need to retrieve or inspect a prototype programmatically from an existing function, you can use the built-in prototype function:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $proto = prototype('my_subroutine_name');
+            \end{perlcode}
 
     \end{itemize}
 
@@ -797,6 +874,12 @@
                 for my $i (0..10) { ... }
                 foreach my $i ((1,2,3)) {...}
             \end{perlcode}
+        \item \textbf{Note about for and foreach}: In Perl, you can iterate through an array using the for loop (or foreach loop). Perl treats for and foreach as completely interchangeable synonyms.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my @arr = qw(1 2 3);
+            print "$_\n" for @arr;
+            \end{perlcode}
         \item \textbf{= do {...}}: 
             \bigbreak \noindent 
             \begin{perlcode}
@@ -850,6 +933,33 @@
                 \item redo restarts the current iteration immediately.
                 \item next skips to the next iteration 
                 \item last exits the loop completely (like break in C/Java).
+            \end{itemize}
+        \item \textbf{BEGIN}: A BEGIN block in Perl is a special type of code block that runs as soon as it is parsed and compiled, before the rest of the surrounding program runs.
+            \begin{itemize}
+                \item \textbf{Timing:} It executes immediately during the compilation phase, even before the rest of the script or file is fully compiled.
+                \item \textbf{Order:} Multiple BEGIN blocks run in the order they appear in your code.
+                \item \textbf{Purpose:} Commonly used to load modules (use is implemented using BEGIN), define subroutines, or set up global configuration variables before other code compiles.
+                \item \textbf{Automatic Deletion:} Once a BEGIN block has run, it is immediately deleted from memory for the rest of the program
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print "2. This runs during runtime.\n";
+
+                BEGIN {
+                    print "1. This runs first, during compilation.\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                1. This runs first, during compilation.
+                2. This runs during runtime.
+            \end{perlcode}
+        \item \textbf{END}: END \{\} block in Perl runs code automatically just before the Perl interpreter exits the program.
+            \begin{itemize}
+                \item \textbf{Timing:} It runs as late as possible during program shutdown, acting like a destructor.
+                \item \textbf{Order:} Multiple END blocks run in the reverse order of how they appear in your code.
+                \item \textbf{Exceptions:} END blocks run even if the program exits using die(). They do not run if the program exits via exec or a hard operating system signal like SIGKILL.
+                \item \textbf{Common Uses:} They are great for cleanup tasks, such as closing file handles, removing temporary files, or disconnecting from databases.
             \end{itemize}
 
 
@@ -1007,6 +1117,191 @@
                     # and @colours contains (red blue white green pink)
                 }
             \end{perlcode}
+        \item \textbf{Default arguments}: Starting in Perl v5.36, subroutine signatures are stable and enabled automatically when you specify use v5.36; or higher. You can define default values directly inside the parameter list using =, //=, or ||=.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use v5.36;
+
+                # 1. Standard Default (=)
+                # Triggered only if the argument is omitted entirely
+                sub greet ($name, $greeting = "Hello") {
+                    say "$greeting, $name!";
+                }
+                greet("Alice");           # Hello, Alice!
+                greet("Bob", "Good morning"); # Good morning, Bob!
+                greet("Charlie", undef);  # Prints: , Charlie! (undef treated as a value)
+
+                # 2. Defined-or Default (//=) - Added in v5.38+
+                # Triggered if omitted OR passed as undef
+                sub set_timeout ($time //= 30) {
+                    say "Timeout is $time seconds.";
+                }
+                set_timeout();       # Timeout is 30 seconds.
+                set_timeout(undef);  # Timeout is 30 seconds.
+
+                # 3. Logical-or Default (||=) - Added in v5.38+
+                # Triggered if omitted, undef, or any false value (0, "")
+                sub set_status ($status ||= "active") {
+                    say "Status: $status";
+                }
+                set_status(0);       # Status: active (0 is false)
+            \end{perlcode}
+            \bigbreak \noindent 
+            Because Perl does not strictly enforce the count of elements in @\_ natively, all positional arguments are technically optional unless you explicitly check them.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub connect_db {
+                    # Unpack parameters from @_
+                    my ($host, $port, $timeout) = @_;
+
+                    # Assign fallback values if they aren't provided (or are undef)
+                    $port    //= 3306;
+                    $timeout //= 30;
+
+                    print "Connecting to $host:$port (Timeout: $timeouts)\n";
+                }
+
+                connect_db("localhost");            # Uses defaults for port and timeout
+                connect_db("127.0.0.1", 8080);      # Override port, uses default timeout
+            \end{perlcode}
+        \item \textbf{Named arguments}: When your subroutine accepts many optional parameters, remembering the exact positional order becomes difficult. The standard Perl convention is to slurp remaining arguments into a hash, allowing users to pass named parameters
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use v5.10; # For the // operator
+
+            sub create_user {
+                my ($username, %options) = @_; # First argument is required, rest are optional pairs
+
+                # Set fallback defaults
+                my $role   = $options{role}   // 'subscriber';
+                my $status = $options{status} // 'active';
+
+                print "Created $username as a $role ($status)\n";
+            }
+
+            # Callers can pass options in any order, or skip them entirely
+            create_user("jdoe");
+            create_user("msmith", role => "admin");
+            create_user("rrock", status => "pending", role => "moderator");
+            \end{perlcode}
+        \item \textbf{Ampersand fn name}: If you call a subroutine using the ampersand and omit parentheses (e.g., \&my\_sub;), Perl automatically passes the caller's current argument array (@\_
+            \bigbreak \noindent 
+            Also, if you name a custom subroutine the same name as a built-in Perl function or keyword, the ampersand forces Perl to run your custom subroutine instead of the built-in version.
+        \item \textbf{Subroutine references}: When paired with a backslash (\&my\_sub), it does not call the function. Instead, it creates a reference to the subroutine, which allows you to pass the function around as data
+            \bigbreak \noindent 
+            When you use parentheses, it clears the argument list.
+        \item \textbf{Function prototypes}: In Perl, function prototypes are a mechanism used to change how the Perl parser interprets a subroutine's arguments, primarily allowing user-defined functions to mimic built-in Perl functions.
+            \bigbreak \noindent 
+            Unlike prototypes in languages like C, C++, or Java, Perl prototypes do not act as traditional function signatures. Instead of validating types at runtime, they force context coercion on variables and change how arguments are parsed at compile time
+            \bigbreak \noindent 
+            Prototypes are declared by adding special characters inside parentheses right after the subroutine name:
+            \begin{itemize}
+                \item \$ Forces scalar context on the argument.
+                \item @ Consumes all remaining arguments as a list (slurpy).
+                    \bigbreak \noindent 
+                    An @ prototype is slurpy, so it must appear at the end of the prototype:
+                \item \% Consumes all remaining arguments as a hash.
+                    \bigbreak \noindent 
+                    Internally, Perl still passes a flat list:
+                    \bigbreak \noindent 
+                    The \% prototype causes the remaining arguments to be evaluated in list context. It does not guarantee that the arguments form a valid hash, so an odd number of arguments is still possible.
+                    \bigbreak \noindent 
+                    It can follow mandatory arguments:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    sub configure ($%) {
+                        my ($name, %options) = @_;
+                    }
+
+                    configure(
+                        "window",
+                        width  => 800,
+                        height => 600,
+                    );
+                    \end{perlcode}
+                \item \& Requires a code block or anonymous subroutine reference.
+                    \bigbreak \noindent 
+                    When \& is the first prototype character, the caller can pass a bare block:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub repeat (&$) {
+                            my ($code, $count) = @_;
+
+                            $code->() for 1 .. $count;
+                        }
+
+                        repeat {
+                            print "Hello\n";
+                        } 3;
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    This is approximately equivalent to:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        repeat(sub {
+                            print "Hello\n";
+                        }, 3);
+                    \end{perlcode}
+                \item * Accepts a typeglob. The * prototype is commonly used for filehandles:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub write_message (*$) {
+                            my ($handle, $message) = @_;
+                            print $handle "$message\n";
+                        }
+
+                        write_message(STDOUT, "Hello");
+                        write_message(STDERR, "An error occurred");
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    It can also accept a typeglob explicitly:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    write_message(*STDOUT, "Hello");
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    The * prototype supports Perl’s bareword filehandle syntax. It does not strictly enforce that the value is a typeglob at runtime.
+                \item ; Separates mandatory arguments (before ;) from optional ones (after ;).
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub greet ($;$) {
+                            my ($name, $greeting) = @_;
+
+                            $greeting //= "Hello";
+
+                            print "$greeting, $name!\n";
+                        }
+                    \end{perlcode}
+                \item \textbackslash \_Requires a literal variable starting with that character and passes it by reference. It means that the caller must provide an actual variable of the corresponding kind. Perl then passes a reference to it automatically.
+            \end{itemize}
+            \bigbreak \noindent 
+            \textbf{Note:} The subroutine must be declared before its calls for the prototype to take effect.
+            \bigbreak \noindent 
+            Also, you cannot write something like 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub _display(first, @) { ... }
+            \end{perlcode}
+            \bigbreak \noindent 
+            because a Perl prototype describes the context and syntactic form of each argument. It does not declare or name parameters.
+            \bigbreak \noindent 
+            The characters inside the parenthesis must be entirely prototype characters. To require one scalar argument followed by any number of additional arguments, write:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub _display($@) { ... }
+            \end{perlcode}
+            \bigbreak \noindent 
+            Modern Perl also supports actual named parameter declarations through signatures:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use v5.36;
+            sub _display($first, @remaining) { ... }
+            \end{perlcode}
+            \bigbreak \noindent 
+            Here, (\$first, @remaining) is a signature, not a prototype. It creates the lexical variables \$first and @remaining automatically.
+            \bigbreak \noindent 
+            Use signatures when your goal is to name and unpack parameters. Use prototypes only when you intentionally want to alter how Perl parses or evaluates calls to the subroutine.
+        \item \textbf{Bypassing prototype checking (ampersand prefix)}: If a subroutine has a defined prototype (which restricts or formats the arguments it accepts), prefixing the call with an ampersand will completely ignore the prototype rules.
 
 
     \end{itemize}
@@ -1140,10 +1435,643 @@
                 \item \$, ., (), \{\}, *, + and other meta characters taken literally
             \end{itemize}
         \item \textbf{Match variable (\$\&)}: This special variable holds whatever the last regex matched.
-        \item \textbf{Alternation}
+        \item \textbf{Alternation}: Alternation is done the usual way
+            \bigbreak \noindent 
+            \begin{perlcode}
+            /^(rabbit|chicken|dog)$/
+            \end{perlcode}
+        \item \textbf{Atoms}: In regular expressions, an atom is the most basic, single unit of a pattern match. It either matches a specific set of characters or positions, and quantifiers (like * or +
+            \bigbreak \noindent 
+            We use it to mean "something that is a chunk of regular expression in its own right". Atoms can be arbitrarily created by simply wrapping things in round brackets.
+            \begin{itemize}
+                \item \textbf{Literal characters:} A single ordinary letter or number (like a or 7).
+                \item \textbf{Character classes:} Brackets matching any single character inside them (like [abc] or [$\land$0-9]).
+                \item \textbf{The wildcard dot:} The . symbol matching any character.
+                \item \textbf{Escaped characters:} Special shorthands (like \textbackslash d, \textbackslash w, or \textbackslash s).
+                \item \textbf{Grouped expressions:} Parentheses surrounding a sub-pattern (like (abc)) treated as one combined unit.
+            \end{itemize}
     
 
     \end{itemize}
+
+    \pagebreak 
+    \unsect{References and complex data structures}
+    \begin{itemize}
+        \item \textbf{Intro}: There are three main uses for Perl references        
+            \begin{enumerate}
+                \item \textbf{Creating complex data structures:} Perl references can be used to create complex data structures, for instance hashes of arrays, arrays of hashes, hashes of hashes, and more
+                \item \textbf{Passing arrays and hashes to subroutines and functions:} Since all arguments to subroutines are flattened to a list of scalars, it is not possible to use two arrays as arguments and have them retain their individual identities without using references.
+                \item \textbf{Object-oriented Perl:} References are used extensively in object oriented Perl. In fact, Perl objects are references to data structures.
+            \end{enumerate}
+        \item \textbf{Creating and dereferencing references}: To create a reference to a scalar, array or hash, we prefix its name with a backslash:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $scalar = "This is a scalar";
+                my @array = qw(a b c);
+                my %hash = (
+                    ’sky’ => ’blue’,
+                    ’apple’ => ’red’,
+                    ’grass’ => ’green’,
+                );
+
+                my $scalar_ref = \$scalar;
+                my $array_ref = \@array;
+                my $hash_ref = \%hash;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note that all references are scalars, because they contain a single item of information: the memory address of the actual data
+        \item \textbf{ref()}: You can find out whether a scalar is a reference or not by using the ref() function, which returns a string indicating the type of reference, or undef if the scalar is not a reference.
+        \item \textbf{Dereferencing}: Dereferencing (getting at the actual data that a reference points to) is achieved by prepending the appropriate sigil to the name of the reference. For instance, if we have a hash reference \$hash\_reference we can dereference it by adding a percentage sign: \%\$hash\_reference.
+        \item \textbf{Arrow notation}: Uses the C arrow concept for a dereferenced access.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                print $$array_ref[0];
+                print $array_ref->[0];
+                print $hash_ref->{"sky"};
+            \end{perlcode}
+        \item \textbf{Anonymous data structures}: We can use anonymous data structures to create complex data structures without having to declare many temporary variables. Anonymous arrays are created by using square brackets instead of round ones. Anonymous hashes use curly braces instead of round ones
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $array_ref = [’a’, ’b’, ’c’, ’d’];
+            my $array_ref = [qw(a b c d)];
+
+            my %transport = (
+                ’cars’ => [qw(toyota ford holden porsche)],
+                ’planes’ => [qw(boeing harrier)],
+                ’boats’ => [qw(clipper skiff dinghy)],
+            );
+
+            my $hash_ref = {
+                a => 1,
+                b => 2,
+                c => 3
+            };
+            \end{perlcode}
+            \bigbreak \noindent 
+            Data is pulled out of an anonymous data structure using the arrow notation:
+        \item \textbf{Complex data structures}: References are most often used to create complex data structures. Since references are scalars, they can be used as values in both hashes and arrays. This makes it possible to create both deep and complex multi-dimensional data structures.
+            \bigbreak \noindent 
+            The use of references in data structures allows you to create arrays of arrays, arrays of hashes, hashes of arrays and hashes of hashes
+        \item \textbf{Disambiguation and curly braces}: Consider 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @res = @$array[0];
+            \end{perlcode}
+            \bigbreak \noindent 
+            Does this mean: 
+            \begin{itemize}
+                \item Find @array.
+                \item Look up index 0: \$array[0]
+                \item Turn that (\$array[0]) into an array: @\$array[0]
+            \end{itemize}
+            Or:
+            \begin{itemize}
+                \item Find the array reference \$array
+                \item Treat that as an array: @\$array
+                \item Take an array slice with index 0: @\$array[0]
+            \end{itemize}
+            Perl does the latter, however if that is what we wanted then we should have written \$\$array[0], as that explicitly returns a single (scalar) result.
+            \bigbreak \noindent 
+            We can force Perl to evaluate our expression as the first interpretation above by using curly braces. This allows us to clearly write:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @result = @{$array[0]};
+            \end{perlcode}
+            \bigbreak \noindent 
+            We can use \$\{...\}, @\{...\} or \%\{...\} syntax to evaluate any expression and dereference the result.
+        \item \textbf{Data::Dumper}: Often data structures are very complex, and negotiating and printing these structures can be a tiresome exercise. It’s also an unnecessary one, as all the hard work has already been done for you. To save you from having to write specialised printing code in every program for debugging purposes, there’s a special library you may find useful called Data::Dumper.
+            \bigbreak \noindent 
+            Data::Dumper provides a function which takes Perl data structures and turns them into human readable strings representing the data with in them. It can be used just like this:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use Data::Dumper;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my %HoH = (
+                    Jacinta => {
+                        age => 26,
+                        favourite_colour => "blue",
+                        sport => "swimming",
+                        language => "Perl",
+                    },
+
+                    Paul => {
+                        age => 27,
+                        favourite_colour => "green",
+                        sport => "cycling",
+                        language => "Perl",
+                    },
+                );
+                print Dumper \%HoH;
+            \end{perlcode}
+            \bigbreak \noindent 
+            This will print out something similar to:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $VAR1 = {
+                ’Paul’ => {
+                    ’language’ => ’Perl’,
+                    ’favourite_colour’ => ’green’,
+                    ’sport’ => ’cycling’,
+                    ’age’ => 27
+                },
+
+                ’Jacinta’ => {
+                    ’language’ => ’Perl’,
+                    ’favourite_colour’ => ’blue’,
+                    ’sport’ => ’swimming’,
+                    ’age’ => 26
+                }
+            };
+            \end{perlcode}
+            \bigbreak \noindent 
+            Not only is this easy to read, but it’s also perfectly valid Perl code. This means you can use Data::Dumper to easily give you a structure that you can paste into another program, or which can be ’serialised’ to a file and re-created at a later date. Data::Dumper has a lot more uses beyond simple debugging.
+            \bigbreak \noindent 
+            Dumper expects to be given one or more references to data structures to dump. If Dumper is provided with a hash or array then every element of the array, or every key and value of the hash, will be considered a separate data structure, and dump separately. The results are not particularly useful:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # result of: print Dumper %HoH;
+                $VAR1 = ’Paul’;
+                $VAR2 = {
+                    ’language’ => ’Perl’,
+                    ’favourite_colour’ => ’green’,
+                    ’sport’ => ’cycling’,
+                    ’age’ => 27
+                };
+                $VAR3 = ’Jacinta’;
+                $VAR4 = {
+                    ’language’ => ’Perl’,
+                    ’favourite_colour’ => ’blue’,
+                    ’sport’ => ’swimming’,
+                    ’age’ => 26
+                };
+            \end{perlcode}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{External Files and Packages}
+    \begin{itemize}
+        \item \textbf{Require}: Perl implements a number of mechanisms for loading code from external files. The most simplest of these is by using the require function: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            require 'file.pl';
+            \end{perlcode}
+            \bigbreak \noindent 
+            Perl is smart enough to make sure that the same file will not be included twice if it’s required through the same specified name.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # The file is only included once in the following case:
+                require ’file.pl’;
+                require ’file.pl’;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Required files must end with a true value. This is usually achieved by having the final statement of the file being:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Conflicts can occur if our included file declares subroutines with the same name as those that appear in our main program. In most circumstances the subroutine from the included file takes precedence, and a warning is given.
+            \bigbreak \noindent 
+            The use of require has been largely deprecated by the introduction of modules and the use keyword. If you’re writing a code library from scratch we recommend that you create it as a module. However, require is often found in legacy code and is a useful thing to understand.
+            \bigbreak \noindent 
+            Any code in the file (except for subroutines) will be executed immediately when the file is required. The require occurs at run-time, this means that Perl will not throw an error due to a missing file until that statement is reached, and any subroutines inside the file will not be accessible until after the require.
+            \bigbreak \noindent 
+            Variables declared with my are not shared between files, they are only visible inside the block or file where the declaration occurs. To share packages between files we use package variables which are covered later in this chapter.
+            \bigbreak \noindent 
+            The use of modules (which we will learn about later) allows for external files to be loaded at compile-time, rather than run-time.
+        \item \textbf{Use strict and warnings}: 
+            Perl pragmas, such as strict and warnings are lexically scoped. Just like variables declared with my, they last until the end of the enclosing block, file or eval.
+            \bigbreak \noindent 
+            This means that you can turn strict and warnings on in one file without it influencing other parts of your program. Thus, if you’re dealing with legacy code, then your new libraries, modules and classes can be strict and warnings compliant even though the older code is not.
+        \item \textbf{Require example}:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Greetings.pl
+                use strict;
+                use warnings;
+                my %greeting_in = (
+                    en => "Hello",
+                    ’en-au’ => "G’day",
+                    fr => "Bonjour",
+                    jp => "Konnichiwa",
+                    zh => "Nihao",
+                );
+
+                sub hello {
+                    my $language = shift || "en";
+
+                    my $greeting = $greeting_in{$language}
+                        or die "Don’t know how to greet in $language";
+
+                    return $greeting;
+                }
+
+                1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # program.pl
+                use strict;
+                require "Greetings.pl";
+
+                print "English: ", hello("en"), "\n"; # Prints "Hello"
+                print "Australian: ", hello("en-au"),"\n"; # Prints "G’day"
+            \end{perlcode}
+        \item \textbf{Packages}: When working with a large project, the chances of naming conflicts increases. Two entirely different files may have two different subroutines with the same name; however it is only the last one loaded that will be used by Perl. Files from different projects may be re-used in new developments, and these may have considerable name clashes. Multiple files can also make it difficult to determine where subroutines are originally declared, which can make debugging difficult.
+            \bigbreak \noindent 
+            Perl’s packages are designed to overcome these problems. Rather than just putting code into separate files, code can be placed into independent packages, each with its own namespace. By ensuring that package names remain unique, we also ensure that all subroutines and variables can remain unique and easily identifiable.
+            \bigbreak \noindent 
+            A single file can contain multiple packages, but convention dictates that each file contains a package of the same name. This makes it easy to quickly locate the code in any given package.
+            \bigbreak \noindent 
+            Writing a package in Perl is easy. We simply use the package keyword to change our current package. Any code executed from that point until the end of the current file or block is done so in the context of the new package.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package Greetings;
+                use strict;
+                use warnings;
+
+                my %greeting_in = (
+                    en => "Hello",
+                    ’en-au’ => "G’day",
+                    fr => "Bonjour",
+                    jp => "Konnichiwa",
+                    zh => "Nihao",
+                );
+
+                sub hello {
+                    my $language = shift || "en";
+                    my $greeting = $greeting_in{$language}
+                        or die "Don’t know how to greet in $language";
+
+                    return $greeting;
+                }
+
+                1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            The package that you’re in when the Perl interpreter starts (before you specify any package) is called main. Package declarations use the same rules as my, that is, it lasts until the end of the enclosing block, file, or eval.
+            \bigbreak \noindent 
+            Perl convention states that package names (or each part of a package name, if it contains many parts) starts with a capital letter. Packages starting with lower-case are reserved for pragmas (such as strict).
+        \item \textbf{Scoping operator}: Perl provides a scoping operator in the form of a pair of adjacent colons. The scoping operator allows us to refer to information inside other packages, and is usually pronounced "double-colon".
+            \bigbreak \noindent 
+            \begin{perlcode}
+                require "Greetings.pl";
+
+                print Greetings::hello("en"),"\n";
+                print Greetings::hello("jp"),"\n";
+
+                # This calls the hello() subroutine in our main package
+                # (below), printing "Greetings Earthling".
+                print hello(),"\n";
+
+                sub hello {
+                    return "Greetings Earthling";
+                }
+            \end{perlcode}
+        \item \textbf{Changing variables in other packages}: Occasionally we may wish to change the value of a variable in another package. It should be very rare that we should need to do this, and it’s not recommended you do so unless this is a documented feature of your package. However, in the case where we do need to do this, we use the scoping operator again.
+            \bigbreak \noindent 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Carp;
+
+                # Turning on $Carp::Verbose makes carp() and croak() provide
+                # stack traces, making them identical to cluck() and confess().
+                # This is documented in ’perldoc Carp’.
+
+                $Carp::Verbose = 1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            carp() and croak() are functions from the Carp module that report errors from the calling code's perspective instead of inside your module
+            \begin{itemize}
+                \item \textbf{carp():} Works like warn(), sending a non-fatal warning, but attributes the line number to the code that called your module.
+                \item \textbf{croak():} Works like die(), throwing a fatal error, but attributes the line number to the code that called your module rather than the exact line inside the function.
+            \end{itemize}
+            cluck() and confess() are error-handling functions provided by the Carp module that include a full stack backtrace to show exactly where and how an error occurred
+            \begin{itemize}
+                \item cluck() acts like a enhanced warn(). It prints the error message and the full stack trace, but allows the program to keep running.
+                \item confess() acts like an enhanced die(). It prints the error message and the full stack trace, then terminates the program immediately.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use Carp qw(cluck confess); # Explicitly importing cluck
+            \end{perlcode}
+        \item \textbf{Main package}: There’s a shorthand for accessing variables and subroutines in the main package, which is to use double-colon without a package name. This means that \$::foo is the same as \$main::foo
+        \item \textbf{Package variables and our}: It is not possible to access lexically scoped variables (those created with my) outside of their enclosing block. This means that we need another way to create variables to make them globally accessible. These global variables are called package variables, and as their name suggests they live inside their current package. The preferred way to create package variables, under Perl 5.6.0 and above, is to declare them with the our statement. Of course, there are alternatives you can use with older version of Perl, which we also show here:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            package Carp;
+            our $VERSION = ’1.01’; # Preferred for Perl 5.6.0 and above
+
+            # use vars qw/$VERSION/; # Preferred for older versions
+            # $VERSION = ’1.01’;
+
+            # $Carp::VERSION = ’1.01’; # Acceptable but requires that we then
+            # always use this full name under strict
+            \end{perlcode}
+            In all of the cases above, both our package and external code can access the variable using \$Carp::VERSION.
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Modules}
+    \begin{itemize}
+        \item \textbf{Module}: A module is a separate file containing Perl source code, which is loaded and executed at compile time. This means that when you write:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use CGI;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Perl looks for a file called CGI.pm (.pm for Perl Module), and upon finding it, loads it in and executes the code inside it, before looking at the rest of your program.
+            \bigbreak \noindent 
+            Sometimes you might choose to pass extra information to the module when you load it. Often this is to request the module create new subroutines in your namespace.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use CGI qw(:standard);
+                use File::Copy qw(copy);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note the use of qw(), this is a list of words (in our case, just a single word). It’s possible to pass many options to a module when you load it. In the case above, we’re asking the CGI module for the :standard bundle of functions, and the File::Copy module for just the copy subroutine.
+            \bigbreak \noindent 
+            Each module has a different set of options (if any) that it will accept. You need to check the documentation of the module you’re dealing with to which (if any) are applicable to your needs.
+        \item \textbf{Require vs use}: The fundamental difference is that use happens at compile time, while require happens at runtime
+            \bigbreak \noindent 
+            The use statement is actually a built-in shortcut. Writing use MyModule; is exactly equivalent to executing
+            \bigbreak \noindent 
+            \begin{perlcode}
+                BEGIN {
+                    require MyModule;
+                    MyModule->import();
+                }
+            \end{perlcode}
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Feature}& \textbf{use}& \textbf{require} \\
+                    \midrule
+                    Execution Time & Compile time (processed before the rest of the script runs) &Runtime (processed only when the execution line is hit)\\[2ex]
+                    Implicit Import & Yes. Automatically calls the module's import method. &No. Does not call import automatically.\\[2ex]
+                    File Types & Only loads Perl Modules (.pm files). & Loads both libraries (.pl) and modules (.pm). \\[2ex]
+                    Syntax & Expects a bareword name without an extension (e.g., use File::Copy;). &Accepts a bareword or a string expression with a file extension.\\[2ex]
+                    Conditionals & Cannot be placed inside if blocks (it will still load at compile time). &Can be placed inside if statements for conditional loading. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{No import method}: If you do not write an import method and do not inherit one (like from Exporter), your module will still load perfectly fine, but it will not export anything automatically into the caller's namespace.
+            \bigbreak \noindent 
+            Perl does not require an import method. If you use use MyModule; and MyModule has no import subroutine, Perl simply skips the step without throwing an error or warning.
+            \bigbreak \noindent 
+            Because no functions or variables are copied into the main script's namespace, you cannot call them by their short names. You must use their fully qualified package paths.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # --- MyModule.pm ---
+                package MyModule;
+                sub say_hello {
+                    print "Hello from the module!\n";
+                }
+                1;
+
+                # --- main.pl ---
+                use MyModule;
+
+                # say_hello();       # This will crash! Perl doesn't know what say_hello is.
+                MyModule::say_hello(); #  This works perfectly.
+            \end{perlcode}
+        \item \textbf{Import method}: Because writing a manual import method to manipulate symbol tables is complex, almost all Perl developers inherit the behavior from the core Exporter module.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package MyMath;
+                use strict;
+                use warnings;
+
+                # Import the standard 'import' method from the Exporter module
+                use Exporter qw(import);
+
+                # Functions in @EXPORT are automatically imported by default
+                our @EXPORT = qw(add);
+
+                # Functions in @EXPORT_OK are only imported if explicitly requested
+                our @EXPORT_OK = qw(multiply);
+
+                sub add {
+                    my ($a, $b) = @_;
+                    return $a + $b;
+                }
+
+                sub multiply {
+                    my ($a, $b) = @_;
+                    return $a * $b;
+                }
+
+                1; # Modules must return a true value
+            \end{perlcode}
+        \item \textbf{\%EXPORT\_TAGS}: Group related exportable symbols into convenient shortcut tags. This allows developers importing your module to request an entire category of functions or variables at once by using a colon prefix (:tag\_name)
+            \bigbreak \noindent 
+            Every symbol listed inside %EXPORT\_TAGS must also be explicitly declared in either @EXPORT or @EXPORT\_OK
+            \bigbreak \noindent 
+            You cannot nest tag names inside @EXPORT or @EXPORT\_OK
+            \bigbreak \noindent 
+            Define the groups using an array reference for each tag name.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            our %EXPORT_TAGS = (
+                utils => [ qw( validate_email ) ],
+                user  => [ qw( create_user delete_user ) ],
+                log   => [ qw( log_info log_error ) ],
+                all   => [ @EXPORT, @EXPORT_OK ], # Quick shortcut combining everything
+            );
+            \end{perlcode}
+            \bigbreak \noindent 
+            When loading the module, prepend a colon (:) to the tag name to pull in that entire group
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Import only the user management group (:user)
+                use MyModule qw(:user); 
+
+                create_user(); # Works!
+                delete_user(); # Works!
+
+                # log_info();  # Fails! (Not imported)
+            \end{perlcode}
+        \item \textbf{Advanced import techniques}: You can combine tags, default exports, and exclusions using specific prefixes
+            \begin{itemize}
+                \item \textbf{:DEFAULT:} Refers implicitly to everything inside your module's @EXPORT array.
+                \item \textbf{!:} Negates/excludes a specific symbol from being imported.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Imports default functions, the logging tag, but EXCLUDES log_error
+                use MyModule qw(:DEFAULT :log !log_error); 
+            \end{perlcode}
+        \item \textbf{Where does Perl look for modules?}: Perl searches through a list of directories that are determined when the Perl interpretor is compiled. You can see this list (and all the other options Perl was compiled with), by using perl -V
+            \bigbreak \noindent 
+            The list of directories which Perl searches for modules is stored in the special variable @INC. It’s possible to change @INC so that Perl will search in other directories as well. This is important if you have installed your own private copy of some modules.
+            \bigbreak \noindent 
+            Of course, being Perl, there’s more than one way to change @INC. Here are some of the ways to add to the list of directories inside @INC:
+            \begin{itemize}
+                \item Call Perl with the -I command-line switch with the location of the extra directory to search. For example:
+                \bigbreak \noindent 
+                \begin{perlcode}
+                    perl -I/path/to/libs
+                \end{perlcode}
+                \bigbreak \noindent 
+                This can be done either in the shebang line, or on the command-line.
+                \item Use the lib pragma in your script to inform Perl of extra directories. For example:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    use lib "/path/to/libs";
+                    \end{perlcode}
+                \item Setting the PERL5LIB environment variable with a colon-separated list of directories to search. Note that if your script is running with taint checks this environment variable is ignored.
+            \end{itemize}
+            Since use statements occur before regular Perl code is executed, modifying @INC directly usually does not have the desired effect.
+        \item \textbf{Finding installed modules}: Perl comes with many modules in its standard distribution. You can get a list of all of them by doing a perldoc perlmodlib. 
+            \bigbreak \noindent 
+            Besides from the modules in the standard distribution, you can also see any other modules that were installed on your system by using perldoc perllocal. Generally this file only lists other modules that were installed by hand, or using one of the CPAN installers (more on this later). Modules installed through your operating system’s packaging system may not appear in perldoc perllocal.
+            \bigbreak \noindent 
+            To find a complete list of modules available on your system, regardless of how they were installed, read the documentation provided by perldoc -q installed.
+            \bigbreak \noindent 
+            You can get more information on any module that you have installed by using perldoc module\_name. For example, perldoc English will give you information about the English module. You can also use perldoc -l module\_name to locate a particular module, and perldoc -m module\_name to view the source of a module.
+        \item \textbf{Using CPAN (Comprehensive Perl Achieve Network) modules}:  CPAN provides more than 9,000 separate and freely available modules. This makes CPAN an excellent starting point when you wish to find modules to help solve your particular problem. However, you should keep in mind that not all CPAN modules are created equal. Some are much better documented and written than others. Some (such as the CGI or DBI) modules have become de-facto standards, whereas others may not be used by anyone except the module’s author.
+            \bigbreak \noindent 
+            As with any situation when you’re using third party code, you should take the time to determine the suitability of any given module for the task at hand. However, in almost all circumstances it’s better to use or extend a suitable module from CPAN rather than trying to re-invent the wheel.
+            \bigbreak \noindent 
+            Many of the popular CPAN modules are pre-packaged for popular operating systems. In addition, the CPAN module that comes with Perl can make the task of finding and installing modules from CPAN much easier.
+            \bigbreak \noindent 
+            Most CPAN modules come with README and/or INSTALL files which tell you how to install the modules. This may vary between operating systems. On Unix and Unix-like operating systems the process is usually:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            perl Makefile.PL
+            make
+            make test
+            make install
+            \end{perlcode}
+            \bigbreak \noindent 
+            For ActiveState Perl installations (which includes most Microsoft Windows machines) the use of PPM (Programmer’s Package Manager) is recommended. PPM provides a command line interface for downloading and installing pre-compiled versions of most CPAN modules.
+        \item \textbf{Writing modules}: Modules contain regular Perl code, and for most modules the vast majority of that code is in subroutines. Sometimes there are a few statements which initialise variables and other things before any of those subroutines are called, and those get executed immediately. The subroutines get compiled and tucked away for later use.
+            \bigbreak \noindent 
+            Besides from the code that’s loaded and executed, two more special things happen. Firstly, if the last statement in the module did not evaluate to true, the Perl compiler throws an exception (usually halting your program before it even starts). This is so that a module could indicate that something went wrong, although in reality this feature is almost never used. Virtually any Perl module you care to look at will end with the statement 1; to indicate successful loading.
+            \bigbreak \noindent 
+            The other thing that happens when a module is used is that its import subroutine (if one exists) gets called with any directives that were specified on the use line. This is useful if you want to export functions or variables to the program that’s using your module for functional programming but is almost never used (and very often discouraged) for object oriented programming.
+            \bigbreak \noindent 
+            As you’ve no doubt guessed by now, modules and packages often go hand-in-hand. We know how to use a module, but what are the rules on writing one? The big one is this: A module is a file that contains a package of the same name.
+            \bigbreak \noindent 
+            That’s it. So if you have a package called Tree::Fruit::Citrus::Lime, the file would be called Tree/Fruit/Citrus/Lime.pm, and you would use it with use Tree::Fruit::Citrus::Lime;.
+            \bigbreak \noindent 
+            A module can contain multiple packages if you desire. So even though the module is called Chess::Piece, it might also contain packages for Chess::Piece::Knight and Chess::Piece::Bishop. It’s usually preferable for each package to have its own module, otherwise it can be confusing to your users how they can load a particular package.
+            \bigbreak \noindent 
+            When writing modules, it’s important to make sure that they are well-named, and even more importantly that they won’t clash with any current or future modules, particularly those available via CPAN. If you are writing a module for internal use only, you can start its name with Local:: which is reserved for the purpose of avoiding module name clashes.
+            \bigbreak \noindent 
+            \textbf{Note:} A module is a file that contains a package of the same name.
+        \item \textbf{Use vs require}: Perl offers several different ways to include code from one file into another. use is built on top of require and has the following differences: 
+            \begin{itemize}
+                \item Files which are used are loaded and executed at compile-time, not run-time. This means that all subroutines, variables, and other structures will exist before your main code executes. It also means that you will immediately know about any files that Perl could not load.
+                \item use allows for the import of variables and subroutines from the used package into the current one. This can make programming easier and more concise.
+                \item Files called with use can take arguments. These arguments can be used to request special features that may be provided by some modules.
+            \end{itemize}
+            Both methods:
+            \begin{itemize}
+                \item Check for redundant loading, and will skip already loaded files.
+                \item Raise an exception on failure to find, compile or execute the file.
+                \item Translate :: into your systems directory separator.
+            \end{itemize}
+            Where possible use and Perl modules are preferred over require.
+        \item \textbf{extern equivalent}: The equivalent of an extern global variable from C in Perl is an \textbf{our} variable declared in a shared package or module.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package MyConfig;
+                use strict;
+                use warnings;
+
+                # Declare a global variable
+                our $GlobalSetting = "Active";
+
+                1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use strict;
+                use warnings;
+                use MyConfig;
+
+                # Access the extern-like global variable using its full package path
+                print $MyConfig::GlobalSetting; 
+
+                # Or bring it into your current namespace
+                our $GlobalSetting;
+                print $GlobalSetting;
+            \end{perlcode}
+        \item \textbf{Static equivalent}: A my variable is exactly how you restrict scope in Perl, but it behaves like a C static in two distinct ways depending on where you declare it.
+            \bigbreak \noindent 
+            If you declare a my variable at the top level of a file, it is invisible to other files. This behaves exactly like a file-level static variable in C.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Inside MyModule.pm
+                use strict;
+
+                my $file_private = 42; # Visible only inside this file
+
+                sub get_value { return $file_private; }
+            \end{perlcode}
+            \bigbreak \noindent 
+            If you want a variable inside a function to keep its value between calls (like a function-level static in C), use Perl's state keyword instead of my. A my variable inside a function is reinitialized every time the function runs.
+        \item \textbf{Warnings and strict}: When your module is used by a script, whether or not it runs with warnings depends upon whether the calling script is running with warnings turned on. You can (and should) invoke the use warnings pragma to turn on warnings for your module without changing warnings for the calling script.
+            \bigbreak \noindent 
+            Your modules should always use strict.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use strict;
+            use warnings;
+            \end{perlcode}
+        \item \textbf{Exporting and importing subroutines}: 
+            Writing your own import function for each and every module would be a tiresome and error-prone process. However, Perl comes with a module called Exporter, which provides a highly flexible interface with optimisations for the common case.
+            \bigbreak \noindent 
+            Exporter works by checking inside your module for three special data structures, which describe both what you wish to export, and how you wish to export them. These structures are
+            \begin{itemize}
+                \item @EXPORT symbols to be exported into the user’s name space by default
+                \item @EXPORT\_OK symbols which the user can request to be exported
+                \item \%EXPORT\_TAGS that allows for bundles of symbols to be exported when the user requests a special export tag.
+            \end{itemize}
+        \item \textbf{@ISA}: To take advantage of Exporter’s import function we need to let Perl know that our package has a special relationship with the Exporter package. We do this by telling Perl that we inherit from Exporter. Our package and the rest of our program does not need to be written in an object oriented style for this to work.
+            \bigbreak \noindent 
+            Now when Perl goes looking for the import function it will first look in our package. If it can’t be found there, Perl will look for a special array called @ISA. The contents of the @ISA array is interpreted as a list of parent classes, and each of these will be searched for the missing method.
+            \bigbreak \noindent 
+            To specify that this package is a sub-class of the Exporter module we include the following lines:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use Exporter;
+            our @ISA = qw(Exporter);
+            \end{perlcode}
+            \bigbreak \noindent 
+            \textbf{Note:} ISA means is-a.
+        \item \textbf{use base}: An alternative to adding parent modules to @ISA yourself is to use the base pragma. This allows you to declare a derived class based upon the listed parent classes. Thus the two lines above becomes:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use base qw(Exporter);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Here’s an example of just using @EXPORT and @EXPORT\_OK. Our hypothetical module, People::Manage is used for managing interpersonal relations.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package People::Manage;
+                use base qw(Exporter);
+                use vars qw(@EXPORT @EXPORT_OK);
+
+                @EXPORT = qw(invite $name @friends %addresses); # invite is a subroutine
+                @EXPORT_OK = qw(&taunt $spouse @enemies %postcodes); # so is taunt
+            \end{perlcode}
+            \bigbreak \noindent 
+            The base pragma takes care of ensuring that the Exporter module is loaded.
+            \bigbreak \noindent 
+            The base pragma is available for all versions of Perl above 5.6.0.
+
+
+
+
+    \end{itemize}
+
 
     \pagebreak 
     \unsect{Idioms}
@@ -1192,7 +2120,7 @@
     \end{itemize}
 
     \pagebreak 
-    \unsect{Perl }
+    \unsect{Perl examples}
 
 
 

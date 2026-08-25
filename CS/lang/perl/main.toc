@@ -1,17 +1,20 @@
-\contentsline {section}{\numberline {1}Perl}{2}{section.0.1}%
-\contentsline {section}{\numberline {2}Comments}{4}{section.0.2}%
-\contentsline {section}{\numberline {3}Command line options}{5}{section.0.3}%
-\contentsline {section}{\numberline {4}Variables}{6}{section.0.4}%
-\contentsline {section}{\numberline {5}Arrays}{8}{section.0.5}%
-\contentsline {section}{\numberline {6}Hashes}{11}{section.0.6}%
-\contentsline {section}{\numberline {7}Special variables}{13}{section.0.7}%
-\contentsline {section}{\numberline {8}More on strings}{16}{section.0.8}%
-\contentsline {section}{\numberline {9}Operators and functions}{17}{section.0.9}%
-\contentsline {subsection}{\numberline {9.1}Quote operators and siblings}{19}{subsection.0.9.1}%
-\contentsline {subsection}{\numberline {9.2}Important builtin functions}{20}{subsection.0.9.2}%
-\contentsline {section}{\numberline {10}Constructs}{22}{section.0.10}%
-\contentsline {section}{\numberline {11}Input / output}{26}{section.0.11}%
-\contentsline {section}{\numberline {12}Subroutines}{28}{section.0.12}%
-\contentsline {section}{\numberline {13}Regular expressions}{30}{section.0.13}%
-\contentsline {section}{\numberline {14}Idioms}{33}{section.0.14}%
-\contentsline {section}{\numberline {15}Perl }{34}{section.0.15}%
+\contentsline {section}{\numberline {1}Perl}{3}{section.0.1}%
+\contentsline {section}{\numberline {2}Comments}{5}{section.0.2}%
+\contentsline {section}{\numberline {3}Command line options}{6}{section.0.3}%
+\contentsline {section}{\numberline {4}Variables}{7}{section.0.4}%
+\contentsline {section}{\numberline {5}Arrays}{11}{section.0.5}%
+\contentsline {section}{\numberline {6}Hashes}{14}{section.0.6}%
+\contentsline {section}{\numberline {7}Special variables}{16}{section.0.7}%
+\contentsline {section}{\numberline {8}More on strings}{19}{section.0.8}%
+\contentsline {section}{\numberline {9}Operators and functions}{20}{section.0.9}%
+\contentsline {subsection}{\numberline {9.1}Quote operators and siblings}{22}{subsection.0.9.1}%
+\contentsline {subsection}{\numberline {9.2}Important builtin functions}{23}{subsection.0.9.2}%
+\contentsline {section}{\numberline {10}Constructs}{25}{section.0.10}%
+\contentsline {section}{\numberline {11}Input / output}{29}{section.0.11}%
+\contentsline {section}{\numberline {12}Subroutines}{31}{section.0.12}%
+\contentsline {section}{\numberline {13}Regular expressions}{37}{section.0.13}%
+\contentsline {section}{\numberline {14}References and complex data structures}{41}{section.0.14}%
+\contentsline {section}{\numberline {15}External Files and Packages}{45}{section.0.15}%
+\contentsline {section}{\numberline {16}Modules}{49}{section.0.16}%
+\contentsline {section}{\numberline {17}Idioms}{58}{section.0.17}%
+\contentsline {section}{\numberline {18}Perl examples}{59}{section.0.18}%

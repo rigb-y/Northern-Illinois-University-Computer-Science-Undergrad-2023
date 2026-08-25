@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nb}{open}\PYG{p}{(}\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{fh}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZlt{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}foo.txt\PYGZdq{}}\PYG{p}{)}
-\PYG{+w}{    }\PYG{o+ow}{or}\PYG{+w}{ }\PYG{n+nb}{die}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}open failed: \PYGZdl{}!\PYGZdq{}}\PYG{p}{;}
-\end{MintedVerbatim}

@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{undef}\PYG{+w}{ }\PYG{n}{\PYGZdl{}scalar}\PYG{p}{;}\PYG{+w}{       }\PYG{err}{\PYGZsh{}}\PYG{+w}{ }\PYG{n}{Resets}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{scalar}\PYG{+w}{ }\PYG{n}{to}\PYG{+w}{ }\PYG{n}{the}\PYG{+w}{ }\PYG{n}{undefined}\PYG{+w}{ }\PYG{n}{state}
-\end{MintedVerbatim}

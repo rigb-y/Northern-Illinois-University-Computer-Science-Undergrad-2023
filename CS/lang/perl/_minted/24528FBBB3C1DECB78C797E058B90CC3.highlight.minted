@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{a}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}H\PYGZsq{}}\PYG{p}{;}
-\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{b}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}h\PYGZdq{}}\PYG{p}{;}
-
-\PYG{k}{print}\PYG{+w}{ }\PYG{n}{fc}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{a}\PYG{p}{)}\PYG{+w}{ }\PYG{o+ow}{cmp}\PYG{+w}{ }\PYG{n}{fc}\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{b}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} 0}
-\end{MintedVerbatim}

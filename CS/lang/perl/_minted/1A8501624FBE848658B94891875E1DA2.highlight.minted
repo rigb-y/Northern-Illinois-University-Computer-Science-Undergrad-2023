@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{date}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}2026\PYGZhy{}08\PYGZhy{}20\PYGZdq{}}\PYG{p}{;}
-
-\PYG{c+c1}{\PYGZsh{} Captures the digits into $1, $2, and $3}
-\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{date}\PYG{+w}{ }\PYG{o}{=\PYGZti{}}\PYG{l+s+sr}{ /(\PYGZbs{}d\PYGZob{}4\PYGZcb{})\PYGZhy{}(\PYGZbs{}d\PYGZob{}2\PYGZcb{})\PYGZhy{}(\PYGZbs{}d\PYGZob{}2\PYGZcb{})/}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Year: \PYGZdl{}1, Month: \PYGZdl{}2, Day: \PYGZdl{}3\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
-\PYG{p}{\PYGZcb{}}
-\end{MintedVerbatim}

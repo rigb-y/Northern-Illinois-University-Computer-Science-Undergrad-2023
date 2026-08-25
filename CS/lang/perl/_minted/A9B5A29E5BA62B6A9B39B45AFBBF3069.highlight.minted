@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{50}\PYG{p}{;}
-\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}\PYGZdl{}x\PYGZdq{}}\PYG{p}{;}
-\end{MintedVerbatim}

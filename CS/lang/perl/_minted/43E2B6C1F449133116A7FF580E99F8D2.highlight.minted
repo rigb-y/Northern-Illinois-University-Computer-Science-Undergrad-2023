@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+ch}{\PYGZsh{}!/usr/bin/perl \PYGZhy{}w}
-\PYG{k}{use}\PYG{+w}{ }\PYG{n+nn}{strict}\PYG{p}{;}
-
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{50}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Okay}
-\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Bad}
-\end{MintedVerbatim}

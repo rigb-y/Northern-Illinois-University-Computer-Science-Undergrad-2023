@@ -1,4 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{use}\PYG{+w}{ }\PYG{n+nn}{feature}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}say\PYGZsq{}}\PYG{p}{;}
-\PYG{n}{say}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hello, world!\PYGZdq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Appends a newline}
-\end{MintedVerbatim}

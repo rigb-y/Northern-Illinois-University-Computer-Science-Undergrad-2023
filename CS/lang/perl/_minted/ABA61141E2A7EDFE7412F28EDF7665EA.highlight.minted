@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nb+bp}{STDIN}\PYG{+w}{    }\PYG{c+c1}{\PYGZsh{} standard input}
-\PYG{n+nb+bp}{STDOUT}\PYG{+w}{   }\PYG{c+c1}{\PYGZsh{} standard output}
-\PYG{n+nb+bp}{STDERR}\PYG{+w}{   }\PYG{c+c1}{\PYGZsh{} standard error}
-\end{MintedVerbatim}

@@ -1,5 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n+nv}{@}\PYG{n+nv}{arr}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} entire array}
-\PYG{n+nv}{@}\PYG{n+nv}{arr}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}
-\PYG{n+nv}{@}\PYG{n+nv}{arr}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{l+m+mi}{2}\PYG{p}{]}
-\end{MintedVerbatim}

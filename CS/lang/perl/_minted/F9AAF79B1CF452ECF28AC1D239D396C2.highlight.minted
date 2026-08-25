@@ -1,3 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{n}{perl}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{E}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}say \PYGZdq{}Fast one\PYGZhy{}liner testing\PYGZsq{}}
-\end{MintedVerbatim}

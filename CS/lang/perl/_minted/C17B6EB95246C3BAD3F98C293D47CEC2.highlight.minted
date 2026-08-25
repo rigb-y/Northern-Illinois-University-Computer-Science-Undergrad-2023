@@ -1,7 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{email}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}user\PYGZhy{}at\PYGZhy{}domain.com\PYGZdq{}}\PYG{p}{;}
-
-\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{email}\PYG{+w}{ }\PYG{o}{!\PYGZti{}}\PYG{+w}{ }\PYG{l+s+sr}{/@/}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
-\PYG{+w}{    }\PYG{k}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Invalid email: Missing \PYGZsq{}@\PYGZsq{} symbol.\PYGZbs{}n\PYGZdq{}}\PYG{p}{;}
-\PYG{p}{\PYGZcb{}}
-\end{MintedVerbatim}

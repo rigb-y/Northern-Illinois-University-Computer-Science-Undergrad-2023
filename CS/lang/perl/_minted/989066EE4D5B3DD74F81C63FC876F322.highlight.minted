@@ -1,6 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{;}
-\PYG{k}{my}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZbs{}}\PYG{n+nv}{\PYGZdl{}}\PYG{n+nv}{x}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Creates a reference}
-
-\PYG{n+nv}{\PYGZdl{}\PYGZdl{}}\PYG{n+nv}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{25}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} $$ Dereferences}
-\end{MintedVerbatim}

@@ -1,8 +1,0 @@
-\begin{MintedVerbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{c+cm}{=begin comment}
-\PYG{c+cm}{...}
-\PYG{c+cm}{...}
-\PYG{c+cm}{=end comment}
-
-\PYG{c+cm}{=cut}
-\end{MintedVerbatim}
