@@ -106,6 +106,11 @@
                 \item \textbf{Compilation Phase:} The engine parses your source code. It converts text into optimized opcode structures.
                 \item \textbf{Execution Phase:} The internal Perl virtual machine runs that bytecode.
             \end{itemize}
+        \item \textbf{Pass by reference}: Arguments in Perl are passed by reference implicitly under the hood. Unlike many modern languages that default to copying a value, Perl passes the actual underlying variable into the function using a special array called @\_.
+            \bigbreak \noindent 
+            When you call chomp(\$text), Perl doesn't copy the string "Hello\string\n". Instead, it places an alias of the \$text variable into the first slot of the argument array (\$\_[0]).
+            \bigbreak \noindent 
+            Because chomp is an internal C function built into the Perl core, it modifies \$\_[0] directly. Since \$\_[0] points to the exact same memory location as your \$text variable, your original variable changes.
 
 
 
@@ -961,6 +966,23 @@
                 \item \textbf{Exceptions:} END blocks run even if the program exits using die(). They do not run if the program exits via exec or a hard operating system signal like SIGKILL.
                 \item \textbf{Common Uses:} They are great for cleanup tasks, such as closing file handles, removing temporary files, or disconnecting from databases.
             \end{itemize}
+        \item \textbf{\_\_DATA\_\_}: __DATA__ token tells the compiler that the compilation of executable code is finished. Everything written below this token is treated as data, which Perl automatically makes accessible to your program through a special, built-in filehandle named DATA.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use strict;
+                use warnings;
+
+                # Loop through each line in the __DATA__ section
+                while (my $line = <DATA>) {
+                    chomp($line);
+                    print "Processing line: $line\n";
+                }
+
+                __DATA__
+                First line of data
+                Second line of data
+                Third line of data
+            \end{perlcode}
 
 
     \end{itemize}
@@ -1045,6 +1067,484 @@
             \end{perlcode}
             \bigbreak \noindent 
             This is called \textbf{file slurping}
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{File IO}
+    \begin{itemize}
+        \item \textbf{Line input operator in list context}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # reading lines from STDIN (or from files on the command line)
+                while (<>) {
+                    # Process the line of input in $_
+                }
+
+                # reading a single line of user input from STDIN
+                my $input = <STDIN>;
+
+                # reading all lines from STDIN into an array
+                my @input = <STDIN>;
+            \end{perlcode}
+            \bigbreak \noindent 
+            In scalar context, the line input operator yields the next line of the file referenced by the filehandle given.
+            \bigbreak \noindent 
+            In list context, the line input operator yields all remaining lines of the file referenced by the filehandle. (Be careful when using this as you may use up all your memory if the file is large).
+        \item \textbf{Failure}: You should always check for failure of an open() statement:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                open(LOGFILE, "< /var/log/httpd/access.log")
+                    or die "Can’t open /var/log/httpd/access.log: $!";
+            \end{perlcode}
+            \bigbreak \noindent 
+            Attempting to read from or write to an unopened file may cause unexpected results.
+        \item \textbf{The die function (die())}: die is a Perl function which takes an error message and terminates the program displaying that message to the user.
+            \bigbreak \noindent 
+            \$! is the special variable which contains the error message produced by the last system interaction.
+            \bigbreak \noindent 
+            Perl tries to be helpful when dying on errors and will append the appropriate filename and line number of your script to the end of the die message, with a newline. If you don’t want this behaviour, end the die message with a newline (\string\n) character.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # The following provides an error with file and line-number:
+                open(LOGFILE, "< $file") or die "Cannot open $file: $!";
+
+                # Here the file and line-number are omitted.
+                open(LOGFILE, "< $file") or die "Cannot open $file: $!\n";
+            \end{perlcode}
+        \item \textbf{Fatal}: An alternative to explicitly checking whether open and other functions succeeded is to use the Fatal module:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Fatal qw(open close);
+
+                open(LOGFILE, "< $file");   # no need to check!
+
+                close(LOGFILE);             # no need to check!
+            \end{perlcode}
+            \bigbreak \noindent 
+            The Fatal module creates its own functions for the ones you have passed in, and tells Perl to use those instead. These throw an exception (die) if the original function returns a false value. Care should be taken when retro-actively using Fatal on existing programs. It changes the behaviour of the specified functions for the whole program, not just for your file.
+        \item \textbf{Filehandles}: The first argument we pass to open is a filehandle. We can use this to have access to the file for the mode in which it was opened.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Open access.log for reading using LOGFILE as our filehandle
+                open(LOGFILE, "<", "/var/log/httpd/access.log")
+                    or die "Can’t open /var/log/httpd/access.log: $!";
+
+                # use the filehandle in the <> line input operator to read the contents
+                while (<LOGFILE>) {
+                    print if /perltraining.com.au/;
+                }
+                close LOGFILE;
+
+                # open a new logfile for appending
+                open(SCRIPTLOG, ">>", "myscript.log") or die "Can’t open myscript.log: $!";
+
+                # print() takes an optional filehandle argument - defaults to STDOUT
+                print SCRIPTLOG "Opened logfile successfully.\n";
+
+                close SCRIPTLOG;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Note that you should always close a filehandle when you’re finished with it (even though any open filehandles will be automatically closed when your script exits).
+        \item \textbf{Scalar filehandles}: Under Perl version 5.6.0 and above, you can provide a scalar as the first argument to the open function. This means that your filehandles can have scope, and makes it easier to pass them to subroutines and put into structures such as hashes and arrays. Where possible it is a good idea to always use scalar filehandles.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $fh;
+                open($fh,"<", "/path/to/file") or die $!;
+
+                # We can also declare the variable inside the call to open
+                open(my $out_fh, "> /path/to/other/file") or die $!;
+            \end{perlcode}
+            \bigbreak \noindent 
+            In versions before 5.6.0 you can do the same thing by using the FileHandle module, but you need to declare your intentions first:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use FileHandle;
+                my $fh = FileHandle->new; # $fh is now a FileHandle object.
+                open ($fh, "<", "/path/to/file") or die $!;
+            \end{perlcode}
+        \item \textbf{Changing file contents}:  When manipulating files, we may wish to change their contents. A flexible way of reading and writing a file is to import the file into an array, manipulate the array, then output each element again. It is important to ensure that should anything go wrong we don’t lose our original data. As a result,
+            \bigbreak \noindent 
+            it’s considered best-practice to write our data out to a temporary file and them move that over the input file after everything has been successful.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # a program that reads in a file and writes the lines in sorted order.
+                use File::Copy;
+
+                open(my $infile, "<", "file.txt") or die "Can’t open file.txt for input: $!";
+                my @lines = <$infile>; # Slurps all the lines into @lines.
+                close $infile;
+
+                @lines = sort @lines;
+
+                # open temporary file to save our sorted data into
+                open(my $outfile, ">", "file.txt.tmp") or die "Can’t open file.txt for output: $!";
+
+                # use print’s ability to print lists
+                print {$outfile} @lines;
+
+                close $outfile;
+
+                # we know that we were successful, so write over the original file
+                move("file.txt.tmp", "file.txt") or die "Could not rename temp file: $!";
+            \end{perlcode}
+        \item \textbf{Secure temporary files}: In the above example we create our own temporary file using a predictable filename. This may cause our program to over-write a temporary file that’s currently in use, which is obviously a bad thing. To create and use unique temporary files we can use the File::Temp module:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use File::Temp qw(tempfile);
+
+            my ($tmp_fh, $tmp_name) = tempfile();
+
+            # use print’s ability to print lists
+            print {$tmp_fh} @lines;
+
+            close $tmp_fh;
+
+            move($tmp_name, "file.txt") or die "Could not rename $tmp_name: $!";
+            \end{perlcode}
+            \bigbreak \noindent 
+            The File::Temp module can also be used to create in-memory temporary files if required.
+        \item \textbf{Open a file for reading and writing (Read + write mode)}: Files can be opened for simultaneous read/write by putting a + in front of the > or < sign. +< is almost always preferable, as +> would overwrite the file before you had a chance to read from it.
+            \begin{itemize}
+                \item +< (Read + Write, No Truncation)
+                    \begin{itemize}
+                        \item \textbf{Behavior:} Opens an existing file for both reading and writing. It does not clear the file contents when opened. The file pointer starts at the beginning of the file.
+                        \item \textbf{File status:} The file must already exist (or it fails depending on usage, though standard behavior expects an existing file).
+                        \item \textbf{Use case:} When you want to read from a file, modify specific parts, or overwrite parts of it in place without losing the rest of the data.
+                    \end{itemize}
+                \item +> (Read + Write, Truncate/Clobber)
+                    \begin{itemize}
+                        \item \textbf{Behavior:} Opens a file for reading and writing, but deletes all existing contents (truncates the file to zero length) immediately when opened.
+                        \item \textbf{File status:} Creates the file if it does not exist.
+                        \item \textbf{Use case:} Rare; useful when you want a completely fresh scratchpad file that you can both write to and read back from during the same session.
+                    \end{itemize}
+            \end{itemize}
+            +< puts you at the start of the file. Note that it won’t create a new file if the file you’re dealing with does not exist (you’ll just get an error that the file doesn’t exist). If you start writing before you’ve reached the end of the file, you will overwrite characters in that file (from that point). Even if you’re dealing with fixed-length records and think you know what you’re doing, this is often still a bad idea.
+            \bigbreak \noindent 
+            +>> initially puts you at the end of the file. It will create a new file if necessary and will not clobber an old one. It allows you to read at any point in the file, but all writes will always go to the end.
+        \item \textbf{Buffering}: Since both print and readline (<>) are buffered, you should not use them for editing a file in-place. If you must do so, use the lower level functions such as sysseek(), syswrite() and sysread(). Perl also has a -i switch, for more useful in-place modification of files.
+        \item \textbf{Opening pipes}: If the filename given to open() begins with a pipe symbol (|), the filename is interpreted as a command to which output is to be piped, and if the filename ends with a |, the filename is to be interpreted as a filename which pipes input to us.
+            \bigbreak \noindent 
+            you can pass a system command to open in Perl by using the pipe character (|). When you place a pipe at the very end or the very beginning of the command string, Perl treats it as a program to run rather than a file to read. This is known as a piped open.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            # Runs the Linux 'ls' command and lets you read the file list
+            open(MY_PIPE, "ls -la |") or die "Failed: $!";
+
+            # Sends text directly into the Linux 'mail' command to send an email
+            open(MY_PIPE, "| mail -s 'Hello' user@example.com") or die "Failed: $!";
+            \end{perlcode}
+        \item \textbf{Safer pipes}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            # Pipe output to us
+            open(my $pipe, "-|", "ls", "-la");
+
+            # Pipe our input to sort
+            open(my $pipe, "|-", "sort");
+            \end{perlcode}
+        \item \textbf{Piping input example}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Open our external sort command.
+                open (my $sort_fh, "|sort") or die "Can’t open pipe: $!";
+
+                # Our friends will be printed in sorted order.
+                foreach my $friend (qw/Jacinta Damian Kirrily Paul/) {
+                    # This does not print to stdout, gives the names to sort one at a time.
+                    print {$sort_fh} "$friend\n";
+                }
+
+                # Closing the pipe handle causes sort to cease thus giving output
+                close $sort_fh;
+            \end{perlcode}
+        \item \textbf{Piping output example}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            #!/usr/bin/perl -w
+            # This program allows us to read a file from another machine
+            # using secure shell. This is most useful if we can login without
+            # a password (eg, established keys).
+            use strict;
+
+            # Process our command line arguments, and complain if we don’t
+            # have both a host and filename.
+            my ($host, $file) = @ARGV;
+            unless ($host and $file) {
+                die "Usage: $0 host filename\n";
+            }
+
+            open (SSH, "ssh $host cat $file |") or die "Can’t open pipe: $!";
+
+            while(<SSH>) {
+                # We can process the file in any way we like here.
+                # In this particular case, we’ll simply print it to
+                # our STDOUT.
+                print;
+            }
+            \end{perlcode}
+        \item \textbf{File locking}: File locking can be achieved using the flock() function. This can be used to guard against race conditions or other problems which occur when two (or more) processes want to access the same file at the same time.
+            \bigbreak \noindent 
+            flock is Perl’s portable file-locking mechanism, and works on most operating systems (and produces a fatal error on those which it does not). The locks set by flock are advisory only, which means that a process that chooses not to use flock can (and will) ignore any locks in place. flock can only lock entire files, not individual records. Depending upon your setup, flock may or may not work over NFS.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # using flock
+                use Fcntl ’:flock’; # import LOCK_* constants
+
+                flock(FILEHANDLE, LOCK_EX); # exclusive (write) access
+                flock(FILEHANDLE, LOCK_SH); # shared (read-only) access
+            \end{perlcode}
+            \bigbreak \noindent 
+            As flock only works on filehandles, instead of filenames, you have to open the file first before you try to lock it. It’s important to make sure that you open the file for writing, if you intend to write to it, and that you don’t clobber the contents of the file when doing so. This is a good use of +<. Closing a locked file releases any locks the process holds upon it. This is good because it means that if your process exits unexpectedly all locks it held are released and other processes may then go forward with their locks.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Fcntl ’:flock’; # import LOCK_* constants
+
+                # Open file for read and write
+                open my $file_fh, "+<", $file or die "Failed to open $file: $!";
+
+                # Lock the file for writing (exclusive lock) make sure it worked.
+                flock($file_fh, LOCK_EX) or die "Failed to gain lock on $file: $!";
+
+                # At this point we have exclusive access to the file.
+                # Wipe previous process’ details
+                truncate($file_fh, 0) or die "Failed to truncate $file: $!";
+
+                # Write to the file, or perform other operations as needed here...
+                print {$file_fh} $data;
+
+                close $file_fh; # Closing the file releases the lock as well
+            \end{perlcode}
+            \bigbreak \noindent 
+            flock will wait indefinitely until the lock is granted, however it can return early if interrupted by a signal or other event. It’s important to ensure that flock returns true to be sure that you have the lock you requested. It is possible to make flock non-blocking as follows:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Fcntl ’:flock’; # import LOCK_* constants
+
+                flock(FILEHANDLE, LOCK_EX | LOCK_NB); # non-blocking exclusive lock
+                flock(FILEHANDLE, LOCK_SH | LOCK_NB); # non-blocking shared lock
+            \end{perlcode}
+            \bigbreak \noindent 
+            All attempts to get a non-blocking lock return immediately with either true for success (the lock was obtained) or false for failure (the lock was not obtained).
+        \item \textbf{Handling binary data / read()}: If you are opening a file which contains binary data, you probably don’t want to read it in a line at a time using while (<>) \{ \}, as there’s no guarantee that there will be any line breaks in the data, and we’ll probably end up with very uneven chunks.
+            \bigbreak \noindent 
+            Instead, we can use read() to read a certain number of bytes from a file handle. However, before we do that, we should call the binmode() function on the filehandle, so that Perl knows that we’ll be dealing with a binary file. This means Perl won’t try to do any transformations of input based upon the operating system or locale where your program is running.
+            \bigbreak \noindent 
+            binmode() must be called on the filehandle before any corresponding file I/O. It’s best to call it immediately after you open the file.
+            \bigbreak \noindent 
+            read() takes the following arguments:
+            \begin{itemize}
+                \item The filehandle to read from
+                \item The scalar to put the binary data into
+                \item The number of bytes to read
+                \item The byte offset to start from (defaults to 0)
+            \end{itemize}
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Directory Interaction}
+    \begin{itemize}
+        \item \textbf{The globbing operator}: If the angle brackets have anything in them other than a filehandle or nothing, it will work as a globbing operator and whatever is between the angle brackets will be treated as a filename wildcard. For instance
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my @files = <*.txt>
+            \end{perlcode}
+            \bigbreak \noindent 
+            The filename glob *.txt is matched against files in the current directory, then either they are returned as a list (in list context, as above) or one scalar at a time (in scalar context).
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (my $filename = <*.txt>) {
+                    open (my $in_fh, "<", $filename) or die ("Can’t open $filename: $!");
+
+                    # Read from the file
+                    close $in_fh;
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            The glob() function behaves in a very similar manner to the angle bracket globbing operator.
+            \bigbreak \noindent
+            \begin{perlcode}
+                my @files = glob("*.txt");
+                foreach my $file (glob("*.txt")) {
+                    # Process $file
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            The glob() is considered much cleaner and better to use than the angle-brackets globbing operator.
+            \bigbreak \noindent 
+            When using glob, you can combine more than one pattern in order to get a wider selection of files. For example, to get all the .txt and .pl files you can write:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            glob("*.txt *.pl");
+            \end{perlcode}
+        \item \textbf{File test operators}
+            \begin{itemize}
+                \item -e File exists.
+                \item -r File is readable
+                \item -w File is writable
+                \item -x File is executable
+                \item -o File is owned by you
+                \item -z File has zero size.
+                \item -s File has nonzero size (returns size).
+                \item -f File is a plain file (as opposed to a directory,
+                \item symbolic link, device etc.)
+                \item -d File is a directory.
+                \item -l File is a symbolic link.
+                \item -p File is a named pipe (FIFO), or Filehandle is a pipe.
+                \item -S File is a socket.
+                \item -b File is a block special file.
+                \item -c File is a character special file.
+                \item -t Filehandle is opened to a tty.
+                \item -u File has setuid bit set.
+                \item -g File has setgid bit set.
+                \item -k File has sticky bit set.
+                \item -T File is a text file.
+                \item -B File is a binary file (opposite of -T).
+                \item -M Days since file last modified, when script started.
+                \item -A Same for access time.
+                \item -C Same for inode change time.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                #!/usr/bin/perl -w
+                use strict;
+                unless (-e "config.txt") {
+                    die "Config file doesn’t exist";
+                }
+
+                # or equivalently...
+                die "Config file doesn’t exist" unless -e "config.txt";
+            \end{perlcode}
+        \item \textbf{Finding information about files}: We can find out various information about files by using file test operators and functions such as stat().
+            \bigbreak \noindent 
+            In Perl, the built-in stat() function returns a 13-element list containing detailed status information and metadata for a specific file, directory, or filehandle
+            \bigbreak \noindent 
+            stat() a filename expression, a filehandle, or a directory handle. If you leave the argument blank, it defaults to evaluating the global variable \$\_.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Capturing all 13 elements into distinct scalar variables
+                my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, 
+                    $atime, $mtime, $ctime, $blksize, $blocks) = stat($filename);
+            \end{perlcode}
+            \bigbreak \noindent 
+            When stat() is successful, it returns the following fields in this exact sequence:
+            \bigbreak \noindent 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Index}& \textbf{Element}& \textbf{Description}\\
+                    \midrule
+                    0-6& \$dev - \$rdev &Device, Inode, Mode, Links, UID, GID, Rdev \\[2ex]
+                    7 &\$size &Total size of the file in bytes\\[2ex]
+                    8-10& \$atime, \$mtime, \$ctime &Access, Modify, Change times (Epoch seconds)\\[2ex]
+                    11-12& \$blksize, \$blocks &Block size and count \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            \textbf{Note:} If stat() fails, it returns an empty list () in list context or 0 in scalar context.
+        \item \textbf{Multiple file tests}: Perl caches the result of file tests in a special filehandle called \_ (underscore). Performing tests on this filehandle can often avoid subsequent system calls, resulting in a slight performance gain.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                if(-r $file && -w _) {
+                    # ...
+                }
+            \end{perlcode}
+        \item \textbf{Changing the working directory}: The function chdir allows you to change your program’s working directory. All relative file access from that point on will use the new directory. Note that this does not change the working directory of the calling process
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Archive log files
+                my $tar = "/bin/tar";
+                my $date = "01-01-00";
+                my $directory = "/var/log/apache/";
+
+                unless( chdir($directory) ) {
+                    die "Failed to chdir to $directory: $!";
+                }
+
+                # Get all files in this directory
+                my @files = glob("*.log*");
+                system("$tar -czf weblogs.$date.tgz @files") if @files;
+            \end{perlcode}
+        \item \textbf{CWD module}: 
+            \bigbreak \noindent 
+            To find out what your current working directory is, we can use the Cwd module:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use Cwd;
+                my $current_working_directory = getcwd();
+            \end{perlcode}
+        \item \textbf{Recursing down directories}: The built-in functions described above do not enable you to easily recurse through subdirectories. Luckily, the File::Find module is part of the standard library distributed with Perl 5.
+            \bigbreak \noindent 
+            File::Find emulates Unix’s find command. It takes as its arguments a subroutine to execute for each file found, and a list of directories to search. Note that to pass a reference to a subroutine we prefix the name of the subroutine with \string\&
+            \bigbreak \noindent 
+            \begin{perlcode}
+                #!/usr/bin/perl -w
+                use strict;
+                use File::Find;
+
+                print "Enter the directory to start searching in: ";
+                chomp(my $dir = <STDIN>);
+
+                # find takes a subroutine reference and the directory to start working from.
+                find (\&wanted, $dir);
+
+                sub wanted {
+                    if(/\.pl$/) { # See if it’s a .pl file
+                        print "$File::Find::name\n"; # Print the current file name.
+                    }
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            For each file found, certain variables are set.
+            \begin{itemize}
+                \item \$\_ is set to the name of the current file.
+                \item \$File::Find::dir is set to the directory that contains the file.
+                \item \$File::Find::name contains the full name of the file, i.e. \$File::Find::dir/\$\_.
+            \end{itemize}
+            File::Find automatically changes your current working directory to the same as the file you are currently examining. Thus there’s rarely a need to use \$File::Find::dir. If all you want to do is process the file regardless of its location on the file system you can simply open the file using the name in \$\_.
+        \item \textbf{opendir and readdir}: We can also open directories for access by using the opendir() function. Once a directory is open, we can read file names from it using the readdir() function.
+            \bigbreak \noindent 
+            To read the contents of files in the directory, you still need to open each one using the open() function.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # $ENV{HOME} stores the home directory on Unix platforms, use
+                # $ENV{HOMEPATH} for MS Windows
+
+                opendir(HOMEDIR, $home) or die "Can’t read dir $home: $!";
+
+                my @files = readdir(HOMEDIR);
+
+                closedir HOMEDIR;
+            \end{perlcode}
+        \item \textbf{Scalar directory handles}: Under Perl 5.6.1 and above you can provide a scalar as the argument to readdir. This allows you to have scalar directory handles which have scope and makes it easier for you to pass them to subroutines or include them in hashes and arrays. Just like scalar filehandles, these are the preferred option if you can use them.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $homedir;
+                opendir($homedir, $home) or die "Can’t read dir $home: $!";
+                my @files = readdir($homedir);
+            \end{perlcode}
+        \item \textbf{glob and readdir}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{glob}& \textbf{readdir} \\
+                    \midrule
+                    Slower &Faster\\[2ex]
+                    Allows you to filter filenames &Gives you all filenames\\[2ex]
+                    Returns files in asciibetical order &Returns files in file-system order\\[2ex]
+                    Returns filename with path intact &Returns filename only\\[2ex]
+                    Does not return dot files when called as glob("*") (although glob("* .*") does). &Returns all filenames \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{rewinddir}: We can rewind the current position of the directory handle back to the beginning by using the rewinddir function.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            rewinddir HOMEDIR;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Unfortunately this is rarely as useful as you might at first think. rewinddir does not refresh the directory listing when it rewinds. To see whether the directory listing has changed since your program started you’ll have to close the directory and reopen it.
 
     \end{itemize}
 
@@ -1307,6 +1807,47 @@
             \bigbreak \noindent 
             Use signatures when your goal is to name and unpack parameters. Use prototypes only when you intentionally want to alter how Perl parses or evaluates calls to the subroutine.
         \item \textbf{Bypassing prototype checking (ampersand prefix)}: If a subroutine has a defined prototype (which restricts or formats the arguments it accepts), prefixing the call with an ampersand will completely ignore the prototype rules.
+        \item \textbf{Anonymous functions (anonymous subroutine / subref)}: . Instead of adding a name to the symbol table, it returns a code reference (CODE ref) that can be stored in a variable, passed to other functions, or executed immediately.
+            \bigbreak \noindent 
+            To create one, simply omit the name after the sub keyword. You typically assign this definition to a scalar variable:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            # Defining an anonymous function and storing its reference
+            my $say_hello = sub {
+                my ($name) = @_;
+                print "Hello, $name!\n";
+            }; # Note the trailing semicolon, as this is an assignment statement
+            \end{perlcode}
+            \bigbreak \noindent 
+            Because the variable holds a reference, you must dereference it to execute the code. There are two common ways to do this:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $say_hello->("Alice");  # Outputs: Hello, Alice!
+            &{$say_hello}("Bob");   # Outputs: Hello, Bob!
+            \end{perlcode}
+            \bigbreak \noindent 
+            If you only need to run an anonymous function once right where you define it, you can enclose the definition in parentheses and invoke it immediately
+            \bigbreak \noindent 
+            \begin{perlcode}
+            (sub { print "Running immediately!\n" })->();
+            \end{perlcode}
+            \bigbreak \noindent 
+            Anonymous functions in Perl act as closures. This means they can "capture" and remember lexical variables (my) from the surrounding scope where they were created, even after that scope has exited.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub make_multiplier {
+                    my ($multiplier) = @_;
+
+                    # Returns an anonymous function that retains access to $multiplier
+                    return sub {
+                        my ($number) = @_;
+                        return $number * $multiplier;
+                    };
+                }
+
+                my $triple = make_multiplier(3);
+                print $triple->(5); # Outputs 15
+            \end{perlcode}
 
 
     \end{itemize}
@@ -2284,157 +2825,257 @@
     \end{itemize}
 
     \pagebreak 
-    \unsect{File IO}
+    \unsect{System interaction}
     \begin{itemize}
-        \item \textbf{Line input operator in list context}: 
+        \item \textbf{system()}: The system() function allows an external command to be executed. This command will inherit Perl’s standard filehandles (STDIN, STDOUT and STDERR) and have control of the console until it terminates. This means that system() can be used to launch interactive commands such as editors if desired. Perl will wait for the command specified to terminate before continuing:         
             \bigbreak \noindent 
             \begin{perlcode}
-                # reading lines from STDIN (or from files on the command line)
-                while (<>) {
-                    # Process the line of input in $_
+                # Open a file for the user to edit.
+                system(’vi somefile.txt’); # Or ’notepad somefile.txt’
+
+                # Read the contents of the file once the user has finished.
+                open(my $input_fh, ’<’, ’somefile.txt’) or die "$!";
+            \end{perlcode}
+            \bigbreak \noindent 
+            The exec() function works in a similar way, but on success your program is replaced with the command specified. This means that exec() never returns on success. The exec() function is most useful when writing wrapper scripts that wish to establish a certain state before executing another program.
+            \bigbreak \noindent 
+            If the command specified by system() could not be run the error message will be available via the special variable \$!. This value is not set if the command can be run but fails during runtime. The return status of the command can be found in the special variable \$?, which is also the return value of system(). This value is a 16-bit status word which needs to be unpacked to be useful, as demonstrated in the example below.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                system("/path/to/some/command");
+                if ($?) { # A non-zero exit code means failure
+                    # -1 means the program didn’t even start!
+
+                    if($? == -1) {
+                        print "Failed to run program: $!\n";
+                    } 
+
+                    else {
+                        print "The exit value was: " . ($? >> 8) . "\n";
+                        print "The signal number that terminated the program was: "
+                                . ($? & 127) . "\n";
+                        print "The program dumped core.\n" if $? & 128;
+                    }
                 }
-
-                # reading a single line of user input from STDIN
-                my $input = <STDIN>;
-
-                # reading all lines from STDIN into an array
-                my @input = <STDIN>;
             \end{perlcode}
-            \bigbreak \noindent 
-            In scalar context, the line input operator yields the next line of the file referenced by the filehandle given.
-            \bigbreak \noindent 
-            In list context, the line input operator yields all remaining lines of the file referenced by the filehandle. (Be careful when using this as you may use up all your memory if the file is large).
-        \item \textbf{Failure}: You should always check for failure of an open() statement:
+        \item \textbf{Security concerns}: Just like open the traditional form of calling system and exec have security issues due to shell expansion. For example consider the following code:
             \bigbreak \noindent 
             \begin{perlcode}
-                open(LOGFILE, "< /var/log/httpd/access.log")
-                    or die "Can’t open /var/log/httpd/access.log: $!";
+                print "Please give me a file you want to see: ";
+
+                my $filename = <>; # lets pretend: $filename="fred; rm -rf /home/pjf;"
+
+                chomp($filename);
+                system("cat $filename");
             \end{perlcode}
             \bigbreak \noindent 
-            Attempting to read from or write to an unopened file may cause unexpected results.
-        \item \textbf{The die function (die())}: die is a Perl function which takes an error message and terminates the program displaying that message to the user.
-            \bigbreak \noindent 
-            \$! is the special variable which contains the error message produced by the last system interaction.
-            \bigbreak \noindent 
-            Perl tries to be helpful when dying on errors and will append the appropriate filename and line number of your script to the end of the die message, with a newline. If you don’t want this behaviour, end the die message with a newline (\string\n) character.
+            In this case, due to shell expansion, the shell will receive the commands:
             \bigbreak \noindent 
             \begin{perlcode}
-                # The following provides an error with file and line-number:
-                open(LOGFILE, "< $file") or die "Cannot open $file: $!";
-
-                # Here the file and line-number are omitted.
-                open(LOGFILE, "< $file") or die "Cannot open $file: $!\n";
-            \end{perlcode}
-        \item \textbf{Fatal}: An alternative to explicitly checking whether open and other functions succeeded is to use the Fatal module:
-            \bigbreak \noindent 
-            \begin{perlcode}
-                use Fatal qw(open close);
-
-                open(LOGFILE, "< $file");   # no need to check!
-
-                close(LOGFILE);             # no need to check!
+            cat fred
+            rm -rf /home/pjf
             \end{perlcode}
             \bigbreak \noindent 
-            The Fatal module creates its own functions for the ones you have passed in, and tells Perl to use those instead. These throw an exception (die) if the original function returns a false value. Care should be taken when retro-actively using Fatal on existing programs. It changes the behaviour of the specified functions for the whole program, not just for your file.
-        \item \textbf{Filehandles}: The first argument we pass to open is a filehandle. We can use this to have access to the file for the mode in which it was opened.
+            and if our program had sufficient permissions to delete pjf’s home directory, it would.
+            \bigbreak \noindent 
+            As a result, there is another, safer, form of system and exec that bypasses the shell. If you give system or exec a list it assumes that the first element is the command to execute, and every other element is an argument to that command. These arguments are not passed to the shell, and so shell expansion will not occur. So:
             \bigbreak \noindent 
             \begin{perlcode}
-                # Open access.log for reading using LOGFILE as our filehandle
-                open(LOGFILE, "<", "/var/log/httpd/access.log")
-                    or die "Can’t open /var/log/httpd/access.log: $!";
+            system(’cat’, ’*.txt’);
+            \end{perlcode}
+            \bigbreak \noindent 
+            will give the "*.txt" filename to cat rather than all files with a .txt extension. This is essential in cases like the above where the command may be passed in from a user. In this case, if the file "*.txt" does not exist then we’ll receive an non-zero return code. Exec fails and returns false only if the command (in this case cat) does not exist. If the file does not exist, the user will receive cat’s error message
+            \bigbreak \noindent 
+            It’s always possible to use Perl’s glob function to expand filenames for us, without shell intervention:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            system("cat", "*.txt");
+            \end{perlcode}
+        \item \textbf{IPC::System::Simple}: The IPC::System::Simple module (available from the CPAN) takes the hard work out of running shell commands:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use IPC::System::Simple qw(run);
 
-                # use the filehandle in the <> line input operator to read the contents
-                while (<LOGFILE>) {
-                    print if /perltraining.com.au/;
+                run("some_command");
+            \end{perlcode}
+            \bigbreak \noindent 
+            The run function will execute the command provided and check the result. If the command fails to start, dies from a signal, dumps core, or returns a non-zero exit status, then IPC::System::Simple will throw an exception. Unless you take steps to prevent it, a failure from this command will cause your program to die with an error. If you want to capture the error, you can do so:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # The ’eval’ block allows us to capture errors, which
+                # are then placed in $@. If any of the commands below
+                # fail, the ’eval’ is exited immediately. This means if
+                # we fail to backup the files, we won’t delete them.
+
+                eval {
+                    run(’backup_files’);
+                    run(’delete_files’);
+                };
+
+                if ($@) {
+                    warn "Error in running commands: $@\n";
                 }
-                close LOGFILE;
-
-                # open a new logfile for appending
-                open(SCRIPTLOG, ">>", "myscript.log") or die "Can’t open myscript.log: $!";
-
-                # print() takes an optional filehandle argument - defaults to STDOUT
-                print SCRIPTLOG "Opened logfile successfully.\n";
-
-                close SCRIPTLOG;
             \end{perlcode}
             \bigbreak \noindent 
-            Note that you should always close a filehandle when you’re finished with it (even though any open filehandles will be automatically closed when your script exits).
-        \item \textbf{Scalar filehandles}: Under Perl version 5.6.0 and above, you can provide a scalar as the first argument to the open function. This means that your filehandles can have scope, and makes it easier to pass them to subroutines and put into structures such as hashes and arrays. Where possible it is a good idea to always use scalar filehandles.
+            You can also use IPC::System::Simple to execute commands that can return a range of acceptable exit values:
             \bigbreak \noindent 
             \begin{perlcode}
-                my $fh;
-                open($fh,"<", "/path/to/file") or die $!;
+            use IPC::System::Simple qw(run);
 
-                # We can also declare the variable inside the call to open
-                open(my $out_fh, "> /path/to/other/file") or die $!;
+            # Run a command, insisting it return 0, 1 or 2:
+            run( [0,1,2], "some_command");
+
+            # Run a command and capture its exit value:
+            my $exit_value = run( [0,1,2], "some_command");
+
+            # Specify return values using ’..’ notation:
+            my $exit_value = run( [0..2], "some_command");
             \end{perlcode}
             \bigbreak \noindent 
-            In versions before 5.6.0 you can do the same thing by using the FileHandle module, but you need to declare your intentions first:
+            Just like regular system, the run command uses the standard shell when running a single command, or invokes the command directly when called in a multiple argument fashion:
+        \item \textbf{Backticks}: A new set of quotes, called backticks, can be used to interpolate variables then run the resultant string as a shell command. The output of that command can then be printed, assigned, and so forth.
+            \bigbreak \noindent 
+            Just as the q() and qq() functions can be used to emulate single and double quotes and save you from having to escape quotes that appear within a string, the equivalent function qx() can be used to emulate backticks.
+            \bigbreak \noindent 
+            Backticks are different to the system() command, in that they capture the output of the command they execute, as opposed to passing it through to the user.
+            \bigbreak \noindent 
+            When called in a scalar context backticks return the output of the command they execute as a string with possibly embedded newlines. When called in a list context, the output is returned as a list with each separate line of output being a new list element.
+            \bigbreak \noindent 
+            The return status of commands called by using backticks can be determined by examining \$? in the same way as the system() example above.
+        \item \textbf{Tainted input}: Perl’s -T flag can be used to check for unsafe user inputs.
             \bigbreak \noindent 
             \begin{perlcode}
-                use FileHandle;
-                my $fh = FileHandle->new; # $fh is now a FileHandle object.
-                open ($fh, "<", "/path/to/file") or die $!;
+            #!/usr/bin/perl -Tw
             \end{perlcode}
-        \item \textbf{Changing file contents}:  When manipulating files, we may wish to change their contents. A flexible way of reading and writing a file is to import the file into an array, manipulate the array, then output each element again. It is important to ensure that should anything go wrong we don’t lose our original data. As a result,
             \bigbreak \noindent 
-            it’s considered best-practice to write our data out to a temporary file and them move that over the input file after everything has been successful.
+            -T stands for "taint checking". Data input by the user is considered "tainted" and until it has been modified by the script, may not be used to perform shell commands or system interactions of any kind. This includes system interactions such as open(), chmod(), and any other built-in Perl function which interacts with the operating system.
+            \bigbreak \noindent 
+            The only thing that will clear tainting is referencing substrings from a regexp match. Here’s an example.
             \bigbreak \noindent 
             \begin{perlcode}
-                # a program that reads in a file and writes the lines in sorted order.
-                use File::Copy;
+                #!/usr/bin/perl -Tw
+                use strict;
 
-                open(my $infile, "<", "file.txt") or die "Can’t open file.txt for input: $!";
-                my @lines = <$infile>; # Slurps all the lines into @lines.
-                close $infile;
+                $ENV{PATH} = "/bin:/usr/bin"; # Taint requires we set our path.
 
-                @lines = sort @lines;
+                print "Who do you want to finger?\n";
+                my $username = <STDIN>;
+                chomp($username);
 
-                # open temporary file to save our sorted data into
-                open(my $outfile, ">", "file.txt.tmp") or die "Can’t open file.txt for output: $!";
+                # Check $username to make sure it’s clean, then finger.
+                if ( $username =~ /^(\w{1,8})$/ ) {
+                    # $1 is the contents of the first set of
+                    # parentheses in the regexp.
 
-                # use print’s ability to print lists
-                print {$outfile} @lines;
+                    print qx(finger $1);
+                } 
 
-                close $outfile;
-
-                # we know that we were successful, so write over the original file
-                move("file.txt.tmp", "file.txt") or die "Could not rename temp file: $!";
+                else {
+                    print "That was not a valid username!\n";
+                }
             \end{perlcode}
-        \item \textbf{Secure temporary files}: In the above example we create our own temporary file using a predictable filename. This may cause our program to over-write a temporary file that’s currently in use, which is obviously a bad thing. To create and use unique temporary files we can use the File::Temp module:
+            \bigbreak \noindent 
+            You can also untaint data by capturing the match in a list context.
+            \bigbreak \noindent 
+            If you’ve been calling your Perl program from the command line with perl program.pl you’ll be told that you’re turning taint checking on too late, even if you’ve put it in your shebang line.
+            \bigbreak \noindent 
+            This is because Perl wants to know that you want to use taint checking as soon as possible. The way to fix this is to include the -T option in your call, so: 
             \bigbreak \noindent 
             \begin{perlcode}
-            use File::Temp qw(tempfile);
-
-            my ($tmp_fh, $tmp_name) = tempfile();
-
-            # use print’s ability to print lists
-            print {$tmp_fh} @lines;
-
-            close $tmp_fh;
-
-            move($tmp_name, "file.txt") or die "Could not rename $tmp_name: $!";
+                perl -T program.pl.
             \end{perlcode}
             \bigbreak \noindent 
-            The File::Temp module can also be used to create in-memory temporary files if required.
-        \item \textbf{Open a file for reading and writing (Read + write mode)}: Files can be opened for simultaneous read/write by putting a + in front of the > or < sign. +< is almost always preferable, as +> would overwrite the file before you had a chance to read from it.
-            \begin{itemize}
-                \item +< (Read + Write, No Truncation)
-                    \begin{itemize}
-                        \item \textbf{Behavior:} Opens an existing file for both reading and writing. It does not clear the file contents when opened. The file pointer starts at the beginning of the file.
-                        \item \textbf{File status:} The file must already exist (or it fails depending on usage, though standard behavior expects an existing file).
-                        \item \textbf{Use case:} When you want to read from a file, modify specific parts, or overwrite parts of it in place without losing the rest of the data.
-                    \end{itemize}
-                \item +> (Read + Write, Truncate/Clobber)
-                    \begin{itemize}
-                        \item \textbf{Behavior:} Opens a file for reading and writing, but deletes all existing contents (truncates the file to zero length) immediately when opened.
-                        \item \textbf{File status:} Creates the file if it does not exist.
-                        \item \textbf{Use case:} Rare; useful when you want a completely fresh scratchpad file that you can both write to and read back from during the same session.
-                    \end{itemize}
-            \end{itemize}
+            Under Perl 5.8.0 and above, there is also the -t switch, which causes tainted operations to generate warnings instead of errors. This is no substitute for real taint checking, but can be useful if you’re trying to lock down legacy code and see which areas require attention.
+        \item \textbf{Safe.pm}: For greater security when using unknown (and possibly hostile) code, or for writing code which adheres to strict standards about what it’s allowed to do, there is the Safe module. This module allows the creation of compartments in which Perl code can be evaluated. These compartments allow you to define explicitly what the code run within them may and may not do. For example, you may deny access to the file system so that the code may not read or write to files. Or you may only permit the code to use certain operators such that it may add and subtract but not divide, for example. Attempts by the code to perform forbidden tasks result in a compilation error at compile time and a fatal error at run time.
 
 
     \end{itemize}
+
+    \pagebreak 
+    \unsect{Command line switches}
+    \begin{itemize}
+        \item \textbf{One-liner and input-processing switches}
+            \begin{center}
+            \begin{tabularx}{\textwidth}{@{}lX@{}}
+                \toprule
+                \textbf{Switch} & \textbf{Meaning} \\ 
+                \midrule
+                `-e CODE` & Execute Perl code from the command line \\[2ex]
+                `-E CODE` & Like `-e`, but enables optional features for the installed Perl version \\[2ex]
+                `-n` & Read input line by line and execute the program for each line \\[2ex]
+                `-p` & Like `-n`, but print each line afterward \\[2ex]
+                `-a` & Autosplit each input line into the `@F` array; normally used with `-n` or `-p` \\[2ex]
+                `-F PATTERN` & Set the autosplit delimiter used by `-a` \\[2ex]
+                `-0[OCTAL]` & Set the input record separator `\$/` \\[2ex]
+                `-g` & Slurp input: read an entire file at once by setting `\$/` to `undef` \\[2ex]
+                `-l[OCTAL]` & Enable automatic line-ending processing \\[2ex]
+                `-i[EXT]` & Edit files in place; `EXT` creates backup files \\[2ex]
+                `-s` & Perform primitive command-line switch parsing into variables \\
+                \bottomrule
+            \end{tabularx}
+        \end{center}
+        \item \textbf{-s}: perl -s is a command-line flag that enables rudimentary switch parsing for arguments passed to a script
+            \bigbreak \noindent 
+            When you run a script with the -s switch, Perl looks at the arguments on the command line that appear after the script name. If it finds any arguments starting with a hyphen (like -xyz or -size=45), it automatically removes them from the global arguments array (@ARGV) and creates matching scalar variables inside your script
+            \bigbreak \noindent 
+            If you pass a switch without a value, Perl creates a variable and sets it to 1 (true). If you use an equals sign (=), Perl sets the variable to whatever follows it.
+        \item \textbf{-l}: the perl -l command-line flag enables automatic line-ending processing.
+            \bigbreak \noindent 
+            It is one of the most popular flags for writing clean command-line one-liners because it handles two tedious tasks automatically: it chops off trailing newlines from inputs and applies them back to outputs.
+            \bigbreak \noindent 
+            When used alongside the loop flags (-n or -p), -l automatically calls chomp on every line read from your input files or standard input. This cleanly removes the trailing newline (\string\n) so you can manipulate the text without worrying about line breaks.
+            \bigbreak \noindent 
+            It alters the behavior of the print statement. Normally, Perl's print requires you to manually add \string\n\;to the end of a string. With -l, Perl sets the output record separator (\$\string\) to match the input record separator (\$/). As a result, every print statement automatically appends a newline.
+            \bigbreak \noindent 
+            The optional octal value passed to perl -l specifies the Output Record Separator (\$\string\) as an octal number.
+        \item \textbf{Module and library switches}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lX@{}}
+                    \toprule
+                    \textbf{Switch} & \textbf{Meaning} \\
+                    \midrule
+                    `-I DIRECTORY` & Add a directory to the beginning of `@INC` \\[2ex]
+                    `-M MODULE` & Load a module, approximately equivalent to `use MODULE` \\[2ex]
+                    `-m MODULE` & Load a module without importing its symbols \\[2ex]
+                    `-M-MODULE` & Disable a module or pragma using `no MODULE` \\[2ex]
+                    `-m-MODULE` & Equivalent to `no MODULE ()` \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Checking, warnings, and security}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lX@{}}
+                    \toprule
+                    \textbf{Switch} & \textbf{Meaning} \\
+                    \midrule
+                    `-c` & Check syntax without executing the main program \\[2ex]
+                    `-w` & Enable warnings globally \\[2ex]
+                    `-W` & Enable all warnings, regardless of local settings \\[2ex]
+                    `-X` & Disable all warnings \\[2ex]
+                    `-t` & Enable less strict taint checking \\[2ex]
+                    `-T` & Enable full taint checking \\[2ex]
+                    `-U` & Permit certain unsafe operations \\[2ex]
+                    `-f` & Disable execution of the user’s site-customization script \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Debugging switches}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXl@{}}
+                    \toprule
+                    \textbf{Switch} & \textbf{Meaning} \\
+                    \midrule
+                    `-d` & Run the program under Perl’s debugger \\[2ex]
+                    `-d:MODULE` & Use another debugger or debugging module \\[2ex]
+                    `-D FLAGS` & Enable internal Perl debugging flags; generally requires a debugging build \\[2ex]
+                    `-u` & Dump core after parsing; largely obsolete and platform-dependent \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+
+
+    \end{itemize}
+
 
     \pagebreak 
     \unsect{Idioms}
@@ -2455,6 +3096,141 @@
                 \item If you pass it something false, it returns 1 (Perl's standard "true" value).
                 \item If you pass it something true, it must return a "false" value. By language design, Perl's logical operators return the empty string ("") to represent false.
             \end{itemize}
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Secret Operators}
+    \begin{itemize}
+        \item \textbf{Bare number flip-flop}: Print lines 5 through 10 of a file:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            perl -ne 'print if 5..10'
+            \end{perlcode}
+            \bigbreak \noindent 
+            When the flip-flop operator .. sees a bare integer on either side, it silently compares that integer against \$., the current input line number. The expression 5 .. 10 is really \$. == 5 .. \$. == 10.
+            \bigbreak \noindent 
+            In list context, .. is the range operator:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my @nums = (1..5)
+            \end{perlcode}
+            \bigbreak \noindent 
+            In scalar context (like inside an if condition), it becomes the \textbf{flip-flop operator}. It remembers state between calls. It starts in the OFF state. When the left condition becomes true, it flips ON. When the right condition becomes true, it flops back OFF.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                for my $i (0..9) {
+                    $i > 2 .. $i > 8 
+                        ? print "${i}\n" 
+                        : print "";
+
+                    ${i}++;
+                }
+
+                =pod 
+                3
+                4
+                5
+                6
+                7
+                8
+                9
+                =cut
+            \end{perlcode}
+            \bigbreak \noindent 
+            When you put a bare number where the flip-flop expects a condition, Perl doesn't treat it as a boolean. It compares it to \$..
+
+        
+        \item \textbf{Eskimo greeting}: Count the lines in a file:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                perl -lne '}{ print $.'
+            \end{perlcode}
+            \bigbreak \noindent 
+            Those two braces break out of the implicit while loop that -n creates, and start a new block that runs exactly once, after all input has been processed. An END block without typing END.
+            \bigbreak \noindent 
+            Every line of input becomes \$\_, your code runs, next line. The -p flag does the same thing but adds print at the end of each iteration.
+            \bigbreak \noindent 
+            Simple enough. But what if you want to do something AFTER all lines are processed? You could use an END block
+            \bigbreak \noindent 
+            \begin{perlcode}
+                perl -ne '$sum += $_; END { print $sum }' numbers.txt
+            \end{perlcode}
+            \bigbreak \noindent 
+            Or you could use two braces and save yourself some typing.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                perl -ne '$sum += $_; }{ print $sum' numbers.txt
+            \end{perlcode}
+            \bigbreak \noindent 
+            Perl wraps it into:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<>)
+                {
+                    $sum += $_;
+                }
+                {
+                    print $sum
+                }
+            \end{perlcode}
+        \item \textbf{Triple dot flip flop}: The flip-flop in its natural habitat:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<DATA>)
+                {
+                    print if m~START~ .. m~END~;
+                }
+
+                __DATA__
+                noise
+                START
+                grab this
+                and this
+                END
+                more noise
+
+                =pod
+                    START
+                    grab this
+                    and this
+                    END
+                =cut
+            \end{perlcode}
+            \bigbreak \noindent 
+            The .. flips ON when it sees START. It stays on, returning true for every line. When it sees END, it returns true one last time and flips OFF. Simple. For 95\% of use cases, that's all you need to know. But the remaining 5\% is where things get interesting.
+            \bigbreak \noindent 
+            .. checks the right-hand condition on the same line the left-hand condition triggers. ... waits until the next line to start checking the right-hand condition.
+            \begin{itemize}
+                \item ..   Can flip ON and OFF on the same line
+                \item ...  Guarantees at least two evaluations (the trigger line plus the next)
+            \end{itemize}
+            This only matters when both conditions can match the same line
+        \item \textbf{Yada Yada}: The yada yada operator. Perl's way of saying "I haven't written this part yet."
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub fn {
+                    ...
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            Compiles and runs, but fails if you try to call it.
+        \item \textbf{Venus operator}: Force numeric context with
+            \bigbreak \noindent 
+            \begin{perlcode}
+            0+
+            \end{perlcode}
+            \bigbreak \noindent 
+            The Venus operator. Named because it looks like the astronomical symbol for Venus
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $str = "42";
+                my $num = 0 + $str;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Now \$num is numerically 42, not the string "42". Perl usually handles string/number conversion automatically. But sometimes you need to force it
+
+
         \item \textbf{Goatse operator =()=}: Used to force an expression on its right-hand side into a list context while evaluating the entire assignment in a scalar context. It returns the number of items generated by the right-hand side expression
             \bigbreak \noindent 
             It is most frequently used to count regex matches in global matching mode (/g) without storing all the matched text in memory:
@@ -2464,6 +3240,35 @@
                 my $count = () = $text =~ /cat/g; 
                 print $count; # Outputs 3
             \end{perlcode}
+        \item \textbf{Flathead}: Forces scalar context, interpolating a single value.
+            \begin{perlcode}
+                ${\( EXPRESSION )}
+
+                ( EXPRESSION )     Evaluate expression in scalar context
+                \( ... )           Create a reference to that scalar value
+                ${ ... }           Dereference it for interpolation
+            \end{perlcode}
+        \item \textbf{Babycart}: Five characters that let you interpolate ANY expression in a string.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                @{[ ]}
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $x = 5;
+                my $y = 3;
+
+                print "Sum: @{[ $x + $y ]}";    # Sum: 8
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                @{[ EXPRESSION ]}
+
+                [ EXPRESSION ]     Anonymous array reference containing EXPRESSION
+                @{ ... }           Dereference that array reference
+            \end{perlcode}
+            \bigbreak \noindent 
+            The expression is evaluated in list context, wrapped in an anonymous array, then immediately dereferenced for interpolation.
         \item \textbf{Bang bang}: The bang bang operator forces any scalar value into a strict boolean 1 or empty string "" (which Perl treats as false). It is simply two consecutive logical NOT (!) operators.
             \bigbreak \noindent 
             The first ! evaluates the value and flips its truthiness to a strict boolean (making a true value "" and a false value 1). The second ! flips it back.
@@ -2476,7 +3281,38 @@
                 my $pure_boolean = !!$user_input; 
                 print $pure_boolean; # Outputs 1
             \end{perlcode}
-
+        \item \textbf{Enterprise operator}: Conditional list elements. You want an item in a list only if some condition is true:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                ()x!!
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @args = (
+                    '--verbose',
+                    ('--debug') x !!$debug,
+                    '--output', $file,
+                );
+            \end{perlcode}
+        \item \textbf{Double diamond}: The diamond operator has a problem. A security problem.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            perl script.pl 'ls |'
+            \end{perlcode}
+            \bigbreak \noindent 
+            That doesn't read a file called "ls |". It executes ls and reads its output. Oops.
+            \bigbreak \noindent 
+            The regular diamond uses two-argument open internally:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<>) # open(ARGV, $ARGV[0])
+            \end{perlcode}
+            \bigbreak \noindent 
+            The triple diamond uses three-argument open
+            \bigbreak \noindent 
+            \begin{perlcode}
+                while (<<>>) # open(ARGV, "<", $ARGV[0])
+            \end{perlcode}
 
 
 
@@ -2484,6 +3320,12 @@
 
     \pagebreak 
     \unsect{Perl examples}
+    \subsection{regex}
+    \begin{itemize}
+                
+
+
+    \end{itemize}
 
 
 
