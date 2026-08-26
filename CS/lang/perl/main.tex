@@ -299,6 +299,125 @@
             \begin{perlcode}
             my $proto = prototype('my_subroutine_name');
             \end{perlcode}
+        \item \textbf{Variable attributes}: In Perl, a variable attribute is extra metadata attached to a variable declaration. It can change how the variable is created, stored, or handled. Attributes appear after the declared variable:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $scalar :Attribute;
+                my @array  :Attribute;
+                my %hash   :Attribute;
+            \end{perlcode}
+            \bigbreak \noindent 
+            An attribute can optionally receive an argument:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $value :Attribute(argument);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Multiple attributes can be attached to one variable:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $value :First :Second(argument);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Whether an attribute is valid and what it does depends on the module or package that implements it.
+        \item \textbf{MODIFY\_*\_ATTRIBUTES hooks}: This is Perl’s fundamental, low-level mechanism. A package defines a special method corresponding to the variable’s underlying reference type:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                MODIFY_SCALAR_ATTRIBUTES
+                MODIFY_ARRAY_ATTRIBUTES
+                MODIFY_HASH_ATTRIBUTES
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub MODIFY_SCALAR_ATTRIBUTES {
+                    my ($package, $variable_ref, @attributes) = @_;
+
+                    my @unrecognized;
+
+                    for my $attribute (@attributes) {
+                        if ($attribute eq 'Positive') {
+                            print "Applying :Positive\n";
+                        }
+                        else {
+                            push @unrecognized, $attribute;
+                        }
+                    }
+
+                    return @unrecognized;
+                }
+
+                my $number :Positive = 10;
+            \end{perlcode}
+            \bigbreak \noindent 
+            When Perl compiles the declaration, it approximately performs:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                Example->MODIFY_SCALAR_ATTRIBUTES(
+                    \$number,
+                    'Positive'
+                );
+            \end{perlcode}
+            \bigbreak \noindent 
+            The handler must return every attribute it did not recognize. If it returns an attribute, Perl reports an error
+            \bigbreak \noindent 
+            A handler that accepts everything can return an empty list
+        \item \textbf{Fetch hooks}: A package may also define a corresponding fetch hook:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                FETCH_SCALAR_ATTRIBUTES
+                FETCH_ARRAY_ATTRIBUTES
+                FETCH_HASH_ATTRIBUTES
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub FETCH_SCALAR_ATTRIBUTES {
+                    my ($package, $variable_ref) = @_;
+
+                    return 'Positive';
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            The attributes module can then retrieve them:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use attributes;
+
+                my @attrs = attributes::get(\$number);
+            \end{perlcode}
+        \item \textbf{Attribute::Handlers}: is a higher-level interface built around Perl’s attribute machinery. It lets you define a handler using attribute syntax instead of manually implementing each MODIFY\_*\_ATTRIBUTES method.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            package Example;
+
+            use strict;
+            use warnings;
+            use Attribute::Handlers;
+
+            sub Positive :ATTR(SCALAR) {
+                my (
+                    $package,
+                    $symbol,
+                    $variable_ref,
+                    $attribute,
+                    $data,
+                    $phase,
+                    $filename,
+                    $line
+                ) = @_;
+
+                print "Applied :Positive at $filename line $line\n";
+            }
+
+            my $number :Positive = 10;
+            \end{perlcode}
+            \bigbreak \noindent 
+            You can allow several target types
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub Tracked :ATTR(SCALAR, ARRAY, HASH) {
+                    ...
+                }
+            \end{perlcode}
 
     \end{itemize}
 
@@ -630,7 +749,7 @@
             \begin{itemize}
                 \item \textbf{Arithmetic}: +, -, *, /, \%, ** (exp), +=, -=, *=, /=, \%, **=
                     \bigbreak \noindent 
-                    \textbf{Note}: In fact, the shortcut operators += and its siblings can be used for just about any operator. 
+                    \textbf{Note}: In fact, the shortcut notation used in += and its siblings can be used for just about any operator. 
                     \bigbreak \noindent 
                     We also have post/pre increment/decrement.
                 \item \textbf{Logical}: \&\&, and, ||, or, !, not, xor, //
@@ -653,6 +772,7 @@
                     \begin{perlcode}
                     condition ? if_true : if_false
                     \end{perlcode}
+                \item \textbf{Bitwise}: \&, |, ^, \string~ <<, >>
             \end{itemize}
         \item \textbf{Function calling}: Perl does not insist that functions enclose their arguments within parentheses. Both print "Hello"; and print("Hello"); are correct. 
         \item \textbf{Argument types}: 
@@ -885,6 +1005,15 @@
             my @arr = qw(1 2 3);
             print "$_\n" for @arr;
             \end{perlcode}
+        \item \textbf{Postfix for}: In Perl, the postfix for modifier (also known as a statement modifier) allows you to place a loop after a single statement
+            \bigbreak \noindent 
+            \begin{perlcode}
+            STATEMENT for LIST;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $_ *= 2 for @nums
+            \end{perlcode}
         \item \textbf{= do {...}}: 
             \bigbreak \noindent 
             \begin{perlcode}
@@ -966,7 +1095,7 @@
                 \item \textbf{Exceptions:} END blocks run even if the program exits using die(). They do not run if the program exits via exec or a hard operating system signal like SIGKILL.
                 \item \textbf{Common Uses:} They are great for cleanup tasks, such as closing file handles, removing temporary files, or disconnecting from databases.
             \end{itemize}
-        \item \textbf{\_\_DATA\_\_}: __DATA__ token tells the compiler that the compilation of executable code is finished. Everything written below this token is treated as data, which Perl automatically makes accessible to your program through a special, built-in filehandle named DATA.
+        \item \textbf{\_\_DATA\_\_}: \_\_DATA\_\_ token tells the compiler that the compilation of executable code is finished. Everything written below this token is treated as data, which Perl automatically makes accessible to your program through a special, built-in filehandle named DATA.
             \bigbreak \noindent 
             \begin{perlcode}
                 use strict;
@@ -983,6 +1112,98 @@
                 Second line of data
                 Third line of data
             \end{perlcode}
+        \item \textbf{Heredocs}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # 1. Double-quoted (Interpolated)
+                print <<"EOF";
+                Hello, $name!
+                This is a multi-line string.
+                EOF
+            \end{perlcode}
+        \item \textbf{Backtick heredoc}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $output = <<`END_CMD`
+                ls -la /tmp
+                echo "---"
+                df -h /
+                echo "---"
+                uptime
+                END_CMD
+            \end{perlcode}
+            \bigbreak \noindent 
+            That's a backtick heredoc. Everything between the markers executes as a shell command. The output comes back as a string. Multi-line shell scripts, captured in one clean shot.
+        \item \textbf{Heredoc variants}:
+            \begin{itemize}
+                \item <<"TAG"         Interpolates variables
+                \item <<'TAG'         No interpolation (literal)
+                \item <<`TAG`         Executes as shell command
+            \end{itemize}
+        \item \textbf{Stacked heredocs}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my ($sql, $html) = (<<'SQL', <<'HTML');
+                SELECT name, email
+                FROM users
+                WHERE active = 1
+                ORDER BY name
+                SQL
+                <;div class="results">;
+                    <;h2>;Active Users<;/h2>;
+                    <;ul id="user-list">;<;/ul>;
+                <;/div>;
+                HTML
+            \end{perlcode}
+        \item \textbf{goto}: Three forms
+            \begin{perlcode}
+            goto LABEL
+            goto EXPR
+            goto &NAME
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item \textbf{goto LABEL}: This form instantly jumps to the line marked with a specific label name followed by a colon (LABEL:).
+                    \bigbreak \noindent 
+                    You cannot use this to jump into a construct requiring initialization, such as a subroutine or a foreach loop. It also cannot be used to jump out of a block passed to sort.
+                \item \textbf{goto EXPR}: This evaluates an expression at runtime to get a string, and then jumps to the label matching that string. This behaves like a computed goto found in languages like Fortran
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        my @targets = ("FOO", "BAR", "BAZ");
+                        my $index = 1;
+
+                        goto $targets[$index]; # Evaluates to "BAR" and jumps there
+
+                        FOO: print "Hit FOO\n";
+                        BAR: print "Hit BAR\n"; # Execution jumps here
+                        BAZ: print "Hit BAZ\n";
+                    \end{perlcode}
+                \item \textbf{goto \&NAME}: This is a specialized, "highly magical" feature that doesn't carry the standard stigma of goto. Instead of jumping to a text label, it exits the current subroutine and immediately calls the new subroutine in its place.
+                    \bigbreak \noindent 
+                    The new subroutine completely inherits the argument stack (@\_) of the old subroutine. When the new subroutine finished executing, it returns control directly back to whoever called the first subroutine
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub first_sub {
+                            print "Inside first_sub\n";
+                            goto &second_sub; # Exits first_sub, replaces it with second_sub
+                        }
+
+                        sub second_sub {
+                            print "Inside second_sub with arguments: @_\n";
+                            # When this ends, control goes back to wherever first_sub() was called.
+                        }
+
+                        first_sub("Hello", "World");
+                    \end{perlcode}
+            \end{itemize}
+        \item \textbf{CHECK \{ ... \}}:  A CHECK block runs after the Perl compiler finishes compiling your code, but before the program actually starts running.
+            \bigbreak \noindent 
+             Multiple CHECK blocks run in reverse order of how they appear in your file (last-defined runs first).
+        \item \textbf{INIT \{ ... \}}: An INIT block runs right before the Perl runtime system begins executing your main program.
+            \bigbreak \noindent 
+            Just after compilation and any CHECK blocks finish, but right before the main script starts.
+            \bigbreak \noindent 
+            Multiple INIT blocks run in normal order (first-defined runs first).
 
 
     \end{itemize}
@@ -1848,9 +2069,233 @@
                 my $triple = make_multiplier(3);
                 print $triple->(5); # Outputs 15
             \end{perlcode}
+        \item \textbf{Subroutine attributes}: In Perl, subroutine attributes allow you to attach compile-time metadata or behavior modifications to your subroutines. They are specified by placing a colon (:) after the subroutine name (or signature/prototype) and listing the attributes.
+            \bigbreak \noindent 
+            Attributes can be attached to standard named subroutines, forward declarations, or anonymous subroutines:
+            \begin{itemize}
+                \item \textbf{lvalue:} Allows the subroutine to act as a modifiable value that can be assigned to directly (like a variable). The subroutine must return a modifiable scalar variable.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub name :lvalue {
+                            return $name;
+                        }
+
+                        name() = "Nathan";
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    Normally, assigning to a subroutine call is illegal. With :lvalue, Perl treats the value returned by the subroutine as the storage location to modify.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        use strict;
+                        use warnings;
+
+                        my $value = 10;
+
+                        sub value :lvalue {
+                            $value;
+                        }
+
+                        value() = 25;
+
+                        print $value;       # 25
+                        print value();      # 25
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    This can be used to create clean object accessors
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        package Person;
+
+                        sub new {
+                            my ($class, $name) = @_;
+
+                            return bless {
+                                name => $name,
+                            }, $class;
+                        }
+
+                        sub name :lvalue {
+                            my ($self) = @_;
+                            $self->{name};
+                        }
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        my $person = Person->new("Nathan");
+
+                        print $person->name;          # Nathan
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    Perl “secretly” passes a package name when you call a subroutine using method-call syntax, most commonly with ->.
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    PackageName->method(arguments);
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    is equivalent to 
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                    PackageName::method("PackageName", arguments);
+                    \end{perlcode}
+                \item \textbf{method:} Explicitly marks the subroutine as an object-oriented method. It primarily tells Perl not to throw an "Ambiguous call" warning if the method shares a name with a core function
+                \item \textbf{:prototype(...)}: Assigns a prototype to the subroutine
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub fn : prototype($$) { ... }
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    It is equivalent to the older prototype placement:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        sub fn($$) { ... }
+                    \end{perlcode}
+            \end{itemize}
+        \item \textbf{:const}: :const turns an anonymous subroutine into a constant subroutine. Perl executes the subroutine immediately when the sub expression is evaluated, captures its return value, and uses that captured value for every future call.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $number = 10;
+
+                my $get_number = sub :const {
+                    $number
+                };
+
+                $number = 20;
+
+                print $get_number->();    # 10
+            \end{perlcode}
+            \bigbreak \noindent 
+            The body does not run when \$get_number->() is called. It ran earlier—when the anonymous subroutine was created.
+            \bigbreak \noindent 
+            This allows more complicated initialization:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $get_value = sub :const {
+                    my $x = 5;
+                    my $y = 7;
+                    $x * $y
+                };
+
+                print $get_value->();    # 35
+            \end{perlcode}
+            \bigbreak \noindent 
+            It applies only to anonymous subroutines. It cannot be placed directly on a named subroutine.
 
 
     \end{itemize}
+
+    \pagebreak 
+    \subsection{Overloading}
+    \begin{itemize}
+        \item \textbf{Overloading}: In Perl, overloading usually means defining how objects behave when used with built-in operators such as +, -, ==, "", or 0+. 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use overload
+                '+'  => \&add,
+                '""' => \&to_string,
+                fallback => 1;
+
+                sub new {
+                    my ($class, $x, $y) = @_;
+
+                    return bless {
+                        x => $x,
+                        y => $y,
+                    }, $class;
+                }
+
+                sub add {
+                    my ($self, $other, $swapped) = @_;
+
+                    return Point->new(
+                        $self->{x} + $other->{x},
+                        $self->{y} + $other->{y},
+                    );
+                }
+
+                sub to_string {
+                    my ($self) = @_;
+
+                    return "($self->{x}, $self->{y})";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $p1 = Point->new(2, 3);
+                my $p2 = Point->new(4, 5);
+
+                my $p3 = $p1 + $p2;
+
+                print "$p3\n";    # (6, 8)
+            \end{perlcode}
+            \bigbreak \noindent 
+            fallback => 1: Let Perl derive unspecified operations when reasonable. The method can also be provided by name:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use overload
+                    '+'  => 'add',
+                    '""' => 'to_string',
+                    fallback => 1;
+            \end{perlcode}
+            \bigbreak \noindent 
+            An overloaded binary operator normally receives three arguments:
+            \begin{itemize}
+                \item \textbf{\$self:} The overloaded object.
+                \item \textbf{\$other:} The other operand.
+                \item \textbf{\$swapped:} Whether Perl reversed the operands to find an overloaded method.
+            \end{itemize}
+            The third argument matters for noncommutative operators such as subtraction.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub subtract {
+                    my ($self, $other, $swapped) = @_;
+
+                    if ($swapped) {
+                        return $other - $self->{value};
+                    }
+
+                    return $self->{value} - $other;
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                $object - 5;
+                5 - $object;
+            \end{perlcode}
+            \bigbreak \noindent 
+            These expressions have different operand orders, so \$swapped helps distinguish them.
+        \item \textbf{Common overloadable operations}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use overload
+                    '+'    => 'add',
+                    '-'    => 'subtract',
+                    '*'    => 'multiply',
+                    '=='   => 'numeric_equal',
+                    'eq'   => 'string_equal',
+                    '0+'   => 'to_number',
+                    '""'   => 'to_string',
+                    'bool' => 'to_boolean',
+                    fallback => 1;
+            \end{perlcode}
+            \begin{itemize}
+                \item == is numeric comparison.
+                \item eq is string comparison.
+                \item 0+ controls numeric conversion.
+                \item "" controls string conversion.
+                \item bool controls Boolean conversion.
+            \end{itemize}
+            If 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            fallback => 0
+            \end{perlcode}
+            \bigbreak \noindent 
+            Unspecified operations generally produce an error.
+            \bigbreak \noindent 
+            Perl does not normally support C++-style function overloading based on parameter types:
+
+    \end{itemize}
+
 
     \pagebreak 
     \unsect{Regular expressions}
@@ -2118,9 +2563,119 @@
             All these variables are modified when a match occurs, and can be used in the same way that other scalar variables can be used.
             \bigbreak \noindent 
             When Perl sees you using PREMATCH, MATCH, or POSTMATCH, it assumes that you may want to use them again. This means that it has to prepare these variables after every successful pattern match. This can slow a program down because these variables are "prepared" by copying the string you matched against to an internal location.
-        \item \textbf{Non-capturing parenthesis}: If you want to use parentheses simply for grouping, and don’t want them to set a $1 style variable, you can use a special kind of non-capturing parentheses, which look like (?: ... )
+        \item \textbf{Non-capturing parenthesis}: If you want to use parentheses simply for grouping, and don’t want them to set a \$1 style variable, you can use a special kind of non-capturing parentheses, which look like (?: ... )
 
     \end{itemize}
+
+    \pagebreak 
+    \subsection{Advanced Regex}
+    \begin{itemize}
+        \item \textbf{Subroutine call to a numbered capture group (expression recursion)}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                (?i)
+            \end{perlcode}
+            \bigbreak \noindent 
+            Re-executes the definition of group $i$ to match a new piece of text
+            \begin{itemize}
+                \item \textbf{(?1) or (?g1):} Calls the first capture group by its absolute index.
+                \item \textbf{(?+1) or (?-1):} Calls a group relative to the current position (e.g., (?-1) calls the previous group).
+                \item \textbf{(?\&name):} Calls a named capture group defined by (?<name>...).
+                \item \textbf{(?R) or (?0):} Calls the entire regular expression from the very beginning (global recursion).
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                # Matches: Day-Month-Year where each is a 2-digit number
+                # Instead of writing \d{2} three times, we reuse group 1
+                /\b(\d{2})-(?1)-(?1)\b/
+            \end{perlcode}
+        \item \textbf{The \string\\;G anchor}: Every string in Perl has an internal position pointer called pos(). When you do a m//g match, Perl updates this pointer to the end of the match. The next m//g starts searching from that position.
+            \bigbreak \noindent 
+            \string\\;G anchors a match to exactly that position. Not "somewhere after it." Exactly at pos(). 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $str = "aaa bbb ccc";
+
+                # first m//g match finds "aaa" at position 0
+                $str =~ m~\G(\w+)~g;
+                say $1;          # aaa
+                say pos($str);   # 3
+
+                # without \G, the next match could skip ahead
+                # WITH \G, it must match right at position 3
+                $str =~ m~\G(\w+)~g;    # fails! position 3 is a space, not \w
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $str = "aaa bbb ccc";
+
+                $str =~ m~\G(\w+)~g;
+                say $1;          
+                say pos($str);  
+
+                $str =~ m~\G\s(\w+)~g;    
+                say $1;                 # bbb
+                say pos($str);          # 7
+            \end{perlcode}
+        \item \textbf{The GC flag}: There is a subtlety with m//g that trips people up. Normally, when a m//g match fails, Perl resets pos() to 0. Your position is lost. The next match starts over from the beginning.
+            \bigbreak \noindent 
+            The c flag changes this. With m//gc, a failed match leaves pos() where it was. The position survives failure.
+        \item \textbf{The $e$ modifier}:  The replacement side of s/// is normally a string. Put /e on the end, and it becomes Perl code.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $text = "I have 3 cats and 12 dogs";
+
+                $text =~ s~(\d+)~$1 * 2~ge;
+
+                say $text;
+                # I have 6 cats and 24 dogs
+            \end{perlcode}
+            \bigbreak \noindent 
+            The /e modifier tells Perl: "Do not treat the replacement as a double-quoted string. Treat it as code. Evaluate it. Use the result." Since the replacement is code, you can call any function:
+        \item \textbf{Embedded code execution inside regex}: That (?\{ \}) construct is not a lookahead. It is not a comment. It is live Perl code executing inside the regex engine while the match is still in progress. You have access to the match state, you can modify variables, and you can make decisions based on what has been matched so far.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use feature 'say';
+
+                "Hello World" =~ m~Hello (?{ say "matched Hello, continuing..." })\w+~;
+                # Output: matched Hello, continuing...
+            \end{perlcode}
+            \bigbreak \noindent 
+            The code block fires after Hello has matched and before \string\\;w+ starts matching. It is a checkpoint. The engine got this far, so your code runs.
+        \item \textbf{Double e}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+            $text =~ s~(\d+)~'$1 * 1.13'~ee;
+            \end{perlcode}
+            \bigbreak \noindent 
+            First eval produces the string "100 * 1.13". Second eval executes that string as Perl code. Result: 113.
+
+        \item \textbf{Dynamic regex}: You have a list of words. You want to match any of them in a string.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @words = qw(foo bar baz quux);
+                my $pattern = join '|', map { quotemeta } @words;
+                $text =~ m~$pattern~;
+            \end{perlcode}
+        \item \textbf{Regex recursion}: Handle nested parentheses. Suppose you need to match (something (with nested (parens))).
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $nested = qr~\(   ( (?: [^()]+ | \( (?1) \) )* )   \)~x;
+            \end{perlcode}
+        \item \textbf{Loops with regex}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $db = {
+                    name =>; 'Mike',
+                    age  =>; '45'
+                };
+
+                qq|@{[ reverse sort keys %{$db} ]}|
+                    =~ s~\S+~print qq|$&: $db->{$&}\n|~ger;
+            \end{perlcode}
+
+    \end{itemize}
+
 
     \pagebreak 
     \unsect{References and complex data structures}
@@ -2274,6 +2829,49 @@
                     ’sport’ => ’swimming’,
                     ’age’ => 26
                 };
+            \end{perlcode}
+        \item \textbf{Hard vs soft references}: Hard references point directly to underlying data values in memory, while symbolic references store the string name of a variable and look it up in the symbol table.
+            \bigbreak \noindent 
+            Hard references are created using the backslash operator or by declaring anonymous data structures
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $scalar_ref = \$name;          # Reference to a scalar
+                my $array_ref  = \@colors;        # Reference to an array
+                my $hash_ref   = \%user_data;     # Reference to a hash
+                my $sub_ref    = \&my_function;   # Reference to a subroutine
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $array_ref = [ 'apple', 'banana', 'cherry' ];
+            my $hash_ref = { name => 'Alice', age => 30 };
+            \end{perlcode}
+            \bigbreak \noindent 
+            the \string\\;( ... ) syntax distributes a backslash to everything inside the parentheses.
+            \bigbreak \noindent 
+            Soft references are not distinct data types; they are just regular string scalars containing the name of a variable. They are created simply by assigning a string and then dereferencing it.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            no strict 'refs'; # Required to allow symbolic references
+            \end{perlcode}
+            \bigbreak \noindent 
+            You assign a variable's name (as a string) to a scalar, and then dereference that scalar using standard type prefixes
+            \bigbreak \noindent 
+            \begin{perlcode}
+                no strict 'refs'; # Required to allow symbolic references
+
+                our $animal = "Cat"; # Must be a package/global variable, not 'my'
+                my $pointer = "animal"; 
+
+                print $$pointer; # Outputs: Cat (Looks up the variable named "animal")
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                no strict 'refs';
+
+                our @fruits = ('apple', 'orange');
+                my $list_name = "fruits";
+
+                print $list_name->[0]; # Outputs: apple
             \end{perlcode}
 
 
@@ -2743,6 +3341,19 @@
                 \item use People::Manage (); which imports none of the symbols in either @People::Manage::EXPORT or @People::Manage::EXPORT\_OK.
                 \item use People::Manage qw(\$name \$spouse invite); which imports all the listed symbols. If a symbol is mentioned which is not in either @People::Manage::EXPORT or @People::Manage::EXPORT\_OK then a fatal error will occur.
             \end{enumerate}
+        \item \textbf{FindBin}:  Import the \$RealBin variable directly into your script's namespace, which holds the absolute, canonical path to the directory containing your script.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use FindBin qw($RealBin);
+            \end{perlcode}
+            \bigbreak \noindent 
+            Unlike the default \$Bin variable, \$RealBin resolves all symbolic links (symlinks). This means if your script is a shortcut pointing somewhere else, \$RealBin tells you where the physical file actually lives rather than where the shortcut is located.
+            \bigbreak \noindent 
+            Then, we can do something like
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use lib ($RealBin, "$RealBin/lib");
+            \end{perlcode}
 
 
 
@@ -2793,6 +3404,24 @@
                 \item \textbf{CLASSNAME:} A string containing the name of the package/class. If omitted, Perl blesses the reference into the current package.
                 \item \textbf{Return Value:} It returns the newly blessed reference, allowing you to use it instantly or return it at the end of a constructor
             \end{itemize}
+            Then, “When this reference is used as an object, look for its methods in this package.”
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package Person;
+
+                sub new {
+                    my ($class, $name, $age) = @_;
+
+                    my $self = {
+                        name => $name,
+                        age  => $age,
+                    };
+
+                    bless $self, $class;
+
+                    return $self;
+                }
+            \end{perlcode}
         \item \textbf{Methods and the arrow syntax}: Methods are just subroutines defined inside the package. When you invoke a method using the arrow operator (->), Perl automatically passes the object itself (or the package name, if it's a class method) as the first hidden argument
             \begin{itemize}
                 \item \textbf{Defining a Method:} You must always shift the object (\$self) off the argument array (@\_) first.
@@ -2822,7 +3451,402 @@
                 use parent 'Animal'; # Inherits all methods from Animal
                 1;
             \end{perlcode}
+
+        \item \textbf{Tied variables}: In Perl, a tied variable looks like an ordinary scalar, array, hash, or filehandle, but operations on it are handled by methods in a Perl class.
+            \bigbreak \noindent 
+            This lets you change what assignment, retrieval, deletion, and other normal variable operations actually do.
+            \bigbreak \noindent 
+            For example, a tied hash could store its values in a database or file instead of ordinary memory:
+            \bigbreak \noindent 
+            You connect a variable to a class using tie:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                tie VARIABLE, CLASS, ARGUMENTS;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            tie %hash, "MyHash", "data.txt";
+            \end{perlcode}
+            \bigbreak \noindent 
+            Perl creates an object from MyHash and forwards operations on \%hash to that object.
+            \bigbreak \noindent 
+            The methods your class needs depend on the variable type.
+            \begin{itemize}
+                \item \textbf{Scalar:}
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        TIESCALAR
+                        FETCH
+                        STORE
+                    \end{perlcode}
+                \item \textbf{Array}: 
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        TIEARRAY
+                        FETCH
+                        STORE
+                        FETCHSIZE
+                        STORESIZE
+                        CLEAR
+                        PUSH
+                        POP
+                        SHIFT
+                        UNSHIFT
+                        SPLICE
+                        EXISTS
+                        DELETE
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    Not every method is always required, but unsupported operations will fail or behave incorrectly.
+                \item \textbf{Hash}: 
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        TIEHASH
+                        FETCH
+                        STORE
+                        DELETE
+                        CLEAR
+                        EXISTS
+                        FIRSTKEY
+                        NEXTKEY
+                        SCALAR
+                    \end{perlcode}
+                    \bigbreak \noindent 
+                    FIRSTKEY and NEXTKEY support iteration through operations such as:
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        keys %hash;
+                        each %hash;
+                    \end{perlcode}
+                \item \textbf{Filehandle}: 
+                    \bigbreak \noindent 
+                    \begin{perlcode}
+                        TIEHANDLE
+                        PRINT
+                        PRINTF
+                        READ
+                        READLINE
+                        WRITE
+                        CLOSE
+                    \end{perlcode}
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package LoggedScalar;
+
+                sub TIESCALAR {
+                    my ($class, $initial_value) = @_;
+
+                    return bless {
+                        value => $initial_value
+                    }, $class;
+                }
+
+                sub FETCH {
+                    my ($self) = @_;
+
+                    print "Scalar was read\n";
+                    return $self->{value};
+                }
+
+                sub STORE {
+                    my ($self, $new_value) = @_;
+
+                    print "Scalar was changed to $new_value\n";
+                    $self->{value} = $new_value;
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                package main;
+
+                tie my $number, "LoggedScalar", 10;
+
+                print "$number\n";   # Calls FETCH
+                $number = 25;        # Calls STORE
+                print "$number\n";   # Calls FETCH
+            \end{perlcode}
+        \item \textbf{Tied and untied}:  tied returns the underlying object or undef if the variable is not tied.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $object = tied($number);
+
+                print $object->{value};
+            \end{perlcode}
+            \bigbreak \noindent 
+            untie removes the connection:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            untie $number;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Afterward, \$number is once again an ordinary scalar.
+            \bigbreak \noindent 
+            A class can define UNTIE to perform cleanup:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                sub UNTIE {
+                    my ($self, $reference_count) = @_;
+                    print "Variable was untied\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            It can also define DESTROY, which runs when the underlying object is destroyed.
+
     \end{itemize}
+
+    \pagebreak 
+    \unsect{Threads}
+    \begin{itemize}
+        \item \textbf{Threads}: Perl supports threads through the core threads module. However, Perl threads differ from lightweight POSIX threads: each Perl thread receives its own Perl interpreter and initially gets copies of the parent thread’s variables.
+            \bigbreak \noindent 
+            These are commonly called \textbf{interpreter threads}, or \textbf{ithreads}.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use strict;
+                use warnings;
+                use threads;
+
+                sub do_work {
+                    my ($name) = @_;
+
+                    print "Hello from $name\n";
+                    return 42;
+                }
+
+                my $thread = threads->create(\&do_work, "worker");
+
+                my $result = $thread->join();
+
+                print "Worker returned: $result\n";
+            \end{perlcode}
+            \bigbreak \noindent 
+            threads->create() starts a new thread and returns a thread object. The new thread executes do_work.
+            \bigbreak \noindent 
+            join() waits for the thread to finish and retrieves its return value.
+            \bigbreak \noindent 
+            You can also use an anonymous subroutine
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $thread = threads->create(sub {
+                    print "Running in another thread\n";
+                    return 100;
+                });
+
+                my $result = $thread->join();
+            \end{perlcode}
+            \bigbreak \noindent 
+            Ordinary variables are copied when the thread is created:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use threads;
+
+                my $number = 10;
+
+                my $thread = threads->create(sub {
+                    $number = 50;
+                    print "Worker: $number\n";
+                });
+
+                $thread->join();
+
+                print "Main: $number\n";
+            \end{perlcode}
+            \bigbreak \noindent 
+            Changing \$number inside the worker does not change the parent thread’s copy.
+        \item \textbf{Sharing variables}: Use threads::shared when multiple threads must access the same variable:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use strict;
+                use warnings;
+                use threads;
+                use threads::shared;
+
+                my $counter :shared = 0;
+
+                my @workers;
+
+                for (1 .. 4) {
+                    push @workers, threads->create(sub {
+                        for (1 .. 1_000) {
+                            lock($counter);
+                            ++$counter;
+                        }
+                    });
+                }
+
+                $_->join() for @workers;
+
+                print "Counter: $counter\n";
+            \end{perlcode}
+        \item \textbf{Locks}: A race condition occurs if multiple threads modify shared state concurrently. lock() gives the current thread exclusive access to a shared variable for the remainder of the enclosing scope:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                {
+                    lock($counter);
+                    ++$counter;
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            The lock is automatically released when execution leaves the block. When locking multiple variables, always acquire the locks in a consistent order. Otherwise, two threads can wait on one another indefinitely—a condition known as deadlock.
+            \bigbreak \noindent 
+            Imagine we have Account A and Account B.
+            \begin{itemize}
+                \item Thread 1 wants to transfer \$100 from Account A to Account B. It locks Account A first, then tries to lock Account B.
+                \item Thread 2 wants to transfer \$50 from Account B to Account A. It locks Account B first, then tries to lock Account A.
+            \end{itemize}
+            \begin{enumerate}
+                \item Thread 1 acquires the lock for Account A.
+                \item Thread 2 acquires the lock for Account B.
+                \item Thread 1 attempts to acquire the lock for Account B and blocks ( because Thread 2 holds it).
+                \item Thread 2 attempts to acquire the lock for Account A and blocks ( because Thread 1 holds it).
+            \end{enumerate}
+            Neither thread can proceed, and they will wait on each other indefinitely.
+            \bigbreak \noindent 
+            \textbf{Note:} Arrays and hashes can also be shared. For complicated shared structures, you may need shared\_clone():
+            \bigbreak \noindent 
+            shared\_clone is a helper function provided by the threads::shared module. It is designed to take a reference to a standard, non-shared data structure, perform a deep copy, and return a version of that structure that can safely be shared across different interpreter threads (ithreads).
+            \bigbreak \noindent 
+            If you try to assign a normal, unshared reference into a shared array or hash, Perl will throw an error like "Invalid value for shared scalar". shared\_clone solves this by recursively cloning and sharing every component of the structure.
+        \item \textbf{Thread queues}: For producer-consumer programs, Thread::Queue is generally cleaner than manually sharing arrays and managing locks:
+            \bigbreak \noindent 
+            When writing multi-threaded Perl programs, multiple threads cannot safely read or write to a standard array at the same time without causing data corruption. Thread::Queue solves this problem by completely handling the underlying locks and synchronization, allowing any number of threads to push or pull data safely
+            \begin{itemize}
+                \item \textbf{Thread:}:Queue->new(): Creates a brand new, empty queue.
+                \item \textbf{enqueue(LIST):} Adds one or more items to the end of the queue.
+                \item \textbf{dequeue():} Removes and returns the item at the front of the queue. Crucially, if the queue is empty, dequeue() will pause (block) the execution of that thread until another thread enqueues something.
+                \item \textbf{dequeue\_nb():} A non-blocking version of dequeue. If the queue is empty, it returns undef immediately instead of waiting.
+                \item \textbf{pending():} Returns the number of items currently waiting in the queue.
+                \item \textbf{end():} Tells the queue that no more items will be added. Any threads blocking on a dequeue() will unblock, and once the remaining items are consumed, dequeue() will return undef.
+            \end{itemize}
+            \bigbreak \noindent 
+            The most common use case for Thread::Queue is a producer-consumer pattern, where a main script splits tasks up and feeds them to worker threads.
+            \bigbreak \noindent 
+            \begin{perlcode}
+                use strict;
+                use warnings;
+                use threads;
+                use Thread::Queue;
+
+                my $task_queue = Thread::Queue->new();
+
+                # Create worker threads
+                my @workers;
+                for (1..3) {
+                    push @workers, threads->create(\&worker_logic);
+                }
+
+                # Feed data into the queue (The Producer)
+                for my $job_id (1..10) {
+                    print "Main: Enqueuing job $job_id\n";
+                    $task_queue->enqueue($job_id);
+                }
+
+                # Signal workers that no more data is coming
+                $task_queue->end();
+
+                # Wait for all threads to finish up
+                $_->join() for @workers;
+                print "Main: All jobs completed!\n";
+
+
+                # --- Worker Subroutine ---
+                sub worker_logic {
+                    my $tid = threads->tid(); # Get current thread ID
+
+                    # dequeue() will automatically return undef after $task_queue->end() 
+                    # AND the queue becomes completely empty.
+                    while (defined(my $job = $task_queue->dequeue())) {
+                        print "Worker $tid: Processing job $job\n";
+                        sleep(1); # Simulate processing time
+                    }
+
+                    print "Worker $tid: Shutting down.\n";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            Enqueuing undef causes your program to hang because Perl's enqueue() method discards undef values instead of adding them to the queue.
+            \bigbreak \noindent 
+            You do not need to write your own locks because Thread::Queue automatically wraps all of its internal data manipulations in thread-safe locks using Perl’s native threads::shared mechanisms. Every time you call a method like enqueue or dequeue, the module handles the complex locking logic for you.
+            \bigbreak \noindent 
+            When the main thread adds an item, the module executes these precise steps:
+            \begin{enumerate}
+                \item \textbf{Acquires an Internal Lock:} It locks the queue's internal storage array so no other thread can read or write to it at that exact microsecond.
+                \item \textbf{Filters the Input:} It checks the data. If it is undef, it drops it. If it is a complex data structure (like a hash reference), it clones it so it can safely exist in shared memory.
+                \item \textbf{Pushes the Data:} It appends the item to the end of the array.
+                \item \textbf{Signals Waiting Threads:} It issues a cond\_signal() (conditional signal). This acts like an alarm clock telling any sleeping worker threads, "Hey, data just arrived!"
+                \item \textbf{Releases the Lock:} It unlocks the array so other threads can use it.
+            \end{enumerate}
+            When a worker thread asks for a job, the module performs this sequence:
+            \begin{enumerate}
+                \item Acquires an Internal Lock: It locks the internal array to ensure exclusive access.
+                \item Checks for Data:
+                \begin{itemize}
+                    \item If data exists: It shifts the first item off the front of the array, releases the lock, and returns the item to the worker.
+                    \item If the queue is empty: It places the worker thread into a specialized sleep state called cond\_wait(). Crucially, entering this sleep state temporarily releases the lock so other threads aren't blocked from adding data.
+                \end{itemize}
+                \item \textbf{Wakes Up:} When an enqueue() triggers the cond\_signal(), the sleeping worker wakes up, re-acquires the lock, grabs the newly arrived item, releases the lock, and goes to work.
+            \end{enumerate}
+            In multi-threaded programming, you can queue almost anything, but the golden rule is to queue the instructions or identifiers for the work, rather than the massive data objects themselves.
+            \bigbreak \noindent 
+            \textbf{Note:} While the queue itself is thread-safe, it only protects the data while it is inside the queue.  The moment a worker thread dequeues an item and uses it to modify a completely separate shared global variable, you lose all protection.
+        \item \textbf{Join vs detach}: A joinable thread retains some resources until another thread calls join(). A detached thread runs independently, and its return value cannot be collected
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my $result = $thread->join();
+            $thread->detach();
+            \end{perlcode}
+            Use join() when you need the result or must ensure the work completes. Use detach() only for genuinely independent background work.
+        \item \textbf{Identifying threads}: 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $id = threads->tid();
+                print "Current thread ID: $id\n"; 
+            \end{perlcode}
+            \bigbreak \noindent 
+            The original thread has ID 0. Worker threads receive other numeric IDs.
+            \bigbreak \noindent 
+            You can inspect existing threads with 
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @joinable = threads->list(threads::joinable);
+                my @running  = threads->list(threads::running);
+            \end{perlcode}
+            \bigbreak \noindent 
+            A running thread is actively executing code, while a joinable thread is an active or finished thread whose resources have not yet been cleaned up by a join() or detach() call. 
+        \item \textbf{Zombie threads}: If you do not join or detach a thread, you create what is commonly known as a zombie thread, causing resource leaks and potentially causing your program to crash.
+            \bigbreak \noindent 
+            When a thread finishes executing its function, its internal stack memory, register states, and exit status are not automatically freed if it is joinable.
+            \begin{itemize}
+                \item The operating system keeps these structures alive because it assumes the parent thread will eventually call join() to read the exit value.
+                \item If you continuously spawn threads without joining or detaching them, you will rapidly deplete the system's memory allocation and file descriptors.
+            \end{itemize}
+        \item \textbf{Error handling}: If a thread terminates with die, join() reports the failure. It is usually clearer to handle errors inside the thread:
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $thread = threads->create(sub {
+                    my $result = eval {
+                        perform_operation();
+                    };
+
+                    return {
+                        result => $result,
+                        error  => $@,
+                    };
+                });
+
+                my $outcome = $thread->join();
+
+                die $outcome->{error} if $outcome->{error};
+            \end{perlcode}
+
+
+
+
+
+
+    \end{itemize}
+
 
     \pagebreak 
     \unsect{System interaction}
@@ -3141,7 +4165,7 @@
             When you put a bare number where the flip-flop expects a condition, Perl doesn't treat it as a boolean. It compares it to \$..
 
         
-        \item \textbf{Eskimo greeting}: Count the lines in a file:
+        \item \textbf{Eskimo greeting (Butterfly operator)}: Count the lines in a file:
             \bigbreak \noindent 
             \begin{perlcode}
                 perl -lne '}{ print $.'
@@ -3173,6 +4197,27 @@
                 {
                     print $sum
                 }
+            \end{perlcode}
+        \item \textbf{Maori Farewell}: The butterfly operator gives you an END block in one-liners. But what about BEGIN? What if you need code to run BEFORE the loop starts?
+            \bigbreak \noindent 
+            \begin{perlcode}
+            -M5;
+            \end{perlcode}
+            \bigbreak \noindent 
+            Everything after the semicolon runs before your main code. Normally -M loads a module, but with -M5;, something different happens.
+            \bigbreak \noindent 
+            -M5 means
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use 5;          # Require Perl version 5 (always true)
+            \end{perlcode}
+            \bigbreak \noindent 
+            The semicolon separates the version requirement from arbitrary code. Since we're all running Perl 5+, the version check passes silently.
+            \bigbreak \noindent 
+            What comes after the semicolon runs at compile time, before the -n or -p loop even starts. It's not quite a real BEGIN block, but it acts like one for practical purposes.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            perl -M'5;print scalar localtime, "\n"' -ne 'print if /error/i' log.txt
             \end{perlcode}
         \item \textbf{Triple dot flip flop}: The flip-flop in its natural habitat:
             \bigbreak \noindent 
@@ -3319,10 +4364,77 @@
     \end{itemize}
 
     \pagebreak 
-    \unsect{Perl examples}
-    \subsection{regex}
+    \unsect{Standard functions}
     \begin{itemize}
-                
+        \item \textbf{Map}: The Perl map function transforms a list of values into a new list of values by running a block of code or an expression on each element.
+            \bigbreak \noindent 
+            You can use map with either a block of code enclosed in curly braces or a simple expression followed by a comma:
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my @new_list = map { BLOCK } @old_list;
+            my @new_list = map EXPR, @old_list;
+            \end{perlcode}
+        \item \textbf{Grep}: grep function acts as a list filter. It evaluates a block of code or an expression for every element in a list, setting the default variable \$\_ to each element one by one. It then returns only the elements for which the condition evaluates to true.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            my @results = grep { CONDITION } @list;
+            my @results = grep CONDITION, @list;
+            \end{perlcode}
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my @fruits = ('Apple', 'Banana', 'Avocado', 'Cherry');
+
+                # Find fruits starting with 'A'
+                my @a_fruits = grep { /^A/ } @fruits; 
+            \end{perlcode}
+        \item \textbf{List::Util::reduce}: The reduce function steps through a list two elements at a time, accumulating a single result.
+            \bigbreak \noindent 
+            It registers the accumulator as \$a and the current element as \$b.
+            \bigbreak \noindent 
+            \begin{perlcode}
+            use List::Util qw(reduce)
+            my $res = reduce { BLOCK } @list;
+
+            my $sum = reduce { $a + $b } @numbers;
+            my $max = reduce { $a > $b ? $a : $b } @numbers;
+            \end{perlcode}
+        \item \textbf{Quotemeta}: In Perl, the quotemeta function returns a string with all non-word characters escaped with a backslash. It explicitly targets any ASCII character not matching the /[A-Za-z_0-9]/ regular expression.
+            \bigbreak \noindent 
+            In double-quoted strings or directly inside regular expressions, quotemeta is internally invoked using the \string\\;Q escape sequence. The escaping continues until it hits a \string\\;E sequence or reaches the end of the string
+            \bigbreak \noindent 
+            \begin{perlcode}
+                my $literal = "hello.world*";
+
+                # Approach 1: Using the function
+                my $pattern1 = quotemeta($literal); # Returns "hello\.world\*"
+
+                # Approach 2: Using \Q and \E in a regex match
+                if ($text =~ /\Q$literal\E/) {
+                    print "Matched literally!";
+                }
+            \end{perlcode}
+            \bigbreak \noindent 
+            \string\\;Q and \string\\;E are used to escape (disable) regex metacharacters, forcing the regex engine to treat everything between them as a literal string.
+            \begin{itemize}
+                \item \string\\;Q starts the literal quotation (it stands for "quotemeta").
+                \item \string\\;E ends the quotation block. If you omit \string\\;E, the literal matching applies until the very end of the regex pattern
+            \end{itemize}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Perl examples}
+    \begin{itemize}
+        \item \textbf{@F array}: In Perl, the special array @F holds the split fields of each input line when you use the command-line auto-split mode (-a).
+            \bigbreak \noindent 
+            By default, -a splits on whitespace, but passing -F allows you to specify a custom delimiter or a regular expression pattern
+        \item \textbf{Perl as AWK}
+            \bigbreak \noindent 
+            \begin{perlcode}
+            perl -ane 'print "$F[0]\n"'
+            \end{perlcode}
+
 
 
     \end{itemize}
