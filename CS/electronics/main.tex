@@ -1,0 +1,122 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={Electronics}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{Electronics}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Electricity and Electric Circuits}
+    \begin{itemize}
+        \item \textbf{Atoms, protons, neutrons, and electrons}: All matter (any substance that has mass and takes up space) is made up of tiny particles called atoms. Copper is made up of copper atoms, oxygen is made up of oxygen atoms, and so on. An atom is the smallest particle of a particular substance that can exist. For example, if you split a copper atom into two parts, those two parts are no longer copper atoms, but are something else. 
+            \bigbreak \noindent 
+            Each atom has a small central nucleus consisting of sub-atomic particles called protons and neutrons. The nucleus itself is surrounded by even smaller particles called electrons, which whizz around the nucleus in what is known as an electron cloud.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/1.png}
+            \bigbreak \noindent 
+            \textbf{Note:} A \textbf{particle} is either a very small piece of matter.
+            \bigbreak \noindent 
+            Although we call an atom the smallest particle, there are still things smaller. An atom is called the smallest particle because it is the smallest unit of an element that still keeps the chemical identity and properties of that element
+            \bigbreak \noindent 
+            An \textbf{atom} is the smallest basic unit of a chemical element that keeps the properties of that element.
+        \item \textbf{Nucleus of an atom}: The nucleus of an atom is the tiny, dense core located at the center of the atom. According to the Department of Energy, it holds more than 99.9\% of the atom's total mass while taking up a tiny fraction of its space
+            \bigbreak \noindent 
+            The nucleus contains two main types of particles, which are known together as nucleons:
+            \begin{itemize}
+                \item Protons
+                \item Neutrons
+            \end{itemize}
+            Protons push away from each other because they share the same positive charge. A powerful natural rule called the strong nuclear force glues the protons and neutrons tightly together.
+            \bigbreak \noindent 
+            The outside of the nucleus is surrounded by a cloud of tiny, negative particles called electrons.
+        \item \textbf{Elements and molecules}: An \textbf{element} is a pure substance made of only one type of atom that cannot be broken down into a simpler substance by normal chemical processes
+            \bigbreak \noindent 
+            Elements can exist as collections of billions of individual atoms (like solid copper or gold), or they can bond together into small groups called molecules. A \textbf{molecule} is a group of two or more atoms held together by chemical bonds
+        \item \textbf{Electric Charge (Electromagnetism)}: Protons have a positive (+) electric charge, and electrons have an equivalent negative (-) charge.
+            \bigbreak \noindent 
+            Neutrons are neutral, that is, they don't have an electric charge. Although neutrons are extremely important in chemistry and physics, they are not important in electricity ... so we won't say any more about them. Electrons and protons, on the other hand, form the basis of how electric current flows ... so we will talk more about them.
+            \bigbreak \noindent 
+            Electrons are very, very small ... about 200,000 times smaller than protons. An atom of a particular element normally has the same number of protons as electrons. Copper, which is a very important element in electricity, has 29 protons in its nucleus, and 29 electrons around the outside of the atom.
+            \bigbreak \noindent 
+            There are 118 elements and each one has an atomic number, which is determined by the number of protons in its nucleus. A hydrogen atom has one proton in its nucleus, which means it has the atomic number 1. Helium has two protons in its nucleus and has the atomic number of 2. As mentioned above, copper has 29 protons in its nucleus and has the atomic number 29.
+            \bigbreak \noindent 
+            Protons and electrons have opposing electric charge, which causes them to be attracted to each other. It is this attraction that holds atoms together, with electrons being held in place in orbit around the nucleus.
+            \bigbreak \noindent 
+            The physical interaction of electrically charged particles (protons and electrons) is known as \textbf{electromagnetism,} which is one of the fundamental forces of nature.
+        \item \textbf{Ions}: Sometimes atoms gain or lose electrons. When this happens, it causes the atom that has lost the electron to not have quite enough electrons, while the atom that has gained an electron now has slightly too many. These atoms are called ions. A positive ion occurs when an atom loses an electron (negative charge), which means that it has more protons (positive charge) than electrons. A negative ion occurs when an atom gains an extra electron so it has more electrons than protons causing it to have a negative charge.
+            \bigbreak \noindent 
+            This process of atoms losing and gaining electrons takes place in a random manner within an element, so some atoms are losing electrons, and some are gaining electrons, causing positive and negative ions to be created all over the place.
+        \item \textbf{Conducting and Insulating Elements}: With some elements - copper, for example - the process of electrons randomly jumping around between atoms takes place more easily than with other elements. It is this property of copper that makes it an excellent conductor. Other excellent conductors are silver and aluminium
+            \bigbreak \noindent 
+            Elements that are reluctant to let their electrons move from one atom to another are known as insulators. Materials made of polymers or plastics tend to be very good insulators, which is why they are used as insulation around copper wires. Glass and paper are also excellent insulators.
+            \bigbreak \noindent 
+            There is no such thing as a perfect insulator. This is because even insulators contain small numbers positive and negative ions, which can be used to conduct (carry) an electric current. In addition, all insulators become electrically conductive when a large enough voltage is applied such that electrons are torn away from the atoms. When this happens, it is known as the breakdown voltage of the insulator.
+        \item \textbf{Voltage and Current}
+
+
+
+    \end{itemize}
+    
+
+
+
+
+
+
+
+
+
+
+\end{document}
