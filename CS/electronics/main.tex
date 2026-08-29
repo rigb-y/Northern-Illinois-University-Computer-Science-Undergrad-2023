@@ -103,7 +103,484 @@
             Elements that are reluctant to let their electrons move from one atom to another are known as insulators. Materials made of polymers or plastics tend to be very good insulators, which is why they are used as insulation around copper wires. Glass and paper are also excellent insulators.
             \bigbreak \noindent 
             There is no such thing as a perfect insulator. This is because even insulators contain small numbers positive and negative ions, which can be used to conduct (carry) an electric current. In addition, all insulators become electrically conductive when a large enough voltage is applied such that electrons are torn away from the atoms. When this happens, it is known as the breakdown voltage of the insulator.
-        \item \textbf{Voltage and Current}
+        \item \textbf{Voltage and Current}: Although the random movement of electrons between atoms is all very interesting, it's not a lot of use on its own. However, if we could get them to travel in the same direction, then perhaps we could take advantage of that. In fact, the result of doing this is what creates an electric current within a conductor. What happens is that when all the electrons start travelling in the same direction, they begin to transfer their electromagnetic force through the conductor
+            \bigbreak \noindent 
+            Although each individual electron only travels a few millimetres per second, because this is happening trillions of times simultaneously, the net result is that the flow of electrons takes place at almost the speed of light.
+            \bigbreak \noindent 
+            Getting electrons to all flow in the same direction doesn't happen by accident - we need to do something in order to make it happen. We do this by using voltage.
+            \bigbreak \noindent 
+            A voltage is the difference in electric charge between two points. So, for example, if you have one piece of metal that has an abundance of positive ions (positively charged atoms - they don't have enough electrons), and another piece of metal with an abundance of negative ions (negatively charged atoms - they have too many electrons), a voltage (difference in electric charge) exists between the two pieces. If you then attach a conductor between them, electrons (negatively charged particles) flow from one piece of metal to the other. The flow of electrons continues until all of the atoms in the circuit are electrically neutral.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/2.png}
+            \bigbreak \noindent 
+            Once the electrons stop flowing, they revert to their random movement between atoms as shown earlier. 
+            \bigbreak \noindent 
+            So, we can conclude that a voltage, which is a difference in electric charge between two points, needs to exist in order for electric current to flow.
+            \bigbreak \noindent 
+            Voltage can also be referred to as potential difference. Electromotive force (EMF) is the voltage developed by any source of electrical energy, for example, a battery. It is often defined as the source's electrical potential in a circuit.
+        \item \textbf{Measuring Voltage}: Voltage is measured in volts (V). There are a few types of instrument that can be used to measure voltage:
+            \begin{enumerate}
+                \item Voltmeter (often integrated into a multimeter)
+                \item Potentiometer
+                \item Oscilloscope
+            \end{enumerate}
+        \item \textbf{Voltage sources}: Batteries are often used to provide a direct current (DC) voltage for a circuit.
+            \bigbreak \noindent 
+            The voltages supplied by power companies to consumers are much higher than those provided by batteries. The exact voltage supplied to your home or business depends where in the world you live, but is either 110 to 120 volts (alternating current - AC) or 220 to 240 volts (AC).
+        \item \textbf{DC (direct current) and ac (alternating current)}: With direct current (DC), the movement of electric charge through a circuit is in one direction only. This is because the voltage remains constant, which keeps the electric charge flowing in the same direction. Batteries are typical sources of direct current.
+            \bigbreak \noindent 
+            In an alternating current (AC) circuit, the voltage is periodically reversed, which causes the flow of electric charge to also reverse. This normally happens about 50 or 60 times per second. AC, which is more efficient than DC at transmitting electric charge over long distances, is the form of electric power normally delivered to commercial and residential properties.
+            \bigbreak \noindent 
+            As we're dealing with electronic circuits in this book, we only look at DC, battery-driven, circuits.
+        \item \textbf{Measuring current}: Current is the flow of electric charge and is measured in amperes (or amps (A)), which is a measure of how many charge carriers (electrons, in general) flow past a certain point in one second. One ampere equals a flow of 6,240,000,000,000,000,000 electrons per second.
+            \bigbreak \noindent 
+            To measure how much current is flowing through a circuit you can use an ammeter, which is normally integrated into a multimeter
+        \item \textbf{Conventional Current Flow}: As we have already established, electrons are negatively charged particles and flow when there is a difference in electric charge (voltage) between two points. The direction of flow is from the negative end of the circuit towards the positive end. This is because opposite electric charges are attracted to each other, so electrons (negative) flow towards the positive charge
+            \bigbreak \noindent 
+            In a battery, for example, electrons flow from the negative terminal, through the circuit, and then back to the positive terminal.
+            \bigbreak \noindent 
+            However, as well as electron flow, there is something called conventional current flow, which flows in the opposite direction to electron flow.
+            \bigbreak \noindent 
+            \textbf{Conventional current flow} is from positive to negative; electron current flow is from negative to positive.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/3.png}
+        \item \textbf{More on battery}: A battery uses chemical reactions to create a voltage difference between its terminals
+            \begin{enumerate}
+                \item At the negative terminal, a chemical reaction releases electrons.
+                \item When a circuit is connected, the battery establishes an electric field through the wire.
+                \item Because electrons are negatively charged, they move opposite the electric field—from the negative terminal, through the device, to the positive terminal.
+                \item At the positive terminal, another chemical reaction accepts those electrons
+            \end{enumerate}
+        \item \textbf{Load}: A load is any component that uses electrical energy from the battery to perform some function.
+            \bigbreak \noindent 
+            Never connect the terminals of a battery directly together as this will cause the battery to overheat very quickly and may even cause it to explode. There must always be a 'load' (for example, a light bulb) in between the battery terminals
+        \item \textbf{Resistor}: A resistor is a passive two-terminal electronic component that limits or regulates the flow of electrical current in a circuit
+            \bigbreak \noindent 
+            When you are trying to determine where in a circuit to place a resistor, for example, you need it to be in between the battery's positive terminal and the component that the resistor is protecting. This is because the flow of current is coming from the positive terminal.
+        \item \textbf{Resistance}: All the components contained in an electric circuit - including the wires contenting those components - resist the flow of current to a certain extent. There is no such thing as a perfect conductor so, even material like copper, offers a certain amount of resistance. Materials that are used as insulators, such as polymers, offer a lot of resistance, which is why they are used as insulators. If you mix a material that is a good conductor with a material that is a good insulator, you end up with something in between the two. This is how resistors work
+            \bigbreak \noindent 
+            If you add up all the resistances of the individual components in a circuit (if they are connected in series), you end up with the overall resistance of the circuit itself.
+            \bigbreak \noindent 
+            The amount of resistance provided by a wire increases as:
+            \begin{itemize}
+                \item the length of the wire increases, and
+                \item the thickness of the wire decreases.
+            \end{itemize}
+            This means that a long thin copper wire will have a tendency to provide more resistance than a short fat copper wire. However, in the experiments we carry out in this book, the jump wires have a very little resistance and as such their resistance value can be ignored.
+            \bigbreak \noindent 
+            \textbf{Note:} Wires are made of metal, and the atoms inside metals naturally form positive ions because of the way they bond together.
+            \bigbreak \noindent 
+            When electrons flow through a wire they sometimes bump into ions, which make it more difficult for the electrons to flow, causing resistance. In a long wire, this is more likely to happen than in a short wire. Likewise, in a thin wire, there are fewer electrons to carry the current than in a thick wire.
+            \bigbreak \noindent 
+            A thin wire has a smaller cross-sectional area, meaning it has less physical space inside to hold free electrons than a thick wire.
+        \item \textbf{Jumping}: To "jump" in electronics means to create a temporary or permanent electrical connection between two points in a circuit using a conductor like a wire or a small plug.
+        \item \textbf{Measuring Resistance}: Resistance is measured in ohms. 1 ohm is the amount of resistance required to allow 1 amp of current to flow around a circuit when 1 volt is applied to that circuit.
+            \bigbreak \noindent 
+            To measure the resistance in part of a circuit you can use an ohmmeter.
+        \item \textbf{Ohm's law}: Ohm's law relates the current, denoted $I$ and the resistance, denoted $\Omega$ to the voltage $V$:
+            \begin{align*}
+                V = I\Omega
+            .\end{align*}
+            Thus, 
+            \begin{align*}
+                I &= \frac{V}{\Omega}, \\
+                \Omega &= \frac{V}{I}
+            .\end{align*}
+        \item \textbf{Work}: Work is the energy transferred to or from an object when a force causes that object to move through a distance and is measured in \textbf{joules} $J$. One Joule equals one Newton-meter ($N \cdot m$).
+            \begin{align*}
+                W = Fd\cos{\left(\theta \right)}
+            .\end{align*}
+            $\theta $ is the angle between the force vector and the direction of motion
+        \item \textbf{Power}: Power is the amount of work done by an electric circuit and is measured in watts ($W$).
+            \bigbreak \noindent 
+            In this case, electric charges (specifically electrons) are the objects being displaced. A battery can be used as a power source for a small electric/electronic circuit. However, to supply power to homes and businesses, electric generators are used. Electrical power can be carried over long distances and then efficiently converted into other forms of energy such as light, heat or motion.
+            \bigbreak \noindent 
+            The amount of power generated by an electric circuit depends on the amount of current passing through the circuit, as well as the amount of voltage used to push the current through the circuit.
+            \bigbreak \noindent 
+            \begin{align*}
+                W = VI
+            .\end{align*}
+            So, for example, a current of 1 A, which is being pushed around a circuit by a 1 V power supply, generates 1 W of power.
+            \bigbreak \noindent 
+            In order to do something useful, the electric energy carried by the current needs to be converted into a different form of energy such as heat or light. For example, with an electric heater, a voltage pushes current through heating elements to generate heat; with a light bulb, a voltage pushes current through a filament to generate heat and light. When this happens, the circuit is said to dissipate a certain amount of power in watts. For this reason, heaters and lights are both given power ratings in watts, for example, a 2 kilo-watt (kW) heater, a 40 W light bulb, and so on. The higher the power rating, the more heat or light is generated by the circuit, in other words, the more work is being done.
+            \bigbreak \noindent 
+            \textbf{Power dissipation} is the process where electrical energy is converted into heat or other unusable energy and lost from an electrical or electronic system
+            \bigbreak \noindent 
+            A \textbf{power rating} is the maximum amount of power a device or machine can safely consume, handle, or produce under normal operating conditions
+            \bigbreak \noindent 
+            In the same way that you can calculate the power generated by a circuit if you know the voltage and current, you can calculate the current flowing through a circuit if you know the power and voltage. To do this you just need to rearrange the above formula:
+            \begin{align*}
+                I &= \frac{W}{V}, \\
+                V &= \frac{W}{I}
+            .\end{align*}
+            \textbf{Note:} One watt is equal to one joule of energy used or transferred per second
+            \begin{align*}
+                W = \frac{J}{s}
+            .\end{align*}
+        \item \textbf{A Basic Electric Circuit}: An electric circuit is a complete loop that starts and ends at the same point and provides a conductive path for an electric current to flow.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/4.png}
+            \bigbreak \noindent 
+            In this circuit, current flows from the battery to the light bulb. The current then continues through the bulb and returns to the battery, completing the circuit.
+            \bigbreak \noindent 
+            A light bulb has two electrical connectors (terminals) on it: one is at the end of the base and is normally a round dot, and the other is on the side of the base, which is sometimes a thread. It doesn't matter whether you connect the battery's positive terminal to the side of the light bulb or the bottom - the circuit will work either way.
+            \bigbreak \noindent 
+            Things to note:
+            \begin{itemize}
+                \item \textbf{Voltage} - The battery supplies a voltage that causes current (electrons) to flow around the circuit. The electrons leave the negative terminal of the battery and travel around the circuit (through the light bulb) until they reach the positive terminal of the battery.
+                \item \textbf{Closed Circuit} - The circuit is closed - it forms a complete loop, starting and ending at the same place (the battery). If there was a break (or gap) in the circuit it would not work.
+                \item \textbf{Load} - In order to do something useful, an electric circuit needs to have a load. In our case, the load is the light bulb. In electronic circuits, the load is made up of components such as resistors, capacitors, light emitting diodes (LEDs), buzzers, motors, and light sensors.
+            \end{itemize}
+        \item \textbf{Adding a Switch}: In its current form the circuit is not particularly practical because there is no way of turning off the light bulb without disconnecting the battery. To address this short-coming we can add a switch
+            \bigbreak \noindent 
+            \fig{.6}{./figures/5.png}
+            \bigbreak \noindent 
+            What we have done by introducing the switch is to create a situation whereby we can turn the closed circuit into an open circuit. This prevents the current from flowing through the light bulb, which turns it off.
+        \item \textbf{Short Circuit}: Electric circuits can become very complicated and ensuring that the current flows around those circuits correctly is a tricky business and sometimes short circuits occur. This is when the current takes an alternative route to the one you want it to, and in doing so incorrectly bypasses some or all of the components that make up the system. The circuit we have been looking at so far is very simple, and introducing a short circuit is very easy to do, as shown below.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/6.png}
+            \bigbreak \noindent 
+            The short circuit shown in Figure 10 causes the switch to be bypassed, meaning that whether it is open or closed, the light bulb will always be on. Although this short circuit would be annoying if you had designed the circuit, it would not cause any damage to the light bulb.
+            \bigbreak \noindent 
+            When the switch is closed, the current will flow down both paths, which then converge on their way to the light bulb.
+            \bigbreak \noindent 
+            Now, consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/7.png}
+            \bigbreak \noindent 
+            The short circuit shown above is more serious because it bypasses the light bulb (the circuit's load). When the switch is closed, the circuit will get very hot as the current races between the two terminals of the battery. Some current will flow through the light bulb when the switch is closed, but most of it won't.
+        \item \textbf{Why do things get hot}: A battery has a very small amount of internal resistance. We can use Ohm's law to calculate how much current will flow around the circuit when the two battery terminals are connected to each other. (I'm assuming that the resistance of the wire is negligible so I haven't included it in the calculation.). If $\text{volts} = 1.5V$, $\text{resistance} = 140m\Omega$,
+            \begin{align*}
+                I = 1.5 / 0.140 = 10.71\; \text{amps}
+            .\end{align*}
+            This is a lot of current to pass through the battery, which will cause a very rapid build up of heat in the circuit and may even cause the battery to explode.
+        \item \textbf{The Battery}: As with all of the circuits we describe in this book, the voltage source (the power source) is provided by a battery. The battery shown in the above circuits is a 1.5 volt 'D'. If we add a second battery in series with the first one, the light bulb will glow more brightly because we have increased the amount of voltage pushing the current around the circuit.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/8.png}
+            \bigbreak \noindent 
+            On the other hand, if we add more light bulbs to the circuit, they will become dimmer because the voltage is having to push the current through a bigger load.
+        \item \textbf{Electronic circuits}: Electronic circuits are made up of various components that work together to create a circuit that does something. Exactly what that "something" is depends on the circuit. Electronic components can be categorized into two groups:
+            \begin{itemize}
+                \item Discrete components
+                \item Integrated circuits (ICs)
+            \end{itemize}
+            Discrete components include items such as resistors, capacitors, and diodes. Integrated circuits (ICs) are tiny circuits etched onto silicon and are often referred to as chips. They are normally used to perform a particular function, for example a timer, and can be combined with discrete components to form larger circuits.
+            \bigbreak \noindent 
+            ICs have pins on them that provide access to the various parts of the IC's internal circuit. Getting the IC to function properly requires correct use of these pins.
+        \item \textbf{Schematic Circuit Diagrams}: Although the circuit diagrams we have looked at so far in this chapter look quite nice in that you can easily recognize the battery and the light bulb, once a circuit starts to become more complicated, this approach would soon become quite cumbersome. So, instead, schematic circuit diagrams are normally used in which components are represented by symbols, with lines between them to show how they are connected
+            \bigbreak \noindent 
+            The idea is that the symbols convey enough information to enable someone to understand and build the circuit, but do not contain any unnecessary detail regarding the components themselves.
+            \bigbreak \noindent 
+            The lines that join the symbols represent wires on a breadboard or traces of copper on a printed circuit board.
+            \bigbreak \noindent 
+            Circuit traces are the thin, conductive copper pathways on a printed circuit board (PCB) that act as wires to connect electronic components
+            \bigbreak \noindent 
+            A couple of things to note about schematic circuit diagrams:
+            \begin{itemize}
+                \item They always depict conventional current flow (positive to negative) rather than electron current flow (negative to positive).
+                \item The layout of components in a schematic circuit diagram does not have to match the physical layout of the components when the circuit is built.
+            \end{itemize}
+            Circuit schematics depict conventional flow because historical convention established current as moving from positive to negative before electrons were discovered
+
+        \item \textbf{Coulomb and electric charge}: Electric charge is a basic physical property of matter that causes objects to feel a force when near other charged matter. 
+            Charge is either positive or negative. Protons carry a positive charge and electrons carry a negative charge.
+            \bigbreak \noindent 
+            Like charges push away from each other (repel), and opposite charges pull toward each other (attract).
+            \bigbreak \noindent 
+            Charge is denoted $Q$ and measured in \textbf{coulomb $C$}, with
+            \begin{align*}
+                C = A \cdot s
+            .\end{align*}
+            Thus, one amp is one coulomb per second, and:
+            \begin{align*}
+                Q = It
+            .\end{align*}
+            Consider a current of $3\; A$ that flows for $2\; s$
+            \begin{align*}
+                Q = 3A \cdot 2s = 6 A \cdot s = 6\; C
+            .\end{align*}
+            Current is therefore the rate at which charge flows
+            \begin{align*}
+                I = \frac{Q}{t}
+            .\end{align*}
+        \item \textbf{Energy}: Energy is a fundamental quantitative property that describes a system's capacity to perform work or cause change, measured in joules $J$.
+            \begin{itemize}
+                \item \textbf{Kinetic Energy:} The energy of motion.
+                \item \textbf{Potential Energy:} Stored energy based on an object's position, state, or configuration.
+            \end{itemize}
+            \begin{align*}
+                J = \frac{kg \cdot m^{2}}{s^{2}}
+            .\end{align*}
+        \item \textbf{Electrical potential}: Electrical potential describes how much electrical potential energy a unit of positive charge would have at a particular location.
+            \begin{align*}
+                \text{Electrical potential} = V = \frac{\text{potential energy}}{\text{charge}} = \frac{U}{q}
+            .\end{align*}
+            Its unit is the volt
+            \begin{align*}
+                V = \frac{J}{C}
+            .\end{align*}
+        \item \textbf{More on voltage}: Electrical potential applies to a location. Voltage is the difference in potential between two locations:
+            \begin{align*}
+                \Delta V = V_{B} - V_{A}
+            .\end{align*}
+            If point $A$ is at 0V and point $B$ is at 5V, then $B$ is 5V higher in electrical potential than $A$. The voltage between them is 5V.
+            \bigbreak \noindent 
+            Potential must be measured relative to a reference. In circuits, we normally choose one point as ground and assign it a potential of 0 V.
+            \bigbreak \noindent 
+            A positive charge naturally moves from higher electrical potential toward lower electrical potential. Electrons are negatively charged, so they tend to move in the opposite direction—from lower potential toward higher potential.
+        \item \textbf{Parallel vs series circuits}: A parallel circuit is an electrical circuit where two or more components are connected across the same two nodes, creating multiple paths for the electric current to flow.
+            \begin{itemize}
+                \item \textbf{Same Voltage ($V$):} The voltage across every single parallel component is exactly the same. If a 12V battery is connected to three parallel resistors, each resistor experiences the full 12V.
+                \item \textbf{Split Current (\(I\)):} The total current entering the parallel section splits up into the different branches. Paths with less resistance get more current, and paths with more resistance get less current.
+                \item \textbf{Independent Operation:} Because each branch has its own direct path to the power source, if one component breaks or is turned off, the other branches keep working perfectly. This is how the electrical wiring in your home is designed.
+            \end{itemize}
+            In a series circuit, all components are connected end-to-end in a single line, forming a single path for the electrical current to flow.
+            \begin{itemize}
+                \item \textbf{Identical Current (I):} The current flowing through every single series component is exactly the same (\(I_{total} = I_1 = I_2 = I_3\)). There are no alternate routes or branches, so current cannot split up.
+                \item \textbf{Shared Voltage (V):} The total voltage from the power source is split across the components (\(V_{total} = V_1 + V_2 + V_3\)). Components with higher resistance will take a larger share of the voltage.
+                \item \textbf{Cumulative Resistance (R):} The total resistance of the circuit is simply the sum of all individual resistances (\(R_{total} = R_1 + R_2 + R_3\)). Adding more resistors in series increases the total resistance and decreases the overall current.Dependent Operation: Because there is only one path, if any single component burns out, breaks, or is disconnected, the entire circuit is broken and all components stop working. (This is why one broken bulb on an old string of Christmas lights turns off the whole strand).
+                \item \textbf{Dependent Operation:} Because there is only one path, if any single component burns out, breaks, or is disconnected, the entire circuit is broken and all components stop working. (This is why one broken bulb on an old string of Christmas lights turns off the whole strand).
+            \end{itemize}
+        \item \textbf{Combination circuit}: When you have a circuit with both series and parallel components, it is called a combination circuit (or series-parallel circuit).
+            \bigbreak \noindent 
+            To solve these, you work backward like a puzzle, simplifying the parallel parts first until you are left with just one simple series chain.
+            \begin{itemize}
+                \item \textbf{Group the parallel parts}: Identify which resistors are parallel to each other
+                \item \textbf{Find the Group Voltage:} Remember that parallel components share the exact same voltage.
+                \item \textbf{Add the series parts:} Now treat that parallel group as one single block. If that block has \(5\text{V}\) and it is in series with resistor \(R_{3}\) (which has, say, \(3\text{V}\)), you add them together:
+                    \begin{align*}
+                        \text{Total\ Voltage}=\text{Parallel\ Group\ Voltage}+\text{Series\ Component\ Voltage}
+                    .\end{align*}
+            \end{itemize}
+        \item \textbf{Combining parallel resistors}: Adding resistors in parallel always decreases the total resistance of the circuit because it provides multiple pathways for the electrical current to flow
+            \bigbreak \noindent 
+            To find the total equivalent resistance \(R_{total}\)) of resistors in parallel, you add their inverse (reciprocal) values together and then invert the final sum:
+            \begin{align*}
+               \frac{1}{R_{\text{total}}}  = \frac{1}{R_{1}} + \frac{1}{R_{2}} + \frac{1}{R_{3}} + \ldots + \frac{1}{R_{n}}
+            .\end{align*}
+            Where $R_{1}, R_{2}$, etc., are the resistance values of the individual resistors.
+            \bigbreak \noindent 
+            \textbf{Note:} The current changes when parallel resistors are combined.
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Equipment}
+    \begin{itemize}
+        \item \textbf{Intro}: To carry out electronics experiments you need to have a variety of electronic components and equipment available to you. The more components you have in your set, the more you will be able to play around with circuits, but initially you'll be able to get by with a fairly modest set.        
+            \bigbreak \noindent 
+            The list of components and equipment in the following table is reasonably extensive, so don't worry about getting everything straight away. In fact, it's probably better to acquire stuff slowly rather than going out and buying everything in one go. That way, you'll be able to spend more time getting components and equipment that are right for you.
+            \begin{itemize}
+                \item \textbf{Breadboards}: A breadboard enables you to prototype electronic circuits without the need to solder components in place. With a breadboard you can insert a component into position and then remove it and put it somewhere else.
+                    \bigbreak \noindent 
+                    Beneath the holes are a series of internally connected rows and columns that enable components to be connected to each other by jumper wires.
+                    \bigbreak \noindent 
+                    To supply power to the breadboard you normally use a battery.
+                \item \textbf{Battery}: All of the electronic circuits described in this book use a battery (or batteries) as the power source.
+                \item \textbf{Battery clip}: A breadboard battery clip (or battery snap/holder with pins) is a connector that attaches to a battery and features rigid male pins designed to plug directly into a solderless electronic breadboard
+                \item \textbf{Battery box}: A breadboard battery box is a specialized battery holder with wire leads that feature solid male pins on the ends, allowing it to plug directly into a solderless electronic breadboard without any stripping or soldering.
+                \item \textbf{Resistors}: Pretty much every electronics circuit uses resistors, which are small devices used to control the flow of current in a circuit.
+                    \bigbreak \noindent 
+                    An electronic circuit is made up of components that require a certain amount of current in order to operate correctly. Resistors enable you to control how much current flows into components to ensure that they work as intended and do not get damaged.
+                    \bigbreak \noindent 
+                    Resistors are very cheap and when you start building circuits you will notice that you very quickly accumulate a large selection of resistors.
+                    \bigbreak \noindent 
+                    You should also get yourself a few variable resistors (potentiometers). With this type of resistor you can manually adjust the resistance value from a minimum to a maximum value
+                    \bigbreak \noindent 
+                    With an LDR (light dependent resistor), the amount of resistance provided by the resistor varies with the amount of light detected.
+                    \bigbreak \noindent 
+                    You could also consider getting a few thermistors. A thermistor is a resistor in which the amount of resistance provided depends on the temperature.
+                \item \textbf{Diodes}: A diode is an electronic component that lets current flow in one direction only
+                    \bigbreak \noindent 
+                    A diode has two leads (or pins): the anode and the cathode. You can normally identify which is which because there will be some kind of marker on the diode such as a silver or colored band, which is next to the cathode.
+                    \bigbreak \noindent 
+                    If the anode is connected to a higher voltage than the cathode, current flows through the component (from the anode to the cathode). If the cathode is connected to a higher voltage than the anode, current does not flow through the component.
+                \item \textbf{Light emitting diodes (LED)}: As with normal diodes (mentioned above), light emitting diodes (LEDs) have an anode and cathode and only allow current to flow in one direction through the component. However, different to normal diodes, LEDs emit light when current passes through them.
+                \item \textbf{Capacitors}: Capacitors are used to store electrical energy and are very widely used in electrical and electronic systems.
+                    \bigbreak \noindent 
+                    A polarized capacitor has a positive pole and a negative pole and has to be inserted the correct way round in a circuit in order to work.
+                \item \textbf{Transistors}: Transistors are the building block of modern electronic devices and are used to switch or amplify electronic signals.
+                \item \textbf{Push buttons / switches}: A push button is a switch mechanism that lets you open or close a circuit.
+                \item \textbf{Jump wire}: A jump wire is an electrical wire with a connector at each end. Sometimes the wires can be grouped together within a cable, but in this book we will just use individual jump wires.
+                    \bigbreak \noindent 
+                    The connectors can be inserted into the holes on a breadboard to connect components and create a circuit.
+                    \bigbreak \noindent 
+                    Different colored wires are available. The colors can be used to indicate different signals or paths if required, but as the wires are the same thickness, they are all the same from an electrical point of view. Different lengths of wire are also available.
+                \item \textbf{Crocodile (or alligator) clip}: A crocodile (or alligator) clip is a sprung metal clip with long, serrated jaws which is used for creating a temporary electrical connection. It gets its name from the resemblance of its jaws to that of a crocodile's.
+                    \bigbreak \noindent 
+                    Crocodile clips are very useful when you're using a multimeter to measure current, voltage, or resistance in a circuit because sometimes you feel as though you need an extra pair of hands when you're trying to take measurements.
+                \item \textbf{Small DC motor}: Direct Current (DC) motors are good fun to play with so you should certainly get at least one as part of your electronics laboratory.
+                    \bigbreak \noindent 
+                    Ideally, look for something that operates in the 6 to 15 V range so it is suitable for use with a 9 V battery.
+                    \bigbreak \noindent 
+                    You should also get a fan blade that you can attach to the motor's drive shaft. This not only enables you to see when the motor is running, but it also lets you generate electricity using wind power
+                \item \textbf{Terminal block}: A screw terminal block is a type of electrical connector where a wire is held by the tightening of a screw.
+                \item \textbf{Multimeter}: A multimeter is a piece of test equipment that enables you to check the voltage (in volts), current (in amps) and resistance (in ohms) in a circuit. It is in fact a combination of three separate test tools
+                    \begin{itemize}
+                        \item an ammeter, which measures current,
+                        \item a voltmeter, which measures voltage, and
+                        \item an ohmmeter, which measure resistance.
+                    \end{itemize}
+                \item \textbf{Oscilloscope}: An oscilloscope is a type of electronic test instrument that allows observation of varying signal voltages, usually as a twodimensional plot of one or more signals as a function of time.
+            \end{itemize}
+        \item \textbf{Guidelines}: 
+            \begin{itemize}
+                \item Always connect up all the components in your circuit before you supply any power to it.
+                \item Once power is being supplied, touch the battery and other components to check that nothing is getting hot. Do this on a regular basis while you are working on the circuit.
+                \item When you have finished working on the circuit, disconnect the battery from the circuit.
+                \item If you have battery clip connected to the battery terminals, remove it when the battery is not supplying power to a circuit. If the clip's two wires touch each other while the clip is connected to the battery, this will cause a short circuit and the battery will get very hot, very quickly.
+                \item Disconnect the power source straight away if you smell burning.
+                \item Try to avoid working in your electronics lab when there is no-one else in the house.
+            \end{itemize}
+        \item \textbf{Hidden high voltages}: Depending on the circuits you build you may well create situations whereby hidden high voltages exist in the circuit. Pay special attention to any circuits that contain capacitors - especially big ones - as these can store electrical energy long after the battery power supply has been removed from the circuit.
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Resistors}
+    \begin{itemize}
+        \item \textbf{Intro}: Resistors are small devices used to control the flow of current in a circuit, and are used in pretty much every electronics circuit. They are made from a combination of material that conducts current easily (for example, a conductor such as carbon) and material that does not conduct current easily (for example, an insulator such as ceramic). The mixture of these two materials determines the amount of resistance provided by the resistor. A mixture high in ceramic produces a resistor that imposes a high resistance on the flow of current, while a mixture high in carbon produces a resistor that lets current flow relatively easily.        
+        \item \textbf{Why Resistors are Important}: An electronic circuit is made up of components that require a certain amount of current in order to operate correctly. If the amount of current is too low, the component may not work properly or perhaps not at all. For example, if a light emitting diode (LED) requires 25 milliamps of current in order to illuminate properly, but the circuit is only supplying 10 milliamps, the LED will not be very bright. On the other, if you allow too much current to flow through a component, you run the risk of destroying that component. For an LED it might mean that it shines very brightly and doesn't last very long, or it might even cause the LED to go bang.
+            \bigbreak \noindent 
+            By using Ohm's Law you can calculate the size of resistor you require in order to allow the correct amount of current to flow through a component.
+        \item \textbf{Resistor Sizes}: In 1952 the IEC (International Electrotechnical Commission) defined a standard for resistance values and tolerances to ease the mass production of resistors. These are referred to as preferred values or E-series, and are published in the IEC 60063:1963 standard.
+            \bigbreak \noindent 
+            The following E series exist
+            \begin{itemize}
+                \item E6 series (tolerance 20\%)
+                \item E12 series (tolerance 10\%)
+                \item E24 series (tolerance 5\% and 1\%)
+                \item E48 series (tolerance 2\%)
+                \item E96 series (tolerance 1\%)
+                \item E192 series (tolerance 0.5\%, 0.25\% and 0.1\%)
+            \end{itemize}
+            Don't worry about what resistor tolerance means at this stage, we cover that later on.
+            \bigbreak \noindent 
+            The following table shows the resistor values that conform to the E12 series, which is the most popular of the E series.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/10.png}
+            \bigbreak \noindent 
+            In the above table 'k' stands for kilo-ohm (1,000 ohms), and 'M' stands for mega-ohm (1,000,000 ohms).
+        \item \textbf{Resistor Color Coding}: A resistor has a series of colored bands around it that indicate the amount of resistance provided by the resistor (the value of the resistor), as well as its tolerance, which is a measure of its accuracy - in other words, how close to the indicated resistance value the resistor actually is.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/11.png}
+            \bigbreak \noindent 
+            we can see that it has four bands:
+            \begin{itemize}
+                \item Yellow
+                \item Violet
+                \item Yellow
+                \item Silver
+            \end{itemize}
+            The majority of resistors have four bands; the first three indicate the resistance value and the fourth indicates the tolerance. If a resistor has five bands, the first four represent the value and the fifth indicates the tolerance.
+            \bigbreak \noindent 
+            It can sometimes be tricky to determine from which side you should read the colors. The way to do it is to try to determine the band that is closest to the end of the resistor and start with that color. If the resistor has a gold or silver band on it
+            \bigbreak \noindent 
+            then you should position that band on the right-hand side when you are working out the resistor's value. This is because resistor values never start with a gold or silver band, so those colors can never be on the left-hand side.
+            \bigbreak \noindent 
+            There are plenty of online calculators to help you work out resistor values and colours - whether you have a resistor and you're not sure what its value is, or if you know what value you want but you're not sure what the resistor looks like. You can also use a multimeter to quickly measure the resistance of a resistor.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/12.png}
+            \bigbreak \noindent 
+            * This digit only applies to 5-band resistors.
+        \item \textbf{Resistor Tolerance}: We have established from the previous sections that as well as having a resistance value in ohms, resistors also have a tolerance rating. What this means is if you use a 100 $\Omega$ resistor that has a 10\% tolerance, the actual resistance value will be somewhere between $90\Omega$ and $110 \Omega$.
+            \bigbreak \noindent 
+            In many electronics circuits a tolerance of 5\% or 10\% is acceptable, and that is certainly the case with all the circuits we use in this book. If, when you design and build your own circuits, you need a higher degree of accuracy (in other words, a smaller tolerance), you can simply use an E series resistor that matches your requirements
+            \bigbreak \noindent 
+            Note that you can get resistors outside of these standard series, for example, you can buy E12 series resistors that have a tolerance of 5\%.
+        \item \textbf{Resistor Power Rating}: One more thing to consider when using resistors is their power rating, which is measured in watts (W) and will typically be 1/8 (or 0.125) W or 1/4 (or 0.25) W.
+            \bigbreak \noindent 
+            The way a resistor works is to restrict the flow of current that passes through it, which causes the resistor to heat up. If the resistor heats up too much it will burn up. The amount of power a resistor can handle before it burns up is calculated using the following formula:
+            \begin{align*}
+                W = VI
+            .\end{align*}
+            \bigbreak \noindent 
+            Assume that a $470 \Omega$ is being used in a circuit, and it has $9 V$ across it. Then,
+            \begin{align*}
+                9\; V &= I(470\; \Omega) \implies I = \frac{9}{470} \frac{v}{\Omega} \approx 0.019\; A
+            .\end{align*}
+            Thus, the current is roughly $0.019$ amps. From this, 
+            \begin{align*}
+                W = 9\; V \cdot \frac{9}{470}\; A = \frac{81}{470}\; \frac{V}{A} \approx 0.172\; W
+            .\end{align*}
+            So, the power dissipated by the resistor is $0.172$ watts. 
+            \bigbreak \noindent 
+            For a resistor with a power rating of 1/8 (0.125) W, this would be too much power to dissipate. However, for a 1/4 (0.25) W resistor, this would be acceptable.
+            \bigbreak \noindent 
+            Exceeding a resistor's power rating causes it to overheat, permanently change its resistance value, burn out, or potentially catch fire
+        \item \textbf{Identifying the Power Rating}:  When you buy a pack of resistors, the power rating will be stated on the packaging. However, if you have a box of assorted resistors just lying around, you can't tell what the power rating of a resistor is by looking at it - unlike the resistance value and tolerance rating, there is no indication on the resistor as to its power rating. You can, however, get an idea of a resistor's power rating based on how big the resistor is - bigger resistors have bigger power ratings.
+        \item \textbf{Potentiometers}: All of the resistors we have looked at so far have had a fixed resistance. It is possible though to have a resistor that has a variable resistance; such resistors are called potentiometers (or pots, for short). Typical uses of a potentiometer are:
+            \begin{itemize}
+                \item volume control on a radio
+                \item dimmer switch for a light
+                \item thermostat
+            \end{itemize}
+            A potentiometer can be used in two ways in a circuit:
+            \begin{itemize}
+                \item as a variable resistor (rheostat), or
+                \item as a voltage divider.
+            \end{itemize}
+            A rheostat is a two-terminal variable resistor used to control the flow of electric current in a circuit by manually changing its resistance
+            \bigbreak \noindent 
+            We will just concentrate on how potentiometers are used as variable.
+        \item \textbf{Pins}: Pins on an electrical component are small metal contact points that create physical and electrical paths for power, signals, or data to flow between the component and a circuit board. They carry electrical current, voltage, or digital data signals into and out of devices like microchips, resistors, and connectors.
+            \bigbreak \noindent 
+            Voltage is always a difference between two points. You cannot measure the voltage of just one single spot without a baseline.
+            \bigbreak \noindent 
+            Ground acts as the "zero line" or 0V.  If ground is 0V and another part of the circuit reads 12V, you know there is a 12-volt push between those two spots.
+        \item \textbf{Ground (GND)}: In electronics, ground (often labeled as GND) is the zero-volt reference point used to measure all other voltages in a circuit and provides a common return path for electric current 
+        \item \textbf{Using a Potentiometer as a Variable Resistor (Rheostat)}:  To use the potentiometer as a variable resistor, only two pins are used: one of the outside ones and the center pin. The position of the wiper determines how much resistance the variable resistor provides.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/13.png}
+            \bigbreak \noindent 
+            A 100 $k\Omega $ variable resistor, as shown in Figure 15, has a maximum resistance of 100 $k\Omega $ and a minimum of $0\Omega$. This means that by changing the position of the wiper, the resistance provided is somewhere between $0\Omega$ and 100 $k \Omega$.
+            \bigbreak \noindent 
+            To adjust the resistance of a variable resistor, you normally turn (rotate) a knob, but with some variable resistors you need to move a slider.
+        \item \textbf{Variable Resistor Ratings}: As with normal 'fixed-value' resistors, a variable resistor has a resistance value, for example, 100 $k\Omega$. The way this works is that the resistance value between one of the fixed terminals and the wiper terminal, plus the resistance value between the other fixed terminal and the wiper terminal, always add up to the total resistance value of the resistor.
+            \bigbreak \noindent 
+            Figure 15 assumes that the scale between 0 and 100 $k\Omega$ is a linear one. In other words, if the wiper is 25\% of the way round the resistive strip, the resistance value to the left of the wiper terminal is 25 $k\Omega$ and the value to the right is 75 $k\Omega $; and if the wiper is half round the strip, the two resistance values are both 50 $k\Omega$.
+            \bigbreak \noindent 
+            It is also possible to have a situation whereby a logarithmic (taper) scale is used rather than a linear one
+            \bigbreak \noindent 
+            When a logarithmic scale is used, the output current initially increases very slowly as the wiper position is adjusted, but increases at a high rate towards the end of the wiper adjustment.
+            \bigbreak \noindent 
+            Logarithmic scales are typically used to control the volume on audio devices.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/14.png}
+        \item \textbf{Photoresistor / Light Dependent Resistor (LDR)}: As the name suggests, the amount of resistance provided by an LDR depends on how much light is detected by the LDR. In low light conditions, the resistance of an LDR is very high, but when a torch is shone on it, for example, the resistance drops dramatically to let current flow through the device.
+        \item \textbf{Thermistor}: A thermistor is a type of resistor in which the amount of resistance provided by the device varies according to the surrounding temperature.
+            \begin{itemize}
+                \item At low temperatures, the resistance of a thermistor is high, and only a small amount of current can flow through it.
+                \item At high temperatures, the resistance is low, allowing more current to flow through the device.
+            \end{itemize}
+        \item \textbf{Schematic Diagram Symbols}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/15.png}
+            \bigbreak \noindent 
+            Where there is a choice, in this book we use the IEEE symbols.
+        \item \textbf{Schematic diagram symbols for power supply}: 
+            \begin{itemize}
+                \item \textbf{DC voltage source:} A circle with + and − signs. The voltage value is usually written beside it, such as 12 V.
+                \item \textbf{Battery:} Alternating long and short parallel lines. The long line is positive; the short line is negative.
+                \item \textbf{Power rail:} An upward-pointing symbol or labeled connection such as VCC, VDD, +5V, or +12V.
+                \item \textbf{Ground/return:} Usually three horizontal lines that become shorter toward the bottom. It represents the circuit’s reference voltage, normally 0 V.
+            \end{itemize}
+            In a battery symbol, each pair of parallel lines represents one electrochemical cell:
+            \begin{itemize}
+                \item The long line represents the cell’s positive terminal (+).
+                \item The short line represents the cell’s negative terminal (−).
+            \end{itemize}
+            A single long–short pair represents one cell. Several alternating long and short lines represent multiple cells connected in series, which is technically a battery.
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Capacitors}
+    \begin{itemize}
+        
+
 
 
 
