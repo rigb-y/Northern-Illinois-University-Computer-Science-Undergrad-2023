@@ -100,6 +100,9 @@
         \item \textbf{Ions}: Sometimes atoms gain or lose electrons. When this happens, it causes the atom that has lost the electron to not have quite enough electrons, while the atom that has gained an electron now has slightly too many. These atoms are called ions. A positive ion occurs when an atom loses an electron (negative charge), which means that it has more protons (positive charge) than electrons. A negative ion occurs when an atom gains an extra electron so it has more electrons than protons causing it to have a negative charge.
             \bigbreak \noindent 
             This process of atoms losing and gaining electrons takes place in a random manner within an element, so some atoms are losing electrons, and some are gaining electrons, causing positive and negative ions to be created all over the place.
+        \item \textbf{Cation / Anion}: Ions are divided into two main categories: \textbf{cations} (positively charged ions) and \textbf{anions} (negatively charged ions).
+            \bigbreak \noindent 
+            They can also be categorized as \textbf{monatomic} (consisting of a single atom) or \textbf{polyatomic} (consisting of multiple atoms bonded together).
         \item \textbf{Conducting and Insulating Elements}: With some elements - copper, for example - the process of electrons randomly jumping around between atoms takes place more easily than with other elements. It is this property of copper that makes it an excellent conductor. Other excellent conductors are silver and aluminium
             \bigbreak \noindent 
             Elements that are reluctant to let their electrons move from one atom to another are known as insulators. Materials made of polymers or plastics tend to be very good insulators, which is why they are used as insulation around copper wires. Glass and paper are also excellent insulators.
@@ -188,6 +191,19 @@
                 I &= \frac{V}{\Omega}, \\
                 \Omega &= \frac{V}{I}
             .\end{align*}
+        \item \textbf{Kirchhoff's laws}: Kirchhoff's circuit laws are two fundamental rules used to find currents and voltages in electrical networks.
+            \begin{itemize}
+                \item \textbf{Kirchhoff's First Law (Current Law / Junction Rule)}: The total current entering a junction or node must equal the total current leaving that junction.
+                    \begin{align*}
+                         \sum I_{\text{in}} = \sum I_{\text{out}} or \sum I = 0
+                    .\end{align*}
+                \item \textbf{Kirchhoff's Second Law (Voltage Law / Loop Rule)}: The total voltage around any closed circuit loop must equal zero.
+                    \begin{align*}
+                        \sum V = 0 
+                    .\end{align*}
+                    Sum of voltage rises equals sum of voltage drops
+
+            \end{itemize}
         \item \textbf{Work}: Work is the energy transferred to or from an object when a force causes that object to move through a distance and is measured in \textbf{joules} $J$. One Joule equals one Newton-meter ($N \cdot m$).
             \begin{align*}
                 W = Fd\cos{\left(\theta \right)}
@@ -764,6 +780,15 @@
             If the anode is connected to a higher voltage than the cathode (for example, the positive terminal of a battery), current flows through the component (from the anode to the cathode). If the cathode is connected to a higher voltage than the anode, current does not flow through the component.
             \bigbreak \noindent 
             Different types of diode are available, which provides the ability for circuits to behave differently depending on current, voltage or frequency.
+        \item \textbf{Electrode}: An electrode is an electrical conductor used to make contact with a non-metallic part of a circuit, such as an electrolyte, semiconductor, gas, or living tissue.
+        \item \textbf{Anode}:  An anode is the electrode where \textbf{oxidation} (the loss of electrons) occurs in an electrical or electrochemical device
+        \item \textbf{Cathode}: A cathode is the electrode where a \textbf{reduction} reaction happens, meaning it is where chemical species gain electrons
+        \item \textbf{Electrolyte}: An electrolyte in electronics is a substance that conducts electricity by moving charged particles called ions, rather than moving free electrons like metal wires do
+            \begin{itemize}
+                \item \textbf{Ion Movement:} It contains positive and negative ions that flow to carry electrical charge.
+                \item \textbf{Blocking Electrons:} It stops electrons from passing directly through it.
+                \item \textbf{Forcing the Circuit:} By blocking electrons, it forces them to travel through an external circuit, which creates usable electric power.
+            \end{itemize}
         \item \textbf{Semiconductors}: A semiconductor is a substance that has a conductivity that lies somewhere between that of most metals and an insulator. Components made of a semiconductor substance - such as silicon - are essential in most electronic circuits.
         \item \textbf{How Diodes Work}: In its pure form, silicon is an insulator, but you can turn it into a semiconductor by doping. With doping, you mix a small amount of an impurity into the silicon, which changes its behavior. These impurities are classed as being either N-Type or P-Type.
             \begin{itemize}
@@ -868,7 +893,7 @@
             \begin{align*}
                 \rho_{\text{net}} + \rho_{+} + \rho_- = 0
             .\end{align*}
-            It states that the net charge density (\(\rho _{net}\)) is equal to zero because the positive charge density (ρ₊) and the negative charge density (ρ₋) perfectly balance each other out.
+            It states that the net charge density (\(\rho _{net}\)) is equal to zero because the positive charge density ($\rho_{+}$) and the negative charge density ($\rho_{-}$) perfectly balance each other out.
         \item \textbf{Electric field with neutral charge}: If positive and negative charges are mixed together in equal amounts, their electric fields largely cancel:
             \bigbreak \noindent 
             However, being neutral overall does not guarantee that the electric field is zero everywhere. For example, the depletion region contains equal total amounts of positive and negative fixed charge, but they are separated:
@@ -890,8 +915,54 @@
     \pagebreak 
     \unsect{Light Emitting Diodes (LEDs)}
     \begin{itemize}
-        
-
+        \item \textbf{Intro}: A light-emitting diode - or LED - is a special type of diode that converts electrical energy into light 
+            \bigbreak \noindent 
+            LEDs are available in a range of colors and sizes and, as with other diodes, only allow current to flow in one direction. This means that when they are used in an electronic circuit, they need to be inserted in a particular way or they won't work.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/29.png}
+            \bigbreak \noindent 
+            If you look at the circuit in Figure 29 you can see that the LED has two pins, one of which is slightly longer than the other. The longer pin is the anode and has to be connected to the positive side of the circuit. The shorter pin is the cathode and has to be connected to the negative side of the circuit. When an LED is connected in this way it is forward biased. Current always flows from the anode to the cathode. There is also a flat edge on the cathode side of the LED, which enables you to identify which pin is which when the LED is inserted into a circuit.
+            \bigbreak \noindent 
+            If you insert an LED the wrong way round in a circuit (reverse biased) you won't damage it - it just won't work.
+        \item \textbf{Current and Resistance}: The more current that flows through the LED, the brighter it shines. Too much current will cause the LED to shine very brightly, but only for a short amount of time before it burns up. Most LEDs require about 20 mA of current to shine brightly, but without presenting any risk of damage to the LED.
+            \bigbreak \noindent 
+            You can control how much current flows through an LED by using a resistor. If you use a 9 V battery as the power supply, you will need to use a resistor that is about 400 $\Omega$ to sufficiently protect the LED. If you use a battery with a lower voltage, you can get away with using a smaller resistor. If you use a resistor with a higher resistance value than is strictly necessary, the LED will be less bright than it would otherwise be, but it will still work. 
+        \item \textbf{Heat dissipation}: What a resistor does when it is connected in a circuit is to dissipate extra electrical energy (power) as heat energy. This means that if you use a resistor that is perhaps a bit on the
+            \bigbreak \noindent 
+            big size (in terms of its resistance value) it may well start to get warm because it is having to dissipate a lot of electrical energy as heat in order to bring the current down to a level that is suitable for the LED. If this happens, try using a slightly smaller resistor. Don't go too small though, otherwise you'll run the risk that the resistor doesn't provide enough protection for the LED.
+        \item \textbf{Forward voltage drop $V_{F}$}: When current is flowing through an LED, the voltage on the positive leg (anode) is higher than on the negative leg (cathode). This is called the LED's forward voltage drop ($V_{F}$) and is the voltage that is "lost" in the LED when it is operated at a certain current.
+            \bigbreak \noindent 
+            Voltage drop is a reduction in voltage which occurs as electric current moves through a circuit, and is caused by the internal resistances of the various components in the circuit (resistors, connecting wire, LEDs, and so on).
+            \bigbreak \noindent 
+            An LED does experience a fixed voltage drop when it turns on, and that drop in electrical energy is what creates light.
+        \item \textbf{Electrical energy}: Electrical energy is a combination of voltage and current, so we can say that a voltage drop also causes a drop in the electrical energy in a circuit. This is important because it is the electrical energy that enables the circuit to do work, for example, illuminate an LED, drive a motor, and so on. If the energy lost in the circuit is too much before an LED is illuminated or a motor is driven, the circuit will fail to do its job properly.
+            \bigbreak \noindent 
+            Electric power is the rate, per unit time, at which electrical energy is transferred by an electric circuit. The SI unit of power is the watt, which is equivalent to one joule per second. Electric power can be produced by electric generators or electric batteries
+        \item \textbf{More on voltage drop}: Voltage drop is not necessarily a bad thing, and dropping voltage (and therefore electrical energy) across a motor is useful because in doing so, work is being performed by the motor. However, if voltage is dropped across a resistor, for example, this is undesirable because it means that electrical energy is being lost without doing anything useful. For a resistor, the electrical energy is lost in the form of heat energy
+            \bigbreak \noindent 
+            Voltage drop in direct-current (DC) circuits is slightly different to that in alternating-current (AC) circuits.
+        \item \textbf{Voltage drop in direct-current circuits}: Consider a circuit that is powered by a 9 V battery, which has one resistor and two LEDs all connected in series
+            \bigbreak \noindent 
+            \fig{.5}{./figures/30.png}
+            \bigbreak \noindent 
+            The battery, the conductors (wires), the resistor, and the LEDs (the load) all have resistance and all use and dissipate supplied electrical energy to some degree. Their physical characteristics determine how much energy they use or dissipate. For example, the resistance of a wire depends upon the wire's length, its cross-sectional area, the type of material from which it is made, and its operating temperature.
+            \bigbreak \noindent 
+            If the voltage between the battery and the resistor is measured, the voltage potential (how much voltage is available) at the first resistor will be slightly less than 9 V. This is because as the current passes through the wire connecting the battery and the resistor, some of the electrical energy is lost due to the resistance of the wire, which means the energy is unavailable for the load (the LEDs). As the current passes through the resistor, more electrical energy is lost due to the resistance of the resistor. More electrical energy is lost as the current heads toward the first LED. As the current passes through the LED, more electrical energy is lost, but this time mainly in the form of light energy. This is good though because this is the purpose of the circuit - to illuminate this, and the second LED. The process of electrical energy being lost continues throughout the rest of the circuit until we finally get to the negative terminal of the battery at which point the voltage is 0 V.
+            \bigbreak \noindent 
+            The larger the resistor, the more energy is used by that resistor, and the bigger the voltage drop across that resistor.
+            \bigbreak \noindent 
+            Ohm's Law can be used to verify voltage drop. In a DC circuit, voltage is equal to the current multiplied by the resistance ($V = IR$). So, a 1 $k\Omega$ resistor will produce a larger voltage drop than a 47 $\Omega$ resistor, for a given current. Also, Kirchhoff's circuit laws state that in any DC circuit, the sum of the voltage drops across each part of the circuit is equal to the supply voltage. So, for the circuit shown in Figure 39, the sum of all the voltage drops is equal to the supply voltage of 9 V.
+        \item \textbf{Types of LEDs}:
+            \begin{itemize}
+                \item Flashing LEDs, as the name suggests, flash when they are connected into a circuit. These LEDs contain a tiny integrated circuit (IC) that allows the LED to flash without requiring the use of an external IC such as a 555 Timer.
+                \item RGB LEDs are even more impressive because they are able to glow in a range of colors - not just red, green and blue. RGB LEDs contain three LEDs (red, green and blue) in one package and, by mixing light from the three LEDs, you are able to produce other colors.
+                    \bigbreak \noindent 
+                    RGB LEDs normally have four pins - one for each color plus a common. Depending on the LED, the common pin might be the anode or it might be the cathode. If you are including an RGB LED in a circuit, you need to know whether the common pin is the anode or the cathode, as well as the colors represented by the other pins. The RGB LED shown in Figure 32 is one I have in my electronics kit. Here, the common is the cathode, which means the red, green and blue pins are all anodes.
+                    \bigbreak \noindent 
+                    RGB LEDs are different to other LEDs in that you cannot simply connect them to a battery (via a resistor of course) in order to get them to work. Instead, they require a pulse width modulation (PWM) digital signal as input on the red, green, and blue pins, which can be supplied by a micro controller or a 555 Timer. Depending on the LED, the common pin is then either connected to the positive (for a common anode) or negative (for a common cathode) supply.
+            \end{itemize}
+            \fig{.6}{./figures/31.png}
+        \item \textbf{How an LED is Constructed}: 
 
 
     \end{itemize}
