@@ -83,7 +83,9 @@
             The outside of the nucleus is surrounded by a cloud of tiny, negative particles called electrons.
         \item \textbf{Elements and molecules}: An \textbf{element} is a pure substance made of only one type of atom that cannot be broken down into a simpler substance by normal chemical processes
             \bigbreak \noindent 
-            Elements can exist as collections of billions of individual atoms (like solid copper or gold), or they can bond together into small groups called molecules. A \textbf{molecule} is a group of two or more atoms held together by chemical bonds
+            Elements can exist as collections of billions of individual atoms (like solid copper or gold), or they can bond together into small groups called molecules. 
+            \bigbreak \noindent 
+            A \textbf{molecule} is a group of two or more atoms held together by chemical bonds
         \item \textbf{Electric Charge (Electromagnetism)}: Protons have a positive (+) electric charge, and electrons have an equivalent negative (-) charge.
             \bigbreak \noindent 
             Neutrons are neutral, that is, they don't have an electric charge. Although neutrons are extremely important in chemistry and physics, they are not important in electricity ... so we won't say any more about them. Electrons and protons, on the other hand, form the basis of how electric current flows ... so we will talk more about them.
@@ -579,8 +581,316 @@
     \pagebreak 
     \unsect{Capacitors}
     \begin{itemize}
-        
+        \item \textbf{Intro}: A capacitor is a discrete component that can store an electric charge. Capacitors are available in different sizes, with bigger capacitors able to store more charge than smaller ones. Capacitors are also sometimes known as condensers.
+            \bigbreak \noindent 
+            Capacitors are used in lots of electronic equipment, including televisions, radios and cameras. When your camera uses a flash, it's a capacitor that is used to store the electric charge which enables the flash to happen.
+            \bigbreak \noindent 
+            A capacitor is similar to a battery in that it is able to store electrical energy. However, in a battery the energy is generally released quite slowing, perhaps over a period of days, weeks or even years. Capacitors on the other hand tend to release their energy very quickly - normally within a few seconds or less.
+            \bigbreak \noindent 
+            Capacitors get their electrical energy from another energy source in an electric circuit, such as a battery in the case of a digital camera. Adding electrical energy to a capacitor, which can take a few seconds, is known as charging; releasing that energy, which happens very quickly, is known as discharging.
+        \item \textbf{Charging and Discharging a Capacitor}: A capacitor consists of two conductors that allow electric current to flow, separated by an insulator that does not easily allow electric current to flow. The two conductors are known as \textbf{plates}, and the insulator is called the \textbf{dielectric}.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/16.png}
+            \bigbreak \noindent 
+            To charge a capacitor you connect it to an electric circuit. When power is applied to the circuit, an electric charge gradually builds up on the plates. One plate gains a positive charge and the other gains an equal but opposite (negative) charge. When the power is disconnected from the circuit, the capacitor holds (keeps) its charge. If the charged capacitor is then connected to a device such as a flash bulb in a camera, the charge flows quickly from the capacitor until there is none remaining on the plates.
+            \bigbreak \noindent 
+            The insulator (called a dielectric) in a capacitor stops direct electric current from flowing between the two conductive plates, which allows the device to store electrical energy. It prevents electrons from jumping straight across from one plate to the other. This forces charges to build up on the surfaces of the plates.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/17.png}
+            \bigbreak \noindent 
+            The positively charged plate and the negatively charged plate are attracted to each other. Separating them requires work to be done against that attraction. The energy required to do this is stored in the electric charges in the two plates as potential energy. This is the energy that is stored when the capacitor is charged, and then released when the capacitor is discharged.
+            \bigbreak \noindent 
+            Three things determine how much electric charge a capacitor can store:
+            \begin{itemize}
+                \item The size of the plates - the bigger the better.
+                \item How close the plates are together - the closer the better.
+                \item How good the insulator (the dielectric) is. Examples are: air, paper, glass, and rubber.
+            \end{itemize}
+        \item \textbf{Note: Free electrons}: Free electrons are electrons that are not bound to any single atom or molecule and can move around easily
+        \item \textbf{Conservation of charge}: The total electric charge in an isolated system never changes, meaning charge can neither be created nor destroyed, only transferred from one object or system to another.  The total sum of positive and negative charges before an interaction always equals the sum after the interaction.
+            \bigbreak \noindent 
+            Whenever a charged particle is created or destroyed, an equal and opposite charge appears or disappears at the same time, keeping the net change at zero
+            \begin{align*}
+                Q_{\text{initial}} = Q_{\text{final}}
+            .\end{align*}
+            If a process creates a positive charge, it must simultaneously create an equal negative charge to balance it out.
+        \item \textbf{Electrostatic induction}: Electrostatic induction is the redistribution of electric charge in an object caused by the electric field of a nearby charged object. 
+        \item \textbf{Note about negative terminals}: The negative terminal is the point in a power source or circuit where electrons build up and flow out to power electrical devices.  It supplies a surplus of negative charges (electrons) that travel through a complete circuit.
+            \bigbreak \noindent 
+            The negative terminal is the specific contact point on a battery or power supply where the voltage is lowest.
+        \item \textbf{Negative terminals vs ground}: The negative terminal is the source connection where electrons exit a DC circuit, while ground is a chosen reference point designated as zero volts
+        \item \textbf{A Bit More About How Capacitors Work}: As we know, electrons have a negative charge and protons
+            \bigbreak \noindent 
+            Opposite charged particles are attracted to each other - electrons like protons, and protons like electrons - but particles with the same charge are repelled by each other - electrons repel electrons, and protons repel protons. This attraction and repulsion is known as electromagnetic force, and it causes all particles to be surrounded by an electric field.
+            \bigbreak \noindent 
+            Electric current needs a conductor in order to flow. An electric field, on the other hand, does not. This phenomenon is what capacitors use, whereby the electric field created by the particles in one plate extends across the dielectric and causes particles in the second plate to be attracted or repelled.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/18.png}
+            \bigbreak \noindent 
+            we can see that applying a voltage across the two plates of the capacitor causes electrons to move from one plate to the other. Plate B (which loses electrons) becomes positively charged, while Plate A (which gains electrons) becomes negatively charged. This creates a voltage between the two plates, which increases until the voltage across the two plates is the same as the voltage across the two terminals of the battery - 1.5 V in our case. At this point the capacitor is charged.
+            \bigbreak \noindent 
+            A capacitor stops getting charge when the voltage across its plates becomes equal to the voltage of the power source
+            \bigbreak \noindent 
+            If the power supply (the battery) is now removed from the circuit - by opening a switch, for example - the capacitor remains charged and can be used to supply a quick burst of current as and when required in another part of the circuit. When this happens, the capacitor becomes discharged and the plates return to their original state whereby there is no voltage across the two plates, and no current flows.
+            \bigbreak \noindent 
+        \item \textbf{Electric field}: The electric field that exists between the particles in one plate and those in the other plate stores potential energy. It is the electric field that creates the voltage across the two plates. As the capacitor discharges and the voltage across the plates is reduced, the electric field disappears. By this stage, the energy that the electric field stored will have been converted into other forms of energy such as heat and light.
+            \bigbreak \noindent 
+            A Charged Particle creates an electric field around itself. If you bring another charge near it, the field will either push it away or pull it in.
+            \bigbreak \noindent 
+            In a capacitor, you have a plate covered in positive charges directly facing a plate covered in negative charges.
+            \bigbreak \noindent 
+            Because they are trapped on separate plates, they cannot touch, but they still pull on each other.
+            \bigbreak \noindent 
+            This intense pull across the empty gap creates a concentrated electric field.That field holds energy in place—like a stretched rubber band—until you give the charges a path to flow.
+            \bigbreak \noindent 
+            Because they are pulling hard but cannot move, they build up \textbf{potential energy}.
+            \bigbreak \noindent 
+            The moment you connect the capacitor to a circuit (like a wire leading to a lightbulb), you provide a "detour."
+            \bigbreak \noindent 
+            The electrons on the negative plate realize they can take the wire route to get to the positive plate.They rush through the wire to meet the positive charges.
+        \item \textbf{Capacitor example}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/19.png}
+            \bigbreak \noindent 
+            The resistor is included in the circuit to stop the LED from burning out when the capacitor discharges. The diode is included to ensure that current from the capacitor only flows through the resistor and LED, and does not head off towards the positive battery terminal. The circuit would work without the diode but it is good practice to get into the habit of using them where necessary.
+            \bigbreak \noindent 
+            Recall that electron flow is actually from the negative plate through the led through the resistor to the positive plate, although circuit diagram convention still uses conventional current.
+            \bigbreak \noindent 
+            The resistor does not have to be “before” the LED. Because they are connected in series, the same current passes through both components. Moving the resistor below the LED would provide the same current limiting. The LED’s orientation matters, but the resistor’s orientation and position in the series loop do not.
+            \bigbreak \noindent 
+            Electrons are already present throughout the entire circuit—including inside the resistor and LED. When the switch closes, the changing electric field propagates around the circuit and causes electrons everywhere to begin moving.
+            \bigbreak \noindent 
+            The resistor locally restricts charge movement. This produces a voltage drop across it and limits the current throughout the entire series circuit. Because charge cannot continuously accumulate between the LED and resistor, the same current must pass through both:
+            \begin{align*}
+                I_{\text{LED}} = I_{\text{resistor}}
+            .\end{align*}
+            It is not necessary for electrons to enter the battery’s positive terminal during the discharge phase, because the battery is no longer supplying the energy the capacitor is.
+        \item \textbf{Note about the diode}: A diode’s stated direction refers to conventional current, which is opposite to electron flow.
+        \item \textbf{Reminder about conventional current}: Conventional current is a model that treats electricity as a flow of positive charge from the positive terminal to the negative terminal of a power source. Even though actual electrons flow in the opposite direction, this standard is used worldwide for circuit analysis and diagrams
+        \item \textbf{Note about discharging}: Once the capacitor is discharged:
+            \begin{itemize}
+                \item Excess electrons have left the negative plate.
+                \item Those electrons have entered the positive plate, filling its electron shortage.
+                \item Both plates are electrically neutral relative to each other.
+                \item The voltage across the capacitor is approximately \(0\text{ V}\).
+                \item Its electric field and stored energy are approximately zero.
+                \item It can no longer produce sustained current.
+            \end{itemize}
+        \item \textbf{Measuring Capacitance}: The unit of capacitance is the farad (F). However, one farad is a lot of capacitance, so it is normal for capacitors to be measured in fractions of a farad such as microfarads ($\mu F $), which are millionths of a farad, nanofarads ($nF$), which are thousand-millionths of a farad, and picofarads ($pF$), which are million millionths of a farad.
+        \item \textbf{The farad}: One farad is equal to one coulomb per volt. That is,
+            \begin{align*}
+                F = \frac{C}{V} = \frac{Q}{V} = \frac{It}{V}
+            .\end{align*}
+            The $C$ used here is for coulomb, although we usually use $C$ for capacitance, so we can say
+            \begin{align*}
+                C = \frac{Q}{V} = \frac{It}{v} 
+            ,\end{align*}
+            where $C$ is capacitance, $Q$ is charge, $V$ is voltage, and $I$ is current.
+        \item \textbf{Polarity}: Polarity is the property of having two opposite sides or ends (poles) with contrasting qualities, such as positive and negative electrical charges, while polarized describes something that has been restricted, separated, or aligned to possess or exhibit that distinct polarity or direction
+            \bigbreak \noindent 
+            An electrical component is therefore \textbf{polarized} if it has \textbf{polarity}.
+        \item \textbf{Types of Capacitor}: Capacitors come in different forms, sizes and styles, but they all contain at least two conducting plates that are separated by a dielectric. Capacitors can have a fixed value, for example, 1000 $\mu F$, or they can have a variable value. In variable capacitors, the amount by which the plates overlap can be varied, which allows the amount of charge stored to be varied. Variable capacitors can be used to tune a radio and are often called tuning capacitors.
+            \bigbreak \noindent 
+            Fixed capacitors can be separated into two groups:
+            \begin{itemize}
+                \item Polarized
+                \item Non-polarized
+            \end{itemize}
+            Within each of these two groups there are sub-categories of capacitors:
+            \begin{itemize}
+                \item Polarized
+                \begin{itemize}
+                    \item Electrolytic
+                    \item Super-capacitors
+                \end{itemize}
+                \item Non-polarized
+                    \begin{itemize}
+                        \item Ceramic
+                        \item Vacuum, air, glass, silicon
+                        \item Film
+                    \end{itemize}
+            \end{itemize}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/20.png}
+        \item \textbf{Electrolytic and ceramic capacitors}: Polarized capacitors have one positive and one negative terminal and in order to work must be inserted into a circuit such that the positive terminal is connected to the positive side of the circuit, and the negative terminal is connected to the negative side. If the capacitor has one terminal that is longer than the other, the longer one is the positive terminal. Sometimes there is a '+' and '-' next to the terminals so that you can determine which terminal is which.
+            \bigbreak \noindent 
+            Non-polarized capacitors can be inserted either way round.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/21.png}
+        \item \textbf{Capacitance Value, Voltage Rating and Tolerance}: Capacitors often have various letters and numbers written on them that let you identify the capacitance value, voltage rating and tolerance of the capacitor.
+            \bigbreak \noindent 
+            Not all capacitors contain sufficient information printed on them to enable you to identify all the properties of the capacitor. Some capacitors are so small that there simply isn't enough room to contain all of the information. Hopefully though, when you bought your capacitor(s), the manufacturer will have supplied you with a data sheet to provide this information.
+        \item \textbf{Capacitance Values}: Identifying the value of a larger capacitor such as an electrolytic capacitor is normally fairly easy because you can read the value written on the side of the component.
+            \bigbreak \noindent 
+            Reading the capacitance value for a small ceramic capacitor is not quite so straight forward because you have to calculate the value based on the numbers printed on the capacitor.
+            \bigbreak \noindent 
+            There are 3-digit numbers written on capacitors that enable you to work out their value in picofarads ($pF$).
+            \bigbreak \noindent 
+            \fig{.6}{./figures/22.png}
+            \bigbreak \noindent 
+            For example:
+            \begin{align*}
+                Digit 1 &= 1\\
+                Digit 2 &= 0\\
+                Digit 3 &= 4
+            .\end{align*}
+            So, 104 is written on the capacitor. Therefore, the value is 10 x 10,000, which equals 100,000 $pF$, or 100 nanofarads ($n F$), or 0.1 microfarads ($\mu F$).
+        \item \textbf{Voltage Rating}: This is the maximum voltage the capacitor is designed to handle. For larger capacitors it is written directly on the capacitor, but with smaller capacitors where space is limited, a code is used. Where space is so limited that there isn't even enough room for the code, you'll have to rely on the manufacturer's data sheet for the voltage rating.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/23.png}
+        \item \textbf{Tolerance}: As with resistors, capacitors have a tolerance rating which means that the value written on the capacitor (or calculated if there isn't room to display the value) is probably not the accurate value.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/24.png}
+        \item \textbf{Schematic Diagram Symbols}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/25.png}
 
+
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Diodes}
+    \begin{itemize}  
+        \item \textbf{Intro}: A diode is a semiconductor device that passes current in one direction only.
+            \bigbreak \noindent 
+            It is a polarized component that has two pins: the anode and the cathode. You can normally identify which is which because there will be some kind of marker on the diode such as a silver or colored band, which is next to the cathode.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/26.png}
+            \bigbreak \noindent 
+            If the anode is connected to a higher voltage than the cathode (for example, the positive terminal of a battery), current flows through the component (from the anode to the cathode). If the cathode is connected to a higher voltage than the anode, current does not flow through the component.
+            \bigbreak \noindent 
+            Different types of diode are available, which provides the ability for circuits to behave differently depending on current, voltage or frequency.
+        \item \textbf{Semiconductors}: A semiconductor is a substance that has a conductivity that lies somewhere between that of most metals and an insulator. Components made of a semiconductor substance - such as silicon - are essential in most electronic circuits.
+        \item \textbf{How Diodes Work}: In its pure form, silicon is an insulator, but you can turn it into a semiconductor by doping. With doping, you mix a small amount of an impurity into the silicon, which changes its behavior. These impurities are classed as being either N-Type or P-Type.
+            \begin{itemize}
+                \item \textbf{N-type:} With N-Type doping, a small quantity of phosphorus or arsenic is added to the pure silicon. This causes some of the impurity's electrons to break free from their atoms, which are then able to move around within the silicon. As electrons have a negative charge, this causes this part of the diode to also have a negative charge. The N in N-Type stands for negative, and this side of the diode is the cathode.
+                \item \textbf{P-Type:} With P-Type doping, a small quantity of boron or gallium is added to the pure silicon. The result of doing this is to cause holes to be created in the silicon's structure, where there is an absence of electrons, which creates a positive charge within the silicon. The P in P-Type stands for positive, and this side of the diode is the anode.
+            \end{itemize}
+        \item \textbf{Dopant ions}: Dopant ions are charged impurity atoms intentionally added to a material to alter its electrical, optical, or structural properties
+            \bigbreak \noindent 
+             They are atoms that has gained or lost an electrical charge and is embedded into a crystal lattice (such as silicon).
+        \item \textbf{Holes}: If a silicon atom loses an electron, a hole is left behind where the electron used to be.
+        \item \textbf{PN junction}: In a diode there are two doped layers: one N-Type and one P-Type. Where these two layers meet, a PN junction is formed. At this junction, the two materials cancel each other out and so a very thin layer is formed that is neither positively nor negatively charged. This layer is called the depletion layer, and no current can flow across it. However, when a voltage is applied across the PN junction, so that the P-Type anode is made positive and the NType cathode is made negative, current is able to flow. This is known as \textbf{forward bias}. If, however, the cathode is made positive and the anode negative - in other words the diode is inserted into the circuit the opposite way round - no current is able to flow. This is known as \textbf{reverse bias.}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/27.png}
+            \bigbreak \noindent 
+            When current is flowing through a diode, the voltage on the positive pin (anode) is higher than on the negative pin (cathode). This is called the diode's forward voltage drop and needs to be taken into account when trying to determine what size resistor you need to use
+            \bigbreak \noindent 
+            The diode depletion layer (or depletion region) is an insulating zone at the junction of p-type and n-type semiconductor materials where mobile charge carriers have recombined, leaving behind fixed ions with no free carriers to conduct current
+            \bigbreak \noindent 
+            A PN Junction Diode joins p-type material (filled with positive holes) and n-type material (filled with free electrons).
+            \bigbreak \noindent 
+            Electrons from the n-side cross into the p-side and combine with holes.  This movement leaves behind positive ions on the n-side and negative ions on the p-side.  These charges create an internal electric field that stops further diffusion, forming the depleted layer.
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item \textbf{Forward Bias:} Connecting a positive voltage to the p-side and negative to the n-side shrinks the depletion layer, letting current flow past a threshold (about 0.7V for silicon).
+                \item \textbf{Reverse Bias:} Reversing the voltage expands the depletion layer, blocking current flow completely
+            \end{itemize}
+        \item \textbf{Mobile carriers}: Mobile charge carriers are particles—or particle-like vacancies—that can move through a material and transport electric charge. Their movement produces electric current.
+            \bigbreak \noindent 
+            In a semiconductor, there are two kinds:
+            \begin{itemize}
+                \item \textbf{Electrons:} Carry negative charge and move between available energy states in the material.
+                \item \textbf{Holes:} Carry effective positive charge. A hole is an empty position left by a missing electron.
+            \end{itemize}
+            A hole is not a physical positive particle. It appears to move when nearby electrons repeatedly fill empty positions:
+            \bigbreak \noindent 
+            For example, suppose there are several chairs in a row and one chair is empty. As people move into the neighboring empty chair, the empty chair appears to move in the opposite direction. A hole behaves similarly.
+            \begin{itemize}
+                \item The N-type side has many mobile electrons.
+                \item The P-type side has many mobile holes.
+                \item The depletion region has very few of either, so it cannot conduct significant current.
+            \end{itemize}
+            The depletion region also contains charged dopant ions, but those ions are locked into the silicon crystal and cannot move. Therefore, they are fixed charges, not mobile carriers.
+        \item \textbf{Note about the depletion region}: the depletion region is not an empty physical void. The silicon atoms are still there; it is primarily a region with almost no mobile charge carriers.
+        \item \textbf{More on reverse bias}: 
+            \begin{itemize}
+                \item Mobile holes in the P-type region are pulled toward the left terminal.
+                \item Mobile electrons in the N-type region are pulled toward the right terminal.
+                \item This leaves a wider region around the junction without mobile holes or electrons.
+            \end{itemize}
+            The depletion region blocks current for two related reasons
+            \begin{enumerate}
+                \item It has almost no mobile carriers to transport charge.
+                \item Its electric field opposes carriers attempting to cross the junction.
+            \end{enumerate}
+        \item \textbf{Valence electrons}: The electrons found in the outermost shell (energy level) of an atom are called \textbf{valence electrons}.
+        \item \textbf{More on dopants}: P-type silicon is commonly doped with an acceptor atom, such as boron. Boron has one fewer valence electron than silicon. It accepts an electron from the surrounding silicon structure:
+            \bigbreak \noindent 
+            N-type silicon is commonly doped with a donor atom, such as phosphorus. Phosphorus has one extra valence electron, which it donates to the material
+            \bigbreak \noindent 
+            The ionized dopant atoms left behind create the fixed charges in the depletion region.
+            \begin{itemize}
+                \item On the P side, acceptor dopants accepted electrons and became fixed negative ions.
+                \item On the N side, donor dopants donated electrons and became fixed positive ions.
+            \end{itemize}
+            Normally, mobile holes and electrons balance those dopant charges. Near the junction, however, the mobile electrons fill the mobile holes. This removes the balancing mobile carriers and leaves the dopant ions exposed:
+            \bigbreak \noindent 
+            balance means “make the region electrically neutral.”
+            \bigbreak \noindent 
+            Electrons are abundant on the N side, so some diffuse into the P side. There, an electron can fill a hole.
+            \bigbreak \noindent 
+            “Filling a hole” means that a free electron occupies the missing-electron position represented by the hole. The electron becomes bound in the silicon structure, so neither remains a mobile carrier
+            \bigbreak \noindent 
+            The electron did not cease to exist; it simply stopped being mobile. The hole—the missing-electron position—no longer exists.
+            \bigbreak \noindent 
+            Suppose three N-side electrons cross the junction and fill three P-side holes:
+            \begin{itemize}
+                \item The N side has lost three mobile negative charges, leaving three positive donor ions uncompensated.
+                \item The P side has lost three mobile positive charges, leaving three negative acceptor ions uncompensated.
+            \end{itemize}
+            \bigbreak \noindent 
+            “Exposed dopant ions” therefore means dopant ions whose charges are no longer balanced by nearby mobile carriers. They are not physically uncovered; their electrical charge is simply now uncompensated. These uncompensated ions produce the depletion region’s electric field.
+            \bigbreak \noindent 
+            During reverse bias, more mobile carriers are pulled away from the junction, exposing more dopant ions and making the depletion region wider.
+        \item \textbf{Charge density}: Charge density is a measure of how much electric charge is accumulated over a specific length, surface area, or volume. It describes how tightly packed electric charges are within a given space. The SI unit for electric charge is the Coulomb (C),
+            \begin{itemize}
+                \item \textbf{Linear ($\lambda$):} Charge per unit length
+                    \begin{align*}
+                        \lambda = \frac{Q}{L}
+                    .\end{align*}
+                \item \textbf{Surface ($\sigma$)}: Charge per unit area
+                    \begin{align*}
+                        \sigma = \frac{Q}{A}
+                    .\end{align*}
+                \item \textbf{Volume ($\rho$):} Charge per unit volume
+                    \begin{align*}
+                        \rho = \frac{Q}{V}
+                    .\end{align*}
+            \end{itemize}
+        \item \textbf{Charge neutrality (electroneutrality)}: Charge neutrality means that a macroscopic object or material has an equal amount of positive and negative charge, resulting in a net electric charge of zero
+            \bigbreak \noindent 
+            The condition for charge neutrality in a system is
+            \begin{align*}
+                \rho_{\text{net}} + \rho_{+} + \rho_- = 0
+            .\end{align*}
+            It states that the net charge density (\(\rho _{net}\)) is equal to zero because the positive charge density (ρ₊) and the negative charge density (ρ₋) perfectly balance each other out.
+        \item \textbf{Electric field with neutral charge}: If positive and negative charges are mixed together in equal amounts, their electric fields largely cancel:
+            \bigbreak \noindent 
+            However, being neutral overall does not guarantee that the electric field is zero everywhere. For example, the depletion region contains equal total amounts of positive and negative fixed charge, but they are separated:
+        \item \textbf{Types of Diode}: There are several types of diode available, with each type designed to perform a particular function in an electronic circuit.
+            \begin{itemize}
+                \item \textbf{Regular Diode}: This type of diode is designed to stop electricity from flowing in the wrong direction. Whenever a diode is used in this book, it is a regular diode.
+                \item \textbf{Zener Diode}: This is a special kind of diode that allows current to flow when the diode is forward biased, but also allows current to flow when the diode is reverse biased so long as the voltage is above a certain value - the breakdown voltage - which is also known as the Zener voltage.
+                \item \textbf{Photo Diode}: This type of diode only conducts an electric current when it is exposed to light. A typical application might be a circuit in which a switch only operates when the diode is exposed to light.
+                \item \textbf{Schottky Diode}: This type of diode has a low forward voltage drop and can turn on and off very quickly when the breakdown voltage is reached, enabling it to respond very quickly in digital circuits.
+                \item \textbf{Light-Emitting Diode (LED)}: The best known type of diode is the light-emitting diode, or LED, which is a diode designed to give off light when a current passes through it.
+            \end{itemize}
+        \item \textbf{Schematic Diagram Symbols}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/28.png}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Light Emitting Diodes (LEDs)}
+    \begin{itemize}
+        
 
 
 
