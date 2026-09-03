@@ -1626,8 +1626,8 @@
             \bigbreak \noindent 
             We have,
             \begin{align*}
-                I_{R_{\text{in}}} &= \frac{\delta V}{R} = \frac{V_{in} - V_{+}}{R_{\text{in}}}, \\
-                I_{R_{f}} &= \frac{\delta V}{R} = \frac{V_{\text{out}} - V_{+}}{R_{f}}
+                I_{R_{\text{in}}} &= \frac{\Delta V}{R} = \frac{V_{in} - V_{+}}{R_{\text{in}}}, \\
+                I_{R_{f}} &= \frac{\Delta V}{R} = \frac{V_{\text{out}} - V_{+}}{R_{f}}
             .\end{align*}
             So, applying Kirchhoff's current law at $V_{+}$, we get
             \begin{align*}
@@ -1676,9 +1676,129 @@
             \begin{align*}
                 V_{LT} = -\frac{R_{\text{in}}}{R_{f}}V_{OH}
             .\end{align*}
-        \item \textbf{Inverting Schmitt trigger}: An inverting Schmitt trigger is a comparator circuit with positive feedback that converts a noisy analog input into a clean, opposite-polarity digital output using two distinct threshold voltages
-        \item \textbf{Inverting Schmitt-trigger comparator}: 
-        \item \textbf{Basic Operation}: 
+        \item \textbf{Linear circuit}: A linear circuit is an electrical system where the output voltage and current are directly proportional to the input, creating a straight-line graph
+            \bigbreak \noindent 
+            For example, if you double the input voltage, the output current also doubles.
+        \item \textbf{Inverting Schmitt trigger}: An inverting Schmitt trigger is a comparator circuit with positive feedback. It converts a changing or noisy analog input into a clean HIGH or LOW output while using two different switching voltages.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/52.png}
+            \bigbreak \noindent 
+            Assume the reference point is $0V$. Consider the voltage divider connected to the non-inverting input. The current is the same through both resistors, that current is
+            \begin{align*}
+                I = \frac{\Delta V}{R} = \frac{V_{\text{out}} - 0}{R_{1} + R_{2}} = V_{\text{out}}\frac{1}{R_{1}+R_{2}}
+            .\end{align*}
+            Notice that $V_{+} - 0 = IR_{2}$, so
+            \begin{align*}
+                V_{+} = V_{\text{out}}\frac{R_{2}}{R_{1} + R_{2}}
+            .\end{align*}
+            Define the feedback fraction
+            \begin{align*}
+                \beta = \frac{R_{2}}{R_{1} + R_{2}}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                V_{+} = \beta V_{\text{out}}
+            .\end{align*}
+            The important point is that \(V_+\) depends on the current output state. When the output changes, \(V_+\) changes with it.
+            \bigbreak \noindent 
+            If the output starts
+            \begin{align*}
+                V_{\text{out}} = V_{OL}
+            ,\end{align*}
+            $V_{+}$ becomes negative, so the input $V_{-}$ must be increased until the comparator threshold is reached. The upper threshold $V_{UT}$ in this case is the voltage in which the output becomes LOW. In general,
+            \begin{align*}
+                V_{UT} &= \beta V_{OH}, \\
+                V_{LT} &= \beta V_{OL}
+            .\end{align*}
+            It is called an inverting Schmitt trigger because the input signal is connected to the op-amp’s inverting input, marked −
+            \bigbreak \noindent 
+            The circuit’s output changes in the opposite direction from the input:
+            \begin{itemize}
+                \item When \(V_{\text{in}}\) rises above the upper threshold \(V_{UT}\), the output switches from HIGH to LOW.
+                \item When \(V_{\text{in}}\) falls below the lower threshold \(V_{LT}\), the output switches from LOW to HIGH.
+            \end{itemize}
+            This follows the comparator rule.
+        \item \textbf{SR flip-flop}: The NOR implementation is the following
+            \bigbreak \noindent 
+            \fig{.6}{./figures/53.png}
+            \bigbreak \noindent 
+            So, 
+            \begin{align*}
+                Q_{n+1} &= \overline{R + \bar{Q_{n}}} = \bar{R}Q_{n}, \\
+                \bar{Q}_{n+1} &= \overline{S + Q} = \bar{S}\bar{Q}
+            .\end{align*}
+            The characteristic table is 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXX@{}}
+                    \toprule
+                    \textbf{S} & \textbf{R} & $\mathbf{Q_{n}}$ & $\mathbf{Q_{n+1}}$ \\
+                    \midrule
+                    0 & 0 & 0& 0 \\[2ex]
+                    0 & 0 & 1& 1\\[2ex]
+                    0 & 1 & 0&  0\\[2ex]
+                    0 & 1 & 1& 0\\[2ex]
+                    1 & 0 & 0& 1\\[2ex]
+                    1 & 0 & 1& 1\\[2ex]
+                    1 & 1 & 0& undefined\\[2ex]
+                    1 & 1 & 1& undefined \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Thus, $Q_{n+1}$ is true when
+            \begin{align*}
+                \bar{S}\bar{R}Q_{n} + S\bar{R}\bar{Q} + S\bar{R}Q &= \bar{R}(\bar{S}Q + S\bar{Q} + SQ) \\
+                &=\bar{R}(\bar{S}Q + S(\bar{Q} + Q)) = \bar{R}(\bar{S}Q  + S)
+            .\end{align*}
+            Now, using the identity $x + yz = (x+y)(x+z)$,
+            \begin{align*}
+                \bar{S}Q + S = (S+\bar{S})(S+Q)
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \bar{R}(\bar{S}Q  + S) = \bar{R}((S+\bar{S})(S+Q)) = \bar{R}(S+Q) = S\bar{R} + \bar{R}Q
+            .\end{align*}
+            Now, the restriction for the $SR$ flipflop is that $SR = 0$. So, $S = R = 1$ is forbidden. If $S = 1$, the restriction becomes $1R  = R = 0$. Thus, $S = 1$ implies $R = 0$. So, we can say
+            \begin{align*}
+                S\bar{R} + \bar{R}Q = S + \bar{R}Q
+            .\end{align*}
+            This is the characteristic equation for the SR flipflop. The restriction is that $SR = 0$. We have
+            \bigbreak \noindent 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXX@{}}
+                    \toprule
+                    \textbf{S} & \textbf{R} & $\mathbf{Q_{n+1}} $ & \textbf{Operation} \\
+                    \midrule
+                    0 & 0 & $Q_{n}$\\[2ex]
+                    0 & 1 & 0\\[2ex]
+                    1 & 0 & 1 \\[2ex]
+                    1 & 1 & forbidden \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            \bigbreak \noindent 
+            \textbf{Note:} This version corresponds to \textbf{active-high}, cross-coupled NOR SR latch.
+            \bigbreak \noindent 
+            Notice that the NOR is active whenever
+            \begin{align*}
+                \overline{x+y} = \bar{x}\bar{y} = 1
+            .\end{align*}
+            So, both inputs are off. Suppose $S = R = 0$, and $Q = 1$. Then,
+            \begin{align*}
+                SQ &= 01 = 0 \implies \bar{Q} = 0, \\
+                R\bar{Q} &= 00 = 1 \implies Q = 1
+            .\end{align*}
+            Thus, we have the self-maintaining loop. When $S=1$, it forces $\bar{Q} = 0$. This means the \(Q\)-producing gate now has both inputs low, assuming \(R=0\), so $Q = 1$.
+            \bigbreak \noindent 
+            When $R=1$, $Q = 0$, so $SQ = 00 = 1 = \bar{Q}$.
+        \item \textbf{Latch}: A latch is a circuit that can store one bit of information:
+            \begin{align*}
+                Q = 0 \quad \text{or} \quad Q = 1
+            .\end{align*}
+            It is called a latch because it “latches onto” a value and keeps that value even after the input that created it is removed.
+            \bigbreak \noindent 
+            Technically, the simple cross-coupled NOR or NAND circuit is an SR latch, not an edge-triggered flip-flop. A latch can respond as soon as its inputs change, whereas a flip-flop normally changes state only at a particular clock edge.
+
+        \item \textbf{Back to the 555 timer}: 
 
 
 
