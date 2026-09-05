@@ -325,6 +325,65 @@
 
     \end{itemize}
 
+    \pagebreak 
+    \unsect{Inputs, outputs, and timers}
+    \begin{itemize}
+        \item \textbf{Intro}: Inputs, outputs, and timers form the basis for almost everything embedded systems do. Even the communication methods to talk to other components are made up of these        
+        \item \textbf{Handling Registers}: To do anything with an I/O line, we need to talk to the appropriate register.
+            \bigbreak \noindent 
+            Described in the chip’s user manual, registers come in all flavors to configure the processor and control peripherals. They are memory-mapped, so you can write to a specific address to modify a particular register. Often each bit in the register means something specific, which means we need to start using binary numbers to look at the values of specific bits.
+        \item \textbf{Test, Set, Clear, and Toggle}: Hex and bitwise operations are only a lead-up to being able to interact with registers. If you want to know if a bit is set, you need to bitwise AND with the register:
+            \bigbreak \noindent 
+            If you want to set a bit in a register, OR it with the register:
+            \bigbreak \noindent 
+            Clearing a bit is quite a bit more confusing because you want to leave the other bits in the register unchanged. The typical strategy is to invert the bit we want to clear using bitwise NOT (\string~\;). Then AND the inverted value with the register. This way, the other bits remain unchanged:
+            \bigbreak \noindent 
+            Toggle a bit using the XOR operation.
+        \item \textbf{Toggling an Output}: Most processors have pins whose digital states can be read (input) or set (output) by the software. These go by the name of I/O pins, general-purpose I/O (GPIO), digital I/O (DIO), and, occasionally, general I/O (GIO). The basic use case is usually straightforward, at least when an LED is attached:
+            \begin{enumerate}
+                \item Initialize the pin to be an output (as an I/O pin, it could be input or output).
+                \item Set the pin high when you want the LED on. Set the pin low when you want the LED off. (Although the LED can also be connected to be on when the pin is low, this example will avoid inverted logic.)
+            \end{enumerate}
+        \item \textbf{Setting the Pin to Be an Output}: 
+            most I/O pins can be either inputs or outputs. The first register you’ll need to set will control the direction of the pin so it is an output. First, determine which pin you will be changing. To modify the pin, you’ll need to know the pin name (e.g., “I/O pin 2,” not its number on the pro‐ cessor (e.g., pin 12). The names are often inside the processor in schematics, while the pin number is on the outside of the box
+            \bigbreak \noindent 
+            \fig{.6}{./figures/12.png}
+            \bigbreak \noindent 
+            The pins may have multiple numbers in their name, indicating a port (or bank) and a pin in that port. (The ports may also be letters instead of numbers.) In the figure, the LED is attached to processor pin 10, which is named “SCLK/IO1\_2.” This pin is shared between the SPI port
+            \bigbreak \noindent 
+            and the I/O subsystem (IO1\_2). The user manual will tell you whether the pin is an I/O by default or a SPI pin (and how to switch between them). Another register may be needed to indicate the purpose of the pin. Most vendors are good about cross-referencing the pin setup, but if it is shared between peripherals, you may need to look in the peripheral section to turn off unwanted functionality. In our example, we’ll say the pin is an I/O by default.
+            \bigbreak \noindent 
+            In the I/O subsystem, it is the second pin (2) of the first bank (1). We’ll need to remember that and to make sure the pin is used as an I/O pin and not as a SPI pin. Your processor user manual will describe more. Look for a section with a name like “I/O Configuration,” “Digital I/O Introduction,” or “I/O Ports.” If you have trouble finding the name, look for the word “direction,” which tends to be used to describe whether you want the pin to be an input or an output.
+            \bigbreak \noindent 
+            Once you find the register in the manual, you can determine whether you need to set or clear a bit in the direction register. In most cases, you need to set the bit to make the pin an output. You could determine the address and hardcode the result:
+            \begin{cppcode}
+                *((int*)0x0070C1) |= (1 << 2);
+            \end{cppcode}
+            However, please don’t do that. The processor or compiler vendor will almost always provide a header file or a hard‐ ware abstraction layer (HAL, which includes a header file) that hides the memory map of the chip so you can treat registers as global variables. If the vendor didn’t give you a header file, make one for yourself, so that your code looks more like one of these lines:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            // STM32F103 processor
+            GPIOA->CRL |= 1 << 2; // set IOA_2 to be an output
+
+            // MSP430 processor
+            P1DIR |= BIT2; // set IO1_2 to be an output
+
+            // ATtiny processor
+            DDRB |= 0x4; // set IOB_2 to be an output
+            \end{cppcode}
+            \bigbreak \noindent 
+            Note that the register names are different for each processor, but the effect of the code in each line is the same. Each processor has different options for setting the second bit in the byte (or word).
+            \bigbreak \noindent 
+            In each of these examples, the code is reading the current register value, modifying it, and then writing the result back to the register. This read-modify-write cycle needs to happen in atomic chunks, meaning they need to execute without interruptions or any
+            \bigbreak \noindent 
+            other processing between steps. If you read the value, modify it, and then do some other stuff before writing the register, you run the risk that the register has changed and the value you are writing is out of date. The register modification will change the intended bit, but also might have unintended consequences.
+
+
+
+
+
+    \end{itemize}
+
 
 
 

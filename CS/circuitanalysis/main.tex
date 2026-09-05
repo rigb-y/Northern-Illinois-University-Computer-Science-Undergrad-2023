@@ -1,0 +1,110 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={DC Circuits}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{DC Circuits}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Charge and current}
+    \begin{itemize}
+        \item \textbf{Planetary model of the atom}: One of the major issues with the planetary model is the idea that electrons whirl around the nucleus in stable, planet-like orbits. That's simply not true. First, the electron inhabits a region of 3D space and does not simply move through a plane       
+            \bigbreak \noindent 
+            Second, due to the Heisenberg Uncertainty Principle, we can't precisely plot the position and trajectory of a given electron. The best we can do is make a plot of where the electron is likely to be. This is called a probability contour
+            \bigbreak \noindent 
+            To understand this concept, imagine that you could record the position of a specific electron relative to the nucleus at a specific time. A moment later you record its new position, a moment after that you record the next position, and so on for thousands of measurements. If you attempted to plot them all, you would wind up with a cloud of dots around the nucleus. This cloud is referred to as an orbital. You wouldn't know how the electron got from one position to the next but you would get a general idea of where it was likely to be. Ultimately, an orbital looks nothing like a planetary orbit.
+        \item \textbf{Shells, subshells, and orbitals}: The electron cloud is referred to as an \textbf{orbital.}
+            \bigbreak \noindent 
+            We note that there are several potential orbitals. Due to quantum physics, only certain orbitals are allowed. The permissible electron energy levels are first grouped into shells, then subshells and finally orbitals. It is important to remember that orbitals indicate the electron energy level. That is, a higher orbital implies a higher energy level. Further, orbitals fill in first from lowest energy level to highest energy level.
+        \item \textbf{Charge and current}: Charge is an attractive force denoted by the letter $Q$ and has units of coulombs.
+            \bigbreak \noindent 
+            Electrons are negatively charged and protons are positively charged. All electrons and protons exhibit the same magnitude of charge
+            \bigbreak \noindent 
+            Further, opposite charges attract while like charges repel, similar to the poles of a magnet.
+        \item \textbf{Moving charge}: It is possible to move charge from one point to another. The rate of charge movement over time is called current. It is denoted by the letter I and has units of amps
+            \begin{align*}
+                1 \text{ amp} = 1 \text{ coulomb} / 1 \text{ second}
+            .\end{align*}
+            Thus, current for current $I$, charge $Q$, and time $t$,
+            \begin{align*}
+                I = \frac{Q}{t}
+            .\end{align*}
+        \item \textbf{Energy and Voltage}:  Energy is defined as the ability to do work. It is denoted by the letter W. The basic unit is the joule
+            \bigbreak \noindent 
+            If we were to move a charge from one point to another (for example, separating an electron from an atom), we would have to expend energy to do so
+            \bigbreak \noindent 
+            \fig{.6}{./figures/1.png}
+            We would say that B has a higher electric potential than A. In other words, there is a potential difference between B and A. We refer to this change as voltage, denoted $V$, with units volts. One volt is one joule per coulomb.
+            \begin{align*}
+                V = \frac{W}{Q} 
+            .\end{align*}
+            \begin{itemize}
+                \item V is the voltage in volts,
+                \item W is the energy in joules,
+                \item Q is the charge in coulombs
+            \end{itemize}
+            As you might guess, the bigger the charge to be moved, the greater the energy required
+
+
+
+
+    \end{itemize}
+
+
+
+
+
+    
+\end{document}

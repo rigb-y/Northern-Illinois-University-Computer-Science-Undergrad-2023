@@ -1764,9 +1764,9 @@
             This is the characteristic equation for the SR flipflop. The restriction is that $SR = 0$. We have
             \bigbreak \noindent 
             \begin{center}
-                \begin{tabularx}{\textwidth}{@{}XXXX@{}}
+                \begin{tabularx}{\textwidth}{@{}XXX@{}}
                     \toprule
-                    \textbf{S} & \textbf{R} & $\mathbf{Q_{n+1}} $ & \textbf{Operation} \\
+                    \textbf{S} & \textbf{R}  & \textbf{Operation} \\
                     \midrule
                     0 & 0 & $Q_{n}$\\[2ex]
                     0 & 1 & 0\\[2ex]
@@ -1790,6 +1790,72 @@
             Thus, we have the self-maintaining loop. When $S=1$, it forces $\bar{Q} = 0$. This means the \(Q\)-producing gate now has both inputs low, assuming \(R=0\), so $Q = 1$.
             \bigbreak \noindent 
             When $R=1$, $Q = 0$, so $SQ = 00 = 1 = \bar{Q}$.
+        \item \textbf{Nand version}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/54.png}
+            \bigbreak \noindent 
+            Notice
+            \begin{align*}
+                Q &= \overline{\bar{S}\bar{Q}} = \bar{\bar{S}} + Q, \\
+                \bar{Q} &= \overline{\bar{R}Q} = \bar{\bar{R}} + \bar{Q}
+            .\end{align*}
+            For the nand gate,
+            \begin{align*}
+                \overline{xy} = \bar{x} + \bar{y}
+            .\end{align*}
+            So, its active when either input is low. When $\bar{S} = 0$, $\bar{\bar{S}} = 1$, so the gate producing $Q$ is forced to high. Now, if $\bar{R} = 0$, 
+            \begin{align*}
+                \bar{Q} = 1 + 0 = 1
+            .\end{align*}
+            Thus, $\bar{Q}$ is also high, so $S = R = 0$ is undefined in this version.
+            \bigbreak \noindent 
+            The characteristic table is
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXX@{}}
+                    \toprule
+                    \textbf{S} & \textbf{R} & $\mathbf{Q_{n}}$ & $\mathbf{Q_{n+1}}$ \\
+                    \midrule
+                    0 & 0 & 0& undefined \\[2ex]
+                    0 & 0 & 1& undefined \\[2ex]
+                    0 & 1 & 0& 1\\[2ex]
+                    0 & 1 & 1& 1\\[2ex]
+                    1 & 0 & 0& 0\\[2ex]
+                    1 & 0 & 1& 0\\[2ex]
+                    1 & 1 & 0& 0\\[2ex]
+                    1 & 1 & 1& 1\\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Thus, 
+            \begin{align*}
+                Q_{n+1} &= \bar{\bar{S}}\bar{R}\bar{Q} + \bar{\bar{S}}\bar{R}Q_{n} + \bar{S}\bar{R}Q_{n} = \bar{R}(\bar{\bar{S}}\bar{Q}_{n} + \bar{\bar{S}}Q_{n} + \bar{S}Q_{n}) \\
+                &=\bar{R}(\bar{\bar{S}}\bar{Q}_{n} + Q_{n}(\bar{\bar{S}}) + \bar{S})  = \bar{R}(\bar{\bar{S}}\bar{Q}_{n} + Q_{n}) \\
+                &=\bar{R}((Q_{n} + \bar{Q}_{n})(Q_{n} + \bar{\bar{S}})) = \bar{R}(\bar{\bar{S}} + Q_{n}) \\
+                &=\bar{\bar{S}}\bar{R} + \bar{R}Q_{n}
+            .\end{align*}
+            Notice that since the condition is 
+            \begin{align*}
+                \bar{S} + \bar{R} = 1
+            ,\end{align*}
+            when $\bar{S} = 0$, $\bar{R}$ is forced to $1$. Thus, for $\bar{\bar{S}}\bar{R}$, when $S = 0$, $\bar{\bar{S}}\bar{R} = 1$, and when $S = 1$, $\bar{\bar{S}}\bar{R} = 0$. Hence, $\bar{\bar{S}}\bar{R} = \bar{\bar{S}} $ under the condition.
+            \bigbreak \noindent 
+            Therefore, the characteristic equation is 
+            \begin{align*}
+                \bar{\bar{S}} + \bar{R}Q_{n}
+            .\end{align*}
+            We have
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXX@{}}
+                    \toprule
+                    \textbf{S} & \textbf{R}  & \textbf{Operation} \\
+                    \midrule
+                    0 & 0 & undefined\\[2ex]
+                    0 & 1 & 1\\[2ex]
+                    1 & 0 & 0 \\[2ex]
+                    1 & 1 & $Q_{n} $ \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
         \item \textbf{Latch}: A latch is a circuit that can store one bit of information:
             \begin{align*}
                 Q = 0 \quad \text{or} \quad Q = 1
@@ -1797,8 +1863,19 @@
             It is called a latch because it “latches onto” a value and keeps that value even after the input that created it is removed.
             \bigbreak \noindent 
             Technically, the simple cross-coupled NOR or NAND circuit is an SR latch, not an edge-triggered flip-flop. A latch can respond as soon as its inputs change, whereas a flip-flop normally changes state only at a particular clock edge.
-
-        \item \textbf{Back to the 555 timer}: 
+        \item \textbf{RC circuit}: An RC circuit is an electrical circuit made of a resistor (R) and a capacitor (C) connected together
+            \begin{itemize}
+                \item A resistor \(R\), which limits current.
+                \item A capacitor \(C\), which stores electrical charge and energy.
+            \end{itemize}
+            Its most important property is that the capacitor voltage changes gradually, rather than instantaneously. 
+            \bigbreak \noindent 
+            Consider a resistor and capacitor connected in series with a voltage source:
+            \begin{align*}
+                V_{\text{in}} \to R \to C \to \text{GND}
+            .\end{align*}
+            The same current flows through both components. Kirchhoff’s voltage law gives:
+        \item \textbf{Back to the 555 timer}:  
 
 
 
