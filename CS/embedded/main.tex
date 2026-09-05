@@ -377,6 +377,48 @@
             In each of these examples, the code is reading the current register value, modifying it, and then writing the result back to the register. This read-modify-write cycle needs to happen in atomic chunks, meaning they need to execute without interruptions or any
             \bigbreak \noindent 
             other processing between steps. If you read the value, modify it, and then do some other stuff before writing the register, you run the risk that the register has changed and the value you are writing is out of date. The register modification will change the intended bit, but also might have unintended consequences.
+        \item \textbf{Turning on the LED}: The next step is to turn on the LED. Again, we’ll need to find the appropriate register in the user manual:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // STM32F103 processor
+                GPIOA->ODR |= (1 << 2); // IOA_2 high
+
+                // MSP430 processor
+                P1OUT |= BIT2; // IO1_2 high
+
+                // ATtiny processor
+                PORTB |= 0x4; // IOB_2 high
+            \end{cppcode}
+            \bigbreak \noindent 
+            The GPIO hardware abstraction layer header file provided by the processor vendor shows how the raw addresses get masked by some programming niceties. In STM32F103x6, the I/O registers are accessed at an address through a structure (I’ve reorganized and simplified the file):
+            \bigbreak \noindent 
+            \begin{cppcode}
+                typedef struct
+                {
+                    __IO uint32_t CRL; // Port configuration (low)
+                    __IO uint32_t CRH; // Port configuration (high)
+                    __IO uint32_t IDR; // Input data register
+                    __IO uint32_t ODR; // Output data register
+                    __IO uint32_t BSRR; // Bit set/reset register
+                    __IO uint32_t BRR; // Bit reset register
+                    __IO uint32_t LCKR; // Port configuration lock
+                } GPIO_TypeDef;
+
+                #define PERIPH_BASE 0x40000000UL
+                #define APB2PERIPH_BASE (PERIPH_BASE + 0x00010000UL)
+                #define GPIOA_BASE (APB2PERIPH_BASE + 0x00000800UL)
+                #define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
+            \end{cppcode}
+            \bigbreak \noindent 
+            The header file describes many registers we haven’t looked at. These are also in the user manual section, with a lot more explanation. I prefer accessing the registers via the structure because it groups related functions together, often letting you work with the ports interchangeably
+            \bigbreak \noindent 
+            Once we have the LED on, we’ll need to turn it off again. You just need to clear those same bits
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // STM32F103 processor
+                GPIOA->ODR &= ~(1 << 2); // IO1_2 low
+            \end{cppcode}
+            Blinking the LED
 
 
 
