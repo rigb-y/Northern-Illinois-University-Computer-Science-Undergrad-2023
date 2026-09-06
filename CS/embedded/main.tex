@@ -418,9 +418,21 @@
                 // STM32F103 processor
                 GPIOA->ODR &= ~(1 << 2); // IO1_2 low
             \end{cppcode}
-            Blinking the LED
-
-
+        \item \textbf{Blinking the LED}: To finish our program, all we need to do is put it all together. The pseudocode for this is as follows:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                main:
+                    initialize the direction of the I/O pin to be an output
+                loop:
+                    set the LED on
+                    do nothing for some period of time
+                    set the LED off
+                    do nothing for the same period of time
+                    repeat loop
+            \end{cppcode}
+            \bigbreak \noindent 
+            Once you’ve programmed it for your processor, you should compile, load, and test it. You might want to tweak the delay loop so the LED looks about right. It will probably require several tens of thousands of processor cycles, or the LED will blink faster than you can perceive it.
+            \bigbreak \noindent 
 
 
 

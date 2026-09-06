@@ -1,0 +1,736 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={Embedded insights}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{Embedded insights}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Concepts}
+    \begin{itemize}
+        \item \textbf{Electronics}
+            \begin{itemize}
+                \item Voltage, current, resistance, and power
+                \item Ohm’s law
+                \item Digital high and low voltage levels
+                \item GPIO input versus output
+                \item Pull-up and pull-down resistors
+                \item LEDs and current-limiting resistors
+                \item Push buttons and switch bouncing
+                \item Capacitors and basic RC circuits
+                \item Analog versus digital signals
+                \item Reading schematics and pinout diagrams
+                \item Common ground and safe voltage limits
+                \item Basic use of a multimeter and logic analyzer
+            \end{itemize}
+        \item \textbf{MCU Architecture}: Learn how a microcontroller differs from a desktop processor: 
+            \begin{itemize}
+                \item CPU core, flash, SRAM, and peripherals
+                \item Memory-mapped I/O
+                \item Registers and special-function registers
+                \item Cortex-M4 register set
+                \item Vector table
+                \item Main stack pointer
+                \item Reset sequence
+                \item Privileged and unprivileged execution
+                \item Exceptions and interrupts
+                \item NVIC interrupt controller
+                \item SysTick timer
+                \item Memory protection unit
+                \item Floating-point unit
+                \item Little-endian representation
+                \item Thumb and Thumb-2 instructions
+            \end{itemize}
+        \item \textbf{The embedded build process}
+            \begin{itemize}
+                \item Cross-compilation
+                \item Preprocessor, compiler, assembler, and linker stages
+                \item Object files and ELF files
+                \item Sections such as .text, .rodata, .data, and .bss
+                \item Symbols and relocation
+                \item Linker scripts
+                \item Startup assembly
+                \item Vector-table placement
+                \item Copying .data from flash to SRAM
+                \item Zero-initializing .bss
+                \item Map files
+                \item Converting ELF to BIN or Intel HEX
+                \item Flashing versus debugging
+            \end{itemize}
+        \item \textbf{Essential STM32 peripherals}: 
+            \begin{enumerate}
+                \item GPIO
+                \item Clock system and RCC
+                \item External interrupts
+                \item General-purpose timers
+                \item PWM
+                \item UART
+                \item ADC
+                \item SPI
+                \item I²C
+                \item DMA
+                \item Watchdogs
+                \item RTC and low-power modes
+            \end{enumerate}
+            For every peripheral, understand:
+            \begin{itemize}
+                \item Which clock enables it
+                \item Which GPIO alternate function it uses
+                \item Which registers configure it
+                \item How status flags work
+                \item How polling differs from interrupts
+                \item How DMA can move data without continuous CPU involvement
+                \item What errors and edge cases can occur
+            \end{itemize}
+            Board exercises include LED blinking with a timer, button interrupts, UART command input, potentiometer sampling through the ADC, PWM brightness control, and reading a sensor through $\text{I}^{2}\text{C}$ or SPI.
+        \item \textbf{Interrupts and concurrency}: 
+            \begin{itemize}
+                \item Interrupt service routines
+                \item Interrupt latency
+                \item Interrupt priorities
+                \item Shared state between main code and an ISR
+                \item Atomic operations and critical sections
+                \item Race conditions
+                \item Reentrancy
+                \item Keeping ISRs short
+                \item Deferred processing
+                \item Ring buffers
+                \item Producer-consumer design
+                \item Why blocking inside an ISR is dangerous
+                \item Why volatile alone does not solve concurrency
+            \end{itemize}
+            Board exercise: receive UART bytes in an interrupt, place them into a ring buffer, and process them from the main loop.
+        \item \textbf{Time and real-time behavior}: 
+            \begin{itemize}
+                \item Busy waiting versus hardware timers
+                \item Blocking versus nonblocking code
+                \item Deadlines, latency, jitter, and throughput
+                \item Periodic and event-driven tasks
+                \item Finite-state machines
+                \item Cooperative scheduling
+                \item Monotonic timestamps
+                \item Timer overflow
+                \item Input capture and output compare
+                \item Debouncing without blocking delays
+            \end{itemize}
+            Board exercise: run LED control, button handling, UART processing, and sensor sampling concurrently without calling a long blocking delay.
+        \item \textbf{Hardware communication protocols}: 
+            \begin{itemize}
+                \item \textbf{UART}	Baud rate, frames, parity, buffering, overruns
+                \item \textbf{SPI}	Controller/peripheral roles, chip select, CPOL, CPHA, full duplex
+                \item \textbf{I²C}	Addresses, START/STOP, ACK/NACK, pull-ups, clock stretching
+                \item \textbf{CAN}	Frames, arbitration, identifiers, error handling
+                \item \textbf{USB}	Endpoints, enumeration, descriptors; learn later
+            \end{itemize}
+        \item \textbf{Drivers and firmware architecture}: Learn to separate:
+            \begin{itemize}
+                \item Application logic
+                \item Hardware-independent modules
+                \item Device drivers
+                \item Board support code
+                \item MCU peripheral access
+                \item Vendor HAL or low-level libraries
+            \end{itemize}
+            Also understand:
+            \begin{itemize}
+                \item Hardware abstraction layers
+                \item Dependency injection through function pointers
+                \item State machines
+                \item Event queues
+                \item Error reporting
+                \item Timeouts
+                \item Configuration versus runtime state
+                \item Interfaces suitable for host-based testing
+            \end{itemize}
+        \item \textbf{RTOS concept}: Do not begin with an RTOS. First become comfortable with interrupts, timers, state machines, and a superloop. Then learn
+            \begin{itemize}
+                \item Tasks and context switching
+                \item Preemptive scheduling
+                \item Priorities
+                \item Queues
+                \item Semaphores
+                \item Mutexes
+                \item Software timers
+                \item Event groups
+                \item Priority inversion
+                \item Deadlock
+                \item ISR-safe APIs
+                \item Per-task stack sizing
+                \item Heap-allocation strategies
+                \item Tick frequency and tickless operation
+            \end{itemize}
+        \item \textbf{For employment, you should at least recognize:}: 
+            \begin{itemize}
+                \item Watchdog design
+                \item Brownout and reset handling
+                \item Defensive timeouts
+                \item Fault recovery
+                \item Firmware versioning
+                \item Bootloaders and firmware updates
+                \item CRCs and data integrity
+                \item Power loss during flash writes
+                \item Static analysis
+                \item Coding standards such as MISRA C
+                \item Unit, integration, and hardware-in-the-loop testing
+                \item Resource limits
+                \item Low-power design
+                \item Security fundamentals
+            \end{itemize}
+        \item \textbf{Progression}: 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Stage}&	\textbf{Board work}&	\textbf{Main concepts} \\
+                    \midrule
+                    1	&LED and button	&GPIO, C bit operations, schematics\\[2ex]
+                    2	&Build outside the IDE	&GCC, ELF, linker script, startup code\\[2ex]
+                    3	&Timer-driven LED	&clocks, timers, interrupts, NVIC\\[2ex]
+                    4	&UART command console	&serial communication, ring buffers\\[2ex]
+                    5	&ADC and PWM	&analog input, sampling, timer output\\[2ex]
+                    6	&I²C/SPI &sensor	protocols, datasheets, reusable drivers\\[2ex]
+                    7	&DMA data acquisition	&concurrency, buffering, throughput\\[2ex]
+                    8	&Cooperative application&	state machines, events, nonblocking design\\[2ex]
+                    9	&FreeRTOS application	&tasks, queues, synchronization\\[2ex]
+                    10	&Portfolio project	&architecture, testing, fault handling \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{For job}
+            \begin{itemize}
+                \item Write and debug C confidently.
+                \item Explain startup, linking, flash, SRAM, and the vector table.
+                \item Configure basic peripherals from their documentation.
+                \item Write interrupt-driven, nonblocking firmware.
+                \item Use UART, SPI, I²C, timers, ADC, PWM, and DMA.
+                \item Diagnose faults using GDB and hardware tools.
+                \item Explain races, critical sections, queues, and RTOS scheduling.
+                \item Structure firmware into testable drivers and application modules.
+                \item Present one substantial board project with documentation and tests.
+            \end{itemize}
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{MCU Architecture}
+    \begin{itemize}
+        \item \textbf{Intro}: A Microcontroller Unit (MCU) architecture integrates a central processing unit, memory, and input/output peripherals onto a single integrated circuit
+            \begin{itemize}
+                \item \textbf{CPU (Central Processing Unit):} The brain that fetches, decodes, and executes program instructions. It includes the Arithmetic Logic Unit (ALU) for math and logic, and the Control Unit for sequencing operations
+                \item \textbf{Program memory (ROM / flash)}: Non-volatile storage that holds your permanent application code so it is not lost when power turns off. 
+                \item \textbf{Data Memory (RAM):} Volatile storage used by the CPU to temporarily save active variables and runtime data
+                \item \textbf{System Bus:} An internal highway of wires that lets the CPU talk to memory and hardware peripherals
+                \item \textbf{Peripherals:} Built-in hardware tools that let the chip interact with the physical world. Common examples include:
+                    \begin{itemize}
+                        \item \textbf{GPIO:} General-purpose input/output pins for turning things on or off.
+                        \item \textbf{ADC:} Analog-to-digital converters to read voltages from sensors.
+                        \item \textbf{Timers/Counters:} For measuring time, creating delays, or generating Pulse-Width Modulation (PWM) signals.
+                        \item \textbf{Communication Interfaces:} Protocols like UART, SPI, and I²C to talk to other chips
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{Von Neumann architecture}: Uses a single shared memory space and bus for both data and instructions. It is simple to design but creates a data bottleneck because the CPU cannot read an instruction and read/write data at the exact same time
+        \item \textbf{Harvard architecture}: Uses physically separate memory blocks and separate buses for code and data. This lets the processor fetch an instruction while simultaneously accessing data, which speeds up real-time execution. Most modern MCUs use variations of this model
+        \item \textbf{Execute-in-place (XiP)}:  instructions do not necessarily need to move from ROM to RAM before execution. Most modern microcontrollers execute code directly from flash memory (ROM) using a technique called Execute-in-Place (XiP).
+            \bigbreak \noindent 
+            In most microcontrollers (like ARM Cortex-M, AVR, or PIC), the CPU is wired to fetch instructions directly from the Flash/ROM bus.
+            \bigbreak \noindent 
+            Microcontrollers have very limited RAM (often only kilobytes) but larger Flash memory. Keeping the code in Flash saves precious RAM for data and variables.
+            \bigbreak \noindent 
+            Flash memory is generally slower than RAM. For ultra-high-speed operations, Flash access time can become a performance bottleneck.
+            \bigbreak \noindent 
+            If instructions are fetched from Flash while data is simultaneously read or written in RAM, that is a classic implementation of the Harvard architecture.
+        \item \textbf{Flash memory}: Flash holds data without power. It normally contains:
+            \begin{itemize}
+                \item The vector table
+                \item Machine instructions
+                \item Read-only constants
+                \item Initial values for initialized global variables
+            \end{itemize}
+            On the STM32F446, main flash begins at:
+            \bigbreak \noindent 
+            \begin{ccode}
+            0x08 00 00 00
+            \end{ccode}
+            \bigbreak \noindent 
+            The processor normally executes instructions directly from flash. This is commonly called execute in place.
+            \bigbreak \noindent 
+            Flash is persistent but slower and more complicated to modify than SRAM. You cannot generally treat it as ordinary writable memory.
+        \item \textbf{SRAM}: SRAM is volatile working memory. It loses its contents when power is removed.
+            \bigbreak \noindent 
+            It contains things such as:
+            \begin{itemize}
+                \item Global and static variables
+                \item The stack
+                \item The heap, if one is used
+                \item Communication buffers
+                \item Temporary computation results
+            \end{itemize}
+            The primary SRAM address range begins at:
+            \bigbreak \noindent 
+            \begin{ccode}
+            0x20000000
+            \end{ccode}
+            \bigbreak \noindent 
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Address range}&	\textbf{Purpose} \\
+                    \midrule
+                    0x00000000...	&Boot-memory alias\\[2ex]
+                    0x08000000–0x0807FFFF	&512 KiB internal Flash\\[2ex]
+                    Mostly reserved/unmapped space	&No physical memory responds here\\[2ex]
+                    Near 0x1FFF0000	&Factory system memory and bootloader\\[2ex]
+                    0x20000000–0x2001FFFF	&128 KiB SRAM \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            The address space is not one enormous physical memory device. Large address ranges are simply unused or reserved.
+        \item \textbf{The boot-memory alias}: 0x00000000 is particularly important. At reset, the Cortex-M4 expects the vector table to appear there:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Address}&	\textbf{Initial meaning} \\
+                    \midrule
+                    0x00000000	&Initial Main Stack Pointer value\\[2ex]
+                    0x00000004	&Address of the reset handler\\[2ex]
+                    0x00000008	&Address of the NMI handler\\[2ex]
+                    0x0000000C	&Address of the HardFault handler \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Programs}: In ordinary embedded development, Flash contains one firmware image:
+            \begin{verbatim}
+                Flash
+                |-- Vector table
+                |-- Program instructions
+                |-- Read-only constants
+                |-- Initial values for global variables
+            \end{verbatim}
+            \bigbreak \noindent 
+            That firmware might contain many modules, functions, tasks, or an RTOS, but collectively it is normally considered one program.
+            \bigbreak \noindent 
+            You can store multiple independent firmware images if you create a bootloader and partition Flash.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Region}&	\textbf{Example size} \\
+                    \midrule
+                    Bootloader	&32 KiB\\[2ex]
+                    Application A	&200 KiB\\[2ex]
+                    Application B	&200 KiB\\[2ex]
+                    Configuration/metadata	&Remaining space \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            The bootloader would select an application, set the application’s vector-table location, load its initial stack pointer, and jump to its reset handler.
+            \bigbreak \noindent 
+            Without a custom bootloader: normally one firmware program
+        \item \textbf{Address space}: On the STM32F446RE, the address space is primarily a physical address space, not a virtual address space.
+            \bigbreak \noindent 
+            When the Cortex-M4 executes:
+            \bigbreak \noindent 
+            \begin{nasmcode}
+                LDR r0, [r1]
+            \end{nasmcode}
+            \bigbreak \noindent 
+            and r1 contains 0x20000100, that address is placed onto the MCU’s internal bus. The bus interconnect routes it directly to the SRAM hardware.
+            \bigbreak \noindent 
+            Memory on the MCU is usually not virtual
+        \item \textbf{Startup chain}: 
+            \begin{enumerate}
+                \item Reset happens 
+                \item boot mode selects memory 
+                \item CPU reads the vector table 
+                \item CPU enters the reset handler 
+                \item startup code calls main()
+            \end{enumerate}
+        \item \textbf{Resets}: A reset returns the processor and much of the microcontroller hardware to a known initial state. It does not erase the program stored in Flash.
+            \bigbreak \noindent 
+            A reset may be caused by:
+            \begin{itemize}
+                \item Power being applied
+                \item The NRST reset pin being asserted
+                \item A watchdog timeout
+                \item Brownout or insufficient supply voltage
+                \item Software requesting a reset
+                \item A debugger pressing “reset”
+            \end{itemize}
+            Different reset sources affect slightly different parts of the MCU, but they generally restart program execution using the same boot process. 
+            \bigbreak \noindent 
+            After reset:
+            \begin{itemize}
+                \item The CPU registers return to defined reset states.
+                \item Most peripherals return to their reset states.
+                \item The CPU uses the Main Stack Pointer, or MSP.
+                \item The CPU begins in privileged Thread mode.
+                \item Flash retains its contents.
+                \item Ordinary SRAM contents should be considered undefined, even if some electrical values happen to remain.
+            \end{itemize}
+        \item \textbf{Booting}: Booting is the process of deciding which code the processor should begin executing and then preparing that code to run.
+            \bigbreak \noindent 
+            For a normal embedded application, the process is:
+            \begin{enumerate}
+                \item Reset
+                \item Select boot memory
+                \item Read initial stack pointer
+                \item Read reset-handler address
+                \item Execute Reset\_Handler
+                \item Initialize RAM and hardware
+                \item Call main()
+            \end{enumerate}
+            The STM32F446 can boot from different physical memory regions. Boot configuration pins and option settings determine which region appears at address 0x00000000.
+            \bigbreak \noindent 
+            The primary choices are:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Boot source}&	\textbf{Purpose} \\
+                    \midrule
+                    Main Flash	& Run your normal firmware\\[2ex]
+                    System memory&	Run ST’s factory-programmed bootloader\\[2ex]
+                    SRAM	&Run a program previously loaded into SRAM \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            The Nucleo board normally holds BOOT0 low, selecting the main Flash. 
+            \bigbreak \noindent 
+            Your program physically begins at:
+            \bigbreak \noindent 
+            \begin{bashcode}
+            0x08000000
+            \end{bashcode}
+            \bigbreak \noindent 
+            During normal Flash boot, the STM32 aliases this memory at:
+            \bigbreak \noindent 
+            \begin{bashcode}
+            0x00000000
+            \end{bashcode}
+            \bigbreak \noindent 
+            Both addresses refer to the same beginning of Flash during this boot configuration. The CPU reads the initial startup information from 0x00000000, while your linker normally places it physically at 0x08000000.
+        \item \textbf{Vector table}: 
+
+
+
+    \end{itemize}
+
+
+    \pagebreak 
+    \unsect{Context}
+    The STMicroelectronics NUCLEO-F446RE is a highly popular, mid-range development board belonging to the STM32 Nucleo-64 ecosystem. It is designed around the powerful STM32F446RET6 microcontroller
+    \bigbreak \noindent 
+    Arm Cortex-M4 core processor
+
+    \bigbreak \noindent 
+    \subsection{Documents}
+    \begin{itemize}
+        \item \textbf{UM1724 — STM32 Nucleo-64 board user manual}:	Board connectors, jumpers, power options, LEDs, buttons, clock configuration, ST-LINK, and Arduino/Morpho pin mappings
+        \item \textbf{DS10693 — STM32F446xC/E datasheet}:	Pinouts, alternate pin functions, voltage/current limits, clock limits, memory capacity, and electrical characteristics
+        \item \textbf{RM0390 — STM32F446xx reference manual}:	Peripheral behavior and registers: GPIO, RCC, timers, UART, SPI, I²C, ADC, DMA, interrupts, flash, USB, and more
+        \item \textbf{PM0214 — STM32 Cortex-M4 programming manual}:	CPU registers, instruction set, exception handling, NVIC, SysTick, MPU, FPU, and processor operating modes
+        \item \textbf{MB1136 board schematic}:	Exact electrical connections between the STM32, LEDs, buttons, oscillators, ST-LINK, and headers
+        \item \textbf{ES0298 — STM32F446 device errata}:	Known hardware limitations and their workarounds
+        \item \textbf{UM1725 — STM32F4 HAL and LL driver manual}:	STM32Cube HAL and low-layer driver APIs
+    \end{itemize}
+
+    \bigbreak \noindent 
+    \subsection{Packages}
+    \begin{itemize}
+        \item arm-none-eabi-gcc	Compiles C/C++ for the Cortex-M4
+        \item arm-none-eabi-newlib	Embedded C standard library
+        \item arm-none-eabi-gdb	Debugs the program running on the board
+        \item openocd	Communicates with the board’s integrated ST-LINK
+    \end{itemize}
+
+    \bigbreak \noindent 
+    \subsection{STM32CubeMX}
+    \bigbreak \noindent 
+    STM32CubeMX is a graphical hardware-configuration and code-generation program made by STMicroelectronics. It helps you configure an STM32 microcontroller without manually writing all the startup and peripheral-initialization code.
+
+    \bigbreak \noindent 
+    \subsection{Generating a Project via CLI}
+    \bigbreak \noindent 
+    Create a new text file named extension \texttt{.script}. Then,
+    \bigbreak \noindent 
+    \begin{bashcode}
+        # 1. Set the target microcontroller (replace with your exact part number)
+        config load STM32F466RETx
+    \end{bashcode}
+    \bigbreak \noindent 
+    it is highly recommended to load the board configuration instead of just the MCU. Loading the board pre-configures system peripherals like the default USART pins for the built-in ST-LINK debugger, the user LEDs, and push buttons.
+    \bigbreak \noindent 
+    \begin{bashcode}
+    board load NUCLEO-F446RE
+
+    # 2. Setup project path and name
+    project name <project name>
+    project path <path>
+
+    # 3. Choose your IDE/Toolchain (e.g., STM32CubeIDE, Makefile, EWARM, MDK-ARM)
+    project toolchain Makefile
+
+    # Saves the generated .ioc (input output configuration)
+    config saveas <path>
+
+    # 4. Generate the code and project structure
+    project generate
+
+    # 5. Exit the CLI tool
+    exit
+    \end{bashcode}
+    \bigbreak \noindent 
+    \begin{bashcode}
+    stm32cubemx -q *.script
+    \end{bashcode}
+
+    \bigbreak \noindent 
+    \subsection{The System}
+    \begin{itemize}
+        \item \textbf{Cortex-M4 core:} Executes instructions and contains the CPU registers, exception mechanism, and SysTick timer.
+        \item \textbf{STM32F446RE MCU:} Combines the Cortex-M4 core with Flash, SRAM, GPIO, timers, UARTs, ADCs, and other peripherals.
+        \item \textbf{NUCLEO-F446RE board:} Connects the MCU to an onboard LED, button, ST-LINK debugger, USB connector, headers, and supporting circuitry.
+    \end{itemize}
+
+    \bigbreak \noindent 
+    \subsection{Basics}
+    \begin{itemize}
+        \item \textbf{}        
+
+
+    \end{itemize}
+
+    \bigbreak \noindent 
+    \subsection{Edit, Build, Flash, Debug cycle}
+    \bigbreak \noindent 
+    Now that we have the project files, open the \texttt{.ioc} and verify
+    \begin{itemize}
+        \item PA5 is configured as GPIO\_Output.
+        \item PA5 controls the green onboard LED, labeled LD2.
+        \item SYS $\to$ Debug is set to Serial Wire.
+        \item System Core $\to$ GPIO shows PA5 as an output.
+        \item A project toolchain is selected under Project Manager.
+    \end{itemize}
+
+    In \texttt{main.c}, have
+    \bigbreak \noindent 
+    \begin{ccode}
+        while (1)
+        {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(500);
+
+            /* USER CODE END WHILE */
+
+            /* USER CODE BEGIN 3 */
+        }
+    \end{ccode}
+    \bigbreak \noindent 
+    Then, build the project with the generated makefile.
+    \begin{itemize}
+        \item make compiles and links.
+        \item OpenOCD communicates with the onboard ST-LINK.
+        \item arm-none-eabi-gdb provides source-level debugging.
+    \end{itemize}
+    Use \texttt{Build/*.elf} for flashing and debugging. It contains:
+    \begin{itemize}
+        \item Program instructions and data.
+        \item Flash addresses.
+        \item Function and variable names.
+        \item Source-line debugging information.
+    \end{itemize}
+    Check the result with:
+    \bigbreak \noindent 
+    \begin{bashcode}
+    arm-none-eabi-size build/*.elf
+    \end{bashcode}
+    \bigbreak \noindent 
+    \begin{bashcode}
+        text	  data	   bss	   dec	   hex	filename
+        5544	    20	  1644	  7208	  1c28	intro.elf
+    \end{bashcode}
+    \bigbreak \noindent 
+    Connect the USB cable to the ST-LINK USB connector and run:
+    \bigbreak \noindent 
+    \begin{bashcode}
+    openocd -f board/st_nucleo_f4.cfg
+    \end{bashcode}
+    \bigbreak \noindent 
+    Successful output should mention:
+    \bigbreak \noindent 
+    \begin{bashcode}
+        STLINK
+        stm32f4x.cpu
+        Listening on port 3333 for gdb connections
+    \end{bashcode}
+    \bigbreak \noindent 
+    The supplied st\_nucleo\_f4.cfg configures the ST-LINK interface, SWD transport, and STM32F4 target.
+    \bigbreak \noindent 
+    To flash the program, run 
+    \bigbreak \noindent 
+    \begin{bashcode}
+    openocd \
+        -f board/st_nucleo_f4.cfg \
+        -c "program build/*.elf verify reset exit"
+    \end{bashcode}
+    \bigbreak \noindent 
+    This performs four operations:
+    \begin{enumerate}
+        \item Erases the necessary Flash sectors.
+        \item Programs the .elf
+        \item Verifies the written data.
+        \item Resets and starts the MCU.
+    \end{enumerate}
+    Your LED program should begin running immediately.
+    \bigbreak \noindent 
+    Debugging uses two terminals. In the first terminal, start OpenOCD:
+    \bigbreak \noindent 
+    \begin{bashcode}
+    openocd -f board/st_nucleo_f4.cfg
+    \end{bashcode}
+    \bigbreak \noindent 
+    Leave it running. OpenOCD exposes a GDB server on TCP port 3333. In the second terminal, start GDB:
+    \bigbreak \noindent 
+    \begin{bashcode}
+    arm-none-eabi-gdb -tui build/intro.elf
+    \end{bashcode}
+    \bigbreak \noindent 
+    At the GDB prompt, enter:
+    \begin{bashcode}
+        target extended-remote localhost:3333
+        monitor reset halt
+        load
+        monitor reset halt
+        break main
+        continue
+    \end{bashcode}
+    \begin{itemize}
+        \item \textbf{Target:}  is a command used to specify the execution environment of the program you are debugging. It connects your local GDB session (the host) to a process, core file, or a separate machine (the target). 
+        \item \textbf{load}:  The load command in GDB is primarily used during remote debugging to transfer and upload an executable file directly onto a remote target system (such as an embedded microcontroller or a remote board)
+        \item \textbf{monitor reset halt}: In GDB, the command monitor reset halt is used during embedded firmware debugging to reset the target hardware and immediately halt the CPU at the very first instruction
+            \bigbreak \noindent 
+            Monitor tells GDB to pass the trailing command directly to the underlying hardware debug server (such as OpenOCD or pyOCD) rather than executing it within GDB itself
+            \bigbreak \noindent 
+            Reset halt instructs the debug server to assert the hardware reset line and stop the processor core immediately upon release. This prevents the MCU from executing any application code or bootloaders, keeping it in a clean, predictable state
+            \bigbreak \noindent 
+            The first resets and halts the MCU so OpenOCD can program Flash while the processor is not executing code.
+            \bigbreak \noindent 
+            The second resets the MCU after programming so the newly loaded firmware begins with a clean hardware state:
+            \begin{itemize}
+                \item Stack pointer is reloaded.
+                \item Program counter returns to Reset\_Handler.
+                \item Global initialization runs again.
+                \item Peripherals return to their reset state.
+            \end{itemize}
+            The first reset is not always strictly necessary because OpenOCD can normally halt the target automatically during load.
+    \end{itemize}
+    The complete connection is
+    \begin{center}
+        GDB $\to$ OpenOCD $\to$ onboard ST-LINK $\to$ SWD $\to$ STM32F446RE
+    \end{center}
+    build/intro.elf contains:
+    \begin{itemize}
+        \item ARM machine instructions.
+        \item The addresses where sections belong in Flash and SRAM.
+        \item The interrupt vector table.
+        \item Initialized global data.
+        \item Function and variable names.
+        \item Source-line debugging information.
+        \item Section metadata such as .text, .data, .bss, and .isr_vector.
+    \end{itemize}
+    The MCU never parses the ELF file. OpenOCD reads the ELF metadata, extracts its loadable machine-code sections, and writes them into the correct Flash locations. After reset, the Cortex-M4 fetches instructions directly from Flash.
+    \bigbreak \noindent 
+    You can inspect the ELF structure with:
+    \bigbreak \noindent 
+    \begin{bashcode}
+        arm-none-eabi-readelf -h build/*.elf
+        arm-none-eabi-objdump -h build/*.elf
+        arm-none-eabi-nm build/*.elf
+    \end{bashcode}
+    \bigbreak \noindent 
+    Once the firmware is flashed, the STM32 runs independently. GDB and OpenOCD do not need to remain connected. With
+    \bigbreak \noindent 
+    \begin{bashcode}
+        openocd \
+            -f board/st_nucleo_f4.cfg \
+            -c "program build/intro.elf verify reset exit"
+    \end{bashcode}
+    \bigbreak \noindent 
+    The final reset exit means:
+    \begin{itemize}
+        \item Reset the STM32.
+        \item Allow it to run.
+        \item Exit OpenOCD.
+    \end{itemize}
+    After that, the program remains in Flash and automatically starts whenever you:
+    \begin{itemize}
+        \item Press the board’s reset button.
+        \item Disconnect and reconnect power.
+        \item Turn the board off and back on.
+    \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
