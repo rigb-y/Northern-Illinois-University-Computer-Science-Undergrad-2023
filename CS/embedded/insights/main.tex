@@ -262,6 +262,89 @@
     \end{itemize}
 
     \pagebreak 
+    \subsection{Electronics}
+    \begin{itemize}
+        \item \textbf{GPIO}: GPIO stands for General-Purpose Input/Output. GPIO allows software running on a microcontroller to interact with electrical signals through its physical pins.
+            \bigbreak \noindent 
+            A GPIO pin can usually operate as:
+            \begin{itemize}
+                \item A digital input
+                \item A digital output
+                \item A connection to an internal peripheral, such as UART, SPI, I$^2$C, or a timer
+                \item An analog input or output, when supported
+            \end{itemize}
+            Software reads and writes registers, the GPIO hardware translates those register operations into electrical behavior at a pin.
+            \bigbreak \noindent 
+            When configured as an output, the MCU drives the pin to one of two logic levels:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXX@{}}
+                    \toprule
+                    \textbf{Software value}&	\textbf{Logical state}&	\textbf{Approximate voltage} \\
+                    \midrule
+                    0	&Low	&0 V \\[2ex]
+                    1	&High	&Supply voltage, often 3.3 V \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Writing a 1 to the pin drives it high, causing current to flow through the resistor and LED.
+            \begin{center}
+                GPIO pin -- resistor -- LED -- ground
+            \end{center}
+        \item \textbf{Active-high versus active-low}: The previous circuit is active-high because setting the GPIO high turns on the LED.
+            \begin{center}
+                3.3 V -- resistor -- LED -- GPIO pin
+            \end{center}
+            This is active-low. You must inspect the board schematic to determine which arrangement is used.
+        \item \textbf{Push buttons}: A push button is simply a mechanical switch. It does not produce a voltage or send data by itself. It either:
+            \begin{itemize}
+                \item Connects two electrical points when pressed, or
+                \item Disconnects two electrical points when released.
+            \end{itemize}
+            The core difference between a normally open (NO) and normally closed (NC) button is their default state when you are not touching them
+            \begin{itemize}
+                \item \textbf{NO}: The internal contacts are apart. The circuit is open. When pressed the contacts touch and close the circuit. Current flows to turn something on.
+                \item \textbf{NC}: The internal contacts touch each other. The circuit is complete. When pressed the contacts pull apart and open the circuit. Power stops.
+            \end{itemize}
+            A \textbf{momentary circuit button} (usually called a momentary push-button switch) is an electrical switch that turns a circuit on or off only while you are actively pressing it.
+            \bigbreak \noindent 
+            The opposite of a momentary switch is a latching switch (also called a maintained switch).
+            \bigbreak \noindent 
+            The blue user button on your NUCLEO-F446RE is a momentary, normally-open switch:
+        \item \textbf{GPIO as an input}: When configured as an input, the MCU does not intentionally drive the pin. Instead, it measures whether the external pin voltage represents a logical low or high.
+            \bigbreak \noindent 
+            For a 3.3 V MCU, the interpretation is approximately:
+            \begin{itemize}
+                \item \textbf{Near 0 V:}  logic 0
+                \item \textbf{Near 3.3 V:}  logic 1
+            \end{itemize}
+            The exact voltage thresholds are given in the MCU datasheet.
+        \item \textbf{Pull-up and pull-down resistors}: Pull-up and pull-down resistors are small components used in digital circuits to give a pin a defined default voltage level and stop it from "floating"
+            \bigbreak \noindent 
+            A floating pin is unconnected. It acts like an antenna, picking up stray electrical noise that causes random, unpredictable high or low readings
+            \begin{itemize}
+                \item \textbf{Pull up resistor}: A pull-up resistor connects the input pin directly to the positive voltage supply (\(V_{CC}\)). It holds the pin at a logical HIGH (1) when a switch or button is open.
+                    \bigbreak \noindent 
+                    When you close the switch, it connects the pin directly to ground. This overrides the weak pull-up resistor and pulls the reading to a logical LOW (0).
+                    \begin{verbatim}
+                        3.3 V
+                        |
+                        resistor
+                        |
+                        GPIO input -- button -- ground
+                    \end{verbatim}
+                \item \textbf{Pull down resistor}:  A pull-down resistor connects the input pin directly to ground (0V) It holds the pin at a logical LOW (0) when a switch is open
+                    \bigbreak \noindent 
+                    When you close the switch, it connects the pin to the voltage supply, overriding the resistor and pulling the pin to a logical HIGH (
+            \end{itemize}
+            Many MCUs contain configurable internal pull-up and pull-down resistors, so an external resistor is not always necessary.
+        \item \textbf{The pin is not the same as the GPIO peripheral}: A physical MCU pin is connected to internal routing circuitry. That circuitry determines which internal component controls the pin.
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
     \subsection{MCU Architecture}
     \begin{itemize}
         \item \textbf{Intro}: A Microcontroller Unit (MCU) architecture integrates a central processing unit, memory, and input/output peripherals onto a single integrated circuit
@@ -275,7 +358,7 @@
                         \item \textbf{GPIO:} General-purpose input/output pins for turning things on or off.
                         \item \textbf{ADC:} Analog-to-digital converters to read voltages from sensors.
                         \item \textbf{Timers/Counters:} For measuring time, creating delays, or generating Pulse-Width Modulation (PWM) signals.
-                        \item \textbf{Communication Interfaces:} Protocols like UART, SPI, and I²C to talk to other chips
+                        \item \textbf{Communication Interfaces:} Protocols like UART, SPI, and I$^2$C to talk to other chips
                     \end{itemize}
             \end{itemize}
         \item \textbf{Von Neumann architecture}: Uses a single shared memory space and bus for both data and instructions. It is simple to design but creates a data bottleneck because the CPU cannot read an instruction and read/write data at the exact same time
@@ -457,7 +540,459 @@
             \end{bashcode}
             \bigbreak \noindent 
             Both addresses refer to the same beginning of Flash during this boot configuration. The CPU reads the initial startup information from 0x00000000, while your linker normally places it physically at 0x08000000.
-        \item \textbf{Vector table}: 
+        \item \textbf{System bootloader}: STM32 contains factory-programmed code called the system bootloader. It can be used to program Flash through supported communication interfaces without using the normal debugger.
+            \bigbreak \noindent 
+            This factory bootloader is separate from your application and is not erased when you program ordinary Flash.
+            \bigbreak \noindent 
+            An MCU system bootloader is a dedicated piece of firmware stored in a device's non-volatile memory that executes immediately upon power-up or reset to initialize hardware and manage application loading or updates
+            \bigbreak \noindent 
+            Configures essential low-level hardware like clocks, memory regions, and input/output ports before handing control over
+            \bigbreak \noindent 
+            Usually sits at a fixed address range completely distinct from the main user flash memory (for example, starting at 0x1FFF0000 on certain STM32 chips).
+            \bigbreak \noindent 
+            This memory is write-protected at the factory level and cannot be erased or modified by your software. It is always available as a fallback recovery mechanism.
+            \bigbreak \noindent 
+            You activate the ST system bootloader when you want to program or recover the MCU without running the firmware currently stored in main flash.
+        \item \textbf{SRAM boot}: The CPU can also start from SRAM. This is primarily useful for debugging, testing, or specialized loaders.
+            \bigbreak \noindent 
+            Because SRAM is volatile, the program must already have been loaded into SRAM by something such as a debugger.
+        \item \textbf{Vector table}:  The vector table is an array of 32-bit values that tells the Cortex-M4:
+            \begin{enumerate}
+                \item What the initial stack pointer should be.
+                \item Where the reset handler is.
+                \item Where every exception and interrupt handler is.
+            \end{enumerate}
+            It is called a “vector” table because each entry directs, or vectors, execution to a handler. For a normal application, the vector table is placed at the beginning of Flash:
+            \bigbreak \noindent 
+            The vector table and your program at 0x0800.. do not clash because the vector table is part of your program’s flash image. When we say the program “starts at 0x08000000,” that does not mean the first machine instruction is stored there.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Address}&	\textbf{Contents} \\
+                    \midrule
+                    0x08000000	&Initial Main Stack Pointer value\\[2ex]
+                    0x08000004	&Address of Reset\_Handler\\[2ex]
+                    0x08000008	&Address of NMI\_Handler\\[2ex]
+                    0x0800000C	&Address of HardFault\_Handler\\[2ex]
+                    ...	&Remaining exception and interrupt vectors\\[2ex]
+                    After vector table	&Startup code, functions, constants, and other program data \\[2ex]
+                    Later address	&main() machine code \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Each independently bootable firmware program normally has its own vector table. The vector table belongs to the firmware image and tells the processor:
+            \begin{itemize}
+                \item Where its stack begins
+                \item Where its reset code begins
+                \item Where its exception and interrupt handlers are
+            \end{itemize}
+        \item \textbf{Multiple programs in flash}: Suppose you have a bootloader and an application:
+            \bigbreak \noindent 
+            \begin{ccode}
+            0x08000000  Bootloader vector table
+                Bootloader code
+
+            0x08020000  Application vector table
+                Application code
+            \end{ccode}
+            \bigbreak \noindent 
+            At reset, the processor uses the bootloader’s vector table because it is at the boot address. When the bootloader wants to run the application, it reads the application’s first two vector entries:
+            \bigbreak \noindent 
+            \begin{ccode}
+                uint32_t app_msp   = *(uint32_t *)0x08020000;
+                uint32_t app_reset = *(uint32_t *)0x08020004;
+            \end{ccode}
+            \bigbreak \noindent 
+            It then approximately performs:
+            \bigbreak \noindent 
+            \begin{ccode}
+                SCB->VTOR = 0x08020000;  // Use application's vector table
+                __set_MSP(app_msp);      // Use application's stack
+                jump_to(app_reset);      // Run application's Reset_Handler
+            \end{ccode}
+            \bigbreak \noindent 
+            Therefore, multiple firmware images can coexist, but only one vector table is active for interrupt dispatch at a time.
+        \item \textbf{The Main Stack Pointer}: The Main Stack Pointer, or MSP, is a CPU register containing the current top of the main stack.
+            \bigbreak \noindent 
+            On Cortex-M processors, register R13 serves as the stack pointer. There are actually two possible stack pointers:
+            \begin{itemize}
+                \item \textbf{MSP:} Main Stack Pointer
+                \item \textbf{PSP:} Process Stack Pointer
+            \end{itemize}
+            The MSP is normally used:
+            \begin{itemize}
+                \item Immediately after reset
+                \item During startup
+                \item By exception and interrupt handlers
+                \item Often by simple bare-metal applications for everything
+            \end{itemize}
+            The PSP is optional and is commonly used by an operating system to give application threads separate stacks.
+            \bigbreak \noindent 
+            The first vector-table entry contains the initial value that the processor loads into the MSP:
+            \bigbreak \noindent 
+            \begin{ccode}
+                Address       Value          Meaning
+                0x08000000    0x20020000     Initial MSP
+                0x08000004    0x08000151     Reset_Handler address
+            \end{ccode}
+            \bigbreak \noindent 
+            During reset, the processor effectively performs:
+            \bigbreak \noindent 
+            \begin{ccode}
+                MSP <- memory[0x00000000]
+                PC  <- memory[0x00000004]
+            \end{ccode}
+            \bigbreak \noindent 
+            When booting from main flash, those locations correspond to:
+            \bigbreak \noindent 
+            \begin{ccode}
+                MSP <- memory[0x08000000]
+                PC  <- memory[0x08000004]
+            \end{ccode}
+            \begin{itemize}
+                \item 0x08000000 is where the initial MSP value is stored in flash.
+                \item 0x20020000 is the SRAM address loaded into the MSP register.
+            \end{itemize}
+            \textbf{Note:} Stacks on Cortex-M normally grow toward lower addresses.
+        \item \textbf{Peripherals}: A peripheral is a hardware unit that performs a specialized task.
+            \begin{itemize}
+                \item \textbf{GPIO:} reads and controls pins
+                \item \textbf{USART/UART:} serial communication
+                \item \textbf{Timers:} timing, counting, PWM and input capture
+                \item \textbf{ADC:} converts analog voltage into a number
+                \item \textbf{DMA:} moves data without making the CPU copy every element
+                \item \textbf{RCC:} controls clocks and resets
+                \item \textbf{EXTI:} detects external pin events
+            \end{itemize}
+            A peripheral normally contains configuration registers, status registers and data registers.
+        \item \textbf{Memory-mapped I/O}: The Cortex‑M4 communicates with peripherals using ordinary memory addresses.
+            \bigbreak \noindent 
+            \begin{ccode}
+            uint32_t value = *(volatile uint32_t *)0x40020010;
+            \end{ccode}
+            \bigbreak \noindent 
+            The C expression appears to read memory, but address 0x40020010 belongs to a GPIO peripheral. The access therefore reads a hardware register rather than SRAM.
+            \bigbreak \noindent 
+            When the CPU tries to access an address assigned to a peripheral, the hardware bus or memory management unit routes the request directly to the device's physical registers rather than to system RAM
+            \bigbreak \noindent 
+            A peripheral register can change for reasons outside the current C code. The compiler must perform each requested access rather than caching or eliminating it. Therefore register pointers are normally declared volatile:
+            \bigbreak \noindent 
+            \begin{ccode}
+                volatile uint32_t *status =
+                    (volatile uint32_t *)0x40020010;
+            \end{ccode}
+        \item \textbf{Registers and special-function registers}: The word “register” has two related meanings in embedded programming.
+            \begin{itemize}
+                \item \textbf{CPU registers}: These are storage locations directly inside the Cortex‑M4 core:
+                    \begin{itemize}
+                        \item R0, R1, R2, ... R15
+                        \item xPSR
+                        \item CONTROL
+                        \item PRIMASK
+                        \item BASEPRI
+                        \item FAULTMASK
+                    \end{itemize}
+                    CPU registers are operated on directly by machine instructions.
+                \item \textbf{Peripheral registers}: These are memory-mapped hardware control locations:
+                    \begin{itemize}
+                        \item GPIOA\_MODER
+                        \item GPIOA\_IDR
+                        \item GPIOA\_ODR
+                        \item RCC\_AHB1ENR
+                        \item TIM2\_CR1
+                        \item USART2\_DR
+                    \end{itemize}
+                    They are sometimes called special-function registers, or SFRs.
+            \end{itemize}
+        \item \textbf{Common register types}
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Type}&	\textbf{Behavior} \\
+                    \midrule
+                    Read/write	&Software can read and modify it\\[2ex]
+                    Read-only	&Reports hardware status\\[2ex]
+                    Write-only	&Writing commands the hardware\\[2ex]
+                    Write-one-to-clear	&Writing 1 clears a status flag\\[2ex]
+                    Set/reset register	&Different bits atomically set or clear outputs \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            This is why blindly applying code such as reg |= mask can be incorrect. The register’s documented semantics must be checked first.
+        \item \textbf{Cortex‑M4 register set}
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Register}&	\textbf{Conventional role} \\
+                    \midrule
+                    R0–R3	&Arguments, return values and temporary values\\[2ex]
+                    R4–R11	&General-purpose, normally preserved by called functions\\[2ex]
+                    R12	&Temporary scratch register\\[2ex]
+                    R13	&Stack pointer\\[2ex]
+                    R14	&Link register\\[2ex]
+                    R15	&Program counter \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            R14, is a dedicated core register in the ARM Cortex-M4 processor that holds the return address for function calls, subroutines, and exception handlers. 
+            \bigbreak \noindent 
+            The calling convention, rather than the hardware alone, gives many of these registers their software roles.
+        \item \textbf{Program status registers}: Several status components are collectively accessed as xPSR:
+            \begin{itemize}
+                \item \textbf{APSR:} arithmetic flags
+                \item \textbf{IPSR:} current exception number
+                \item \textbf{EPSR:} execution-state information
+            \end{itemize}
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Flag}&	\textbf{Meaning} \\
+                    \midrule
+                    N	&Negative result\\[2ex]
+                    Z	&Zero result\\[2ex]
+                    C	&Carry or unsigned condition\\[2ex]
+                    V	&Signed overflow\\[2ex]
+                    Q	&Saturation occurred \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{Reset sequence}: Reset is the bridge between powered hardware and your C main() function.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/1.png}
+            \bigbreak \noindent 
+            More precisely:
+            \begin{enumerate}
+                \item The processor enters reset state.
+                \item The vector table is made visible at the boot address.
+                \item The processor reads vector entry 0 and loads MSP.
+                \item It reads vector entry 1 and loads the reset-handler address into PC.
+                \item Execution begins in Reset\_Handler.
+                \item Startup code copies initialized data from flash into SRAM.
+                \item Startup code clears the .bss section.
+                \item System initialization may configure clocks and the FPU.
+                \item C++ constructors are run when applicable.
+                \item main() is called.
+            \end{enumerate}
+        \item \textbf{Why .data must be copied}: Consider
+            \bigbreak \noindent 
+            \begin{ccode}
+            int counter = 5;
+            \end{ccode}
+            \bigbreak \noindent 
+            counter must be writable, so its runtime location is in SRAM. But SRAM loses its contents when powered off. Therefore the initial value 5 is stored in flash and copied into the SRAM location during startup.
+        \item \textbf{Why .bss must be cleared}: Consider
+            \bigbreak \noindent 
+            \begin{ccode}
+            static int errors;
+            \end{ccode}
+            \bigbreak \noindent 
+            C requires errors to begin as zero. Instead of storing thousands of zero bytes in flash, the linker places it in .bss, and startup code clears that memory range.
+        \item \textbf{Privileged and unprivileged execution}: Cortex‑M4 execution has two modes:
+            \begin{itemize}
+                \item \textbf{Thread mode:} ordinary program or task execution
+                \item \textbf{Handler mode:} exception and interrupt handlers
+            \end{itemize}
+            Thread mode may be privileged or unprivileged. Handler mode is always privileged
+            \bigbreak \noindent 
+            Privileged software can perform operations such as:
+            \begin{itemize}
+                \item Configure the MPU
+                \item Change interrupt masks
+                \item Access restricted memory regions
+                \item Modify important system-control registers
+            \end{itemize}
+            Unprivileged software is restricted.
+            \bigbreak \noindent 
+            The CONTROL.nPRIV bit controls Thread-mode privilege:
+            \bigbreak \noindent 
+            \begin{ccode}
+                0 = privileged
+                1 = unprivileged
+            \end{ccode}
+            \bigbreak \noindent 
+            Privileged Thread mode can drop into unprivileged mode directly. Unprivileged Thread mode generally cannot restore its own privilege. It must request a privileged exception handler, commonly through SVC.
+        \item \textbf{Exceptions and interrupts}: An exception is any event that causes the processor to suspend normal instruction execution and run a handler.
+            \bigbreak \noindent 
+            An interrupt is generally an asynchronous, hardware-generated kind of exception
+        \item \textbf{Synchronous exceptions}: These result from the instruction being executed:
+            \begin{itemize}
+                \item Undefined instruction
+                \item Invalid memory access
+                \item Divide-by-zero trap, when enabled
+                \item Supervisor call through SVC
+            \end{itemize}
+        \item \textbf{Asynchronous interrupts}: These arrive from hardware independently of the current instruction:
+            \begin{itemize}
+                \item Timer expiration
+                \item UART byte received
+                \item GPIO input edge
+                \item DMA transfer completed
+                \item ADC conversion completed
+            \end{itemize}
+        \item \textbf{Exception entry}: When an exception is accepted, the processor automatically saves a basic context frame containing:
+            \bigbreak \noindent 
+            \begin{ccode}
+                R0
+                R1
+                R2
+                R3
+                R12
+                LR
+                PC
+                xPSR
+            \end{ccode}
+            \bigbreak \noindent 
+            It then:
+            \begin{enumerate}
+                \item Selects MSP for Handler mode.
+                \item Obtains the handler address from the vector table.
+                \item Updates the current exception state.
+                \item Begins executing the handler.
+            \end{enumerate}
+            On exception return, the hardware restores the saved registers and resumes the interrupted code.
+        \item \textbf{Priorities and nesting}: A higher-priority interrupt can preempt a lower-priority handler. On Cortex‑M, a lower numerical priority value represents a higher logical priority.
+            \bigbreak \noindent 
+            \begin{ccode}
+                priority 0  = highest
+                priority 3  = higher than priority 8
+                priority 15 = lower
+            \end{ccode}
+            \bigbreak \noindent 
+            The STM32F446 implements a finite number of priority bits, so not every bit in an 8-bit priority field is meaningful.
+        \item \textbf{CMSIS}: CMSIS (Cortex Microcontroller Software Interface Standard) is a vendor-independent hardware abstraction layer developed by Arm that provides consistent software interfaces for Arm Cortex-M processor-based microcontrollers like the STM32.
+            \bigbreak \noindent 
+            CMSIS assigns negative interrupt numbers to core exceptions and nonnegative numbers to device-specific interrupts
+        \item \textbf{Interrupt Service Routine (ISR)}: Another name for interrupt handler 
+        \item \textbf{NVIC interrupt controller}: NVIC means Nested Vectored Interrupt Controller. It is part of the Cortex‑M core-peripheral architecture, not an ordinary STM32 timer or GPIO peripheral.
+            \bigbreak \noindent 
+            The NVIC (Nested Vectored Interrupt Controller) is a dedicated hardware block inside ARM Cortex-M based STM32 microcontrollers that manages, prioritizes, and processes all asynchronous system exceptions and hardware interrupts
+            \begin{itemize}
+                \item \textbf{Interrupt Prioritization:} Decides which task gets attention first; lower numerical values mean higher urgency (Priority 0 is the highest).
+                \item \textbf{Preemption and Nesting:} Allows higher-priority interrupts to interrupt (nest inside) lower-priority active interrupt service routines (ISRs). 
+                \item \textbf{Vector Table Lookup:} Directly points the CPU to the exact memory address of the correct Interrupt Service Routine (ISR) when a signal triggers. 
+                \item \textbf{Tail-Chaining:} Optimizes back-to-back interrupts by skipping stack pop/push operations to reduce latency.
+            \end{itemize}
+            \bigbreak \noindent 
+            The NVIC records whether each external interrupt is:
+            \begin{itemize}
+                \item Enabled
+                \item Pending
+                \item Active
+                \item Assigned a particular priority
+            \end{itemize}
+        \item \textbf{TIM2}: STM32 TIM2 is a heavy-duty, general-purpose 32-bit timer found on many STM32 microcontrollers
+        \item \textbf{Peripheral versus NVIC responsibilities}: Suppose TIM2 reaches its programmed count:
+            \begin{enumerate}
+                \item TIM2 sets its own update flag.
+                \item If the timer’s update interrupt is enabled, it signals the NVIC.
+                \item The NVIC marks TIM2’s interrupt pending.
+                \item The CPU compares its priority with the current execution priority.
+                \item The CPU enters TIM2_IRQHandler.
+                \item Software clears the TIM2 update flag.
+                \item The processor returns from the exception.
+            \end{enumerate}
+            There are therefore usually two enable controls:
+            \bigbreak \noindent 
+            \begin{center}
+                Peripheral interrupt enable + NVIC interrupt enable
+            \end{center}
+            Both must be configured.
+            \bigbreak \noindent 
+            Similarly, clearing the NVIC pending bit alone may not solve the problem. If the peripheral’s source flag remains set, it can request the interrupt again
+        \item \textbf{Interrupt enable}: An interrupt enable is a switch or control bit in a microcontroller that tells the processor whether it is allowed to respond to a specific hardware event or a global signal
+        \item \textbf{SysTick timer}: 
+            SysTick is a simple timer integrated with the Cortex‑M core. It is commonly used for:
+            \begin{itemize}
+                \item A periodic operating-system tick
+                \item Millisecond timekeeping
+                \item Software delays
+                \item Scheduling timeouts
+            \end{itemize}
+            Its main registers are:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Register}&	\textbf{Purpose} \\
+                    \midrule
+                    SYST\_CSR / CTRL	&Enable, clock selection, interrupt enable and status\\[2ex]
+                    SYST\_RVR / LOAD	&Reload value\\[2ex]
+                    SYST\_CVR / VAL	&Current counter value\\[2ex]
+                    SYST\_CALIB	&Implementation-specific calibration information \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            \bigbreak \noindent 
+            SysTick is convenient, but it is not a full replacement for STM32 general-purpose timers.
+            \bigbreak \noindent 
+            SysTick\_Config() sets the reload value, clears the current count, enables the interrupt and starts the counter.
+            \bigbreak \noindent 
+            Its connection to interrupts is that it can automatically generate an interrupt whenever its countdown reaches zero.
+            \bigbreak \noindent 
+            \begin{ccode}
+                volatile uint32_t milliseconds;
+
+                void SysTick_Handler(void)
+                {
+                    ++milliseconds;
+                }
+
+                int main(void)
+                {
+                    SysTick_Config(SystemCoreClock / 1000u);
+
+                    while (1) {
+                        // milliseconds is updated once per millisecond
+                    }
+                }
+            \end{ccode}
+            \begin{enumerate}
+                \item SysTick counts downward while the processor executes main().
+                \item The counter reaches zero.
+                \item SysTick raises an interrupt request.
+                \item The processor temporarily pauses main().
+                \item The processor executes SysTick\_Handler().
+                \item The handler increments milliseconds.
+                \item The processor returns to the interrupted location in main()
+            \end{enumerate}
+        \item \textbf{Memory Protection Unit}: The MPU divides the physical address space into regions and assigns access rules.
+            \bigbreak \noindent 
+            A region can specify:
+            \begin{itemize}
+                \item Read/write permissions
+                \item Privileged versus unprivileged access
+                \item Executable or execute-never
+                \item Memory type and caching-related attributes
+                \item Region size and base address
+            \end{itemize}
+            Possible uses include:
+            \begin{itemize}
+                \item Making flash read-only
+                \item Preventing instruction execution from SRAM
+                \item Protecting kernel memory from application tasks
+                \item Detecting stack overflows with a guard region
+                \item Restricting a task’s peripheral access
+            \end{itemize}
+            If software violates a configured MPU rule, the processor normally raises a MemManage fault.
+        \item \textbf{Floating-point unit}: The Cortex‑M4 used by the STM32F446 contains an FPv4-SP single-precision FPU.
+            \bigbreak \noindent 
+            Single precision means normal hardware support for 32-bit IEEE-754 float operations:
+            \bigbreak \noindent 
+            It does not provide the same hardware support for 64-bit double arithmetic. Double-precision operations may require software routines and can be considerably slower.
+            \bigbreak \noindent 
+            The floating-point register file includes registers conventionally named:
+            \bigbreak \noindent 
+            \begin{ccode}
+            S0-S31
+            \end{ccode}
+            \bigbreak \noindent 
+            There is also an \texttt{FPSCR} status/control register.
+        \item \textbf{Floating point and interrupts}: If an interrupt handler uses the FPU, floating-point state might also need to be saved. Cortex‑M4 supports lazy floating-point context preservation, which postpones stacking that state until the handler actually executes a floating-point instruction.
+            \bigbreak \noindent 
+            This reduces interrupt overhead when the FPU is enabled but a particular handler does not use it.
+        \item \textbf{Little-endian representation}: The STM32F446 uses little-endian byte ordering for ordinary data.
+        \item \textbf{Thumb and Thumb‑2 instructions}: 
+
+
 
 
 
