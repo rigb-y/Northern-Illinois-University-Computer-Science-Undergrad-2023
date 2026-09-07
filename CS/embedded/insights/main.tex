@@ -338,6 +338,66 @@
             \end{itemize}
             Many MCUs contain configurable internal pull-up and pull-down resistors, so an external resistor is not always necessary.
         \item \textbf{The pin is not the same as the GPIO peripheral}: A physical MCU pin is connected to internal routing circuitry. That circuitry determines which internal component controls the pin.
+            \bigbreak \noindent 
+            A pin might be routed to:
+            \begin{itemize}
+                \item GPIO
+                \item UART transmit or receive
+                \item SPI clock or data
+                \item I$^2$C
+                \item A timer PWM channel
+                \item An ADC
+                \item Another peripheral
+            \end{itemize}
+            Therefore, a pin marked PA5 does not necessarily have to act as an ordinary GPIO. It could be assigned an alternate function
+        \item \textbf{Alternate function}: An alternate function on a microcontroller (MCU) is a special feature that lets a general-purpose input/output (GPIO) pin connect to an internal hardware peripheral instead of just acting as a basic digital input or output
+        \item \textbf{STM32 GPIO naming}: 
+            \begin{itemize}
+                \item PA5 means port A, pin 5.
+                \item PB3 means port B, pin 3.
+                \item PC13 means port C, pin 13.
+            \end{itemize}
+            GPIO pins are organized into ports, usually containing up to 16 pins:
+            \begin{itemize}
+                \item \textbf{GPIOA:} PA0 through PA15
+                \item \textbf{GPIOB:} PB0 through PB15
+                \item \textbf{GPIOC:} PC0 through PC15
+            \end{itemize}
+        \item \textbf{GPIO modes}: An STM32 GPIO pin commonly has four principal modes.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Mode}&	\textbf{Purpose} \\
+                    \midrule
+                    Input	&Read an external digital signal\\[2ex]
+                    Output	&Drive the pin high or low\\[2ex]
+                    Alternate function	&Connect the pin to UART, SPI, timers, etc.\\[2ex]
+                    Analog	&Connect the pin to analog circuitry or reduce digital power consumption\\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Selecting the correct mode is essential. Writing an output value does not make a pin behave as an output if it is still configured as an input.
+        \item \textbf{Output driver types}: When operating as an output, a GPIO pin can commonly use either push-pull or open-drain behavior.
+            \bigbreak \noindent 
+            A push-pull output can actively drive both voltage levels:
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item Write 1 $\to$ pin driven high
+                \item Write 0 $\to$ pin driven low
+            \end{itemize}
+            This is normally used for:
+            \begin{itemize}
+                \item LEDs
+                \item Digital control signals
+                \item SPI signals
+                \item General output pins
+            \end{itemize}
+            An open-drain output can:
+            \begin{itemize}
+                \item Actively pull the pin low
+                \item Release the pin, but not actively drive it high
+            \end{itemize}
+
 
 
 
@@ -758,7 +818,7 @@
             \end{center}
         \item \textbf{Reset sequence}: Reset is the bridge between powered hardware and your C main() function.
             \bigbreak \noindent 
-            \fig{.6}{./figures/1.png}
+            \fig{.2}{./figures/1.png}
             \bigbreak \noindent 
             More precisely:
             \begin{enumerate}
@@ -991,7 +1051,6 @@
             This reduces interrupt overhead when the FPU is enabled but a particular handler does not use it.
         \item \textbf{Little-endian representation}: The STM32F446 uses little-endian byte ordering for ordinary data.
         \item \textbf{Thumb and Thumb‑2 instructions}: 
-
 
 
 
