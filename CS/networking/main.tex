@@ -59,6 +59,75 @@
     \tableofcontents
     \pagebreak 
     \unsect{Introduction}
+    \begin{itemize}
+        \item \textbf{Packets}: A packet is a formatted unit of data carried across a packet-switched network
+            \bigbreak \noindent 
+            Divided into a \textbf{header} (control info like source/destination addresses and sequence numbers) and a \textbf{payload} (the actual user data).
+            \bigbreak \noindent 
+            Large files or messages are broken down into these smaller chunks so they can share network paths efficiently before being reassembled at the destination
+        \item \textbf{Packet switch}: A packet switch is a hardware device that takes a packet arriving on an incoming communication link and forwards it toward its destination on an outgoing link
+            \bigbreak \noindent 
+            Routers (which manage traffic across different networks) and link-layer switches (which manage traffic within a local network).
+        \item \textbf{Communication links}: A communication link is the physical or wireless medium that connects devices and packet switches together
+            \begin{itemize}
+                \item \textbf{Transmission Rate:} Measured in bandwidth or throughput, determining how fast data can be pushed through the link.
+                \item \textbf{Types:} Can be point-to-point (dedicated connection between two nodes, like an Ethernet cable) or broadcast (shared medium where multiple nodes can receive the transmission)
+            \end{itemize}
+            A communication link in networking is a physical or logical channel that connects two or more devices to transmit data
+        \item \textbf{Distributed applications}: A distributed application is software with components running on multiple independent computers across a network that communicate and coordinate to function as a single system
+            \begin{itemize}
+                \item \textbf{Nodes:} Separate computers or servers running parts of the application.
+                \item \textbf{Network Messaging:} The way nodes talk to each other using data formats like JSON or XML.
+                \item \textbf{Middleware:} A software layer that handles routing, security, and communication between different machines
+            \end{itemize}
+        \item \textbf{Socket interface}: A network socket interface is an endpoint that allows two programs to pass data back and forth across a computer network
+            \begin{itemize}
+                \item A network socket acts as a virtual door for network communication.
+                \item It combines an IP address (to find the computer) and a port number (to find the specific app).
+            \end{itemize}
+            An IP address is like a street address, and a port is like an apartment or room number within that building.
+            \begin{itemize}
+                \item \textbf{IP Address (The Building):} This gets the data to the correct physical location or device on the network, just like a street address gets a letter to a specific apartment building.
+                \item \textbf{Port (The Apartment Number):} Once inside the building, the port tells the data exactly which door to go to (such as a specific app, service, or program running on that device).
+            \end{itemize}
+        \item \textbf{Protocol}: A networking protocol is a set of established rules that allows different electronic devices on a network to communicate with each other.
+            \begin{itemize}
+                \item How data is packaged into smaller pieces called packets.
+                \item How data is addressed so it reaches the correct destination.
+                \item How errors are detected and fixed if data goes missing.
+            \end{itemize}
+            Think of a networking protocol like a standard phone call conversation:
+            \begin{enumerate}
+                \item \textbf{The Setup:} You dial a phone number (the network address) to signal you want to connect.
+                \item \textbf{The Greeting:} The other person answers and says "Hello" (establishing a connection).
+                \item \textbf{The Exchange:} You speak in a shared language like English, taking turns so you do not talk over each other (data transmission rules).
+                \item \textbf{The Goodbye:} You both say goodbye and hang up to end the call (terminating the connection)
+            \end{enumerate}
+            If one person spoke only code and the other spoke Spanish, or if both screamed at the exact same time without listening, the conversation would fail. A networking protocol prevents this failure for computers.
+        \item \textbf{End systems / hosts}: In computer networking jargon, the computers and other devices connected to the Internet are often referred to as end systems. They are referred to as end systems because they sit at the edge of the Internet
+            \bigbreak \noindent 
+            End systems are also referred to as hosts because they host (that is, run) application programs such as a Web browser program, a Web server program, an e-mail 
+        \item \textbf{IoT}: The Internet of Things (IoT) is a giant network of physical objects embedded with sensors, software, and other technologies that connect and share data with other devices and systems over the internet
+            \bigbreak \noindent 
+            The phrase "Internet of Things" was coined by Kevin Ashton in 1999.  He used the phrase as the title of a presentation he gave to pitch a new supply-chain optimization project that used radio-frequency identification (RFID) tags to track lipsticks and other products. He wanted to bridge the gap between the physical world ("things") and the digital world ("the Internet")
+            \bigbreak \noindent 
+            \textbf{Note:} Companies routinely embed and conceal RFID tags inside product packaging, care labels, and fabric seams for inventory tracking and loss prevention
+            \bigbreak \noindent 
+            Radio Frequency Identification, which is a wireless technology that uses radio waves to identify, track, and communicate information about objects, animals, or people.  The range of an RFID (Radio Frequency Identification) system spans from a few centimeters to over 100 meters
+        \item \textbf{Cloud computing}: Cloud computing in networking is the delivery of network capabilities, computing power, and data storage as on-demand services over the internet instead of using physical, local hardware
+            \bigbreak \noindent 
+            Software abstracts physical hardware into virtual pools of resources like Virtual Private Clouds (VPCs) and virtual routers.
+        \item \textbf{Compute}: In technology and cloud computing, compute refers to the processing power, memory, and hardware resources needed to run software, execute instructions, and process data
+
+
+
+
+
+    \end{itemize}
+
+
+
+
 
 
 

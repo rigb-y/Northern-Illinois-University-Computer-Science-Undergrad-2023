@@ -1,0 +1,1175 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={Embedded C++}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{Embedded C++}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Threads and Thread safety}
+    \subsection{Threads and locks}
+    \begin{itemize}
+        \item \textbf{Creating a thread}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <iostream>
+                #include <thread>
+
+                void worker(int id) {
+                    std::cout << "Worker " << id << '\n';
+                }
+
+                int main() {
+                    std::thread t(worker, 1);
+
+                    t.join();
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The operating system schedules the new thread independently. You should not assume which thread runs first or how their instructions will be interleaved.
+        \item \textbf{Join}: A std::thread is normally handled with join().
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::thread t(do_work);
+                t.join();
+            \end{cppcode}
+            \bigbreak \noindent 
+            join() blocks the calling thread until t finishes. A thread object must not be destroyed while it is still joinable. Doing so calls std::terminate():
+            \bigbreak \noindent 
+            A thread must be joined to make the calling thread wait until the target thread finishes its work, prevent the main program from exiting too early, and safely clean up system resources
+            \bigbreak \noindent 
+            You can check its state:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            if (t.joinable())
+                t.join();
+            \end{cppcode}
+        \item \textbf{Detached threads}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            t.detach();
+            \end{cppcode}
+            \bigbreak \noindent 
+            A detached thread continues independently. The std::thread object no longer controls it.
+            \bigbreak \noindent 
+            Detached threads are dangerous because the program must ensure that everything the thread accesses remains alive:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void dangerous() {
+                    int value = 42;
+
+                    std::thread([&value] {
+                        use(value);  // value might already be destroyed
+                    }).detach();
+                }
+            \end{cppcode}
+        \item \textbf{jthread}: C++20 introduced std::jthread. Its destructor automatically joins the thread.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <thread>
+
+                void worker() {
+                    // Work
+                }
+
+                int main() {
+                    std::jthread t(worker);
+                } // Automatically joined
+            \end{cppcode}
+        \item \textbf{Passing arguments}: Arguments passed to std::thread are normally copied or moved into internal storage.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void process(int value);
+
+                int x = 10;
+                std::thread t(process, x); // x is copied
+            \end{cppcode}
+            \bigbreak \noindent 
+            To deliberately pass by reference, use std::ref:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <functional>
+
+                void increment(int& value) {
+                    ++value;
+                }
+
+                int x = 10;
+                std::thread t(increment, std::ref(x));
+                t.join();
+            \end{cppcode}
+        \item \textbf{std::mutex}: A mutex provides mutual exclusion: only one thread can own it at a time.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <mutex>
+
+                int counter = 0;
+                std::mutex counter_mutex;
+
+                void increment()
+                {
+                    for (int i = 0; i < 100'000; ++i) {
+                        counter_mutex.lock();
+                        ++counter;
+                        counter_mutex.unlock();
+                    }
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The protected region is called a critical section. Do not normally call lock() and unlock() manually. If an exception or early return occurs before unlock(), the mutex remains locked
+        \item \textbf{RAII locking}: C++ locking should normally use RAII: lock in a constructor, unlock in a destructor.
+            \bigbreak \noindent 
+            Use std::lock\_guard for a simple scope-based lock:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void increment() {
+                    for (int i = 0; i < 100'000; ++i) {
+                        std::lock_guard<std::mutex> lock(counter_mutex);
+                        ++counter;
+                    }
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The mutex is automatically unlocked at the end of the scope.
+            \bigbreak \noindent 
+            You can shorten the critical section:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void function() {
+                    perform_unrelated_work();
+
+                    {
+                        std::lock_guard<std::mutex> lock(counter_mutex);
+                        modify_shared_state();
+                    }
+
+                    perform_more_unrelated_work();
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Keeping critical sections short reduces contention.
+            \bigbreak \noindent 
+            When you initialize a std::lock\_guard, it calls .lock() on the underlying mutex (usually std::mutex). If another thread holds the lock, the operating system puts the requesting thread to sleep (context switch).
+        \item \textbf{std::unique\_lock}: std::unique\_lock is more flexible:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::unique_lock<std::mutex> lock(counter_mutex);
+
+                modify_shared_state();
+
+                lock.unlock();
+                perform_expensive_work();
+
+                lock.lock();
+                modify_shared_state_again();
+            \end{cppcode}
+            \bigbreak \noindent 
+            It supports:
+            \begin{itemize}
+                \item Deferred locking
+                \item Manual unlock/relock
+                \item Ownership transfer
+                \item Condition variables
+                \item Timed mutex operations
+            \end{itemize}
+            It has slightly more state and overhead than std::lock\_guard.
+        \item \textbf{std::scoped\_lock is particularly useful when acquiring several mutexes}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+            std::scoped_lock lock(account_a.mutex, account_b.mutex);
+            \end{cppcode}
+            \bigbreak \noindent 
+            It uses a deadlock-avoidance algorithm rather than naively locking them in the listed sequence.
+        \item \textbf{try\_lock() and timed mutexes}: try\_lock() attempts to acquire a mutex without waiting:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                if (mutex.try_lock()) {
+                    // Mutex acquired
+                    use_shared_state();
+                    mutex.unlock();
+                } else {
+                    // Do something else
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The primary difference is that std::mutex::lock() is a blocking operation, while std::mutex::try\_lock() is a non-blocking operation
+            \bigbreak \noindent 
+            RAII can still be used:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::unique_lock lock(mutex, std::try_to_lock);
+
+                if (lock.owns_lock()) {
+                    use_shared_state();
+                }
+            \end{cppcode}
+        \item \textbf{Condition variables}: In C++, std::condition\_variable is a synchronization primitive that allows one thread to suspend execution (sleep) until another thread modifies a shared variable and signals the condition variable. This eliminates the need for inefficient busy-waiting loops
+            \bigbreak \noindent 
+            To use a condition variable, you need three pieces working together
+            \begin{enumerate}
+                \item \textbf{std::condition\_variable:} The signaling mechanism.
+                \item \textbf{std::mutex:} Protects the shared state.
+                \item \textbf{std::unique\_lock<std::mutex>:} Passed to the wait() function. A std::lock\_guard cannot be used for waiting because the condition variable must frequently unlock and relock the mutex while waiting
+            \end{enumerate}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <condition_variable>
+                #include <mutex>
+                #include <queue>
+
+                std::queue<int> queue;
+                std::mutex mutex;
+                std::condition_variable available;
+                bool finished = false;
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            // Producer
+            void produce(int value) {
+                {
+                    std::lock_guard lock(mutex);
+                    queue.push(value);
+                }
+
+                available.notify_one();
+            }
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            // Consumer
+
+            void consume() {
+                for (;;) {
+                    std::unique_lock lock(mutex);
+
+                    available.wait(lock, [] {
+                        return !queue.empty() || finished;
+                    });
+
+                    if (queue.empty() && finished) {
+                        break;
+                    }
+
+                    int value = queue.front();
+                    queue.pop();
+
+                    lock.unlock();
+                    process(value);
+                }
+            }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The predicate must be checked because:
+            \begin{itemize}
+                \item Wakeups can be spurious.
+                \item Another consumer may take the item first.
+                \item A notification means the state may have changed, not that the condition is definitely true.
+            \end{itemize}
+            \textbf{Note:} A spurious wakeup occurs when a thread wakes up from a waiting state (sleeping/blocked on a condition variable or monitor) without receiving any explicit signal, notification, or interrupt, and before the condition it is waiting for has actually been met.
+            \bigbreak \noindent 
+            The actual condition is the protected shared state, such as !queue.empty(). The condition variable is only the notification mechanism.
+        \item \textbf{std::shared\_lock}: std::shared\_lock is a general-purpose, RAII-compliant shared lock ownership wrapper introduced in C++14. It is primarily designed for reader-writer scenarios, allowing multiple "reader" threads to concurrently access a shared resource while ensuring that "writer" threads get exclusive access
+        \item \textbf{Reader-writer locking}: std::shared\_mutex permits:
+            \begin{itemize}
+                \item Multiple simultaneous readers
+                \item One exclusive writer
+            \end{itemize}
+            std::shared\_mutex permits:
+            \begin{itemize}
+                \item Multiple simultaneous readers
+                \item One exclusive writer
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Multiple Readers:} Multiple threads can hold a std::shared\_lock on the same mutex simultaneously
+                \item \textbf{Exclusive Block:} If any thread holds an exclusive lock (e.g., via std::unique\_lock or std::lock\_guard), all std::shared\_lock requests will block until the exclusive lock is released
+                \item \textbf{RAII Management:} It automatically calls lock\_shared() on construction and unlock\_shared() upon destruction (when it goes out of scope
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <shared_mutex>
+                #include <unordered_map>
+
+                class Dictionary {
+                    public:
+                    int get(int key) const {
+                        std::shared_lock lock(mutex_);
+                        return values_.at(key);
+                    }
+
+                    void set(int key, int value) {
+                        std::unique_lock lock(mutex_);
+                        values_[key] = value;
+                    }
+
+                    private:
+                        mutable std::shared_mutex mutex_;
+                        std::unordered_map<int, int> values_;
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            This helps primarily when reads are frequent, writes are uncommon, and the protected operations are substantial enough to justify the added complexity. An ordinary mutex may otherwise perform better.
+        \item \textbf{One-time initialization}: Use std::call\_once when initialization must occur exactly once:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <mutex>
+
+                std::once_flag initialization_flag;
+
+                void initialize()
+                {
+                    std::call_once(initialization_flag, [] {
+                        initialize_library();
+                    });
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Function-local static initialization is also thread-safe since C++11:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Resource& resource() {
+                    static Resource instance;
+                    return instance;
+                }
+            \end{cppcode}
+        \item \textbf{Semaphore}: A semaphore represents a number of available permits:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <semaphore>
+
+                std::counting_semaphore<4> slots(4);
+
+                void worker() {
+                    slots.acquire();
+                    use_limited_resource();
+                    slots.release();
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Unlike a mutex, a semaphore does not represent ownership of a critical section. It is useful for limiting concurrency or representing available resources.
+            \bigbreak \noindent 
+            A semaphore (whether a counting semaphore or a binary semaphore) does not represent ownership because it is a signaling mechanism, not a locking mechanism.
+            \bigbreak \noindent 
+            Unlike a mutex (mutual exclusion lock), which is explicitly designed to manage ownership of a critical section, a semaphore focuses strictly on managing a count of available resources.
+            \begin{itemize}
+                \item \textbf{The Rule:} In a mutex, only the exact thread that locked it can unlock it.
+                \item \textbf{The Semaphore Difference:} Any thread can call signal() (or post/V) on a semaphore, even if it never called wait() (or pend/P) to acquire it. Because there is no restriction tying a specific thread to the resource, no concept of "ownership" exists.
+            \end{itemize}
+        \item \textbf{Latch}: A std::latch is a one-use countdown:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <latch>
+                #include <thread>
+                #include <vector>
+
+                std::latch completed(4);
+
+                void worker() {
+                    perform_work();
+                    completed.count_down();
+                }
+
+                // Start four workers...
+                completed.wait();
+            \end{cppcode}
+            \bigbreak \noindent 
+            std::latch is a C++20 thread synchronization primitive that pauses one or more threads until a downward counter reaches zero
+            \begin{itemize}
+                \item \textbf{Single-Use:} Once the internal counter hits zero, the latch is done and cannot be reset or reused.
+                \item \textbf{No Increment:} You cannot increase the counter after creation; you only count it down.
+            \end{itemize}
+            std::latch::wait blocks the calling thread until the internal counter of the std::latch reaches zero.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <latches>
+                #include <thread>
+                #include <vector>
+
+                // Initialize latch with count for 3 workers
+                std::latch work_latch(3);
+
+                for (int i = 0; i < 3; ++i) {
+                    std::thread([&work_latch]() {
+                        // Do work...
+                        work_latch.count_down(); // Signal completion
+                    }).detach();
+                }
+
+                work_latch.wait(); // Main thread blocks here until all 3 workers finish
+            \end{cppcode}
+        \item \textbf{std::barrier}: std::barrier is a C++20 thread-coordination mechanism that blocks a group of participating threads until a specific number of arrivals are reached, after which it can be reused for multiple phases. 
+            \bigbreak \noindent 
+             Unlike std::latch, which is single-use and destroys its counter value at zero, std::barrier automatically resets and can be used for repetitive coordination cycles
+             \bigbreak \noindent 
+             When all threads arrive at the synchronization point, the barrier executes a completion step (callable object) on one of the participating threads before unblocking the rest
+             \bigbreak \noindent 
+             \begin{cppcode}
+                 #include <barrier>
+                 int main() {
+                     // 1. Define a completion function to run at the end of each phase
+                     auto on_completion = []() noexcept {
+                          ...
+                     };
+
+                     std::barrier sync_point(2, on_completion);
+
+                     auto worker = [&](std::string name) {
+                         ...
+
+                         // Block until all 2 threads reach this point
+                         sync_point.arrive_and_wait(); 
+
+                         ...
+
+                         // Reuse the same barrier for the next phase
+                         sync_point.arrive_and_wait(); 
+
+                         ...
+                     };
+
+                     std::vector<std::thread> threads;
+                     threads.emplace_back(worker, "Thread A");
+                     threads.emplace_back(worker, "Thread B");
+
+                     for (auto& t : threads) {
+                         t.join();
+                     }
+
+                     return 0;
+                 }
+             \end{cppcode}
+            \item \textbf{std::async}: std::async is a function template in C++ (introduced in C++11) that runs a callable object—like a function, lambda, or functor—asynchronously or lazily, returning a std::future that will eventually hold the result. It abstracts away manual thread management, automatically handling execution and allowing you to retrieve return values or handle exceptions across thread boundaries safely
+            \item \textbf{std::promise}: A std::promise represents a commitment made by a worker thread to provide a result at some point.  The thread fulfills this contract by calling .set\_value().
+            \item \textbf{std::future}: A std::future represents a placeholder for a value that does not exist yet, but will exist in the future.
+                \bigbreak \noindent 
+                When you call .get(), you are looking into the "future." If the future hasn't arrived yet, you sit and wait for it.
+            \item \textbf{std::promise with std::future}: In C++, std::promise and std::future are a pair of class templates introduced in C++11 to pass values, exceptions, or signals between threads without explicitly managing mutexes or condition variables. They establish a one-way, single-use communication channel where one thread acts as the producer and another acts as the consumer
+                \bigbreak \noindent 
+                \begin{cppcode}
+                    void calculate(std::promise<int> result)
+                    {
+                        try {
+                            result.set_value(42);
+                        } catch (...) {
+                            result.set_exception(std::current_exception());
+                        }
+                    }
+
+                    int main()
+                    {
+                        std::promise<int> promise;
+                        std::future<int> future = promise.get_future();
+
+                        std::thread t(calculate, std::move(promise));
+
+                        int result = future.get();
+                        t.join();
+                    }
+                \end{cppcode}
+                \bigbreak \noindent 
+                Promises are useful when the producer and consumer need a direct one-time communication channel.
+
+
+
+    \end{itemize}
+
+
+    \pagebreak 
+    \subsection{Atomics}
+    \begin{itemize}
+        \item \textbf{std::atomic<T>}: std::atomic<T> provides thread-safe access to a shared value without requiring an explicit mutex for each operation.        
+            \bigbreak \noindent 
+            Its main purpose is preventing a data race when multiple threads read or modify the same variable.
+            \bigbreak \noindent 
+            Without an atomic variable, this program has undefined behavior
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <thread>
+
+                int counter = 0;
+
+                void increment()
+                {
+                    for (int i = 0; i < 100'000; ++i) {
+                        ++counter;
+                    }
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            ++counter is a read-modify-write operation. Two threads can interfere with each other. Instead, we can use std::atomic
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <atomic>
+                #include <iostream>
+                #include <thread>
+
+                std::atomic<int> counter{0};
+
+                void increment()
+                {
+                    for (int i = 0; i < 100'000; ++i) {
+                        ++counter;
+                    }
+                }
+
+                int main()
+                {
+                    std::thread first(increment);
+                    std::thread second(increment);
+
+                    first.join();
+                    second.join();
+
+                    std::cout << counter.load() << '\n';  // 200000
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Every increment is now indivisible from the perspective of other threads.
+        \item \textbf{Operations}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<int> value{10};
+
+                value.store(20);          // Atomic write
+                int x = value.load();     // Atomic read
+
+                value.fetch_add(5);       // Add 5; returns the old value
+                value.fetch_sub(2);       // Subtract 2; returns the old value
+
+                value++;                  // Atomic increment
+                value--;                  // Atomic decrement
+            \end{cppcode}
+        \item \textbf{Cannot be copied}: Atomic objects generally cannot be copied. You copy the contained value explicitly
+        \item \textbf{Atomic flags}: A common use is communicating a simple condition between threads:
+            \bigbreak \noindent 
+            \begin{ccode}
+                #include <atomic>
+                #include <thread>
+
+                std::atomic<bool> stop_requested{false};
+
+                void worker()
+                {
+                    while (!stop_requested.load()) {
+                        // Perform work
+                    }
+                }
+
+                int main()
+                {
+                    std::thread thread(worker);
+
+                    // Later:
+                    stop_requested.store(true);
+
+                    thread.join();
+                }
+            \end{ccode}
+            \bigbreak \noindent 
+            Atomicity ensures that accessing stop\_requested does not create a data race. If stop\_requested were a normal bool, the worker thread would read it while the main thread writes it. One thread writes the object while another thread reads it, producing a data race. In C++, a data race results in undefined behavior.
+            \bigbreak \noindent 
+            Because ordinary C++ code has no defined data races, the compiler may assume another thread does not modify stop\_requested. It could effectively transform this:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                while (!stop_requested) {
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            into something resembling:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                bool cached = stop_requested;
+
+                while (!cached) {
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The worker might therefore loop forever even after the main thread assigns true.
+            \bigbreak \noindent 
+            Each CPU core has registers, caches, and store buffers. A normal write does not provide the synchronization required by the C++ memory model to make another thread observe the change correctly.
+            \bigbreak \noindent 
+            Modern hardware has cache-coherence mechanisms, but those mechanisms alone do not make racy C++ code valid. The compiler and processor are both allowed to reorder ordinary operations when no synchronization is present.
+            \bigbreak \noindent 
+            On many systems, reading or writing a single byte-sized bool happens as one hardware operation. That only means the reader probably will not observe a partially written value.
+            \bigbreak \noindent 
+            Thread safety requires more than preventing a torn read. It also requires:
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item Defined concurrent access
+                \item Appropriate visibility between threads
+                \item Restrictions on compiler and processor reordering
+            \end{itemize}
+            A normal bool provides none of these guarantees.
+        \item \textbf{Torn read}: A torn read is a concurrency bug that occurs when a thread reads a value from memory while another thread is simultaneously writing to it, resulting in the reader seeing a partially updated, corrupted value
+        \item \textbf{Cache coherence}: Cache coherence is the practice of making sure that all copies of shared data stored in different local caches remain identical in a multi-core or multi-processor system
+        \item \textbf{Compare-and-exchange}: Compare-and-exchange is central to lock-free algorithms. It means if the atomic currently contains the expected value, replace it with the desired value. Otherwise, update the expected variable with the actual value.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<int> value{10};
+
+                int expected = 10;
+
+                bool changed = value.compare_exchange_strong(expected, 20);
+            \end{cppcode}
+        \item \textbf{strong vs weak compare exchange}: compare\_exchange\_weak and compare\_exchange\_strong perform a conditional atomic update called compare-and-exchange, often abbreviated CAS.
+            \bigbreak \noindent 
+            Conceptually, CAS performs this indivisible operation:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                if (atomic_value == expected) {
+                    atomic_value = desired;
+                    return true;
+                } else {
+                    expected = atomic_value;
+                    return false;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            No other thread can interrupt the comparison and replacement as two separate steps.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int current = value.load();
+                value.store(current + 1);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Two threads could perform this sequence:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXX@{}}
+                    \toprule
+                    \textbf{Step}&	\textbf{Thread A}&	\textbf{Thread B}& \textbf{Atomic value} \\
+                    \midrule
+                    1	&Loads 10		&10\\[2ex]
+                    2	&	Loads 10	&10\\[2ex]
+                    3	&Stores 11		&11\\[2ex]
+                    4	&	Stores 11	&11 \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            One increment is lost. CAS allows each thread to store the new value only if the old value has not changed since it was loaded
+            \bigbreak \noindent 
+            The fundamental difference is that compare\_exchange\_weak may report failure even when the atomic object equals expected. This is called a \textbf{spurious failure}
+            \bigbreak \noindent 
+            A \textbf{spurious failure} in a compare-and-exchange (or Compare-and-Swap / CAS) operation occurs when the function returns false (indicating failure) even though the current value in memory exactly matches the expected value. Instead of executing the swap, the operation acts as if the values did not match
+            \bigbreak \noindent 
+            On many RISC architectures (like ARM, PowerPC, or MIPS), atomic operations are implemented using a pair of instructions: Load-Link (LL) and Store-Conditional (SC)
+            \bigbreak \noindent 
+            The LL instruction tracks the memory address. The SC instruction only succeeds if no changes or specific hardware events occurred at that address since the LL instruction.
+            \bigbreak \noindent 
+            Context switches, system interrupts, or even basic CPU cache eviction events can cause the CPU to "lose the reservation" on that memory address. As a result, the SC instruction fails naturally, inducing a spurious failure even if no other thread changed the underlying value
+            \bigbreak \noindent 
+            Strong fails only when the comparison fails, it is suitable for a one-time attempt.
+            \bigbreak \noindent 
+            Weak may fail because
+            \begin{itemize}
+                \item The atomic value did not equal expected; or
+                \item The atomic value did equal expected, but the implementation produced a spurious failure.
+            \end{itemize}
+            Using compare\_exchange\_strong in a retry loop is usually considered a performance anti-pattern because compare\_exchange\_weak is more efficient on many CPU architectures.
+            \bigbreak \noindent 
+            While compare\_exchange\_strong guarantees it will only fail if the value actually changed, this guarantee comes with a hardware cost that is unnecessary inside a loop.
+            \bigbreak \noindent 
+            So, weak is normally used in a loop.
+        \item \textbf{Memory ordering}: Atomic operations have two related responsibilities:
+            \begin{enumerate}
+                \item Making an individual operation indivisible.
+                \item Controlling how memory operations become visible between threads.
+            \end{enumerate}
+            Memory ordering defines how compilers and CPU hardware are allowed to reorder read and write operations across multiple threads
+            \begin{itemize}
+                \item \textbf{Single-threaded code:} Compilers and CPUs change instruction order to make code run faster. This reordering is invisible because the final result stays the same. 
+                \item \textbf{Multi-threaded code:} Other threads can spot these reordered operations. Without rules, one thread might see updates in a completely different order than another thread wrote them, breaking synchronization
+            \end{itemize}
+        \item \textbf{Store-Buffer Forwarding (Store-Load Reordering)}: Imagine two threads running on two different CPU cores, sharing two variables (X and Y), both starting at 0.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Thread 1 (Core 1)}& \textbf{Thread 2 (Core 2)} \\
+                    \midrule
+                    1. Write 1 to X &3. Write 1 to Y  \\[2ex]
+                    2. Read Y &4. Read X \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Logically, it should be impossible for both threads to read 0. At least one thread has to write its 1 before the other thread reads.
+            \bigbreak \noindent 
+            Yet, without memory barriers, both reads can return 0.
+            \bigbreak \noindent 
+            Writing data to the main RAM (or even the L1 cache) is slow. To speed things up, each CPU core has a tiny, ultra-fast temporary holding zone called a Store Buffer.
+            \begin{enumerate}
+                \item Core 1 executes Write 1 to X. Instead of waiting for X to travel to cache, Core 1 drops the write into its local Store Buffer and immediately moves on.
+                \item Core 1 executes Read Y. It checks its own Store Buffer (nothing for Y there) and reads Y from the cache. Because Core 2 hasn't flushed its own buffer yet, Y is still 0.
+                \item Core 2 does the exact same thing simultaneously. It drops Write 1 to Y into its own Store Buffer and immediately executes Read X, which returns 0.
+                \item Finally, both cores flush their Store Buffers out to the shared cache.
+            \end{enumerate}
+            To stop the CPU from doing this, you must use a Memory Barrier (like C++'s std::memory\_order\_seq\_cst). This instruction forces the CPU core to completely empty its local Store Buffer and commit the data to shared cache before it is allowed to perform the subsequent Read.
+        \item \textbf{Memory barrier}:  A memory barrier (also called a memory fence) is a specific CPU instruction that forces the processor and the compiler to maintain a strict order of memory operations. It acts as a wall that prevents reads and writes from crossing past it.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXX@{}}
+                    \toprule
+                    \textbf{Barrier Type}& \textbf{What It Does}& \textbf{Common Use Case} \\
+                    \midrule
+                    LoadLoad & Ensures older reads finish before newer reads can start. & Preventing a thread from reading stale data. \\[2ex]
+                    StoreStore &Ensures older writes are visible to cache before newer writes happen. &Guaranteeing a payload is written before turning on a "Ready" flag. \\[2ex]
+                    LoadStore & Ensures older reads finish before newer writes can happen. &Preventing early overwrites of data. \\[2ex]
+                    StoreLoad &Ensures older writes are completely flushed before newer reads start. & The heaviest barrier. Required to prevent the store-buffer shortcut described earlier. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{More on memory ordering}: Memory ordering controls how operations surrounding an atomic operation may be observed by other threads.
+            \bigbreak \noindent 
+            Every std::atomic operation is atomic regardless of its memory order. The ordering argument determines whether that operation also establishes ordering and visibility for other memory accesses.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int data = 0;
+                std::atomic<bool> ready{false};
+
+                void producer() {
+                    data = 42;
+                    ready.store(true);
+                }
+
+                void consumer() {
+                    while (!ready.load()) { }
+
+                    std::cout << data << '\n';
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The intent is:
+            \begin{itemize}
+                \item Producer writes data.
+                \item Producer sets ready.
+                \item Consumer observes ready.
+                \item Consumer reads data.
+            \end{itemize}
+            For this to work, the atomic flag must do more than safely transfer a Boolean value. It must also ensure that the write to data becomes visible before the consumer reads it. Memory ordering defines that relationship.
+        \item \textbf{Program order is not necessarily observation order}: Within one thread, the source code says:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                data = 42;
+                ready = true;
+            \end{cppcode}
+            \bigbreak \noindent 
+            But several layers may reorder or delay operations:
+            \begin{itemize}
+                \item The compiler may rearrange instructions.
+                \item The CPU may execute or retire memory operations out of order.
+                \item Stores may temporarily remain in a store buffer.
+                \item Different cores may observe stores at different times.
+            \end{itemize}
+            These transformations are allowed when they do not change the observable behavior of a correctly synchronized C++ program.
+            \bigbreak \noindent 
+            Atomic memory orders constrain these transformations.
+            \bigbreak \noindent 
+            Importantly, the C++ memory model is the authority. Hardware cache coherence alone does not make unsynchronized C++ code valid.
+            \begin{itemize}
+                \item \textbf{Sequenced-before:} ordering inside one thread.
+                \item \textbf{Synchronizes-with:} ordering established between threads through synchronization operations.
+                \item \textbf{Happens-before:} the combined ordering that makes earlier effects visible and prevents data races.
+            \end{itemize}
+        \item \textbf{Global order}: A global order in thread memory models is a single, total sequence of operations that every thread in a program agrees on and observes in the exact same way
+            \bigbreak \noindent 
+             If Thread A performs an operation before Thread B in this global sequence, every other thread in the system will witness the events in that exact same chronological order
+             \bigbreak \noindent 
+             CPUs and compilers cannot reorder operations across different threads in a way that violates this shared global sequence
+             \bigbreak \noindent 
+             It mimics a simple single-threaded program where instructions happen one after another, making concurrent code easy to reason about
+        \item \textbf{Even more on memory ordering}: std::memory\_order controls two separate properties of an atomic operation:
+            \begin{enumerate}
+                \item The atomic operation itself: whether other threads can observe it partially.
+                \item The ordering of other memory operations around it: whether ordinary reads and writes become visible across threads.
+            \end{enumerate}
+            Every std::atomic operation is atomic regardless of its memory order. The difference is synchronization.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXXXX@{}}
+                    \toprule
+                    \textbf{Order} & \textbf{Atomicity} & \textbf{Acquires earlier writes} & \textbf{Publishes earlier writes} & \textbf{Global order} \\ 
+                    \midrule
+                    `relaxed` & Yes & No & No & No \\ [2ex]
+                    `consume` & Yes & Dependency-based historically & No & No \\ [2ex]
+                    `acquire` & Yes & Yes & No & No \\ [2ex]
+                    `release` & Yes & No & Yes & No \\ [2ex]
+                    `acq\_rel` & Yes & Yes & Yes & No \\[2ex]
+                    `seq\_cst` & Yes & Yes & Yes & Yes, among sequentially consistent operations \\ 
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Note that modern spelling is 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::memory_order::relaxed
+                std::memory_order::acquire
+                std::memory_order::release
+                std::memory_order::acq_rel
+                std::memory_order::seq_cst
+            \end{cppcode}
+            \bigbreak \noindent 
+            The older spellings, such as std::memory\_order\_relaxed, are also commonly seen.
+        \item \textbf{Release and acquire}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int data = 0;
+                std::atomic<bool> ready{false};
+            \end{cppcode}
+            \bigbreak \noindent 
+            Thread 1: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                data = 42;
+                ready.store(true, std::memory_order::release);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Thread 2:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                while (!ready.load(std::memory_order::acquire)) {
+                }
+
+                std::cout << data;  // Guaranteed to print 42
+            \end{cppcode}
+            \begin{enumerate}
+                \item data = 42 sequenced-before
+                \item release store of true synchronizes-with
+                \item acquire load that reads true sequenced-before
+                \item reading data
+            \end{enumerate}
+            Therefore, writing data happens-before reading data.
+            \bigbreak \noindent 
+            The critical condition is that the acquire load must observe the value from the release store. Merely using release and acquire somewhere in the program is insufficient.
+            \bigbreak \noindent 
+            if the load reads false, the consumer keeps waiting. When it eventually reads the producer’s true, the release/acquire synchronization is established.
+            \bigbreak \noindent 
+            “Sequenced-before” describes ordering within one thread. Because statement A appears before statement B in the producer thread, A is sequenced-before B:
+            \bigbreak \noindent 
+            The release store effectively publishes everything that the producer did before it. Therefore, the write to data is part of what is being published.
+        \item \textbf{memory\_order\_relaxed}: Relaxed ordering guarantees atomicity and a per-object modification order, but it creates no synchronization for other memory.
+            \bigbreak \noindent 
+            This is appropriate when you only need an accurate counter. Concurrent increments cannot overwrite each other.
+            \bigbreak \noindent 
+            However, relaxed ordering cannot normally publish surrounding data:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int data = 0;
+                std::atomic<bool> ready{false};
+
+                // Thread 1
+                data = 42;
+                ready.store(true, std::memory_order::relaxed);
+
+                // Thread 2
+                if (ready.load(std::memory_order::relaxed)) {
+                    std::cout << data;  // Data race: undefined behavior
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The atomic ready variable is safe, but nothing connects the ordinary write to data with the ordinary read from data.
+        \item \textbf{memory\_order\_release}: Release ordering is used on stores and read-modify-write operations.
+            \bigbreak \noindent 
+            \begin{cppcode}
+            ready.store(true, std::memory_order::release);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Its purpose is publication: operations sequenced before the release can become visible to a thread that performs a matching acquire operation.
+            \bigbreak \noindent 
+            Valid operations are 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                atomic.store(value, std::memory_order::release);
+                atomic.exchange(value, std::memory_order::release);
+                atomic.fetch_add(value, std::memory_order::release);
+            \end{cppcode}
+            \bigbreak \noindent 
+            This is invalid:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            atomic.load(std::memory_order::release);  // Invalid
+            \end{cppcode}
+            \bigbreak \noindent 
+            A load does not publish a value, so release ordering does not make sense for a pure load.
+        \item \textbf{memory\_order\_acquire}: Acquire ordering is used on loads and read-modify-write operations.
+            \bigbreak \noindent 
+            \begin{cppcode}
+            bool value = ready.load(std::memory_order::acquire);
+            \end{cppcode}
+            \bigbreak \noindent 
+            If this operation reads from a corresponding release operation, everything published before that release becomes visible after the acquire.
+            \bigbreak \noindent 
+            An acquire load does not publish preceding operations to other threads. It receives information published by another thread.
+            \bigbreak \noindent 
+            A pure store does not read a value, so it cannot acquire anything.
+        \item \textbf{memory\_order\_acq\_rel}: Acquire-release combines both directions:
+            \begin{itemize}
+                \item Acquire the writes published by another thread.
+                \item Release the current thread’s preceding writes.
+            \end{itemize}
+            It is intended for atomic read-modify-write operations:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                atomic.fetch_add(1, std::memory_order::acq_rel);
+                atomic.exchange(value, std::memory_order::acq_rel);
+                atomic.compare_exchange_weak(
+                    expected,
+                    desired,
+                    std::memory_order::acq_rel
+                );
+            \end{cppcode}
+            \bigbreak \noindent 
+            A read-modify-write operation both reads the old value and publishes a new value, so it can meaningfully perform both functions.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<int> state{0};
+
+                int old = state.fetch_add(1, std::memory_order::acq_rel);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The operation can:
+            \begin{itemize}
+                \item Acquire information associated with the value it reads.
+                \item Release preceding work through the new value it writes.
+            \end{itemize}
+            \bigbreak \noindent 
+            This is invalid for pure loads and stores
+            \bigbreak \noindent 
+            \begin{cppcode}
+                atomic.load(std::memory_order::acq_rel);   // Invalid
+                atomic.store(1, std::memory_order::acq_rel); // Invalid
+            \end{cppcode}
+            \bigbreak \noindent 
+            Use acquire for the load and release for the store.
+        \item \textbf{memory\_order\_seq\_cst}: Sequential consistency provides acquire/release behavior plus a single total order over all sequentially consistent atomic operations.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                atomic.store(1);  // seq_cst
+                int x = atomic.load();  // seq_cst
+            \end{cppcode}
+            The program behaves as though all seq\_cst operations were placed into one global sequence that every thread agrees upon. The standard requires a single total order for these operations
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<int> x{0};
+                std::atomic<int> y{0};
+
+                int r1;
+                int r2;
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            // Thread 1
+            x.store(1, std::memory_order::seq_cst);
+            r1 = y.load(std::memory_order::seq_cst);
+
+            // Thread 2
+            y.store(1, std::memory_order::seq_cst);
+            r2 = x.load(std::memory_order::seq_cst);
+            \end{cppcode}
+            \bigbreak \noindent 
+            With exclusively sequentially consistent operations, this result is forbidden:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            r1 == 0 && r2 == 0
+            \end{cppcode}
+            \bigbreak \noindent 
+            To obtain both zeros, each load would need to appear before the other thread’s store, producing an impossible cycle in the global sequentially consistent order.
+        \item \textbf{Release/acquire synchronization is conditional}: An acquire load synchronizes with a release store only when the load reads the value written by that store.
+            \bigbreak \noindent 
+            So, with
+            \bigbreak \noindent 
+            \begin{cppcode}
+                x.store(1, std::memory_order::release);
+                r1 = y.load(std::memory_order::acquire);
+
+                // Thread 2
+                y.store(1, std::memory_order::release);
+                r2 = x.load(std::memory_order::acquire);
+
+                // r1 == r2 == 0 possible
+            \end{cppcode}
+            \bigbreak \noindent 
+            For thread 1s load
+            \bigbreak \noindent 
+            \begin{cppcode}
+                r1 = y.load(std::memory_order::acquire);
+            \end{cppcode}
+            \begin{itemize}
+                \item If it reads 1, it read from Thread 2’s release store, so synchronization occurs.
+                \item If it reads the original 0, it did not read from Thread 2’s release store, so no synchronization occurs.
+            \end{itemize}
+            The same applies to Thread 2’s load of x. Therefore, if both loads read the initial values, neither acquire load read from the other thread’s release store
+            \bigbreak \noindent 
+            \textbf{Note:} The standard explicitly restricts stores to relaxed, release, or sequentially consistent ordering, and loads to relaxed, acquire, or sequentially consistent ordering
+        \item \textbf{Compare-exchange success and failure orders}: Compare-exchange often takes two orders:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                value.compare_exchange_weak(
+                    expected,
+                    desired,
+                    std::memory_order_acq_rel,  // Success
+                    std::memory_order_acquire   // Failure
+                );
+            \end{cppcode}
+            \bigbreak \noindent 
+            On success, it reads the old value and writes the new one, so acq\_rel is possible.
+            \bigbreak \noindent 
+            On failure, it only reads the actual value into expected. Because no write occurred, the failure order cannot contain release semantics. Therefore, release and acq\_rel are invalid failure orders.
+            \bigbreak \noindent 
+            A common pattern is 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                while (!head.compare_exchange_weak(
+                    expected,
+                    desired,
+                    std::memory_order_release,
+                    std::memory_order_relaxed
+                )) {
+                    // expected was updated
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The successful operation publishes data. Failure merely retrieves the current value and does not need synchronization.
+        \item \textbf{Atomics do not make an entire algorithm atomic}: Suppose two atomic variables must remain consistent with each other:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<int> account_a{100};
+                std::atomic<int> account_b{100};
+
+                void transfer() {
+                    account_a.fetch_sub(50);
+                    account_b.fetch_add(50);
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Each operation is atomic, but the complete transfer is not. Another thread could observe:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                account_a == 50
+                account_b == 100
+            \end{cppcode}
+            \bigbreak \noindent 
+            If both values must change as one transaction, use a mutex:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <mutex>
+
+                int account_a = 100;
+                int account_b = 100;
+                std::mutex accounts_mutex;
+
+                void transfer() {
+                    std::lock_guard lock(accounts_mutex);
+
+                    account_a -= 50;
+                    account_b += 50;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Atomics protect individual atomic operations. They do not automatically protect larger invariants involving several operations or objects.
+        \item \textbf{Lock-free does not always mean faster}: An atomic type may be implemented directly using hardware instructions, or the implementation may internally use locks.
+            \bigbreak \noindent 
+            You can inspect this for a type
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::atomic<long long> value{0};
+
+                if (value.is_lock_free()) {
+                    // This atomic object is implemented without locks.
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            For a compile-time check when available:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            static_assert(std::atomic<int>::is_always_lock_free);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Simple types such as bool, pointers, and properly aligned machine-sized integers are commonly lock-free, but portable code should not assume this unless the implementation guarantees it.
+        \item \textbf{Atomic pointers}: Pointers can also be atomic:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int values[10];
+
+                std::atomic<int*> pointer{values};
+
+                pointer.fetch_add(1);  // Advances by one int
+                int* current = pointer.load();
+            \end{cppcode}
+            \bigbreak \noindent 
+            Atomic pointers are important in lock-free data structures, although safe memory reclamation makes those structures substantially more complicated than they initially appear.
+        \item \textbf{C++20 waiting}: C++20 allows a thread to wait for an atomic value to change without manually spinning continuously:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            std::atomic<bool> ready{false};
+
+            void consumer() {
+                ready.wait(false);
+
+                // ready is no longer false
+            }
+
+            void producer() {
+                ready.store(true);
+                ready.notify_one();
+            }
+            \end{cppcode}
+
+
+
+    \end{itemize}
+   
+
+\end{document}
