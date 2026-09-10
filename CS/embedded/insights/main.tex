@@ -392,14 +392,173 @@
                 \item SPI signals
                 \item General output pins
             \end{itemize}
-            An open-drain output can:
+        \item \textbf{Open-drain}: An open-drain output is a digital pin configuration that can pull a signal down to ground or disconnect completely, but it cannot actively drive a high voltage on its own
+            \bigbreak \noindent 
+            If any device pulls the line low, the line is low. The line becomes high only when every device releases it.
+        \item \textbf{Output speed}: STM32 GPIO configuration includes an output speed setting. This does not normally mean how frequently software toggles the pin. It primarily controls how quickly the output voltage transitions between low and high.
+            \bigbreak \noindent 
+            A faster edge supports higher-frequency signals but can cause:
             \begin{itemize}
-                \item Actively pull the pin low
-                \item Release the pin, but not actively drive it high
+                \item More electromagnetic interference
+                \item More power consumption
+                \item More ringing and signal-integrity problems
             \end{itemize}
+            For a slowly blinking LED, a low-speed setting is sufficient.
+        \item \textbf{GPIO registers}: GPIO is controlled through memory-mapped registers. These registers occupy addresses in the MCU’s memory map, but accessing them controls hardware rather than ordinary RAM.
+            \bigbreak \noindent 
+            For an STM32 GPIO port, important registers commonly include:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{Register}&	\textbf{Purpose} \\
+                    \midrule
+                    MODER	&Select input, output, alternate-function, or analog mode\\[2ex]
+                    OTYPER	&Select push-pull or open-drain output\\[2ex]
+                    OSPEEDR	&Select output transition speed\\[2ex]
+                    PUPDR	&Configure pull-up or pull-down resistors\\[2ex]
+                    IDR	&Read current input states\\[2ex]
+                    ODR	&Read or change output states\\[2ex]
+                    BSRR	&Atomically set or reset output bits\\[2ex]
+                    AFRL, AFRH	&Select alternate peripheral functions \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Each pin is represented by one or more bits in these registers.
+        \item \textbf{Configuring a pin as an output}: Suppose we want to configure PA5 as an output.
+            \bigbreak \noindent 
+            On STM32 devices, each pin has a two-bit field in MODER:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XX@{}}
+                    \toprule
+                    \textbf{MODER field} &\textbf{Mode} \\
+                    \midrule
+                    00	&Input\\[2ex]
+                    01	&Output\\[2ex]
+                    10	&Alternate function\\[2ex]
+                    11	&Analog \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            Because PA5 is pin 5, its mode is controlled by bits 11 ($2(5)+1$) and 10 ($2(5)$):
+            \bigbreak \noindent 
+            A simplified register-level configuration looks like:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                GPIOA->MODER &= ~(3U << (5U * 2U));  // Clear both mode bits
+                GPIOA->MODER |=  (1U << (5U * 2U));  // Select output mode
+            \end{cppcode}
+            The first operation clears the two-bit field. The second sets it to 01.
+            \bigbreak \noindent 
+            You could modify the output data register:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                GPIOA->ODR |= (1U << 5);    // Set PA5 high
+                GPIOA->ODR &= ~(1U << 5);   // Set PA5 low
+            \end{cppcode}
+            \bigbreak \noindent 
+            However, STM32 generally provides the BSRR register for safer individual-bit changes:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                GPIOA->BSRR = (1U << 5);         // Set PA5 high
+                GPIOA->BSRR = (1U << (5 + 16));  // Set PA5 low
+            \end{cppcode}
+            In BSRR:
+            \begin{itemize}
+                \item Bits 0–15 set corresponding pins.
+                \item Bits 16–31 reset corresponding pins.
+            \end{itemize}
+            This avoids a read-modify-write sequence and makes the operation atomic with respect to interrupts.
+            \bigbreak \noindent 
+            BSRR means Bit Set/Reset Register. It is a 32-bit, write-only register divided into two halves. The important feature is that each operation requires only one write to the peripheral.
+            \bigbreak \noindent 
+            After the CPU writes to GPIOA->BSRR, the write travels through the STM32 bus system to the GPIOA peripheral. The BSRR does not store the value like an ordinary variable; GPIOA interprets it as a set/reset command.
+        \item \textbf{Reading an input}: To test whether PC13 is high:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                if (GPIOC->IDR & (1U << 13)) {
+                    // PC13 is high
+                } else {
+                    // PC13 is low
+                }
+            \end{cppcode}
+            IDR contains one bit for each pin in the port. Reading IDR observes the pin’s actual digital input state. Reading ODR observes the value stored in the output latch. These values can differ under certain electrical conditions.
+        \item \textbf{RCC}: RCC stands for Reset and Clock Control, a dedicated hardware register block inside STM32 microcontrollers that manages system resets and distributes clock signals
+        \item \textbf{STM32 bus architecture}:  STM32 microcontrollers control internal system buses and attached hardware via memory-mapped control, clock, and configuration registers belonging to the Reset and Clock Control (RCC) subsystem and individual peripheral blocks
+            \bigbreak \noindent 
+            STM32 chips (such as the STM32F4/F7 series) use an AHB/APB bus matrix to connect the CPU and DMA masters to memory and peripherals
+            \begin{itemize}
+                \item \textbf{AHB (Advanced High-performance Bus):} Used for high-speed components like Flash, SRAM, and DMA. Divided into AHB1 and AHB2 for core/GPIO acces
+                \item \textbf{APB (Advanced Peripheral Bus):} Used for lower-speed peripherals. Divided into APB1 (timers, I2C, SPI2/3, UART2-5) and APB2 (high-speed SPI1, USART1, ADCs)
+            \end{itemize}
+            Peripherals on these buses are disabled by default after a reset to save power. You must enable their respective bus clocks using RCC registers before reading or writing to any peripheral register
+            \bigbreak \noindent 
+            \textbf{Note:} ENR stands for enable register
+        \item \textbf{Enabling the GPIO peripheral clock}: On many MCUs, a GPIO peripheral does nothing until its clock is enabled. This reduces power consumption for unused hardware.
+            \bigbreak \noindent 
+            On the STM32F446RE, GPIO ports are connected to the AHB1 (advanced high performance bus 1) peripheral bus. GPIOA can be enabled with:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+            \end{cppcode}
+            The sequence for a simple output is therefore:
+            \begin{enumerate}
+                \item Enable the GPIO port’s clock.
+                \item Configure the pin mode.
+                \item Configure its output type, speed, and pull resistors.
+                \item Write the desired output state.
+            \end{enumerate}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // Enable GPIO port A clock
+                RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 
+                // Clear port A pin 5
+                GPIOA->MODER &= ~(3U << (5U * 2U));
 
+                // Set port A pin 5 output
+                GPIOA->MODER |=  (1U << (5U * 2U));
 
+                GPIOA->OTYPER &= ~(1U << 5);  // Push-pull
+                GPIOA->PUPDR  &= ~(3U << (5U * 2U));
+
+                // Set high
+                GPIOA->BSRR = (1U << 5);      // PA5 high
+            \end{cppcode}
+        \item \textbf{Electrical limitations}: A GPIO pin is a small digital interface, not a general-purpose power source.
+            \bigbreak \noindent 
+            Important restrictions include:
+            \begin{itemize}
+                \item Maximum voltage on the pin
+                \item Maximum current per pin
+                \item Maximum total current for a port or the MCU
+                \item Whether the pin is 5 V tolerant
+                \item Whether analog functionality is supported
+                \item Whether the pin is reserved for debugging or another board function
+            \end{itemize}
+        \item \textbf{GPIO and interrupts}: Instead of repeatedly checking an input:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                while (1) {
+                    if (GPIOC->IDR & (1U << 13)) {
+                        // Handle input
+                    }
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            the MCU can configure the pin to generate an interrupt when the signal changes.
+            \bigbreak \noindent 
+            Common trigger choices include:
+            \begin{itemize}
+                \item Rising edge: low to high
+                \item Falling edge: high to low
+                \item Both edges
+            \end{itemize}
+        \item \textbf{Voltage labels}: 
+            \begin{itemize}
+                \item \(V_{DD}\) represents the positive supply voltage for a circuit, particularly those using field-effect transistors (FETs) like CMOS chips. The abbreviation stands for Voltage at the Drain
+                \item \(V_{SS}\) (Voltage at the Source): The negative supply or ground rail paired with \(V_{DD}\) in FET/CMOS circuits.
+                \item \(V_{CC}\) / \(V_{EE}\): The equivalents used in bipolar junction transistor (BJT) circuits. \(V_{CC}\) stands for Voltage at the Collector (positive), and \(V_{EE}\) stands for Voltage at the Emitter (negative/ground).
+            \end{itemize}
 
 
     \end{itemize}

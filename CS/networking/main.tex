@@ -118,6 +118,114 @@
             \bigbreak \noindent 
             Software abstracts physical hardware into virtual pools of resources like Virtual Private Clouds (VPCs) and virtual routers.
         \item \textbf{Compute}: In technology and cloud computing, compute refers to the processing power, memory, and hardware resources needed to run software, execute instructions, and process data
+        \item \textbf{Clients and servers}: In a computer network, a Client-server model divides tasks between service requesters (clients) and service providers (servers)
+        \item \textbf{Data center}: A data center is a physical facility or building that houses computer systems, servers, and related hardware to store, process, and share digital information and applications
+        \item \textbf{Hertz}: A hertz (abbreviated as Hz) is the standard unit of measurement for frequency, equal to one cycle or wave per second
+            \bigbreak \noindent 
+            One hertz means an event repeats one time every single second
+        \item \textbf{Data stream}: In a data stream, Hertz (Hz) matters because it measures the sampling rate or update frequency, which directly determines how much data is captured, how real-time the stream is, and the resources required to process it. 
+            \bigbreak \noindent 
+            One Hertz equals one data point or update per second.
+        \item \textbf{Telco (Telecommunications company)}:  Telcos own and manage the large-scale physical infrastructure like utility poles, underground conduits, and switching centers—that connect homes and businesses to the broader network.
+        \item \textbf{Digital subscriber line}: An internet technology that sends digital data over traditional copper telephone lines.
+        \item \textbf{Fiber-optic internet}:  A high-speed connection that transmits data as pulses of light through thin strands of pure glass or plastic
+            \bigbreak \noindent 
+            Lasers or LEDs send light signals down the glass fiber, which are converted into electrical data by an Optical Network Terminal (ONT) at your home
+        \item \textbf{Modem (modulator-demodulator)}: A modem is a hardware device that connects your home or office network to the internet through your Internet Service Provider (ISP)
+            \begin{itemize}
+                \item \textbf{Modem:} Connects your house to the outside internet. It usually has only one port for an Ethernet cable.
+                \item \textbf{Router:} Takes the internet connection from the modem and shares it with multiple devices in your home via Wi-Fi or extra Ethernet cables.
+                \item \textbf{Gateway:} A combo device that acts as both a modem and a router in one box
+            \end{itemize}
+            The name modulator-demodulator describes the two primary jobs the device performs to allow computers to talk to each other over long distances.
+            \begin{itemize}
+                \item \textbf{Modulator (Mo):} Computers speak in digital data (binary code made of 1s and 0s). However, traditional transmission lines—like old telephone wires—were designed to carry analog data (sound waves). The modem modulates (converts) the digital data from a computer into an analog signal that can travel across the network.
+                \item \textbf{Demodulator (Dem):} When those analog signals reach the receiving end, the computer on that side cannot understand them. The modem demodulates (converts) the incoming analog waves back into digital 1s and 0s that the computer can read.
+            \end{itemize}
+            Once the ISP demodulates the analog signal back into digital data, it processes that data to get it to its final destination on the global internet.
+            \bigbreak \noindent 
+            The ISP's routers read the "destination address" attached to your data packets. The router then determines the fastest, most efficient physical path across the internet backbone to send your request to the target server (like Google, Netflix, or a banking website).
+        \item \textbf{The data sending process}: 
+            \begin{itemize}
+                \item \textbf{Your Device:} You click a link, generating digital data.
+                \item \textbf{The Router:} Your device sends that data to the router, which organizes your local traffic and passes the data to the modem.
+                \item \textbf{The Modem:} The modem takes the digital data, modulates it into a signal suitable for the line, and pushes it out of your house.
+                \item \textbf{The ISP:} The ISP receives the signal, demodulates it back into digital data, and routes it across the global internet infrastructure.
+                \item \textbf{The Destination:} The data arrives at the destination server (the website or app you are trying to reach).
+            \end{itemize}
+            If you have a router with no modem, your local devices can still talk to each other, but you will not have an internet connection. Because a router lacks the ability to translate signals for an Internet Service Provider (ISP), it cannot connect your home to the outside world on its own.
+            \bigbreak \noindent 
+            A router's primary job is actually to manage that local network (known as a Local Area Network or LAN).
+            \bigbreak \noindent 
+            The router keeps track of every device in your house by giving each one a unique local IP address (like 192.168.1.5). Because it has this map of your home, it can route data directly between your phone, your laptop, and your smart TV without ever needing to involve a modem or the internet.
+            \bigbreak \noindent 
+            So, the modem is just one of the things a router can route to.
+        \item \textbf{Network switch}: A network switch is a piece of hardware that connects multiple devices—like computers, printers, and servers—together inside a single local area network (LAN)
+            \bigbreak \noindent 
+            Think of a switch as a smart traffic controller for data. When one device sends data to another, the switch receives the data packet and sends it only to the specific destination device, rather than broadcasting it to everything on the network
+            \bigbreak \noindent 
+            Every networked device has a unique physical hardware code called a \textbf{MAC (Media / medium Access Control) address}. It uses 12 hexadecimal characters (numbers 0–9 and letters A–F), usually split into six pairs
+            \bigbreak \noindent 
+            When data arrives at a port, the switch reads the target MAC address and consults its internal lookup table to see which port connects to that specific device
+        \item \textbf{Router vs switch}: The device you call a "router" sitting in your living room is actually an all-in-one combo unit. It houses three entirely separate networking components stuffed into a single plastic box:
+            \begin{enumerate}
+                \item \textbf{A Router:} To connect your home network to the outside internet.                
+                \item \textbf{A Network Switch:} The row of 4 Ethernet ports on the back, which handles the local traffic between your wired devices.
+                \item \textbf{A Wireless Access Point:} The antennas that broadcast the Wi-Fi signal to your wireless devices.
+            \end{enumerate}
+            The modem is what actually brings the internet into your home. It takes the raw, infrastructure signal from your ISP (whether that is traveling over fiber optic lines, coaxial cable, or phone lines) and translates it into a standard digital network signal. 
+            \bigbreak \noindent 
+            A standalone modem only speaks to one single device at a time and hands out exactly one public IP address. If you plugged a laptop directly into a raw modem, that laptop would get internet, but you wouldn't be able to plug in a second device.
+            \bigbreak \noindent 
+            The router plugs directly into the modem to take that single internet connection and split it safely among all the devices in your house.
+            \bigbreak \noindent 
+            The router creates a private internal network and assigns a unique local IP address (like 192.168.1.X) to your phone, TV, computer, and smart devices.
+            \bigbreak \noindent 
+            If you decompose a network into its individual physical boxes, the sequence is 
+            \begin{center}
+                ISP $\to$ Modem $\to$ Router $\to$ Switch $\to$ Devices
+            \end{center}
+        \item \textbf{Wireless access point (WAP)}: A WiFi access point (AP) is a networking hardware device that creates a wireless local area network, usually inside a large building or home, by bridging a wired Ethernet connection to wireless signals
+            \bigbreak \noindent 
+            An AP plugs into a router or network switch using an Ethernet cable. It takes the data from the wired network and converts it into radio waves, broadcasting a WiFi signal. Phones, laptops, and smart home devices connect to this wireless signal just like they would connect to a standard router
+            \bigbreak \noindent 
+            Routers act as the "brain" of a home network. They assign IP addresses, route internet traffic, and include a built-in firewall for security
+            \bigbreak \noindent 
+            Access points focus purely on distributing a wireless signal. They do not manage traffic routing or provide firewall protection on their own; they rely on a connected router to handle those duties
+        \item \textbf{Wifi extenders}: Plugs into an electrical outlet and repeats an existing wireless signal through the air, which can cut your available internet speed in half
+        \item \textbf{WAN and LAN}: A LAN (Local Area Network) is a small computer network that connects devices within a single building or room, while a WAN (Wide Area Network) is a large network that connects multiple smaller networks across huge distances like cities, countries, or the entire globe
+        \item \textbf{Pure router}:  A pure, enterprise-grade router typically only features two main ports: an Internet (WAN) port to connect to the modem, and a Local (LAN) port to connect to your network.
+            \bigbreak \noindent 
+            You would run an Ethernet cable from the router’s single LAN port directly into one device (like a single desktop PC). If you wanted to connect a second computer, a smart TV, or a game console, you would be entirely out of physical plugs.
+            \bigbreak \noindent 
+            Because a pure router only routes traffic between different networks (your home vs. the internet), it doesn't naturally know how to pass data sideways between devices. Even if you found a rare pure router with two LAN ports, if Computer A wanted to send a file to Computer B, the router would have to waste processing power treating them as completely separate networks rather than letting them talk instantly through a shared local switchboard.
+            \bigbreak \noindent 
+            A pure router has no wireless antennas. Without a built-in switch or a wireless access point, you wouldn't have Wi-Fi for your phone, tablet, or smart home gadgets.
+            \bigbreak \noindent 
+            You could absolutely ditch the router if you only ever need to connect one single device to the internet. If you plug a desktop computer directly into a standalone modem, it will get internet access perfectly fine.
+            \bigbreak \noindent 
+            However, you still need a router to build a local network, even if that router only has one physical plug. The router does crucial network-building jobs that a modem cannot do.
+        \item \textbf{DHCP}: DHCP (Dynamic Host Configuration Protocol) is a network management protocol that automatically assigns an IP address and other network settings to devices on a network
+            \bigbreak \noindent 
+            DHCP uses a four-step process to connect a device, often remembered by the acronym DORA: 
+            \begin{itemize}
+                \item \textbf{Discover:} The client device broadcasts a message on the network to find an available DHCP server.
+                \item \textbf{Offer:} The DHCP server responds with an available IP address and network settings.
+                \item \textbf{Request:} The client replies by formally requesting the offered IP address.
+                \item \textbf{Acknowledge:} The server sends a final confirmation, granting the IP address for a set amount of time called a lease
+            \end{itemize}
+            Your internet provider only gives your home one single public IP address (the internet version of a mailing address).
+            \begin{itemize}
+                \item The Modem simply passes that single public IP address to whatever is plugged into it.
+                \item The Router takes that single public IP address, hides it from the world, and generates hundreds of private local IP addresses (like 192.168.1.X) for your home.
+            \end{itemize}
+        \item \textbf{Dial-up}: Dial-up is an older method of connecting to the internet by making a telephone call over a standard landline
+            \bigbreak \noindent 
+            Your computer uses a device called a modem (short for modulator-demodulator) to dial the phone number of an Internet Service Provider (ISP)
+            \bigbreak \noindent 
+            When the connection starts, the modems make beeps, static, and buzzing noises as they trade signals to agree on a common communication speed
+        \item \textbf{Guided and unguided media}: With guided media, the waves are guided along a solid medium, such as a fiber-optic cable, a twisted-pair copper wire, or a coaxial cable. With unguided media, the waves propagate in the atmosphere and in outer space, such as in a wireless LAN or a digital satellite channel.
+
 
 
 

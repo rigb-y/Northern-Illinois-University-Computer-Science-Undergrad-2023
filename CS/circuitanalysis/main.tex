@@ -58,7 +58,7 @@
     \end{titlepage}
     \tableofcontents
     \pagebreak 
-    \unsect{Charge and current}
+    \unsect{Basic quantities}
     \begin{itemize}
         \item \textbf{Planetary model of the atom}: One of the major issues with the planetary model is the idea that electrons whirl around the nucleus in stable, planet-like orbits. That's simply not true. First, the electron inhabits a region of 3D space and does not simply move through a plane       
             \bigbreak \noindent 
@@ -96,6 +96,288 @@
                 \item Q is the charge in coulombs
             \end{itemize}
             As you might guess, the bigger the charge to be moved, the greater the energy required
+        \item \textbf{Power and efficiency}: Power is the rate of energy usage
+            \begin{align*}
+                P = \frac{W}{t}
+            .\end{align*}
+            Measured in watts.
+            \begin{align*}
+                1 \text{watt} = 1 \text{ joule } / 1 \text{ second}
+            .\end{align*}
+        \item \textbf{The power law}: Recall that
+            \begin{align*}
+                I = \frac{Q}{t}, \quad V = \frac{W}{Q}, \quad \text{and} \quad P = \frac{W}{t}
+            .\end{align*}
+            So,
+            \begin{align*}
+                P = \frac{VQ}{t} = IV
+            .\end{align*}
+            We call $P = VI$ the \textbf{power law}.
+        \item \textbf{Efficiency}: Efficiency is the ratio of useful output power to applied power expressed as a percentage
+            \begin{align*}
+                \eta = \frac{P_{\text{out}}}{P_{\text{in}}} \times 100\%
+            .\end{align*}
+            If a device draws 200 watts of power and has a useful output of 120 watts, the efficiency is
+            \begin{align*}
+                \eta = \frac{120}{200} \cdot 100\% = 60\%
+            .\end{align*}
+            In this case, the device is wasting 40\% of the input power, or 80 watts.
+        \item \textbf{amp-hour}: An amp hour (Ah, or ampere-hour) is a unit of measurement used to describe the total electric charge or capacity of a battery.
+            \bigbreak \noindent 
+            One amp hour means a battery can deliver a steady current of 1 amp for 1 hour.
+            \bigbreak \noindent 
+            The lifespan of a batter is roughly the amp-hour rating over the current draw.
+            \begin{align*}
+                \text{Lifespan} \approx \frac{Ah}{I}
+            .\end{align*}
+            Amp-hour is calculated by multiplying current by time
+            \begin{align*}
+                Ah = It
+            .\end{align*}
+            It measures the total electric charge a battery can hold or deliver.
+        \item \textbf{Resistance and conductance}:  Resistance is a measure of how difficult it is to establish a flow of current
+            \bigbreak \noindent 
+            Sometimes it is more convenient to use the inverse view of this phenomenon, and instead of referring to how difficult it is to establish a current, we would be interested in how easy it is to establish a current. This is called conductance and it is the reciprocal of resistance. Conductance is denoted by the letter G and has units of siemens (S).
+            \begin{align*}
+                R = \frac{1}{G}, \quad G = \frac{1}{R}
+            .\end{align*}
+        \item \textbf{Resistivity}: The measure of a material's inherent and general ability to restrict current flow is called resistivity. Resistivity is denoted by the Greek letter $\rho$ 
+            \bigbreak \noindent 
+            All other factors being equal, the higher the resistivity, the greater will be the resistance. Further, the greater the length of the material that the current must pass through, the greater the resistance. Finally, as the surface area of the cross section (i.e, the face) grows, the resistance decreases.
+            \begin{align*}
+                R = \frac{\rho \cdot l}{A}
+            .\end{align*}
+            \begin{itemize}
+                \item $R$ is the resistance in ohms,
+                \item $\rho$ is the resistivity,
+                \item $l$ is the length of the material,
+                \item $A$ is area of the face ($h$ times $w$).
+            \end{itemize}
+            Resistivity is often specified in ohm-centimeters with the length and area similarly specified in centimeters and square centimeters
+        \item \textbf{Resistors}: Resistors are \textbf{linear bilateral devices}. Being linear, their current-voltage relation can be drawn as a straight line. Bilateral means that the polarity of voltage or direction of current will not matter. In other words, unlike a battery, these devices cannot be inserted into a circuit backwards because either orientation works the same way. If the horizontal axis is voltage and the vertical is current, then the slope of the line yields the conductance
+            \bigbreak \noindent 
+            If the x-axis is labeled voltage, and y-axis is labeled current, the steeper the line, the lower its resistance
+            \bigbreak \noindent 
+            General purpose resistors use a color code to denote their value and tolerance. Typically, this will involve four color stripes: two for the precision/mantissa, one for the power of ten, and the fourth to indicate the tolerance. For higher precision, a five stripe version may be used with the first three denoting the precision/ mantissa. Alternately, high precision resistors may have their nominal value printed directly on them
+            \bigbreak \noindent 
+            \fig{.6}{./figures/2.png}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/3.png}
+            \bigbreak \noindent 
+            Note that the fourth band is spaced away from the others to avoid accidentally reversing the order.
+        \item \textbf{Overvoltage (overload voltage)}: Overvoltage is a condition where the electrical supply voltage rises above the safe design limit or rated nominal value of a circuit or device
+        \item \textbf{Force Sensing Resistor (FSR)}: The force sensing resistor consists of two layers of material with a nominal separation distance. It is presented as a flat membrane that is usually round or rectangular, and perhaps with an adhesive backing. 
+            \bigbreak \noindent 
+            With no force applied, the device shows an extremely high resistance, well into the megohms. As force is applied to the surface, the two layers come into better contact which decreases the net resistance
+        \item \textbf{Photoresistor (light dependent resistor (LDR))}:  As their name implies, photoresistors are sensitive to changes in light level. They are also called LDRs, short for Light Dependent Resistor
+            \bigbreak \noindent 
+             In total darkness the device exhibits a very high resistance. As light levels increase, the resistance decreases.
+        \item \textbf{Thermistor}: A thermistor is a device whose resistance is a function of temperature. These devices are available in two basic types. Either PTC, for Positive Temperature Coefficient; or NTC, for Negative Temperature Coefficient. PTC devices show an increase in resistance as temperature increases and NTC devices show a decrease in resistance as temperatures rise. Ideally, these are linear relationships with the plots showing straight lines.
+        \item \textbf{Varistor}: Varistors are used as limiting devices, primarily to suppress unwanted voltage spikes in electronic equipment. The varistor is a unique device in that it has a highly nonlinear current-voltage characteristic. 
+            \bigbreak \noindent 
+            Remember, when plotted with the voltage on the horizontal axis, the slope of the line represents the conductance. Consequently, the varistor shows a region of near zero conductance or extremely high resistance (the horizontal section), and two sections that are nearly vertical, which indicate extremely high conductance or near zero resistance. This characteristic allows the varistor to act as a limiting device.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/4.png}
+        \item \textbf{Schematic symbols}: Clearly, it would not be practical to create circuit drawings (schematics) using pictures of the actual devices. Instead, we use simple schematic symbols to represent them. There are two widely used schemes: ANSI (American National Standards Institue) and IEC (International Electrotechnical Commission). For many electronic components the ANSI and IEC versions are the same, but there are notable differences. ANSI tends to dominate in North America (surprise!) while IEC tends to dominate elsewhere. 
+            \bigbreak \noindent 
+            Figure 2.38 shows the symbols for DC current and voltage sources. The long bar at the top of the voltage source is the positive terminal while the shorter bar at the bottom denotes the negative terminal. For the current source, the arrow points in the direction of conventional current flow. If the source is adjustable, it will often be shown with a diagonal arrow drawn through it. In some schematics, a DC voltage source will simply be drawn as a “connection dot” or node with the voltage labeled. It is assumed that the other end of the source is tied back to the system common or ground.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/5.png}
+            \bigbreak \noindent 
+            Speaking of ground, there are three different symbols used for a circuit's common connection point. These are: earth ground, chassis ground and signal or digital ground. These are shown in Figure 2.39. Earth ground is used when the circuit common is tied back to true earth (e.g., to the third pin on an AC receptacle). Chassis ground is a more generic term which would represent a common reference point that did not go back to true earth (e.g., a portable device). Finally, digital or signal ground is used to distinguish between common points where they might be separated for noise or interference concerns (e.g., a sensitive analog signal common separate from a digital logic common).
+            \bigbreak \noindent 
+            \fig{.6}{./figures/6.png}
+            \bigbreak \noindent 
+            The symbols for resistors and other resistive devices vary considerably between ANSI and IEC versions. ANSI uses a zig-zag line while IEC uses a simple rectangle
+            \bigbreak \noindent 
+            One final note about component values: As decimal points are easy to lose on photocopies or small display screens, engineering notation multipliers are sometimes placed in the position of a decimal point. For example, a 4.7 k$\Omega$ resistor may be listed as simply 4k7.
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Series Resistive Circuits}: 
+    \begin{itemize}
+        \item \textbf{Intro}: Benjamin Franklin (pictured in Figure 3.1) began experimenting with the phenomenon of electricity in 1746. In 1752 he performed his famous kite experiment proving that lightning is a form of electricity by capturing charge from storm clouds in a leyden jar (an early form of an electrical charge storage device). 
+            \bigbreak \noindent 
+            At this time the modern concept of an atomic model with electrons and protons did not exist and electricity was conceived of as a sort of fluid. Franklin surmised that the “electrical flow” moved from positive to negative. This idea was accepted and became the conventional view. Today we call this idea \textbf{conventional current flow}. In this model, current flows from a more positive voltage to a less positive voltage. We know now that the electron is the charge carrier in metals and the electrons travel in the reverse direction. Essentially, Franklin guessed wrong. Electrons move from a lower potential to a higher potential. We call this model \textbf{electron flow}. For most work, engineers and technicians use conventional flow, although in some cases, such as the explanation of semiconductors, electron flow is easier to visualize for some people. In short, conventional flow exists for historical reasons, and it is the model used for most analyses, including this text.
+            \bigbreak \noindent 
+            You might think the current direction would make a big difference in an analysis; after all, it certainly makes a big difference if you drive a car in the wrong direction. It turns out that both forms will achieve the desired results, we just have to be consistent with the usage.
+            \bigbreak \noindent 
+            To better understand this, consider that the movement of a net negative charge in one direction can be thought of as a movement of a net positive charge in the other direction. That is, the movement of an electron creates a “hole” where it used to be and that hole is net positive.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/7.png}
+            \bigbreak \noindent 
+            Here we start at the top with a tube of identical marbles, all pushed to the right. In each step below it we move a marble to the left, mimicking the flow of electrons in a circuit. When we reach the bottom, each marble has been pushed left by one place. We can also arrive at the bottom drawing by simply taking the right-most marble in the top drawing and inserting it to the extreme left by jumping over the other three marbles. Here's the important bit: instead of imagining the marbles moving left, we can also think in terms of “negative space” and imagine the empty slot moving to the right. That's hole flow. The two views are functionally identical as they lead to the same outcome.
+        \item \textbf{Circuits}: The word circuit comes from the Latin root circ, meaning “ring” or “around”. An electrical circuit consists of at least one ring or loop through which current flows. For example, if we have a battery attached to a lamp the current exits the battery, flows through the lamp, and then returns to the other side of the battery creating a loop or completed circuit. Without a path back to the battery, current will not flow. Thus, if we cut one of the wires connecting the battery and lamp, there is no path for current and no current flows. This is referred to as an open circuit and is a common fault that occurs when electronic systems are dropped or struck forcefully. Obviously, this will tend to render the circuit unusable. In this example, the lamp will not illuminate.
+            \bigbreak \noindent 
+            The opposite of the open circuit is the short circuit. In a short circuit, an unintended alternate path for current flow exists and this also can create a malfunction. In the case of our battery and lamp, a short circuit can occur if a piece of wire or metal accidentally fell across the terminals of the lamp. The current would then have a high conductance (i.e., low resistance) path around the lamp. The vast majority of the current would take this low resistance path instead of the higher resistance path presented by the lamp. The result would be that the lamp would not light. In either the open or short case, the light does not function but there is an important difference: for the short circuit, excessive current will flow out of the battery because there is little to resist the flow of current. Thus, the battery will be drained very quickly. For the open, no current flows and thus the battery is not drained.
+        \item \textbf{Series connections}: In general, a series connection is any connection of components configured such that the current through each component must be the same
+            \bigbreak \noindent 
+            Inside each of the lettered boxes would be a component such as a resistor or a voltage source. Note that for each component, there is one entrance point and one exit point. No matter which box you pick, the current flowing through it must be the same as the current flowing into the next box or out of the preceding box, and it doesn't matter if you follow this path in a clockwise or counterclockwise fashion. Thus, this entire configuration is a series connection. The idea that current is consistent throughout should be selfevident. After all, the only way the current through, say, item B could be different from that flowing through item C or D is if some of it somehow “disappeared” along the way by magic. It is important to remember that consistent current is the hallmark feature defining a series connection:
+            \bigbreak \noindent 
+            It is possible that only a portion of a circuit exhibits a series connection.
+            \bigbreak \noindent 
+            Consider the more complex diagram presented in Figure 3.5. Some of these items are in series and some are not. For example, items A and B are in series with each other but not in series with the remaining items. Why? Because if we imagine the current flowing through A and then through B they must be the same, however, once beyond B, the current could split and flow down other branches: a portion entering C, a portion entering D and the remainder flowing into E. On the other hand, items C and F are in series with each other because whatever current is flowing through one of them must be flowing through the other. Thus, items A and B are in series with each other and items C and F are in series with each other, although all four are not in series as a group.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/9.png}
+            \bigbreak \noindent 
+            It is possible that no two items in a circuit are strictly in series. Further, just because the currents through two items happen to be the same, that does not necessarily mean they are in series. Identical currents could be just a by-product of the component values chosen
+            \bigbreak \noindent 
+            Even if items D and E in Figure 3.5 have the same numeric value for current, we would not say that they are in series, anymore than we would say that any two people with the same last name would have to be siblings.
+        \item \textbf{Combining Series Components}: Typically, a series connection will include multiple resistors. 
+            \bigbreak \noindent 
+            Recall that resistors add
+            \begin{align*}
+                R = \frac{\rho \ell}{ A}
+            \end{align*}
+            resistance. If we consider two identical resistors placed in series, one after the other the effective length would double while keeping the resistivity and area unchanged. The combined result would be a doubling of the resistance of just one of them. 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/10.png}
+            \bigbreak \noindent 
+             If we then generalize this to two arbitrary resistors of identical resistivity and area, the lengths would dictate the resistance of each, and the combined lengths would then reflect the resistance of the pair.
+             \begin{align*}
+                 R &= \frac{\rho(\ell_{1} + \cdots + \ell_{n})}{A} = \frac{\rho}{A}(\ell_{1} + \cdots + \ell_{n}) \\
+             .\end{align*}
+             Thus we find that the equivalent resistance of a group of series resistors is their sum:
+             \begin{align*}
+                 R_{\text{total}} = R_{1} + R_{2} + \cdots + R_{n}
+             .\end{align*}
+             Consequently, as resistors in series add, total resistance may be found by summing the individual resistors.
+             \bigbreak \noindent 
+             \fig{1}{./figures/11.png}
+             \bigbreak \noindent 
+             Multiple voltage sources in series may also be added, however, polarities must be considered as opposing voltages partially cancel each other (i.e., adding a negative).
+             \bigbreak \noindent 
+             \fig{.6}{./figures/12.png}
+             \bigbreak \noindent 
+             If we use point b as our reference, by inspection the top of the 12 volt source is 12 volts above point b (reminder, the long bar denotes the positive terminal). Also, by inspection, the right side of the 3 volt source (point a) is negative with respect to its left side. As the left side of this source is connected to the positive terminal of the 12 volt source, then it too must be 12 volts above point b. As its right side is 3 volts less than this side, point a must be 3 volts less than 12 volts, or 9 volts above point b. Thus 
+             \begin{align*}
+                 V_{ab} = 9 volts.
+             .\end{align*}
+             Chasing this further, if the 3 volt source had been flipped so that it had the same polarity as the 12 volt source (positive toward the right) then $V_{ab} = 15$ volts. If the 12 volt source had been flipped (positive toward bottom) with the 3 volt source as drawn originally, then $V_{ab} = -15$ volts. If both sources had been flipped then $V_{ab} = -9$ volts. Finally, if point a had been taken as the reference then these four potentials would have the opposite polarity because, by definition, $V_{ba} = -V_{ba}$
+             \bigbreak \noindent 
+             In contrast to voltage sources, differing current sources are not placed in series as they would each attempt to establish a different series current, a practical impossibility
+        \item \textbf{Generality}: 
+            \begin{align*}
+                \text{Effect} = \frac{\text{cause}}{\text{opposition}}
+            .\end{align*}
+        \item \textbf{Ohm's law}: We have
+            \begin{align*}
+                V = IR
+            .\end{align*}
+            Or,
+            \begin{align*}
+                R = \frac{V}{I}
+            .\end{align*}
+            Note that from this, we get
+            \begin{align*}
+                P = I^{2}R = \frac{V^{2}}{R}
+            .\end{align*}
+        \item \textbf{Kirchoff's Voltage Law (KVL)}: Along with Ohm's law, the key law governing series circuits is Kirchhoff's voltage law, or KVL. Named after nineteenth century German physicist Gustav Kirchhoff, this law states that the sum of voltage rises and voltage drops around a series loop must equal zero (the rises and drops having opposite polarities). Alternately, it may be reworded as the sum of voltage rises around a series loop must equal the sum of voltage drops
+            \begin{align*}
+                \sum V \uparrow\; = \sum V \downarrow
+            .\end{align*}
+        \item \textbf{Voltage divider rule (VDR)}: An outgrowth of KVL is the voltage divider rule (VDR). In a series connection, the current is the same through each component. Thus, the voltage drops in a series connection must be directly proportional to the size of the resistances: the larger the resistor, the larger its voltage, and the larger its share of the total voltage applied to the series connection. Thus, the voltage across any resistor must equal the net supplied voltage times the ratio of the resistor of interest to the total resistance:
+            \begin{align*}
+                V_{R_{x}} = E \cdot \frac{R_{x}}{R_{\text{total}}}
+            .\end{align*}
+            This is just two Ohm's law calculations:
+            \begin{align*}
+                V_{\text{total}} = E = IR_{\text{total}} \implies I = \frac{E}{R_{\text{total}}}
+            .\end{align*}
+            Then, for a particular resistor $R_{x}$:
+            \begin{align*}
+                V_{R_{x}} = IR_{x} = \frac{E}{R_{\text{total}}} \cdot R_{x} = E \cdot \frac{R_{x}}{R_{\text{total}}}
+            .\end{align*}
+            It is worth pointing out that “the resistor of interest” can, in fact, be the sum of multiple resistors in series.
+            \bigbreak \noindent 
+            While VDR is not required for any particular analysis, it serves two purposes: first, it saves some time because it skips over the computation of current, and second, it reinforces the ideal of a proportional division of voltage in a series connection. For example, if there are two resistors in series and one of them is twice the size of the other, then it must be the case that the larger resistor sees twice the voltage of the smaller resistor.
+        \item \textbf{Series analysis}: Ohm's law, Kirchhoff's voltage law, the voltage divider rule and series component combinations are the tools we will use to solve general series circuit problems. There are multiple techniques for analyzing these circuits:
+            \begin{itemize}
+                \item If all voltage source and resistor values are given, the circulating current can be found by dividing the equivalent voltage by the sum of the resistances. Once the current is found, Ohm's law can be used to find the voltage drops across individual resistors. Alternately, the individual voltage drops can be found using the voltage divider rule. At that point, power law can be used to find the power dissipation in each resistor or the power developed by the source(s).
+                \item If the circuit uses a current source instead of a voltage source, then the circulating current is known and the voltage drop across any resistor may be determined directly using Ohm's law.
+                \item If the problem concerns determining resistance values, the basic idea will be to use these rules in reverse. For example, if a resistor value is needed to set a specific current, the total required resistance can be determined from this current and the given voltage supply. The values of the other series resistors can then be subtracted from the total, yielding the required resistor value. Similarly, if the voltages across two resistors are known, as long as one of the resistance values is known, the other resistance can be determined using either the voltage divider rule or Ohm's law. 
+            \end{itemize}
+        \item \textbf{Node voltage}: A node voltage is the voltage at a given point with respect to some other point, normally ground
+            \bigbreak \noindent 
+            Note that as we treat connecting wires ideally (having no resistance), a node is the entire connection wire, not a specific location on it. Normally, simulators will automatically number each node in a circuit with ground being node 0. This method skips the entire business of inserting virtual meters in the circuit and reduces schematic clutter.
+        \item \textbf{Voltage rise and voltage drop}: A voltage rise occurs when you move from a lower electric potential to a higher electric potential:
+            \bigbreak \noindent 
+            A voltage drop occurs when you move from a higher electric potential to a lower electric potential:
+        \item \textbf{The Importance of Polarity}: A key item of importance when analyzing series circuits, or indeed any electrical circuit, is noting the polarity of the voltages. 
+            \bigbreak \noindent 
+            Determining polarity for voltage sources is easy as their polarity is fixed (positive is always at the “long bar” and negative at the “short bar”). The polarity of any resistor will depend on the direction of current flow. To avoid confusion we will use the following standard:
+            \begin{itemize}
+                \item Where conventional current enters a resistor, we label this point with a plus sign, and where the current leaves, a minus sign.
+                \item During analysis, moving from plus to minus is a voltage drop. That is, we are moving from a more positive or higher potential to a less positive or lower potential, thus “dropping” voltage.
+                \item Similarly, traversing from minus to plus is a voltage rise.
+            \end{itemize}
+            Remember, Kirchhoff's voltage law states that the sum of voltage rises around a series loop must equal the sum of voltage drops.
+            \bigbreak \noindent 
+            Along with determining the voltage across single resistors, we are often interested in determining the voltage between arbitrary points in a circuit. These may span several components. It is imperative that we know the polarities of the individual voltages in order to determine the voltage between any two circuit points.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/13.png}
+            \bigbreak \noindent 
+            Here, the two voltage sources, $E_{1}$ and $E_{2}$, aid each other because they are both trying to establish a clockwise current. This produces a net voltage of $E_{1}+E_{2}$. Their polarities are fixed. The current direction will be as drawn because conventional current flows out of the positive terminal of a voltage source. The value of this current will be 
+            \begin{align*}
+                I = \frac{E_{1} + E_{2}}{R_{1} + R_{2}}
+            \end{align*}
+            via Ohm's law.
+            \bigbreak \noindent 
+            Knowing the direction of current, the polarities of the voltage drops across the two resistors may be found. The point where the current enters the resistor is positive, and negative where it exits. Once these are labeled, either Ohm's law or the voltage divider rule can be used to determine the voltages developed across the two resistors. Note that KVL states that the sum of these two resistor voltages must equal the net supplied voltage, or $E_{1}+E_{2}$ in this case.
+            \bigbreak \noindent 
+            To determine the voltage from point $a$ to point $c$, or $V_{ac}$, we start at point $a$ and sum the voltage drops and rises until we get to point $c$. Here, the voltage across $R_{1}$ shows up as a drop
+            \bigbreak \noindent 
+            The result is the voltage across $R_{1}$ minus the voltage across $E_{2}$.
+            \bigbreak \noindent 
+            Depending on the specific values, the sum may wind up being either a positive or negative value. If it's positive, this signifies that point $a$ is at a higher potential than is point $c$. Conversely, if it's negative, this signifies that point $a$ is at a lower potential than is point $c$.
+            \bigbreak \noindent 
+            To illustrate the importance of voltage source polarity, consider the series circuit shown in Figure 3.22.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/14.png}
+            \bigbreak \noindent 
+            The two voltage sources oppose each other because their positive terminals are connected through \(R_1\), rather than one source’s positive terminal aiding the other source.
+            \bigbreak \noindent 
+            Assume $E_{2} > E_{1}$. 
+            \bigbreak \noindent 
+            Following the indicated current direction around the loop:
+            \begin{itemize}
+                \item Passing through \(E_2\) from \(c\) to \(b\) produces a voltage rise of \(+E_2\).
+                \item Passing through \(E_1\) from \(a\) downward produces a voltage drop of \(-E_1\).
+            \end{itemize}
+            Therefore, the net voltage driving the circuit is
+            \begin{align*}
+                E_{\text{net}} = E_{2} - E_{1}
+            .\end{align*}
+            The current is therefore
+            \begin{align*}
+                I = \frac{E_{2} - E_{1}}{R_{1} + R_{1}}
+            .\end{align*}
+            Both resistors are in series, so the same current flows through them.
+            \bigbreak \noindent 
+            Because \(E_2\) is the stronger source, conventional current leaves its positive terminal at \(b\). It then travels:
+            \begin{align*}
+               b \to R_{1} \to a \to E_{1} \to R_{2} \to c \to E_{2} 
+            .\end{align*}
+            Thus, current passes:
+            \begin{itemize}
+                Through \(R_1\) from right to left.
+                Through \(E_1\) from its positive terminal to its negative terminal.
+                Through \(R_2\) from left to right.
+            \end{itemize}
+            A source delivers energy when conventional current leaves its positive terminal. Current leaves the positive terminal of \(E_2\), so \(E_2\) supplies power.
+            \bigbreak \noindent 
+            Current enters the positive terminal of $E_{1}$, so $E_{1}$ absorbs power.
+            \begin{align*}
+                P_{E_{1}} = E_{1}I
+            .\end{align*}
+            If \(E_1\) represents a rechargeable battery, that absorbed power corresponds to charging. If it is an ideal voltage source, “charging” simply means that it is absorbing energy.
+            \begin{itemize}
+                \item \(E_{1} < E_{2}\): current flows as drawn.
+                \item \(E_1>E_2\): current flows in the opposite direction.
+                \item \(E_1=E_2\): the ideal circuit has zero current.
+            \end{itemize}
+        
 
 
 
