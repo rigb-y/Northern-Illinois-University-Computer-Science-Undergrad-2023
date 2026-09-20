@@ -58,6 +58,1376 @@
     \end{titlepage}
     \tableofcontents
     \pagebreak 
+    \unsect{General Cpp}
+    \begin{itemize}
+        \item \textbf{Explicit}: n C++, the explicit keyword is a specifier used to prevent the compiler from performing implicit type conversions and copy-initialization. It acts as a safety guardrail, forcing developers to explicitly state their intent when converting data types, which helps eliminate a massive category of accidental, hard-to-find bugs.        
+            \bigbreak \noindent 
+            By default, if a class has a constructor that can be called with a single argument, the C++ compiler treats it as a converting constructor. This means the compiler will silently convert the argument's type into your class type whenever it thinks it needs to
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Wallet {
+                public:
+                    int dollars;
+                    // Converting constructor (No explicit keyword)
+                    Wallet(int amount) : dollars(amount) {} 
+                };
+
+                void printWalletAmount(const Wallet& w) {
+                    std::cout << "Wallet has amount: " << w.dollars << std::endl;
+                }
+
+                int main() {
+                    // Implicit conversion happens here!
+                    // The compiler automatically converts the integer '42' into a Wallet object.
+                    printWalletAmount(42); 
+
+                    // This also works via implicit copy-initialization
+                    Wallet myWallet = 100; 
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            If we don't want this implicit conversion, we use \texttt{explicit}.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Wallet {
+                public:
+                    int dollars;
+
+                    // Marked as explicit
+                    explicit Wallet(int amount) : dollars(amount) {} 
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            Now we must either explicitly call the constructor or explicitly cast into a Wallet type.
+        \item \textbf{Explicit User-Defined Conversion Operators (C++11)}: Starting with C++11, you can also apply explicit to conversion operators. This prevents a class from automatically downgrading or converting itself into a primitive type when passed around
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class SmartPointer {
+                public:
+                    bool isValid() const { return true; }
+
+                    // Marked as explicit conversion to bool
+                    explicit operator bool() const {
+                        return isValid();
+                    }
+                };
+
+                int main() {
+                    SmartPointer ptr;
+
+                    // Okay, loops and conditions are explicit contexts
+                    if (ptr) { ... }
+
+                    // Error
+                    int x = ptr + 5;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Prior to C++11, explicit was only meaningful for single-argument constructors. With the introduction of braced init-lists ({}), constructors with multiple arguments can also participate in implicit conversions, meaning they should often be marked explicit too
+            \bigbreak \noindent 
+            explicit by default unless you have an intentional architectural reason to allow implicit conversions (e.g., a custom String class allowing literal const char* conversions). 
+            \bigbreak \noindent 
+            If you separate your class implementation, the explicit keyword goes only on the declaration inside the class header file, not on the definition
+        \item \textbf{NRVO (Named return value optimization)}: NVRO (more commonly abbreviated as NRVO, or Named Return Value Optimization) is a C++ compiler optimization that constructs a named local variable directly in the caller's memory space to avoid copying or moving
+            \bigbreak \noindent 
+            Without optimization, a local object is created in the function, copied (or moved) to the return location, and then the local object is destroyed.  The compiler builds the named local object directly at the destination address provided by the caller
+            \bigbreak \noindent 
+            Zero copies and zero moves happen, even if your object has a complex copy constructor. Unlike unnamed return value optimization (RVO) which became mandatory in C++17, named NVRO remains optional for compilers, though all major compilers (GCC, Clang, MSVC) support it
+        \item \textbf{std::move use or don't use}
+            \begin{enumerate}
+                \item 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        class User {
+                        public:
+                            explicit User(std::string name)
+                                : name_{ /* name or std::move(name)? */ } { ... }
+
+                        private:
+                            std::string name_;
+                        };
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    You should use std::move(name) here:
+                    \begin{itemize}
+                        \item If the caller passes a temporary string (rvalue), it is moved into the parameter, and then moved into the member. Total cost: two cheap moves, zero deep copies.
+                        \item If the caller passes an existing string (lvalue), it is copied into the parameter, and then moved into the member. Total cost: one copy, one cheap move.
+                    \end{itemize}
+                    Pass-by-Value + std::move: Passing by value and then moving it into the member variable is the standard modern C++ idiom (frequently called "sink parameters"). It is highly efficient because:
+                \item 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        std::string create_message() {
+                            std::string message = "Operation completed";
+                            return /* message or std::move(message)? */;
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    No std::move
+                    \bigbreak \noindent 
+                    Because message is a local object being returned by value, the compiler can apply named return value optimization (NRVO), constructing it directly in the caller’s destination.
+                    \bigbreak \noindent 
+                    If NRVO is not applied, the language permits message to be moved automatically. Writing std::move(message) explicitly can prevent NRVO, potentially making the program perform a move that could have been eliminated entirely.
+                \item 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void store(std::vector<std::unique_ptr<int>>& values) {
+                            auto number = std::make_unique<int>(42);
+
+                            values.push_back(
+                                /* number or std::move(number)? */
+                            );
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    It should use 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    values.push_back(std::move(number));
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    std::unique\_ptr cannot be copied because it represents exclusive ownership. std::move(number) allows push\_back to invoke the move constructor, transferring ownership into the vector.
+                \item 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void process(const std::string& source) {
+                            std::string copy{
+                                /* source or std::move(source)? */
+                            };
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    No std::move
+                    \bigbreak \noindent 
+                    std::move(source) would produce a const std::string\&\&. The usual move constructor expects a non-const rvalue reference:
+                    \bigbreak \noindent 
+                    Moving generally modifies the source, so it cannot accept a const object. Consequently, std::move(source) would still invoke the copy constructor here.
+                \item 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        class Buffer {
+                        public:
+                            Buffer& operator=(Buffer&& other) {
+                                if (this != &other) {
+                                    release();
+
+                                    data_ = /* other.data_ or std::move(other.data_)? */;
+                                    size_ = other.size_;
+
+                                    other.data_ = nullptr;
+                                    other.size_ = 0;
+                                }
+
+                                return *this;
+                            }
+
+                        private:
+                            char* data_ = nullptr;
+                            std::size_t size_ = 0;
+
+                            void release();
+                    };
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    No std::move.
+                    \bigbreak \noindent 
+                    Because data\_ is a raw pointer, std::move(other.data\_) would have no useful effect. Moving and copying a raw pointer both copy its address.
+                    \bigbreak \noindent 
+                    If the member were a std::unique\_ptr<char[]>, then std::move would be necessary:
+
+            \end{enumerate}
+        \item \textbf{noexcept constructors}: In C++, you should always prioritize marking move constructors as noexcept, followed by any other constructor that can structurally guarantee it will never throw an exception
+            \bigbreak \noindent 
+            Failing to mark eligible constructors with noexcept prevents the compiler from optimizing your code and can cause standard library containers to severely underperform
+            \bigbreak \noindent 
+            You should almost always mark your move constructors as noexcept
+            \bigbreak \noindent 
+            Standard library containers like std::vector guarantee strong exception safety. When a vector grows and needs to reallocate its internal memory, it must move the existing elements to the new storage
+            \bigbreak \noindent 
+            If a move constructor is not marked noexcept, the vector cannot risk using it. If an exception throws mid-move, the original data is altered and corrupted. To stay safe, std::vector will fall back to copying your elements, completely defeating the performance benefits of move semantics
+        \item \textbf{std::string\_view}: std::string\_view is a lightweight, non-owning view of character data. It usually contains only a pointer and a length. A function accepting it can efficiently read from several sources without allocating a new string:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void display(std::string_view text);
+
+                display("literal");
+                display(std::string{"temporary"});
+                display(existing_string);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The risk is that std::string\_view does not own or extend the lifetime of the characters. Storing a view after its source is destroyed or modified can leave it dangling:
+        \item \textbf{Object lifetime model}: In C++, an object's lifetime is a strict runtime property defined by the abstract machine. It dictates the exact boundaries within which an object is considered "alive" and valid to access. Accessing an object outside its lifetime results in undefined behavior
+            \bigbreak \noindent 
+            An object passes through five distinct phases in its complete lifecycle
+            \begin{enumerate}
+                \item \textbf{Storage Allocation:} Memory with the proper size and alignment is obtained.
+                \item \textbf{Initialization (Lifetime Begins):} The constructor completes.
+                \item \textbf{Active Use:} The program reads, modifies, or calls methods on the object.
+                \item \textbf{Destruction (Lifetime Ends):} The destructor starts running.
+                \item \textbf{Storage Deallocation:} The raw memory is released or reused
+            \end{enumerate}
+        \item \textbf{When does lifetime begin and end}: According to the C++ standard, the precise bounds depend on whether the object has a "trivial" or "non-trivial" initialization/destructor:
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}XXX@{}}
+                    \toprule
+                    \textbf{Object Type}& \textbf{Lifetime Begins When...}& \textbf{Lifetime Ends When...} \\
+                    \midrule
+                    Trivial Types(e.g., int, float, trivial structs) & Storage with proper size and alignment is obtained. & The storage is reused, released, or overwritten. \\[5ex]
+                    Class Types(with non-trivial constructor/destructor) & Initialization is complete (the constructor finishes execution). & The destructor call starts. \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            An object’s lifetime generally begins when suitably aligned storage has been obtained and its initialization is complete. Merely allocating raw bytes does not necessarily create an object in them; a non-implicit-lifetime class may require construction, often through placement new or std::construct\_at.
+            \bigbreak \noindent 
+            For a class object, its lifetime ends when its destructor begins, not when it finishes. An object’s lifetime can also end when its storage is released or reused by another object.
+        \item \textbf{Construction / destruction order}: Members are initialized in the order they are declared inside the class: first, then second. Their order in the member-initializer list does not control initialization.
+            \bigbreak \noindent 
+            More completely, construction proceeds as follows:
+            \begin{itemize}
+                \item Virtual base classes
+                \item Direct base classes
+                \item Data members in declaration order
+                \item Constructor body
+            \end{itemize}
+        \item \textbf{Init list vs constructor body assignment}: Members should generally be initialized in the constructor’s member-initializer list instead of assigned inside the constructor body?
+            \bigbreak \noindent 
+            The initializer list constructs each member directly with its intended value:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            Widget::Widget(int n) : value{n} {}
+            \end{cppcode}
+            \bigbreak \noindent 
+            Assignment in the constructor body first initializes the member, often by default construction, and then assigns another value:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Widget::Widget(int n) {
+                    value = n;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            That can perform unnecessary work and does not work for members that cannot be assigned after construction. Reference members and const members must be initialized in the initializer list. A member with no accessible default constructor must also be explicitly initialized there. Base-class constructors are selected there as well.
+        \item \textbf{Mutable keyword}: The mutable keyword in C++ allows a class data member to be modified even if the containing object is declared as const. It serves as a tool to preserve logical constness, meaning the object appears completely unchanged from the outside, but its internal, non-observable state can still be updated
+            \bigbreak \noindent 
+            C++ uses mutable in two distinct scenarios: class data members and lambda expressions
+            \begin{enumerate}
+                \item \textbf{Class data members}: By default, a const member function cannot modify any data members of its class. However, marking a variable as mutable overrides this restriction. 
+                    \bigbreak \noindent 
+                    Can be only applied to non-static, non-const, and non-reference data members
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    class MathWizard {
+                    private:
+                        double input;
+                        mutable double cachedResult = 0.0;
+                        mutable bool isCached = false; // Tracks if cache is valid
+
+                    public:
+                        MathWizard(double val) : input(val) {}
+
+                        // Declared const because it doesn't change the user-facing state
+                        double getExpensiveCalculation() const {
+                            if (!isCached) {
+                                // Modifying mutable variables inside a const function
+                                cachedResult = input * 42.0; // Imagine a heavy math formula here
+                                isCached = true;
+                                std::cout << "[Computing fresh result]\n";
+                            } else {
+                                std::cout << "[Returning cached result]\n";
+                            }
+                            return cachedResult;
+                        }
+                    };
+
+                    int main() {
+                        const MathWizard wizard(10.0); // Object is completely const
+
+                        std::cout << wizard.getExpensiveCalculation() << "\n"; // Computes
+                        std::cout << wizard.getExpensiveCalculation() << "\n"; // Uses cache
+                    }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Mutable provides no thread safety. If multiple threads increment hits without synchronization, there is a data race and therefore undefined behavior. Thread safety would require something such as:
+                \item \textbf{Lambda expressions}: By default, variables captured by a lambda by-value are treated as const inside the lambda body. You cannot modify them unless you explicitly mark the lambda as mutable
+                    \bigbreak \noindent 
+                    By-value lambda captures are const by default because the lambda’s capture block generates a compiler-defined class, and its operator() method is marked const.
+                    \bigbreak \noindent 
+                    When you write a lambda, the C++ compiler transforms it behind the scenes into a standard struct or class called a closure object. The variables you capture by value become member variables of this generated object.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        int x = 10;
+                        auto my_lambda = [x]() { /* code */ };
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The compiler translates that into a unique class that looks roughly like this:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        // What the compiler creates for you:
+                        class AnonymousLambdaClosure {
+                        private:
+                            int x; // The captured variable becomes a data member
+
+                            public:
+                            AnonymousLambdaClosure(int ext_x) : x(ext_x) {}
+
+                            // CRITICAL: The function call operator is automatically marked const!
+                            void operator()() const { 
+                                // Inside here, 'x' is treated as const because the method is const
+                            }
+                        };
+
+                        AnonymousLambdaClosure my_lambda(x);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Because operator() is a const member function, it is illegal to modify any of the class's internal member variables (like x) inside the function body.
+                    \bigbreak \noindent 
+                    In functional programming, a lambda is conceptually treated as a pure, stateless function execution block rather than a stateful object. Making the execution operator const aligns lambdas with this philosophy, ensuring that calling a lambda multiple times yields predictable behavior unless you explicitly opt into statefulness using mutable.
+            \end{enumerate}
+        \item \textbf{Rule of 3, 5, and 0}: The idea is that if you define any special member function for your class you should probably define all of them.
+            \begin{itemize}
+                \item \textbf{Rule of Three:} destructor, copy constructor, and copy-assignment operator.
+                \item \textbf{Rule of Five:} adds the move constructor and move-assignment operator.
+                \item \textbf{Rule of Zero:} delegate ownership to RAII types such as std::vector, std::string, and smart pointers so the compiler-generated special members are sufficient.
+            \end{itemize}
+            These are design guidelines, not requirements to implement every function. After considering them, some operations may appropriately be = default or = delete.
+        \item \textbf{Note about copy assignment}: Copy assignment must safely replace existing allocation without leaking it. It should also handle allocation failure without corrupting the original state and account for self-assignment. Copy-and-swap is one common solution.
+        \item \textbf{std::swap and std::copy}:  std::swap exchanges the values of two objects, while std::copy transfers a range of elements from one location to another. Both are core components of the C++ Standard Template Library (<utility> and <algorithm> respectively).
+            \bigbreak \noindent 
+            std::swap takes two objects by reference and swaps their values. In C++11 and later, it typically uses move semantics to avoid heavy copies.
+            \bigbreak \noindent 
+            Very fast for primitive types (optimized into registers) and large containers (like std::vector, where it only swaps internal pointers, capacity, and size instead of elements)
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int a = 5;
+                int b = 10;
+                std::swap(a, b); // a is now 10, b is now 5
+            \end{cppcode}
+            std::copy copies a range of elements from a source location to a destination location.
+            \bigbreak \noindent 
+            It takes three iterators: first and last defining the source range, and d\_first pointing to the beginning of the destination range.
+            \bigbreak \noindent 
+            The destination range must already be allocated and large enough to hold the incoming data (or use back-inserters like std::back\_inserter for containers).
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::vector<int> src = {1, 2, 3};
+                std::vector<int> dest(3); // Must be pre-allocated!
+                std::copy(src.begin(), src.end(), dest.begin());
+                // dest is now {1, 2, 3}
+            \end{cppcode}
+            \bigbreak \noindent 
+            std::copy is the C++ equivalent of memcpy, but it is much safer and smarter.
+        \item \textbf{Copy and swap (copy assignment)}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Buffer {
+                    std::size_t size_ = 0;
+                    int* data_ = nullptr;
+
+                    public:
+                    Buffer(std::size_t size)
+                        : size_{size}, data_{new int[size]} {}
+
+                    Buffer(const Buffer& other)
+                        : size_{other.size_}, data_{new int[other.size_]} {
+                        std::copy(
+                        other.data_,
+                        other.data_ + size_,
+                        data_
+                        );
+                    }
+
+                    ~Buffer() {
+                        delete[] data_;
+                    }
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                friend void swap(Buffer& first, Buffer& second) noexcept {
+                    using std::swap;
+                    swap(first.size_, second.size_);
+                    swap(first.data_, second.data_);
+                }
+
+                Buffer& operator=(Buffer other) {
+                    swap(*this, other);
+                    return *this;
+                }
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            The assignment parameter is deliberately passed by value. For a = b, other is first copy-constructed from b. If allocation fails during that copy, the assignment body never starts and a remains unchanged. Once the copy succeeds:
+            \begin{enumerate}
+                \item a exchanges resources with other.
+                \item a now owns the copied data.
+                \item other owns a’s old data.
+                \item other is destroyed and releases the old data.
+            \end{enumerate}
+            Self-assignment also works. a = a creates an independent copy before anything is changed, swaps it into a, and safely destroys the old allocation.
+        \item \textbf{Why is marking a move constructor noexcept particularly important when objects of that type are stored in a std::vector? During vector reallocation, why might the vector copy elements instead of moving them?}: During reallocation, std::vector must transfer its elements into new storage. If it moves several elements and a later move throws, the earlier source elements may already have been modified, making rollback difficult.
+            \bigbreak \noindent 
+            To preserve the strong exception guarantee, the vector generally copies when:
+            \begin{itemize}
+                \item The move constructor might throw, and
+                \item The type is copy-constructible.
+            \end{itemize}
+            A noexcept move constructor tells the vector that moving cannot fail, allowing it to use the usually cheaper move operation. If the type is move-only, the vector may have no choice but to use a potentially throwing move.
+        \item \textbf{Virtual inheritance and the diamond problem}: The diamond problem occurs when a class inherits from two classes that share the same base class.
+            \begin{verbatim}
+                Device
+               /      \
+           Scanner   Printer
+               \      /
+              Copier
+            \end{verbatim}
+            \bigbreak \noindent 
+            In ordinary multiple inheritance, Copier contains two separate Device base-class subobjects: one inherited through Scanner and another through Printer
+            \bigbreak \noindent 
+            \begin{cppcode}
+            class Device {
+                public:
+                std::string name;
+            };
+
+            class Scanner : public Device {};
+            class Printer : public Device {};
+
+            class Copier : public Scanner, public Printer {};
+
+            int main() {
+                Copier copier;
+
+                copier.name = "Office copier"; // Error: ambiguous
+            }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The compiler cannot determine which Device::name you mean:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                copier.Scanner::name = "Scanner side";
+                copier.Printer::name = "Printer side";
+            \end{cppcode}
+            \bigbreak \noindent 
+            These are genuinely two different variables because the object conceptually looks like this:
+            \bigbreak \noindent 
+            \begin{verbatim}
+                Copier
+                |-- Scanner
+                |   |-- Device
+                |       |-- name
+                |-- Printer
+                    |-- Device
+                    |-- name
+            \end{verbatim}
+            \bigbreak \noindent 
+            This duplication is often undesirable. A real copier is usually intended to be one device that supports scanning and printing, not two independent devices.
+            \bigbreak \noindent 
+            Virtual inheritance tells C++ that all relevant inheritance paths should share one base-class subobject.
+            \bigbreak \noindent 
+            The intermediate classes must inherit the common base using virtual:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Scanner : virtual public Device {};
+                class Printer : virtual public Device {};
+
+                class Copier : public Scanner, public Printer {};
+            \end{cppcode}
+            \bigbreak \noindent 
+            Now the object conceptually looks like this:
+            \begin{verbatim}
+                Copier
+                |-- Scanner --|
+                |-- Printer --|-- shared Device
+                |-------------|       |-- name
+            \end{verbatim}
+            \bigbreak \noindent 
+            Consequently, accessing name is no longer ambiguous:
+            \bigbreak \noindent 
+            \textbf{Note:} Both paths must use virtual inheritance. Virtual inheritance must be specified by every inheritance path that is supposed to share the base
+            \bigbreak \noindent 
+            One especially important rule is that the most-derived class constructs the virtual base.
+            \bigbreak \noindent 
+            When a Copier is created, it is Copier, not Scanner or Printer, that constructs the shared Device:
+            \bigbreak \noindent 
+            Consider 
+            \begin{verbatim}
+                    A
+                    |
+                    B
+                   / \
+                  C   D
+                   \ /
+                    E
+            \end{verbatim}
+            \bigbreak \noindent 
+            The diamond converges at B, so C and D should inherit virtually from B:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            class A {};
+
+            class B : public A {};
+
+            class C : virtual public B {};
+            class D : virtual public B {};
+
+            class E : public C, public D {};
+            \end{cppcode}
+            \bigbreak \noindent 
+            Now an E object contains:
+            \begin{itemize}
+                \item One shared B subobject
+                \item One A subobject contained inside that shared B
+            \end{itemize}
+            \begin{itemize}
+                \item B is a virtual base of C, D, and ultimately E.
+                \item A is an ordinary base of B.
+                \item E has only one A because it has only one shared B, and that B contains one A.
+            \end{itemize}
+            Also remember that because B is virtual, E, as the most-derived class, is responsible for constructing it:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class B : public A {
+                    public:
+                    explicit B(int value) {}
+                };
+
+                class C : virtual public B {
+                    public:
+                    C() : B(1) {}
+                };
+
+                class D : virtual public B {
+                    public:
+                    D() : B(2) {}
+                };
+
+                class E : public C, public D {
+                    public:
+                    E() : B(3) {} // E constructs the shared virtual B
+                };
+            \end{cppcode}
+            The B(1) and B(2) initializers are ignored while constructing an E; E’s B(3) initializes the single shared B.
+            \bigbreak \noindent 
+            Both the C and D constructors are still called. Virtual inheritance only changes who constructs the shared B base.
+            \bigbreak \noindent 
+            When constructing an E object:
+            \begin{itemize}
+                \item E first constructs its virtual base B.
+                    \begin{itemize}
+                        \item Before B’s constructor body runs, B constructs its ordinary base A.
+                    \end{itemize}
+                \item E constructs its first direct base, C.
+                \item E constructs its second direct base, D.
+                \item E constructs its own data members in declaration order.
+                \item The body of E’s constructor runs.
+            \end{itemize}
+            Destruction occurs in the exact reverse order:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Destroy E
+                Destroy D
+                Destroy C
+                Destroy B
+                Destroy A
+            \end{cppcode}
+            \bigbreak \noindent 
+            B is constructed only once because it is a virtual base shared by C and D.
+        \item \textbf{C++ Casting}: 
+            \begin{itemize}
+                \item \textbf{static\_cast}: Performs compile-time conversions between related types.
+                \item \textbf{dynamic\_cast}: Safely converts pointers or references within a class hierarchy at runtime.
+                    \bigbreak \noindent 
+                    Commonly used when downcasting from a base class pointer to a derived class pointer.
+                    \bigbreak \noindent 
+                    Requires the base class to have at least one virtual function (polymorphism). Returns nullptr (for pointers) or throws an exception (for references) if the cast fails.
+                \item \textbf{const\_cast}: Adds or removes the const or volatile qualifier from a variable.
+                    \bigbreak \noindent 
+                    Commonly used when passing a const variable to a legacy API that accepts a non-const pointer but does not modify the data.
+                    \bigbreak \noindent 
+                    Modifying an object that was originally declared as const after casting away its constness results in undefined behavior.
+                \item \textbf{reinterpret\_cast}: Reinterprets the underlying bit pattern of an object as a completely different type.
+                    \bigbreak \noindent 
+                     Low-level programming, such as converting a pointer to an integer (uintptr\_t) or casting raw byte buffers.
+            \end{itemize}
+            dynamic\_cast is the only C++ cast that performs runtime checking.
+
+
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Smart pointers}
+    \begin{itemize}
+        \item \textbf{Why is std::unique\_ptr<T> non-copyable?}: Copying would violate exclusive ownership. A unique pointer represents one owning handle, so copying it would create two owners. 
+        \item \textbf{How should ownership normally be transferred from one std::unique\_ptr to another?}: Move the unique pointer.
+        \item \textbf{What normally happens when a nonempty std::shared\_ptr is copied?}: The strong reference count increases
+        \item \textbf{What is the principal ownership purpose of std::weak\_ptr?}: Observe shared ownership without extending lifetime
+        \item \textbf{What does calling lock() on a std::weak\_ptr produce?}: A shared pointer, empty if expired
+        \item \textbf{Which operation makes a std::unique\_ptr stop owning its object without deleting that object?}: release() returns the raw pointer and leaves the unique pointer empty without invoking its deleter
+        \item \textbf{What deletion operation does std::unique\_ptr<T[]> use by default?}: delete[]
+        \item \textbf{What is wrong with constructing std::shared\_ptr<T> second(first.get()) when first already owns the object?}: It can cause the object to be deleted twice
+            \bigbreak \noindent 
+            The two shared pointers use separate control blocks, so each may independently delete the same raw pointer
+        \item \textbf{Why can a cycle made entirely of std::shared\_ptr objects leak memory?}: Every object in the cycle can remain strongly owned
+            \bigbreak \noindent 
+            Internal strong references can prevent every count in the cycle from reaching zero after external owners disappear.
+        \item \textbf{Which change commonly breaks an unintended std::shared\_ptr ownership cycle?}: Replace one non-owning relationship with std::weak\_ptr.
+        \item \textbf{Cycle problem}: Suppose two objects own each other with std::shared\_ptr. Neither reference count can reach zero, so neither object is destroyed.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Person {
+                    public:
+                    std::string name;
+                    std::shared_ptr<Person> partner;
+
+                    explicit Person(std::string name) : name(std::move(name)) {
+                        std::cout << name << " created\n";
+                    }
+
+                    ~Person() { std::cout << name << " destroyed\n"; }
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int main() {
+                    auto alice = std::make_shared<Person>("Alice");
+                    auto bob   = std::make_shared<Person>("Bob");
+
+                    alice->partner = bob;
+                    bob->partner   = alice;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Notice that there are two shared pointers pointing to the same memory, so the reference count for both Person instances is two.
+            \bigbreak \noindent 
+            When main() ends:
+            \begin{enumerate}
+                \item The bob smart-pointer variable is destroyed, bobs reference count decreases to one, bob not destroyed because alice->partner still owns it.
+                \item The alice smart-pointer variable is destroyed, alice reference count decreases to one, alice not destroyed because bob->partner still owns it.
+            \end{enumerate}
+            Therefore neither Bob nor Alice have their destructors called. Each object keeps the other alive, so neither reference count reaches zero.
+            \bigbreak \noindent 
+            With weak\_ptr, the partner references do not increase the strong reference counts. Therefore, destroying bob reduces Bob’s count from one to zero, and destroying alice does the same for Alice. Both Person objects are then correctly destroyed.
+        \item \textbf{Unique pointer core api}: 
+            \begin{itemize}
+                \item \textbf{Creation}:  
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        auto p = std::make_unique<MyType>(arg1, arg2);
+                        auto array = std::make_unique<int[]>(100);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Prefer std::make\_unique over writing new directly.
+                \item \textbf{Access}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p->member;
+                        *p;
+                        p.get();             // Non-owning raw pointer
+                        static_cast<bool>(p);
+                        if (p) { }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    get() does not transfer ownership. The returned pointer must not normally be deleted.
+                \item \textbf{Transfer ownership}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    auto p2 = std::move(p);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    After the move, p is normally empty. A unique pointer cannot be copied
+                \item \textbf{Replace or destroy}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p.reset();            // Delete object and become empty
+                        p.reset(new MyType);  // Delete old object and own new object
+                        p = nullptr;          // Delete object and become empty
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Prefer assigning std::make\_unique when replacing an object:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    p = std::make_unique<MyType>();
+                    \end{cppcode}
+                \item \textbf{Release ownership}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    MyType* raw = p.release();
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    release() makes p empty without deleting the object. The caller becomes responsible for it:
+                \item \textbf{Swap}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p.swap(p2);
+                        std::swap(p, p2);
+                    \end{cppcode}
+                \item \textbf{Custom deleter}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        struct FileCloser {
+                            void operator()(FILE* file) const {
+                                if (file)
+                                std::fclose(file);
+                            }
+                        };
+
+                        std::unique_ptr<FILE, FileCloser> file(
+                            std::fopen("data.txt", "r")
+                        );
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The deleter is part of the unique\_ptr type:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    std::unique_ptr<FILE, FileCloser>
+                    \end{cppcode}
+            \end{itemize}
+        \item \textbf{Shared pointer core api}
+            \begin{itemize}
+                \item \textbf{Creation}:  
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    auto p = std::make_shared<MyType>(arg1, arg2);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    You can copy a shared pointer:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    You can copy a shared pointer:
+                    \end{cppcode}
+                \item \textbf{Access}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p->member;
+                        *p;
+                        p.get();             // Non-owning raw pointer
+                        if (p) { }
+                    \end{cppcode}
+                \item \textbf{Inspect the strong reference count}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    long count = p.use_count();
+                    \end{cppcode}
+                \item \textbf{Release one owner}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p.reset();
+                        p = nullptr;
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    This decreases the strong reference count. The object is destroyed only when the count reaches zero.
+                \item \textbf{Replace the managed object}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    p = std::make_shared<MyType>();
+                    p.reset(new MyType);
+                    \end{cppcode}
+                \item \textbf{Move ownership}: 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    auto p2 = std::move(p);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Moving does not increase the reference count. Ownership represented by p is transferred to p2.
+                \item \textbf{Swap}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        p.swap(p2);
+                        std::swap(p, p2);
+                    \end{cppcode}
+                \item \textbf{Convert from unique\_ptr}: A unique\_ptr can transfer ownership into a shared\_ptr:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        std::unique_ptr<MyType> unique =
+                        std::make_unique<MyType>();
+
+                        std::shared_ptr<MyType> shared = std::move(unique);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The reverse conversion is not generally available because shared ownership cannot safely become exclusive without additional guarantees.
+                \item \textbf{Pointer casts}: Use smart-pointer aware casts
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        auto derived =
+                        std::static_pointer_cast<Derived>(base);
+
+                        auto checked =
+                        std::dynamic_pointer_cast<Derived>(base);
+
+                        auto constant =
+                        std::const_pointer_cast<const MyType>(p); 
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    These preserve the shared control block. 
+                    \bigbreak \noindent 
+                    C++ provides four primary pointer cast functions for std::shared\_ptr via <memory>
+                    \begin{itemize}
+                        \item \textbf{std::static\_pointer\_cast:} Casts a pointer up or down an inheritance hierarchy at compile time using static\_cast. It performs no runtime checks, so you must ensure the conversion is valid
+                        \item \textbf{std::dynamic\_pointer\_cast:} Safely downcasts a polymorphic base class pointer to a derived class pointer at runtime using dynamic\_cast. It returns an empty std::shared\_ptr if the object is not of the target type. 
+                        \item \textbf{std::const\_pointer\_cast:} Adds or removes const qualifiers from the managed object type using const\_cast
+                        \item \textbf{std::reinterpret\_pointer\_cast:} Reinterprets the underlying pointer type to an unrelated type using reinterpret\_cast. This is low-level and rarely needed
+                    \end{itemize}
+                \item \textbf{Custom deleter}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        std::shared_ptr<FILE> file(
+                            std::fopen("data.txt", "r"),
+                            [](FILE* file) {
+                                if (file)
+                                std::fclose(file);
+                            }
+                        );
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Unlike unique\_ptr, the deleter is not part of the shared\_ptr variable’s type.
+                    \begin{itemize}
+                        \item \textbf{std::unique\_ptr<T, Deleter>} requires the deleter type and is part of the class type.
+                        \item \textbf{std::shared\_ptr<T>} does not include the deleter in its template parameters; you pass the deleter to the constructor instead
+                            \bigbreak \noindent 
+                            std::shared\_ptr already uses a heap-allocated control block for reference counts, so storing a type-erased deleter inside that control block adds no extra pointer overhead per smart pointer instance
+                    \end{itemize}
+            \end{itemize}
+        \item \textbf{Weak pointer core api}: Use to observe an object managed by shared\_ptr without keeping it alive.
+            \begin{itemize}
+                \item \textbf{Creation}: 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        std::shared_ptr<MyType> shared =
+                        std::make_shared<MyType>();
+
+                        std::weak_ptr<MyType> weak = shared;
+                    \end{cppcode}
+                \item \textbf{Safely access the object}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        if (auto locked = weak.lock()) {
+                            locked->do_something();
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    lock() returns:
+                    \begin{itemize}
+                        \item A nonempty shared\_ptr if the object is still alive.
+                        \item An empty shared\_ptr if the object has been destroyed.
+                    \end{itemize}
+                    The returned shared\_ptr keeps the object alive while it is being used.
+                \item \textbf{Test for expiration}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        if (weak.expired()) {
+                            // Object has been destroyed
+                        }
+                    \end{cppcode}
+                \item \textbf{Inspect the strong count}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    long count = weak.use_count();
+                    \end{cppcode}
+                \item \textbf{Stop observing}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    weak.reset();
+                    \end{cppcode}
+                \item \textbf{std::enable\_shared\_from\_this}: Use when an object managed by shared\_ptr needs to produce another shared\_ptr to itself.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        class Widget : public std::enable_shared_from_this<Widget> {
+                        public:
+                            std::shared_ptr<Widget> get_pointer() {
+                                return shared_from_this();
+                            }
+                        };
+
+                        auto widget = std::make_shared<Widget>();
+                        auto another_owner = widget->get_pointer();
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Do not construct a new shared\_ptr from this:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    std::shared_ptr<Widget>(this); // Dangerous
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    That creates a separate control block and can cause double deletion. shared\_from\_this() requires the object to already be managed by an appropriate shared\_ptr. Otherwise, it throws std::bad\_weak\_ptr.
+                    \bigbreak \noindent 
+                    C++ 17 also provides
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    std::weak_ptr<Widget> weak = weak_from_this();
+                    \end{cppcode}
+
+            \end{itemize}
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \subsection{Rvalue references and perfect forwarding}
+    \begin{itemize}
+        \item \textbf{Rvalue references}: Before C++11, passing or returning massive objects (like a std::vector with millions of elements) often forced the compiler to deeply copy all the data
+            \bigbreak \noindent 
+            With rvalue references, if the compiler knows an object is a temporary (an rvalue), it can trigger a move constructor instead of a copy constructor. Instead of duplicating the heap data, the new object simply "steals" the internal pointers of the temporary object, reducing the operation's computational cost to near-zero
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // A typical move constructor uses an rvalue reference
+                Widget(Widget&& other) noexcept {
+                    this->data = other.data;  // Steal the pointer
+                    other.data = nullptr;     // Clean up the temporary object so its destructor is safe
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            If you have an lvalue (a named variable) that you are finished with and want to treat like a temporary to trigger a move, you can cast it using std::move. std::move does not actually move anything; it simply casts an lvalue into an rvalue reference
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::vector<int> v1 = {1, 2, 3};
+                std::vector<int> v2 = std::move(v1); // v2 steals v1's data. v1 is now empty.
+            \end{cppcode}
+            \bigbreak \noindent 
+            This is the most common trap when working with rvalue references: \textbf{If an rvalue reference has a name, the expression evaluating it is an lvalue.}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void process(std::vector<int>&& param) {
+                    // 'param' is an rvalue reference type, but the *expression* 'param' is an lvalue!
+
+                    std::vector<int> internal1 = param;             // TRAP: Triggers a COPY constructor!
+                    std::vector<int> internal2 = std::move(param);  // CORRECT: Triggers the MOVE constructor.
+                }
+            \end{cppcode}
+        \item \textbf{Perfect forwarding}: When writing generic wrapper functions (like factory functions, std::make\_unique, or thread constructors), you often need to take arguments and pass them exactly as they are to another function.
+            \bigbreak \noindent 
+            To do this perfectly, you must preserve:
+            \begin{itemize}
+                \item \textbf{The value category:} If the user passed an rvalue, the target function should get an rvalue (to trigger a move). If they passed an lvalue, it should get an lvalue.
+                \item \textbf{Const modifiers:} If it was const, it must stay const
+            \end{itemize}
+            Before C++11, achieving this required a massive explosion of function overloads to cover every combination of const, non-const, lvalue, and rvalue references.
+            \bigbreak \noindent 
+            A forwarding reference (originally termed a universal reference by Scott Meyers) looks exactly like an rvalue reference (T\&\&), but it behaves completely differently. It can bind to lvalues (as a normal reference) and rvalues (as an rvalue reference), preserving constness.
+            \bigbreak \noindent 
+            A reference becomes a forwarding reference only when the two following conditions are met:
+            \begin{itemize}
+                \item \textbf{Type deduction is involved:} The type must be deduced by the compiler.
+                \item \textbf{The syntax is exactly T\&\&:} It cannot have modifiers like const T\&\&
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                void wrapper(T&& arg) { // Deduced type + T&& syntax = Forwarding Reference!
+                    // ...
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            The following are NOT universal references.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void foo(int&& arg); // Not a template. This is strictly an rvalue reference.
+
+                template<typename T>
+                void bar(const T&& arg); // Has 'const'. This is strictly an rvalue reference.
+
+                template<typename T>
+                class Widget {
+                    void baz(T&& arg); // 'T' belongs to the class, not the function. 
+            };                     // No type deduction occurs when calling baz(), so it's an rvalue reference.
+            \end{cppcode}
+            \bigbreak \noindent 
+            How can T\&\& magically bind to an lvalue? The secret lies in a compiler mechanism called reference collapsing.
+            \bigbreak \noindent 
+            In C++, you cannot write a reference to a reference directly (e.g., int\& \&\& will fail to compile). However, the compiler generates them behind the scenes during template type deduction. To resolve them, it applies a simple rule: An lvalue reference always wins.
+            \bigbreak \noindent 
+            \begin{itemize}
+                \item \&  + \&  $\to$ \&
+                \item \&  + \&\& $\to$ \&
+                \item \&\& + \&  $\to$ \&
+                \item \&\& + \&\& $\to$ \&\&
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                void wrapper(T&& arg);
+
+                int x = 10;
+                wrapper(x); // 1. You pass an lvalue (x). 
+                // 2. Compiler deduces T as 'int&'.
+                // 3. Substituting T gives: 'int& && arg'
+                // 4. Collapsing rule applies: 'int& arg' (an lvalue reference!)
+
+                wrapper(20); // 1. You pass an rvalue (20).
+                // 2. Compiler deduces T as 'int'.
+                // 3. Substituting T gives: 'int&& arg' (an rvalue reference!)
+            \end{cppcode}
+        \item \textbf{std::forward}: As established with rvalue references, once a reference has a name, it evaluates as an lvalue. Inside our wrapper function, the variable arg has a name. Therefore, if we just pass arg to a target function, it will always be treated as an lvalue, defeating the whole purpose!
+            \bigbreak \noindent 
+            Unlike std::move (which unconditionally turns an object into an rvalue), std::forward<T> conditionalizes its behavior based on how T was deduced:
+            \begin{itemize}
+                \item If T was deduced as an lvalue reference (int\&), std::forward casts it back to an lvalue reference.
+                \item If T was deduced as a normal type (int), std::forward casts it back to an rvalue reference.
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <iostream>
+                #include <utility>
+
+                void target(int& x) { std::cout << "Lvalue overload\n"; }
+                void target(int&& x) { std::cout << "Rvalue overload\n"; }
+
+                template<typename T>
+                void perfectWrapper(T&& arg) {
+                    // std::forward restores the original value category
+                    target(std::forward<T>(arg)); 
+                }
+
+                int main() {
+                    int a = 5;
+
+                    perfectWrapper(a);  // Prints: Lvalue overload
+                    perfectWrapper(10); // Prints: Rvalue overload
+                }
+            \end{cppcode}
+        \item \textbf{Type vs value category}: In C++, every single expression is characterized by two completely independent properties: its type and its value category
+            \begin{itemize}
+                \item \textbf{Type} answers the question: "What kind of data is this, and what operations can I perform on it?" 
+                \item \textbf{Value category}: Value Category answers the questions: "Does this data have a permanent address in memory (identity), and can I safely steal its resources (movability)?
+            \end{itemize}
+            \bigbreak \noindent 
+            Value categories are a property of expressions, not variables or objects. An expression is any piece of code that evaluates to a value (like x, 5 + 3, or foo())
+            \bigbreak \noindent 
+            Modern C++ (C++11 and later) classifies expressions based on two core criteria:
+            \begin{itemize}
+                \item \textbf{Identity}: Does the program have a way to determine the exact memory address of the object
+                \item \textbf{Movability}: Can the object's resources be safely hijacked/moved because its lifetime is ending? 
+            \end{itemize}
+        \item \textbf{The 3 Primary Value Categories}: Every expression belongs to exactly one of these three primary buckets: 
+            \begin{itemize}
+                \item \textbf{lvalue (Left-hand value):} Has identity but cannot be safely moved. These are typically names of variables or things that persist in memory.
+                \item \textbf{prvalue (Pure rvalue):} Has no identity but can be moved. These are pure mathematical values or temporary objects that do not exist yet beyond the evaluation.
+                \item  \textbf{xvalue (eXpiring value):} Has identity and can be moved. It points to a real place in memory, but the developer has explicitly given permission to strip its resources because it is about to expire.
+            \end{itemize}
+        \item \textbf{Mixed categories}: The C++ standard groups these primary categories into two broader term
+            \begin{itemize}
+                \item \textbf{glvalue (Generalized lvalue):} Anything with identity (lvalue + xvalue).
+                \item \textbf{rvalue:} Anything that can be moved (prvalue + xvalue)
+            \end{itemize}
+            The single most confusing concept in C++ is that a variable's type is independent of the value category of the expression containing its name
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void process(int&& arg) {
+                    // The TYPE of 'arg' is an rvalue reference (int&&)
+                    // The VALUE CATEGORY of the expression 'arg' is an lvalue!
+                    int y = arg; 
+                }
+            \end{cppcode}
+        \item \textbf{auto deduction vs CTAD}: While both features automate type resolution in C++, they operate at completely different stages of object creation. auto deduces the type of a variable from its initializer expression, whereas CTAD (Class Template Argument Deduction) deduces a class template’s missing parameters from its constructor arguments.
+            \begin{itemize}
+                \item \textbf{Auto}: Deduces the complete type of a variable, uses \textbf{template function type deduction} rules
+                    \bigbreak \noindent 
+                    It strips top-level const, volatile, and references by default, unless you explicitly decorate it (e.g., const auto\&).
+                \item \textbf{CTAD}: Deduces missing template arguments for a class. Uses \textbf{constructor signatures} and implicit / explicit deduction guides
+                    \bigbreak \noindent 
+                    Before C++17, you always had to explicitly state template arguments when instantiating a class, or rely on helper factory functions like std::make\_pair.
+                    \bigbreak \noindent 
+                    With CTAD, you can omit the template brackets <...> entirely. The compiler looks at the arguments passed to the constructor and figures out what the template parameters should be.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        // Pre-C++17
+                        std::pair<int, double> p1(1, 2.3); 
+                        auto p2 = std::make_pair(1, 2.3); // Workaround using auto
+
+                        // Post-C++17 (CTAD)
+                        std::pair p3(1, 2.3);             // Automatically deduces std::pair<int, double>
+                    \end{cppcode}
+            \end{itemize}
+            You will frequently see auto and CTAD used in the exact same line of code. They do not conflict; they handle two separate responsibilities:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            auto v = std::vector{1, 2, 3};
+            \end{cppcode}
+            \begin{itemize}
+                \item \textbf{CTAD steps in first:} It sees std::vector\{1, 2, 3\}, looks at the integer arguments, and resolves the class type to std::vector<int>.
+                \item \textbf{auto steps in second:} It looks at the resolved right-hand side (std::vector<int>) and assigns that exact type to the variable v.
+            \end{itemize}
+        \item \textbf{auto vs decltype}: auto and decltype both perform type inference at compile time, but they use different deduction rules and serve distinct purposes
+            \bigbreak \noindent 
+            The core difference is that auto deduces a type based on an initialization value (similar to template argument deduction), whereas decltype yields the exact declared type of an expression or variable without evaluating it
+            \begin{itemize}
+                \item \textbf{Auto}: Declaring a variable whose type matches its initializer.
+                \item \textbf{decltype(expr)}: Inspecting the exact type of a variable or an expression.
+                    \bigbreak \noindent 
+                    decltype also preserves references and const. The important thing to note is that decltype does not require an initializer, and does not evaluate the expression.
+            \end{itemize}
+        \item \textbf{Questions}: 
+            \begin{enumerate}
+                \item \textbf{What kinds of expressions can bind to int\&\&? How does that differ from what can bind to const int\&?}: Both pure rvalues (prvalues) and lvalues cast to an rvalue reference (with std::move) can bind to int\&\&. 
+                    \bigbreak \noindent 
+                    Both prvalues and lvalues can bind to int\&.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void f(int&& x) { ... }
+
+                        int x = 10;
+                        f(10); // prvalue binds
+                        f(std::move(x)) // xvalue binds
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void g(const int& x) { ... }
+                        g(10); // prvalue binds
+                        g(x); // lvalue binds
+                    \end{cppcode}
+                \item \textbf{Does std::move(x) move anything by itself? What does it do to the expression x?}: std::move(x) does not move data; it casts x to an rvalue reference, making the resulting expression an xvalue. A move may happen later if that expression is used to call a move constructor or move assignment operator.
+                \item \textbf{Inside this function, is the expression s an lvalue or an rvalue? Why?}:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void f(std::string&& s) {
+                            use(s);
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    $s$ has rvalue-reference type, but the expression $s$ is an lvalue because it names an object. To pass it on as an rvalue, you would write std::move(s).
+                    \bigbreak \noindent 
+                    The rvalue-reference type matters mainly at the function boundary: it determines what arguments may be passed to f.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void f(std::string&& s);
+
+                        std::string name = "Ada";
+
+                        f(name);                 // Error: lvalue cannot bind to string&&
+                        f(std::move(name));      // OK: xvalue
+                        f(std::string{"Ada"});   // OK: prvalue
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Inside $f$, merely writing $s$ treats it as an lvalue. To take advantage of the fact that $f$ received an object that may be moved from, explicitly use std::move(s):
+                \item \textbf{What are the deduced type $T$ and the resulting parameter type T\&\& in each call and explain how reference collapsing affects each result}: 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        template<class T>
+                        void f(T&& x);
+
+                        std::string name = "Ada";
+
+                        f(name);
+                        f(std::string{"Ada"});
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    For the lvalue
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    f(name);
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    $T$ is deduced as std::string\&, referencing collapsing yields \& + \&\& = \&. Thus, the function argument is type std::string\&.
+                    \bigbreak \noindent 
+                    For the temporary:
+                    \begin{cppcode}
+                        f(std::string{"Ada"});
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    $T$ is deduced as std::string. $T$\&\& therefore becomes std::string\&\&. This makes T\&\& a forwarding reference because $T$ is deduced from the argument.
+                \item \textbf{Why should this wrapper use std::forward<T>(value) instead of std::move(value)? Assume consume has overloads for lvalues and rvalues}: 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        template<class T>
+                        void wrapper(T&& value) {
+                            consume(/* value */);
+                        }
+                    \end{cppcode}
+                    \begin{itemize}
+                        \item If the original argument was an lvalue, T is U\&, so forwarding produces an lvalue.
+                        \item If the original argument was an rvalue, T is U, so forwarding produces an xvalue.
+                        \item std::move(value) would produce an xvalue in both cases and could incorrectly move from an original lvalue.
+                    \end{itemize}
+            \end{enumerate}
+            \textbf{Note:} Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                void f(T&& arg) { ... }
+
+                template<typename T>
+                void g(T arg) { ... }
+
+                int x{5};
+                f(x); g(x);
+            \end{cppcode}
+            \bigbreak \noindent 
+            In the call to $g$, the type is deduced as \texttt{int}, whereas in $f$, the type is deduced as \texttt{int}\&. The fundamental difference in behavior exists to prevent silent, unintentional copying of objects while enabling perfect forwarding.
+            \bigbreak \noindent 
+            In C++, template type deduction rules are explicitly designed around the signature of the function parameter. The compiler treats T arg and T\&\& arg with two entirely different sets of rules when it encounters an lvalue.
+        \item \textbf{Implementation problem}: Implement forward\_to\_consume so it calls the appropriate overload:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void consume(const std::string&) {
+                    std::cout << "lvalue\n";
+                }
+
+                void consume(std::string&&) {
+                    std::cout << "rvalue\n";
+                }
+
+                template<typename T>
+                void forward_to_consume(T&& value) {
+                    std::forward<T>(value);
+                }
+
+                int main() {
+                    std::string name = "Ada";
+
+                    forward_to_consume(name);                // Must print: lvalue
+                    forward_to_consume(std::string{"Grace"}); // Must print: rvalue
+                }
+            \end{cppcode}
+        \item \textbf{Dependent name qualifier}: A \textbf{dependent name} is a name that depends on a template parameter.
+            \bigbreak \noindent 
+            Because the compiler doesn't know what type will eventually replace the template parameter during compilation, it cannot look up what a dependent name actually refers to until the template is instantiated
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template <typename T>
+                void process(T obj) {
+                    int x = 10;        // 'int' and 'x' are Non-Dependent Names. They mean the same thing regardless of T.
+                    T::value_type y;   // 'value_type' is a Dependent Name. What it means depends entirely on what T is.
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Dependent names generally fall into two categories, both of which require special keywords to help the compiler parse the code before instantiation.
+            \bigbreak \noindent 
+            \begin{enumerate}
+                \item \textbf{Dependant types (requires typename)}
+                    Because the compiler defaults to assuming nested names are member variables or functions, you must explicitly prefix it with typename.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        template <typename T>
+                        void print_size() {
+                            // Compiler error without 'typename' because it assumes 'size_type' is a static variable
+                            typename T::size_type size = 0; 
+                        }
+                    \end{cppcode}
+                \item \textbf{Dependant templates (requires template)}: A member accessed through a dependent type might itself be a template
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        template<typename T>
+                        void call(T& object) {
+                            object.template convert<int>();
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    The template keyword tells the compiler that convert is a member template and that <int> contains template arguments.
+                    \bigbreak \noindent 
+                    Without it:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    object.convert<int>();
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    the compiler might interpret < as the less-than operator because it does not yet know what members T has.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        struct Converter {
+                            template<typename U>
+                            U convert() {
+                                return U{};
+                            }
+                        };
+
+                        template<typename T>
+                        void use(T& object)
+                        {
+                            int result = object.template convert<int>();
+                        }
+                    \end{cppcode}
+            \end{enumerate}
+            \bigbreak \noindent 
+            Use typename when a dependent qualified name represents a type. Use template when a member accessed through a dependent expression is a template.
+        \item \textbf{Dependent base classes}: A base class can depend on a template parameter:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                struct Base {
+                    void print() {}
+                };
+
+                template<typename T>
+                struct Derived : Base<T> {
+                    void run()
+                    {
+                        print();  // May fail
+                    }
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            Base<T> is a dependent base class. During the initial parsing of Derived, the compiler does not search dependent base classes for unqualified names.
+            \bigbreak \noindent 
+            You can qualify the call:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                struct Derived : Base<T> {
+                    void run() {
+                        this->print();
+                    }
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            Other valid approaches include:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            Base<T>::print();
+            \end{cppcode}
+            \bigbreak \noindent 
+            or:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            using Base<T>::print;
+            \end{cppcode}
+            \bigbreak \noindent 
+            The this-> expression is dependent because the type of this depends on T. Therefore, lookup for print can be delayed until instantiation.
+        \item \textbf{Two-phase name lookup}: Templates are generally checked in two phases.
+            \begin{enumerate}
+                \item \textbf{Phase 1: Template definition}: The compiler parses the template and resolves names that do not depend on template parameters.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        void helper();
+
+                        template<typename T>
+                        void function(T value)
+                        {
+                            helper();       // Non-dependent
+                            value.work();   // Dependent
+                        }
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    helper() can be looked up immediately. The validity of value.work() depends on T.
+                \item \textbf{Phase 2: Template instantiation}: When the template is used with a concrete argument, dependent names and expressions are resolved:
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        struct Worker {
+                            void work() {}
+                        };
+
+                        function(Worker{});  // value.work() becomes valid
+                        function(42);        // Error: int has no work()
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    This delayed checking is one reason template errors often appear at the point where the template is instantiated.
+            \end{enumerate}
+        \item \textbf{Uses of T\&\&}: T\&\& has two closely related uses:
+            \begin{enumerate}
+                \item An ordinary rvalue reference binds to rvalues and enables move semantics, allowing resources such as a vector’s heap allocation to be transferred instead of copied.
+                \item In a deduced template context, such as template<class T> void f(T\&\& x), it may be a forwarding reference. It can accept both lvalues and rvalues, and std::forward<T>(x) preserves the argument’s original value category.
+            \end{enumerate}
+
+
+
+
+
+
+    \end{itemize}
+
+
+    \pagebreak 
     \unsect{Threads and Thread safety}
     \subsection{Threads and locks}
     \begin{itemize}
@@ -489,7 +1859,7 @@
                      return 0;
                  }
              \end{cppcode}
-            \item \textbf{std::async}: std::async is a function template in C++ (introduced in C++11) that runs a callable object—like a function, lambda, or functor—asynchronously or lazily, returning a std::future that will eventually hold the result. It abstracts away manual thread management, automatically handling execution and allowing you to retrieve return values or handle exceptions across thread boundaries safely
+            \item \textbf{std::async}: std::async is a function template in C++ (introduced in C++11) that runs a callable object-like a function, lambda, or functor-asynchronously or lazily, returning a std::future that will eventually hold the result. It abstracts away manual thread management, automatically handling execution and allowing you to retrieve return values or handle exceptions across thread boundaries safely
             \item \textbf{std::promise}: A std::promise represents a commitment made by a worker thread to provide a result at some point.  The thread fulfills this contract by calling .set\_value().
             \item \textbf{std::future}: A std::future represents a placeholder for a value that does not exist yet, but will exist in the future.
                 \bigbreak \noindent 
@@ -1362,6 +2732,200 @@
                     return n;
                 }
             \end{cppcode}
+        \item \textbf{Check if power of two}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                bool power_of_two(std::uint32_t value) {
+                    if (value == 0) return false;
+                    return value & (value-1) == 0;
+                }
+            \end{cppcode}
+        \item \textbf{Clear lowest set bit}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                value & (value - 1)
+            \end{cppcode}
+        \item \textbf{Count number of set bits}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                unsigned count_set_bits(std::uint32_t value) {
+                    unsigned count{};
+                    while (value != 0) {
+                        value &= value-1;
+                        ++count;
+                    }
+                    return count;
+                } 
+            \end{cppcode}
+        \item \textbf{Get msb}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::uint32_t get_msb(std::uint32_t value) {
+                    value |= value >> 1;
+                    value |= value >> 2;
+                    value |= value >> 4;
+                    value |= value >> 8;
+                    value |= value >> 16;
+
+                    return value ^= (value >> 1);
+                }
+            \end{cppcode}
+        \item \textbf{Every value in a vector appears exactly twice except one, which appears once. Find that single value in O(n) time and O(1) extra space:}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            int find_single(const std::vector<int>& values);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The operator is bitwise XOR ($\land$). Two equal values cancel because $x \land x == 0$, and XOR with zero leaves a value unchanged. XOR is also associative and commutative, so the pairs need not be adjacent:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int find_single(const std::vector<int>& values) {
+                    int result = 0;
+                    for (int ell : values) {
+                        result ^= ell;
+                    }
+
+                    return result;
+                }
+            \end{cppcode}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Exercises}
+    \begin{itemize}
+        \item \textbf{Fixed capacity ring buffer}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class RingBuffer {
+                    std::size_t capacity_{};
+                    std::size_t size_{};
+
+                    // Position of the next read
+                    std::size_t read_{};
+
+                    // Position of the next write
+                    std::size_t write_{};
+
+                    // Internal storage
+                    std::vector<int> buf_{};
+                public:
+                    explicit RingBuffer(std::size_t capacity) : capacity_(capacity), buf_(capacity) {}; 
+
+                    bool push(int);
+                    std::optional<int> pop();
+                    std::size_t size() const noexcept;
+                    bool full() const noexcept;
+                    void print() const;
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                bool RingBuffer::push(int value) {
+                    if (full()) return false;
+
+                    buf_[write_] = value;
+                    write_ = (write_ + 1) % capacity_;
+                    ++size_;
+
+                    return true;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::optional<int> RingBuffer::pop() {
+                    if (size() == 0) return std::nullopt;
+
+                    int head = buf_[read_];
+                    read_ = (read_ + 1) % capacity_;
+                    --size_;
+
+                    return head;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::size_t RingBuffer::size() const noexcept {
+                    return size_;
+                }
+
+                bool RingBuffer::full() const noexcept {
+                    return size_ == capacity_;
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void RingBuffer::print() const {
+                    std::size_t idx = read_;
+
+                    for (size_t i{0}; i < size_; ++i) {
+                        if (i != 0) std::cout << ", ";
+                        std::cout << buf_[idx];
+                        idx = (idx + 1) % capacity_;
+                    }
+
+                    std::cout << "\n";
+                }
+            \end{cppcode}
+
+        \item \textbf{Merge intervals}: Implement a function that merges overlapping closed intervals:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                struct Interval {
+                    int start;
+                    int end;
+                };
+
+                std::vector<Interval> merge_intervals(
+                const std::vector<Interval>& intervals
+                );
+            \end{cppcode}
+            \bigbreak \noindent 
+            Each input interval satisfies start <= end. The input may be unsorted. Return the merged intervals sorted by start, without modifying the input.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                Input:  [5, 7], [1, 3], [3, 4], [10, 12]
+                Output: [1, 4], [5, 7], [10, 12]
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            std::vector<Interval> merge_intervals(const std::vector<Interval>& intervals) {
+                if (intervals.empty()) return {};
+
+                std::vector<Interval> ret;
+                std::vector<Interval> cpy = intervals;
+
+                if (cpy.size() == 1) return cpy;
+
+                std::sort(cpy.begin(), cpy.end(), [](const Interval& a, const Interval& b) {
+                    return a.start < b.start;
+                });
+
+                std::size_t left = 0;
+                while (left < cpy.size()) {
+                    Interval merged = cpy[left];
+
+                    std::size_t last_merged = left;
+                    for (std::size_t i{left+1}; i < cpy.size(); ++i) {
+                        if (cpy[i].start <= merged.end) {
+                            merged.end = std::max(merged.end, cpy[i].end);
+                            last_merged = i;
+                            continue;
+                        }
+
+                        break;
+                    }
+
+                    if (last_merged == left) ++left;
+                    else left = last_merged+1;
+
+                    ret.push_back(merged);
+                }
+
+                return ret;
+            }
+            \end{cppcode}
+
 
     \end{itemize}
    

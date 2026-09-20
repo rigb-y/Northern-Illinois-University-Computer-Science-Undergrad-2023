@@ -377,8 +377,38 @@
                 \item \(E_1>E_2\): current flows in the opposite direction.
                 \item \(E_1=E_2\): the ideal circuit has zero current.
             \end{itemize}
+        \item \textbf{Potentiometers and Rheostats}: Some applications require the use of variable resistances. One example is a basic volume control, but other examples include equipment calibration and user adjustable parameters such as the bass, treble and balance controls on a home audio system. Adjustable resistances fall under two categories, potentiometers and rheostats. Generally, these would be the same physical device, with the application and usage determining its name. 
+            \bigbreak \noindent 
+            A potentiometer is a resistor with three leads. Along with the typical end leads, there is a third lead referred to as the wiper or tap. This third lead is connected to a small metallic arm that makes contact with the resistive material and which can be moved along the length of the material. Potentiometers, or pots for short, often are formed in a circular shape (rotary travel) but they can also be in the form of a straight line (linear travel)
+            \bigbreak \noindent 
+            The larger circular units with shafts and the straight unit at the top are designed to be adjusted by the end user (appropriately stylish knobs being attached to said shafts, of course), while the smaller units are intended to be adjusted only by a technician (note the small adjustment screw slots intended to receive fine screwdrivers). The smaller units are designed to be mounted directly on a printed circuit board while the user adjustable units are mounted on a front panel, and have wiring lugs instead of straight leads.
+            \bigbreak \noindent 
+            A pot can be visualized as two resistors in sequence with a tap between them. The total resistance never changes. What does change is the ratio of the two pieces.
+            \begin{align*}
+                R_{AB} = R_{AW} + R_{WB}
+            .\end{align*}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/15.png}
+            \bigbreak \noindent 
+        \item \textbf{Ganged potentiometers}: As a result, potentiometers are very useful as controllable voltage dividers (hence the name). Sometimes it is desirable to control two signals simultaneously from a single knob (e.g., one volume knob for a hi-fi stereo controls both the left and right channels). For this application, multiple resistive elements can be stacked and use a common shaft to control all of the wiper arms in tandem. These are known as \textbf{ganged potentiometers}.
+            \bigbreak \noindent 
+            Finally, unlike fixed resistors, pots are available in limited sizes. Typical values use multiples of 1 or 5 for the total resistance
+            \bigbreak \noindent 
+            The output voltage at the wiper of a potentiometer changes because the wiper splits the total resistive track into two smaller resistor sections, and the voltage drops across each section in direct proportion to its length
+        \item \textbf{Rheostat}: If only the wiper and only one of the two end terminals is used, then the device is referred to as a rheostat. Rheostats are often used to limit current. The value of the rheostat ranges from 0 up to the nominal value of the potentiometer.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/16.png}
         
 
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Parallel resistive circuits}
+    \begin{itemize}
+                
 
 
 
