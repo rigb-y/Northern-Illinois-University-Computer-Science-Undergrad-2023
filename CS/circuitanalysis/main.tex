@@ -408,7 +408,177 @@
     \pagebreak 
     \unsect{Parallel resistive circuits}
     \begin{itemize}
+        \item \textbf{The parallel connection}:  In a parallel connection the voltage is the same across each component. 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/17.png}
+            \bigbreak \noindent 
+            Although it may be drawn oddly, there are only two common connection nodes in this configuration: one along the top and the other along the bottom
+            \bigbreak \noindent 
+            If we were to take a voltmeter and place it across any of these blocks, the meter would read the same voltage across each because the probes are always contacting the same two nodes
+            \bigbreak \noindent 
+            \fig{.6}{./figures/18.png}
+            \bigbreak \noindent 
+            In this layout some elements are in series and some are in parallel. Only elements D and E are strictly in parallel here as they are the only two that connect to the same two nodes, and thus must see the same voltage.
+            \bigbreak \noindent 
+            Items C and F might at first appear to be in parallel with them but upon closer inspection it should be noted that C and F are in series with each other. That is, C and F will split the voltage that D or E sees, in accordance with the voltage divider rule. In other words, it is not true that the voltage across C or across F must be the same as the voltage across D or E
+        \item \textbf{Combining Parallel Components}: Our first step is to determine how to combine parallel components in order to create a single equivalent component. Unlike series connections, this can be a little more time consuming.
+        \item \textbf{Sources in parallel}: First, voltage sources are not placed in parallel as a general rule
+            \bigbreak \noindent 
+            \fig{.6}{./figures/19.png}
+            \bigbreak \noindent 
+            The reason is because a parallel connection requires the same voltage across each component. This would be impossible to achieve with each source trying to maintain a different voltage across the same two nodes. This may result in damage to the sources (e.g., exploding batteries). The main exception to this rule is if the sources have the same potential and the goal is to extend operational life (e.g., multiple D cell batteries in parallel).
+        \item \textbf{Current sources in parallel}: When it comes to current sources, they may simply be added together, however, like series voltage sources, polarity is important. Referring to the three parallel current sources in Figure 4.4, the middle and right sources are pumping current into the top node while the left source is feeding the bottom node. You can also think of the left source as draining the top node. Thus, these three sources together behave like a single source of five amps feeding the top node (eight amps in, three amps out). 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/20.png}
+        \item \textbf{Resistors in Parallel}: When placed in parallel, resistor values do not add they way they do in series connections.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/21.png}
+            \bigbreak \noindent 
+            Recall that 
+            \begin{align*}
+                R = \frac{\rho l}{A}
+            .\end{align*}
+            Notice that two of the same resistor in parallel would be double the area, which resistivity and length unchanged. Thus, the resistance is halved. So, we see that placing resistors in parallel results in a decrease in net resistance, the opposite of the series case.
+            \bigbreak \noindent 
+            Recall that \textbf{conductance} $G$ is given by the reciprocal of resistance
+            \begin{align*}
+                G = \frac{A}{\rho l}
+            .\end{align*}
+            Now we can see that the increase in area creates a proportional increase in conductivity. If we generalize this for $N$ resistors we find that the equivalent conductance of a group of parallel resistors is their sum
+            \begin{align*}
+                G_{\text{total}} = G_{1} + \dots + G_{N}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \frac{1}{R_{\text{parallel}}} = \frac{1}{R_{1}} + \dots + \frac{1}{R_{N}}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                R_{\text{parallel}} = \frac{1}{\frac{1}{R_{1}} + \dots + \frac{1}{R_{N}}}
+            .\end{align*}
+            For $N$ resistors of equal resistance, 
+            \begin{align*}
+                R_{\text{parallel}} = \frac{1}{\frac{N}{R}} = \frac{R}{N}
+            .\end{align*}
+            Also, consider two parallel resistors $R_{1}$ and $R_{2}$, with $R_{1} < R_{2}$. Then,
+            \begin{align*}
+                R_{P} = \frac{1}{\frac{1}{R_{1}} + \frac{1}{R_{2}}}
+            .\end{align*}
+            Consider $R_{1}$ alone,
+            \begin{align*}
+                R_{P} = \frac{1}{\frac{1}{R_{1}}} = R_{1}
+            .\end{align*}
+            Now, consider what happens when we add $R_{2}$. Since resistance is non-negative, adding $1/R_{2}$ admits 
+            \begin{align*}
+                \frac{1}{R_{1}} + \frac{1}{R_{2}} > \frac{1}{R_{1}}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \frac{1}{\frac{1}{R_{1}} + \frac{1}{R_{2}}} < \frac{1}{\frac{1}{R_{1}}} = R_{1}
+            .\end{align*}
+            Thus, the combined resistance is smaller than the smallest resistor in the parallel series.
+        \item \textbf{Product-Sum Rule}: For two resistors, 
+            \begin{align*}
+                R_{P} = \frac{R_{1}R_{2}}{R_{1} + R_{2}}
+            .\end{align*}
+            It is only applicable to two resistors, however, it can be used repeatedly on pairs of resistors within larger groups instead of using
+            \bigbreak \noindent 
+            Now, suppose we write
+            \begin{align*}
+                N = \frac{R_{2}}{R_{1}}
+            ,\end{align*}
+            so that
+            \begin{align*}
+                R_{2} = \frac{N}{R_{1}}
+            .\end{align*}
+            Now,
+            \begin{align*}
+               R_{P} = \frac{R_{1}NR_{1}}{R_{1} + NR_{1}}  = \frac{N}{N+1}R_{1}
+            .\end{align*}
+            This is useful for quick estimates of parallel resistor pairs. If we have a resistor ratio of 3:1, then the equivalent would be $3/4$ths the value of the smaller resistor. For a $24 k\Omega$ and a $8 k \Omega$, the equivalent would be a $6 k \Omega$ resistor.
+        \item \textbf{Kirchhoff's Current Law (KCL)}: Just as Kirchhoff's voltage law is a key element in understanding series circuits, Kirchhoff's current law (KCL) is the operative rule for parallel circuits. It states that the sum of all currents entering and exiting a node must sum to zero. Alternately, it can be stated as the sum of currents entering a node must equal the sum of currents exiting that node. As a pseudo formula: 
+            \begin{align*}
+                \sum I \leftarrow = \sum I \rightarrow
+            .\end{align*}
+            Recall that a node is a connection area wherein the voltage is the same
+            \bigbreak \noindent 
+            \fig{.6}{./figures/22.png}
+            \bigbreak \noindent 
+            We see that there are two nodes in a parallel configuration. For each of these nodes, whatever currents flow in must be balanced by the same total current flowing out.
+            \bigbreak \noindent 
+            There is a current source feeding the top node. At the three-way connection with $R_{1}$ and $R_{2}$, KCL along with Ohm's law dictate that the incoming current from the source must split with one portion exiting by flowing down through $R_{1}$ and the remainder exiting by flowing down through $R_{2}$.
+            \bigbreak \noindent 
+            At the bottom node (ground) these two resistor currents must combine and equal the current that is being drawn back into the current source, which must be the same as the current originally produced by the source. This is perfectly sensible because it would be impossible for the current source to establish two different currents; one at its input and the other at its output. To assert otherwise would be a little like saying you're two different heights depending on whether you measure from your toes up to your head versus from your head down to your toes. Thus, a simplistic way of stating KCL is “What goes in must come out”
+        \item \textbf{The Current Divider Rule (CDR)}: Just as series circuits follow the voltage divider rule (voltage dividing in proportion to resistance), parallel circuits follow the current divider rule which states that current divides in reverse proportion to resistance (i.e., in direct proportion to conductance).
+            \bigbreak \noindent 
+            First, we note that the voltage across the pair must equal the entering current times the effective resistance of the pair.
+            \begin{align*}
+                V = I_{T}\frac{R_{1}R_{2}}{R_{1} + R_{2}}
+            .\end{align*}
+            The current through each of the resistors must be this voltage divided by the corresponding resistance. For the current through $R_{1}$
+            \begin{align*}
+                I_{R_{1}} = \frac{V}{R_{1}} = I_{T}\frac{R_{2}}{R_{1} + R_{2}}
+            .\end{align*}
+            Similarly, for the current through $R_{2}$:
+            \begin{align*}
+                I_{R_{2}} = I_{T}\frac{R_{1}}{R_{1} + R_{2}}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                I_{X} = I_{T} \frac{R_{Y}}{R_{X} + R_{Y}}
+            .\end{align*}
+            This rule is convenient in that you don't have to compute the parallel equivalent resistance, but remember, it is valid only when there are just two resistors involved.
+        \item \textbf{Fuses and circuit breakers}: Most electrical and electronic devices are designed to run off of a constant voltage source As such, parallel connections are ideal when a variable number of devices are to be powered because, unlike a series connection, each device will see the same voltage rather than having that voltage split among them.
+            \bigbreak \noindent 
+            There is another advantage to parallel connection. Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/23.png}
+            \bigbreak \noindent 
+            Typically, when a lamp fails, it fails creating an open. If any of the lamps in the series connection fails, current in the loop is interrupted and all of the lamps go out. In contrast, if one of the lamps in the parallel connection fails, the remaining lights will stay on. Further, in the series connection, there is no immediate way to determine which lamp has failed as none of them will be lit. Each lamp has to be tested in turn to determine the faulty unit. In the parallel system, it is obvious which lamp has failed because that's the one that's out.
+            \bigbreak \noindent 
+            In a home, school or commercial setting, any number of devices may be plugged into wall sockets with the expectation that each unit will receive the same voltage and operate correctly due to the parallel nature of the system. As convenient as this is, there is a practical problem. Every device that is added to the system presents another path for current flow. Due to KCL, this means that the total current drawn from the source must increase. This creates a potential problem because if too much current is drawn, there can be an appreciable voltage drop across the wires feeding the outlets as they can no longer be assumed to be zero ohms. This lowered voltage may present a problem for the attached devices, but more importantly, the large current results in unexpected heating of the wires because of the power dissipation in them ($I^{2}R$) and creates a possible fire hazard. Consequently, we must include some method to limit the current to a safe maximum value.
+            \bigbreak \noindent 
+            Adding another load in a parallel circuit increases the total current drawn from the source because it creates a new, separate path for electricity to flow.  Each load you add creates an independent branch connected across the same voltage source.
+            \bigbreak \noindent 
+            The power source provides the same push (voltage) to every branch. Each new load draws its own separate share of current based on its own resistance
+            \bigbreak \noindent 
+            According to Kirchhoff's Current Law, the total current leaving the source is the sum of the currents going through each individual branch. When you add another branch current to the total, the overall sum goes up
+            \bigbreak \noindent 
+            Because there are more pathways for the charge to move through, the overall or equivalent resistance of the entire circuit actually decreases.
+            \bigbreak \noindent 
+            Since the resistance decreases, 
+            \begin{align*}
+                I = \frac{V}{R}
+            \end{align*}
+            increases. The common approach is a fuse or circuit breaker. These devices are placed between the voltage source and the various loads, and see their combined current. If this current becomes too great, the device interrupts the current flow by opening the circuit. Nothing will operate but nothing catches fire, either.
+            \bigbreak \noindent 
+            Fuses are used typically in electronic systems, motors, automotive subsystems and the like. Whether they're the cylindrical type found in electronic instrumentation or the blade type common in automobiles, fuses are one-shot devices. They consist of a fine wire or metal link that will heat up and melt if it experiences too high of a current. Upon melting, circuit continuity is lost and current flow stops. This is called a “blown” fuse. The fuse will then need to be replaced once the problem has been fixed (i.e., whatever it was that caused excessive current to flow in the first place).
+            \bigbreak \noindent 
+            Fuses have a nominal current rating, for example, two amps. This does not mean that as soon as two amps is reached, the fuse blows. It will take some time for the fuse to heat up. The higher the current is above the nominal rating, the faster the fuse will blow.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/25.png}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/24.png}
+            \bigbreak \noindent 
+            Fuses are also available in fast-blow and slow-blow forms. Fast-blow fuses will activate many times faster than standard fuses while slow-blow types will require much long to activate (this prevents the fuse from activating accidentally with certain kinds of loads that exhibit a high initial startup current but that falls back to a more modest level once running smoothly, such as a motor).
+            \bigbreak \noindent 
+            Fuses are generally inexpensive and effective. The obvious downside to a fuse is that they need to be replaced once they do their job. A circuit breaker solves this problem. 
+            \bigbreak \noindent 
+            A circuit breaker, or just breaker for short, can be thought of as a resettable fuse. Breakers do not have a melting link that interrupts current flow. Instead, a breaker operates like an intelligent switch: if the current is too large, the switch is thrown open. The operator can then fix the problem and reset the breaker (i.e., return the switch to the operating position).
+            \bigbreak \noindent 
+            \fig{.6}{./figures/26.png}
+
+
+
+
+
+    \end{itemize}
+
+    \unsect{Series-Parallel Resistive Circuits}
+    \begin{itemize}
                 
+
+
 
 
 

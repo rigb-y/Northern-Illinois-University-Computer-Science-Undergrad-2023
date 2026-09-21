@@ -2792,6 +2792,104 @@
     \end{itemize}
 
     \pagebreak 
+    \unsect{Deducing Types}
+    \begin{itemize}
+        \item \textbf{Rule sets}: C++ has three distinct sets of type deduction rules
+            \begin{enumerate}
+                \item \textbf{Template type deduction}: Divided into three cases based on the parameter type
+                    \begin{enumerate}
+                        \item ParamType is a reference or pointer (but not a universal/forwarding reference).
+                        \item ParamType is a universal/forwarding reference (T\&\&).
+                        \item ParamType is passed by value (drops references, top-level const, and volatile)
+                    \end{enumerate}
+                \item \textbf{Auto}: It generally mirrors Template Type Deduction (the variable's type acts like ParamType and the initializer expression acts like the argument).
+                    \bigbreak \noindent 
+                    Braced initializer lists deduce to a std::initializer\_list under auto, which fails under standard template argument deduction
+                \item \textbf{decltype / decltype(auto)}: Used to inspect the exact, unmodified type of a variable or expression.
+                    \bigbreak \noindent 
+                    Unlike auto and templates, decltype does not strip references or top-level cv-qualifiers; it gives you the exact declaration type or reference category (lvalue vs rvalue) of the expression
+            \end{enumerate}
+        \item \textbf{decltype(auto)}: decltype(auto) is a type specifier introduced in C++14 that tells the compiler to deduce a type using decltype rules rather than standard auto template deduction rules.
+        \item \textbf{Template type deduction}: Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T>
+            void f(ParamType param);
+
+            f(expr);
+            \end{cppcode}
+            \bigbreak \noindent 
+            There are three cases for \texttt{ParamType}, each of which effect $T$s deduction differently
+            \begin{enumerate}
+                \item \textbf{ParamType} is a pointer or reference type. In this case, if the expr is a reference, the reference part is ignored. Then pattern-match expr’s type against ParamType to determine T.
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                    template<typename T>
+                    void f(T& param);
+
+                    int x = 27;
+                    const int cx = x;
+                    const int& rx = x;
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Calling $f$ with $x,cx$, and $rx$ deduces $T$ as int, const int, const int.
+                \item \textbf{ParamType} is a universal reference. If expr is an lvalue, both T and ParamType are deduced to be lvalue references. If expr is an rvalue, the “normal” (i.e., Case 1) rules apply.
+                    \bigbreak \noindent 
+                    Universal references are described heavily in a section above and will likely be described in more detail later.
+                \item \textbf{ParamType} is neither a pointer nor a reference. As before, if expr’s type is a reference, ignore the reference part. If, after ignoring expr’s reference-ness, expr is const, ignore that, too. If it’s volatile, also ignore that. 
+                    \bigbreak \noindent 
+                    \begin{cppcode}
+                        template<typename T>
+                        void f(T param);
+
+                        int x = 27;
+                        const int cx = x;
+                        const int& rx = x;
+                    \end{cppcode}
+                    \bigbreak \noindent 
+                    Calling $f$ with $x,cx$, and $rx$ deduces $T$ as int in every call.
+                    \bigbreak \noindent 
+                    Note that even though cx and rx represent const values, param isn’t const. That makes sense. param is an object that’s completely independent of cx and rx—a copy of cx or rx. The fact that cx and rx can’t be modified says nothing about whether param can be. That’s why expr’s constness (and volatileness, if any) is ignored when deducing a type for param: just because expr can’t be modified doesn’t mean that a copy of it can’t be.
+            \end{enumerate}
+        \item \textbf{Array references}:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            int arr[10]; 
+            int (&r)[10] = arr;
+            \end{cppcode}
+            \bigbreak \noindent 
+            Here, $r$ is a reference to an array of 10 integers. With this, we can have access to the array in a function without being decayed to a pointer
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void f(int (&arr_ref)[10]) {
+                    // 40
+                    std::cout << sizeof(arr_ref) << "\n";
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Now, in
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T>
+            void f(T& p);
+
+            f(arr);
+            \end{cppcode}
+            \bigbreak \noindent 
+            $T$ is deduced as int[10], and $p$ is int (\&)[10];
+            \bigbreak \noindent 
+            Interestingly, the ability to declare references to arrays enables creation of a template that deduces the number of elements that an array contains
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T, std::size_t N> constexpr std::size_t array_size(T (&)[N]) noexcept { return N; }
+            \end{cppcode}
+
+
+
+
+    \end{itemize}
+
+    \pagebreak 
     \unsect{Exercises}
     \begin{itemize}
         \item \textbf{Fixed capacity ring buffer}: 
