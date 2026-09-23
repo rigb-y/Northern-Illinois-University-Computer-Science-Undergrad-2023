@@ -576,7 +576,60 @@
 
     \unsect{Series-Parallel Resistive Circuits}
     \begin{itemize}
-                
+        \item \textbf{Intro}: The key to analyzing basic series-parallel circuits is in recognizing portions of the circuit, or sub-circuits, that exhibit a series or parallel configuration by themselves, and then applying the series and parallel analysis rules to those sections. Ohm's law, KVL and KCL may be used in turn to “chip away” at the problem until all currents and voltages are found. As individual voltages and currents are determined, this makes it easier to apply these rules to determine other values. Given this observation, the number of potential solution paths tends to grow exponentially as the number of components increases. As a consequence, when faced with the same circuit, six people may solve it six different ways, no particular way being more or less correct than any other. The only thing we can say is that some solution paths might be more computationally efficient than others, meaning they take less work 
+        \item \textbf{Series-Parallel Connections}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/27.png}
+            \bigbreak \noindent 
+            It should be obvious that this system is neither a simple series connection nor a simple parallel connection, but rather some combination of the two. In order for it to be series, the current through each component would have to be the same. This does not have to be true here. Consider the connection node directly above block C. This also connects to items B, D and E. All we really know about that node is that there are four paths leading to it and that the four associated currents must sum to zero, thanks to KCL. There is nothing that requires the current through, say, block D to be the same as that through block E. Similarly, there is nothing that stipulates that the voltage across block C must be the same as that across block F. After all, that is the hallmark of a parallel configuration, and that would require those two blocks to be connected to the same two nodes, which they aren't.
+            \bigbreak \noindent 
+            Notice some of the components are in series among themselves, and some are in parallel among themselves. We might recognize these groupings as sub-circuits.
+            \bigbreak \noindent 
+            For example, it is true that blocks A and B are in series with each other because the current through one of them must be the same as the current through the other. The same is true of blocks C and F; they are in series with each other. Similarly, we can say that blocks D and E are in parallel with each other because they must see the same voltage as they are each connected to the same two nodes
+        \item \textbf{Ladders}: A ladder is a unique series-parallel configuration. It is arranged in a cascade of series and parallel connections.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/28.png}
+            \bigbreak \noindent 
+            The main thing to note is that the ladder network consists of “sections loading sections” repeatedly. By loading, we mean that this element (the load) draws off current and power from the prior section. As a result, simple two-resistor voltage dividers cannot be used.
+            \bigbreak \noindent 
+            The only proper voltage divider in this configuration is between $R_{7}$ and $R_{8}$. The reason for this becomes apparent if we imagine determining the equivalent resistance of the network by placing an ohmmeter at terminals $a$ and $f$. The ohmmeter will apply a current to node $a$ which passes through $R_1$. At node $b$ this current splits, part going down $R_2$ and part continuing through $R_3$. Clearly then, $R_1$ and $R_2$ are not in series as they do not see the same current. Further, the current that flows through $R_3$ enters node c where it splits again, part down $R_4$ with the remainder flowing through $R_5$. Thus, $R_3$ and $R_4$ are not in series, either. The same sort of thing happens again at node $d$. This would continue for as many rungs as are on the ladder, the sole exception being the final two resistors which are in series ($R_7$ and $R_8$ here).
+            \bigbreak \noindent 
+            How then do we find the equivalent resistance of this network? We begin at the end farthest from the open terminals. 
+            We have already noted that \(R_7\) and \(R_8\) are in series. This pair,
+            if treated as a single resistance, is in parallel with \(R_6\), or
+            \[
+                R_6 \parallel (R_7 + R_8).
+            \]
+            This group of three is in series with \(R_5\), yielding
+            \[
+                R_5 + \bigl(R_6 \parallel (R_7 + R_8)\bigr).
+            \]
+            This new group of four is in parallel with \(R_4\), yielding
+            \[
+                R_4 \parallel \bigl(R_5 + (R_6 \parallel (R_7 + R_8))\bigr).
+            \]
+            This group is in series with \(R_3\), and that new group is in turn in
+            parallel with \(R_2\). Finally, that penultimate grouping is in series
+            with \(R_1\). Therefore, the equivalent resistance of the network is
+            \[
+                R_{\mathrm{eq}} = R_1 + \left[ R_2 \parallel \left( R_3 + \left[ R_4 \parallel \left( R_5 + \left[ R_6 \parallel (R_7 + R_8) \right] \right) \right] \right) \right].
+            \]
+            Surely, it is a tad tedious to compute the value, but it is not
+            particularly difficult. A word to the wise: if the goal is to determine
+            the voltages at the various nodes or the myriad branch currents, it will
+            be helpful to keep track of the equivalent resistances of the various
+            groupings.
+            \bigbreak \noindent 
+            For example, if \(V_{cf}\) is known and the goal is to find \(V_{df}\),
+            the voltage-divider relationship would be
+            \[
+                V_{df}
+                =
+                V_{cf}
+                \frac{R_6 \parallel (R_7 + R_8)}
+                {R_5 + \bigl(R_6 \parallel (R_7 + R_8)\bigr)}.
+            \]
+            Note that || has higher precedence than + or –, therefore || is performed first, rather like multiplication when mixed with addition and subtraction.
 
 
 

@@ -959,6 +959,23 @@
                     \end{cppcode}
 
             \end{itemize}
+        \item \textbf{make\_shared and make\_unique}: You should use std::make\_unique (and make\_shared) (introduced in C++14) over direct initialization with unique\_ptr<T>(new T()) for four primary reasons
+            \bigbreak \noindent 
+            std::make\_unique ensures atomicity between allocating memory and wrapping it in a smart pointer. Consider this function call:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            foo(std::unique_ptr<A>(new A()), std::unique_ptr<B>(new B()));
+            \end{cppcode}
+            \bigbreak \noindent 
+            Prior to C++17, the compiler could reorder evaluations. It might allocate memory for A, then allocate memory for B, and then run the constructors. If B's constructor threw an exception, the memory allocated for A would leak because its unique\_ptr hadn't been constructed yet
+            \bigbreak \noindent 
+            \begin{cppcode}
+            foo(std::make_unique<A>(), std::make_unique<B>());
+            \end{cppcode}
+            \bigbreak \noindent 
+            With std::make\_unique, the allocation and construction happen in an isolated, atomic step. If an exception occurs, memory is cleaned up instantly.
+            \bigbreak \noindent 
+            Modern C++ advocates for total encapsulation of raw memory management. Prior to C++14, the rule of thumb was "Never use new unless you are creating a unique\_ptr". By using std::make\_unique, you can enforce a clean, universal guideline across your entire codebase: Never use the new keyword explicitly
 
 
 
@@ -1418,6 +1435,37 @@
                 \item An ordinary rvalue reference binds to rvalues and enables move semantics, allowing resources such as a vector’s heap allocation to be transferred instead of copied.
                 \item In a deduced template context, such as template<class T> void f(T\&\& x), it may be a forwarding reference. It can accept both lvalues and rvalues, and std::forward<T>(x) preserves the argument’s original value category.
             \end{enumerate}
+        \item \textbf{ADL}: Argument-Dependent Lookup (ADL), also known as Koenig lookup, is a set of rules in C++ that allows the compiler to look up an unqualified function name within the namespaces of its arguments
+            \bigbreak \noindent 
+            Without ADL, you would be forced to explicitly qualify every single function or operator call with its full namespace
+            \bigbreak \noindent 
+            When you make a function call like foo(arg1, arg2), the compiler performs two lookup phases to form an overload set:
+            \begin{enumerate}
+                \item \textbf{Normal Unqualified Lookup:} The compiler searches the current local scope, enclosing scopes, and global namespaces
+                \item \textbf{ADL Lookup:} The compiler examines the types of arg1 and arg2. It discovers their "associated namespaces" and "associated classes" and searches those namespaces as well
+            \end{enumerate}
+            ADL is skipped entirely if normal unqualified lookup finds any of the following
+            \begin{enumerate}
+                \item \textbf{A class member declaration:} If you call a function name that matches a member function inside a class method.
+                \item \textbf{A block-scope function declaration:} A local function declaration inside a pair of braces \{ ... \} (excluding using declarations)
+                \item \textbf{A non-function declaration:} If a local variable, function object (functor), or constant shares the same name as the function you are trying to call
+            \end{enumerate}
+            ADL is vital for writing generic template code, especially for customization points like std::swap. The standard idiom requires bringing std::swap into scope but calling it un-qualified:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template <typename T>
+                void doSomething(T& a, T& b) {
+                    using std::swap; // Makes std::swap a fallback option
+                    swap(a, b);      // Unqualified call triggers ADL!
+                }
+            \end{cppcode}
+            \begin{itemize}
+                \item If T is a user-defined type with a custom swap function defined in its own namespace, ADL will find and prioritize the custom version.
+                \item If no custom swap exists, the compiler falls back to std::swap.
+            \end{itemize}
+            If you call swap(a, b) using an unqualified call without bringing std::swap into scope, ADL will fail for primitive types (like int, double, pointer) and types in the global namespace. This is because primitive types do not belong to any namespace, meaning ADL has no associated namespaces to search.
+            \bigbreak \noindent 
+            In C++20 and later, you no longer need to write this two-line ritual if you use Concepts and Ranges. The standard library introduced std::ranges::swap, which is a specialized function object (a "niebloid") that automatically handles ADL fallback logic under the hood:
 
 
 
@@ -2883,6 +2931,183 @@
             \begin{cppcode}
                 template<typename T, std::size_t N> constexpr std::size_t array_size(T (&)[N]) noexcept { return N; }
             \end{cppcode}
+        \item \textbf{Displaying deduced}: Consider a class
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T>
+            class TD;
+            \end{cppcode}
+            \bigbreak \noindent 
+            Notice that TD does not use $T$, so it cannot be instantiated. Thus, the error message that is produced when we \textit{try} to instantiate with a type yields the type name that it tried to use. 
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::vector<int> v{1,2,3};
+
+                const int x = 20;
+                TD<decltype(x)> t; // Error message discusses const int
+                TD<decltype(v.begin()) w; // Error message discusses __gnu_cxx::__normal_iterator<int*, std::vector<int>>
+            \end{cppcode}
+        \item \textbf{Why prefer auto}: auto prevents uninitialized variables, avoids incorrect or duplicated type names, and adapts automatically when APIs change. It is especially useful for iterators, lambdas, and complicated template types.
+            \bigbreak \noindent 
+            Use an explicit type when it communicates important domain meaning that auto would obscure.
+        \item \textbf{Forcing auto}: Some expressions return proxy types rather than ordinary values. For example, an element of std::vector<bool> may not be an actual bool.
+            \bigbreak \noindent 
+            Force the intended type when necessary
+            \bigbreak \noindent 
+            \begin{cppcode}
+            auto enabled = static_cast<bool>(...)
+            \end{cppcode}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Moving to modern C++}
+    \begin{itemize}
+        \item \textbf{Declare overriding functions with override}: override makes the compiler verify that a function really overrides a virtual base-class function. It detects mistakes involving const, reference qualifiers, parameter types, and exception specifications.
+        \item \textbf{Prefer const\_iterator when modification is unnecessary}: Use cbegin, cend, and related operations when the iterator should not modify elements. This expresses intent and avoids unnecessarily granting write access.
+        \item \textbf{Declare functions noexcept when they cannot throw}: noexcept is part of a function’s interface and can enable better optimization. Standard containers may move elements during reallocation only when their move operations are known not to throw.
+            \bigbreak \noindent 
+            Do not add it merely for performance: escaping exceptions from a noexcept function terminate the program.
+        \item \textbf{Use constexpr whenever the operation legitimately supports compile-time use}: constexpr objects are constant and must be initialized by constant expressions. constexpr functions may execute during compilation or runtime, depending on their arguments and context.
+        \item \textbf{Make const member functions thread-safe}: Multiple threads may call const operations on the same object. Therefore, a logically read-only operation should not perform unsynchronized writes to shared state.
+            \bigbreak \noindent 
+            Use a mutex for compound state and std::atomic for suitable independent values.
+        \item \textbf{Understand automatic generation of special member functions}: The special member functions are:
+            \begin{itemize}
+                \item Default constructor.
+                \item Destructor.
+                \item Copy constructor.
+                \item Copy assignment operator.
+                \item Move constructor.
+                \item Move assignment operator.
+            \end{itemize}
+            Declaring some of these can prevent others from being generated. In particular, user-declared copy operations or a destructor can suppress implicit move operations.
+            \bigbreak \noindent 
+            Prefer the Rule of Zero: let resource-owning member types manage copying, moving, and destruction.
+        \item \textbf{Use std::unique\_ptr for exclusive ownership}: unique\_ptr is small, efficient, movable, and customizable with deleters. It should normally be the first ownership pointer considered.
+            \bigbreak \noindent 
+            It can also convert into a shared\_ptr if ownership later needs to become shared.
+        \item \textbf{Use std::shared\_ptr for genuine shared ownership}: shared\_ptr maintains a reference-counted control block. The managed object is destroyed when the last owning pointer disappears.
+            \bigbreak \noindent 
+            Avoid constructing multiple independent shared\_ptr objects from the same raw pointer. Use std::enable\_shared\_from\_this when an owned object must safely produce another owner of itself.
+        \item \textbf{Use std::weak\_ptr for non-owning observation}: A weak\_ptr observes an object managed by shared\_ptr without extending its lifetime. It can:
+            \begin{itemize}
+                \item Detect whether the object has expired.
+                \item Temporarily acquire ownership using lock().
+                \item Break cycles between shared\_ptr objects.
+                \item Support caches and observer structures.
+            \end{itemize}
+        \item \textbf{Pimpl}: PImpl means Pointer to Implementation. A class stores a pointer to a private implementation object instead of storing its private data directly in the public class definition.
+            It is primarily used to:
+            \begin{itemize}
+                \item Hide implementation details.
+                \item Reduce header dependencies and rebuild times.
+                \item Improve binary compatibility.
+                \item Keep public headers small and stable.
+            \end{itemize}
+            Consider
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // widget.h
+                #pragma once
+
+                #include <string>
+                #include <vector>
+
+                class Widget {
+                    public:
+                    void add_name(std::string name);
+
+                    private:
+                    std::vector<std::string> names_;
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            Every file including widget.h must parse the <vector> and <string> declarations. Changing the private representation can also cause every dependent source file to be recompiled.
+            \bigbreak \noindent 
+            Now, with Pimpl:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // widget.h
+                #pragma once
+
+                #include <memory>
+                #include <string>
+
+                class Widget {
+                public:
+                    Widget();
+                    ~Widget();
+
+                    Widget(Widget&&) noexcept;
+                    Widget& operator=(Widget&&) noexcept;
+
+                    Widget(const Widget&);
+                    Widget& operator=(const Widget&);
+                    void add_name(std::string name);
+
+                private:
+                    class Impl;
+                    std::unique_ptr<Impl> impl_;
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // widget.cpp
+                #include "widget.h"
+
+                #include <utility>
+                #include <vector>
+
+                class Widget::Impl {
+                public:
+                    std::vector<std::string> names;
+                };
+
+                Widget::Widget()
+                    : impl_(std::make_unique<Impl>()) { }
+
+                Widget::~Widget() = default;
+
+                Widget::Widget(Widget&&) noexcept = default;
+                Widget& Widget::operator=(Widget&&) noexcept = default;
+
+                Widget::Widget(const Widget& other)
+                    : impl_(std::make_unique<Impl>(*other.impl_)) { }
+
+                Widget& Widget::operator=(const Widget& other) {
+                    if (this != &other) {
+                        *impl_ = *other.impl_;
+                    }
+
+                    return *this;
+                }
+
+                void Widget::add_name(std::string name) {
+                    impl_->names.push_back(std::move(name));
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Users of Widget know that Impl exists, but they do not know what it contains.
+            \bigbreak \noindent 
+            Notice that the destructor is defined in the .cpp file, at the end of widget.h, Impl is incomplete. std::unique\_ptr<Impl> can hold a pointer to an incomplete type. However, destroying that pointer eventually requires Impl to be complete. Therefore, this is normally incorrect:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                // widget.h
+                ~Widget() = default;
+            \end{cppcode}
+            \bigbreak \noindent 
+            The compiler may instantiate unique\_ptr<Impl>’s destructor where Impl is still incomplete. Instead, declare the destructor in the header, then define it after Impl is complete.
+            \bigbreak \noindent 
+            The same consideration often applies to move operations, so defining all special member functions in the .cpp file is a dependable convention.
+            \bigbreak \noindent 
+            Because std::unique\_ptr is noncopyable, a Pimpl class is noncopyable by default. We could either make move-only by deleting copy and copy assignment, or by implementing a deep copy.
+        \item \textbf{Avoid overloading directly on forwarding references}: A forwarding-reference overload can match more arguments than expected and may defeat overloads accepting const T\&.
+            \bigbreak \noindent 
+            Forwarding-reference constructors are particularly dangerous because they can interfere with copying, moving, and derived-to-base conversions.
+
+
 
 
 

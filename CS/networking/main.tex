@@ -126,7 +126,7 @@
         \item \textbf{Data stream}: In a data stream, Hertz (Hz) matters because it measures the sampling rate or update frequency, which directly determines how much data is captured, how real-time the stream is, and the resources required to process it. 
             \bigbreak \noindent 
             One Hertz equals one data point or update per second.
-        \item \textbf{Telco (Telecommunications company)}:  Telcos own and manage the large-scale physical infrastructure like utility poles, underground conduits, and switching centers—that connect homes and businesses to the broader network.
+        \item \textbf{Telco (Telecommunications company)}:  Telcos own and manage the large-scale physical infrastructure like utility poles, underground conduits, and switching centers, that connect homes and businesses to the broader network.
         \item \textbf{Digital subscriber line}: An internet technology that sends digital data over traditional copper telephone lines.
         \item \textbf{Fiber-optic internet}:  A high-speed connection that transmits data as pulses of light through thin strands of pure glass or plastic
             \bigbreak \noindent 
@@ -139,7 +139,7 @@
             \end{itemize}
             The name modulator-demodulator describes the two primary jobs the device performs to allow computers to talk to each other over long distances.
             \begin{itemize}
-                \item \textbf{Modulator (Mo):} Computers speak in digital data (binary code made of 1s and 0s). However, traditional transmission lines—like old telephone wires—were designed to carry analog data (sound waves). The modem modulates (converts) the digital data from a computer into an analog signal that can travel across the network.
+                \item \textbf{Modulator (Mo):} Computers speak in digital data (binary code made of 1s and 0s). However, traditional transmission lines, like old telephone wires, were designed to carry analog data (sound waves). The modem modulates (converts) the digital data from a computer into an analog signal that can travel across the network.
                 \item \textbf{Demodulator (Dem):} When those analog signals reach the receiving end, the computer on that side cannot understand them. The modem demodulates (converts) the incoming analog waves back into digital 1s and 0s that the computer can read.
             \end{itemize}
             Once the ISP demodulates the analog signal back into digital data, it processes that data to get it to its final destination on the global internet.
@@ -160,7 +160,7 @@
             The router keeps track of every device in your house by giving each one a unique local IP address (like 192.168.1.5). Because it has this map of your home, it can route data directly between your phone, your laptop, and your smart TV without ever needing to involve a modem or the internet.
             \bigbreak \noindent 
             So, the modem is just one of the things a router can route to.
-        \item \textbf{Network switch}: A network switch is a piece of hardware that connects multiple devices—like computers, printers, and servers—together inside a single local area network (LAN)
+        \item \textbf{Network switch}: A network switch is a piece of hardware that connects multiple devices, like computers, printers, and servers, together inside a single local area network (LAN)
             \bigbreak \noindent 
             Think of a switch as a smart traffic controller for data. When one device sends data to another, the switch receives the data packet and sends it only to the specific destination device, rather than broadcasting it to everything on the network
             \bigbreak \noindent 
@@ -231,7 +231,7 @@
         \item \textbf{Store and forward transmissions}: Most packet switches use store-and-forward transmission at the inputs to the links. Store-and-forward transmission means that the packet switch must receive the entire packet before it can begin to transmit the first bit of the packet onto the outbound link
         \item \textbf{Output buffer}: Each packet switch has multiple links attached to it. For each attached link, the packet switch has an output buffer (also called an output queue), which stores packets that the router is about to send into that link. The output buffers play a key role in packet switching. If an arriving packet needs to be transmitted onto a link but finds the link busy with the transmission of another packet, the arriving packet must wait in the output buffer. Thus, in addition to the store-and-forward delays, packets suffer output buffer queuing delays
             \bigbreak \noindent 
-            Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, packet loss will occur—either the arriving packet or one of the already-queued packets will be dropped.
+            Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, packet loss will occur, either the arriving packet or one of the already-queued packets will be dropped.
         \item \textbf{Forwarding Tables and Routing Protocols}: Earlier, we said that a router takes a packet arriving on one of its attached communication links and forwards that packet onto another one of its attached communication links. But how does the router determine which link it should forward the packet onto? Packet forwarding is actually done in different ways in different types of computer networks. Here, we briefly describe how it is done in the Internet.
             \bigbreak \noindent 
             In the Internet, every end system has an address called an IP address. When a source end system wants to send a packet to a destination end system, the source includes the destination’s IP address in the packet’s header.
@@ -255,7 +255,7 @@
             For a TDM link, time is divided into frames of fixed duration, and each frame is divided into a fixed number of time slots. When the network establishes a connection across a link, the network dedicates one time slot in every frame to this connection. These slots are dedicated for the sole use of that connection, with one time slot available for use (in every frame) to transmit the connection’s data.
         \item \textbf{Silent periods}: Proponents of packet switching have always argued that circuit switching is wasteful because the dedicated circuits are idle during silent periods. For example, when one person in a telephone call stops talking, the idle network resources (frequency bands or time slots in the links along the connection’s route) cannot be used by other ongoing connections. As another example of how these resources can be underutilized, consider a radiologist who uses a circuit-switched network to remotely access a series of x-rays. The radiologist sets up a connection, requests an image, contemplates the image, and then requests a new image. Network resources are allocated to the connection but are not used (i.e., are wasted) during the radiologist’s contemplation periods. Proponents of packet switching also enjoy pointing out that establishing end-to-end circuits and reserving end-to-end transmission capacity is complicated and requires complex signaling software to coordinate the operation of the switches along the end-to-end path.
         \item \textbf{Packet vs circuit switching}: Proponents of packet switching argue that (1) it offers better sharing of transmission capacity than circuit switching and (2) it is simpler, more efficient, and less costly to implement than circuit switching. 
-        \item \textbf{A Network of Networks}: We remark that the ISPs themselves must be interconnected. This is done by creating a network of networks—understanding this phrase is the key to understanding the Internet.
+        \item \textbf{A Network of Networks}: We remark that the ISPs themselves must be interconnected. This is done by creating a network of networks, understanding this phrase is the key to understanding the Internet.
             \bigbreak \noindent 
             Our first network structure, Network Structure 1, interconnects all of the access ISPs with a single global transit ISP. Our (imaginary) global transit ISP is a network of routers and communication links that not only spans the globe, but also has at least one router near each of the hundreds of thousands of access ISPs. Of course, it would be very costly for the global ISP to build such an extensive network. To be profitable, it would naturally charge each of the access ISPs for connectivity, with the pricing reflecting (but not necessarily directly proportional to) the amount of traffic an access ISP exchanges with the global ISP. Since the access ISP pays the global transit ISP, the access ISP is said to be a customer and the global transit ISP is said to be a provider.
             \bigbreak \noindent 
@@ -264,13 +264,13 @@
             Network Structure 2, just described, is a two-tier hierarchy with global transit providers residing at the top tier and access ISPs at the bottom tier. This assumes that global transit ISPs are not only capable of getting close to each and every access ISP, but also find it economically desirable to do so. In reality, although some ISPs do have impressive global coverage and do directly connect with many access ISPs, no ISP has presence in each and every city in the world. Instead, in any given region, there may be a regional ISP to which the access ISPs in the region connect. Each regional ISP then connects to tier-1 ISPs. Tier-1 ISPs are similar to our (imaginary) global transit ISP; but tier-1 ISPs, which actually do exist, do not have a presence in every city in the world.
         \item \textbf{Tier-1 ISPs (The Global Backbone)}:  A Tier 1 ISP sits at the very top of the internet hierarchy. They own and operate the core infrastructure of the internet, including massive transoceanic fiber-optic submarine cables and terrestrial networks
             \bigbreak \noindent 
-            They reach the entire global internet without ever paying anyone for data traffic (IP transit). Instead, they use settlement-free peering—trading data traffic freely with other Tier-1 networks on equal terms.
+            They reach the entire global internet without ever paying anyone for data traffic (IP transit). Instead, they use settlement-free peering, trading data traffic freely with other Tier-1 networks on equal terms.
             \bigbreak \noindent 
             Examples are AT\&T, Verizon, Tata Communications, and Lumen Technologies
         \item \textbf{Global \& Regional ISPs (Tier-2 ISPs)}:   Tier-2 ISPs operate large regional or national networks. They have broad geographic coverage, but they cannot reach every single corner of the globe on their own
             \bigbreak \noindent 
             They peer for free with some networks, but they must buy IP transit from Tier-1 ISPs to pass data across the rest of the world. They often sell connectivity down to local providers or large enterprise clients
-        \item \textbf{Access ISPs (Tier-3 ISPs)}: An access ISP is the local provider that delivers the internet directly to end-users—homes, apartments, and small businesses. This is the company you pay your monthly internet bill to
+        \item \textbf{Access ISPs (Tier-3 ISPs)}: An access ISP is the local provider that delivers the internet directly to end-users, homes, apartments, and small businesses. This is the company you pay your monthly internet bill to
             \bigbreak \noindent 
             They do not own a global or regional backbone. They rely entirely on Tier-2 or Tier-1 transit providers to hand off and carry local traffic out to the wider world.
         \item \textbf{Point of presence}: In networking, PoP stands for Point of Presence, which is a physical location or access point that connects different networks or lets users hook up to an Internet Service Provider (ISP).
@@ -283,13 +283,13 @@
             \bigbreak \noindent 
             The primary goal of a CDN is to bridge the geographical distance between an end user and the website's original hosting server (the origin server), drastically reducing latency (the delay before a data transfer begins).
             \bigbreak \noindent 
-            Without a CDN, every single user request must travel all the way to the origin server—even if that server is located on a different continent. This causes slow load times and risks overwhelming the website
+            Without a CDN, every single user request must travel all the way to the origin server, even if that server is located on a different continent. This causes slow load times and risks overwhelming the website
             \bigbreak \noindent 
             A CDN changes this flow through caching and intelligent routing:
             \begin{itemize}
                 \item \textbf{Caching Content:} The CDN replicates and saves temporary copies of the website’s static content (like images, videos, HTML pages, and JavaScript files) across its entire server network
                 \item \textbf{User Request Routing:} When a user visits a webpage or streams a video, their network request is intercepted by the CDN's smart routing algorithms
-                \item \textbf{Edge Delivery:} Instead of sending the request to the central origin server, the CDN directs the user to the nearest physical data center—known as an Edge Server or Point of Presence (PoP). This nearby server delivers the content instantly
+                \item \textbf{Edge Delivery:} Instead of sending the request to the central origin server, the CDN directs the user to the nearest physical data center, known as an Edge Server or Point of Presence (PoP). This nearby server delivers the content instantly
             \end{itemize}
         \item \textbf{Delay, Loss, and Throughput in Packet-Switched Networks}: Recall that a packet starts in a host (the source), passes through a series of routers, and ends its journey in another host (the destination). As a packet travels from one node (host or router) to the subsequent node (host or router) along this path, the packet suffers from several types of delays at each node along the path. The most important of these delays are the \textbf{nodal processing delay, queuing delay, transmission delay}, and \textbf{propagation delay}; together, these delays accumulate to give a total nodal delay.
             \bigbreak \noindent 
@@ -315,8 +315,54 @@
         \item \textbf{Throughput in Computer Networks}: In addition to delay and packet loss, another critical performance measure in computer networks is end-to-end throughput. To define throughput, consider transferring a large file from Host $A$ to Host $B$ across a computer network. This transfer might be, for example, a large video clip from one computer to another. The instantaneous throughput at any instant of time is the rate (in bits/sec) at which Host $B$ is receiving the file
             \bigbreak \noindent 
             If the file consists of $F$ bits and the transfer takes $T$ seconds for Host $B$ to receive all $F$ bits, then the \textbf{average throughput} of the file transfer is $F/T$ bits/sec.
-
-
+            \bigbreak \noindent 
+            Let $R_{s}$ denote the rate of the link between the server and the router; and $R_{c}$ denote the rate of the link between the router and the client. Suppose that the only bits being sent in the entire network are those from the server to the client. We now ask, in this ideal scenario, what is the server-to-client throughput? To answer this question, we may think of bits as fluid and communication links as pipes. Clearly, the server cannot pump bits through its link at a rate faster than $R_{s}$ bps; and the router cannot forward bits at a rate faster than $R_{c}$ bps. If $R_{c} < R_{c}$, then the bits pumped by the server will “flow” right through the router and arrive at the client at a rate of $R_{s}$ bps, giving a throughput of $R_{s}$ bps. If, on the other hand, $R_{c} < R_{s}$, then the router will not be able to forward bits as quickly as it receives them. In this case, bits will only leave the router at rate $R_{c}$, giving an end-to-end throughput of $R_{c}$. (Note also that if bits continue to arrive at the router at rate $R_{s}$, and continue to leave the router at $R_{c}$, the backlog of bits at the router waiting for transmission to the client will grow and grow, a most undesirable situation!)
+            \bigbreak \noindent 
+            Thus, for a simple two-link network, the throughput is 
+            \begin{align*}
+                \min\left\{R_{c}, R_{s}\right\}
+            .\end{align*}
+            That is, it is the transmission rate of the \textbf{bottleneck link}. Thus, for a file of $F$ bits, it takes
+            \begin{align*}
+                \frac{F}{\min \left\{R_{c}, R_{s}\right\}}
+            \end{align*}
+            time. Further, for $N$ links with transmission rates $R_{1},  \dots, R_{N}$, the throughput is precisely
+            \begin{align*}
+                \min\left\{R_{1}, \dots, R_{N}\right\}
+            .\end{align*}
+        \item \textbf{Layered Architecture}:  Layered architecture in computer networks breaks down the complex process of data communication into smaller, manageable, and standardized pieces called layers
+            \bigbreak \noindent 
+            Instead of having a single massive system handle everything, each layer has a specific job and gives services to the layer directly above it while hiding how those services work. Networking relies on two main reference frameworks for this: the theoretical 7-layer OSI model and the practical 5-layer TCP/IP model.
+            \begin{itemize}
+                \item \textbf{Modularity:} Breaking tasks apart makes it easier to design, build, and test network systems.
+                \item \textbf{Independence:} If you change how one layer works, it does not affect the other layers as long as the inputs and outputs stay the same.
+                \item \textbf{Interoperability:} Hardware and software from different makers can work together seamlessly because they follow the same layer rules.
+                \item \textbf{Easy Troubleshooting:} When a network breaks, technicians can test specific layers to find the exact source of the problem
+            \end{itemize}
+        \item \textbf{Protocol Layering}: Network designers organize protocols, and the network hardware and software that implement the protocols, in \textbf{layers}. Each protocol belongs to one of the layers
+            \bigbreak \noindent 
+            We are again interested in the \textbf{services} that a layer offers to the layer above—the so-called \textbf{service model} of a layer
+        \item \textbf{Protocol stack}: When taken together, the protocols of the various layers are called the \textbf{protocol stack}. The Internet protocol stack consists of five layers: the physical, link, network, transport, and application layers.
+        \item \textbf{Application Layer}: The application layer is where network applications and their application-layer protocols reside. The Internet’s application layer includes many protocols, such as the HTTP protocol (which provides for Web document request and transfer), SMTP (which provides for the transfer of e-mail messages), and FTP (which provides for the transfer of files between two end systems).
+            \bigbreak \noindent 
+            An application-layer protocol is distributed over multiple end systems, with the application in one end system using the protocol to exchange packets of information with the application in another end system. We’ll refer to this packet of information at the application layer as a message.
+        \item \textbf{Transport Layer}: The Internet’s transport layer transports application-layer messages between application endpoints. In the Internet, there are two transport protocols, TCP and UDP, either of which can transport application-layer messages. TCP provides a connection-oriented service to its applications. This service includes guaranteed delivery of application-layer messages to the destination and flow control (that is, sender/receiver speed matching).
+            \bigbreak \noindent 
+            TCP also breaks long messages into shorter segments and provides a congestion-control mechanism, so that a source throttles its transmission rate when the network is congested.
+            \bigbreak \noindent 
+            The UDP protocol provides a connectionless service to its applications. This is a no-frills service that provides no reliability, no flow control, and no congestion control. In this book, we’ll refer to a transport-layer packet as a \textbf{segment}.
+            \bigbreak \noindent 
+            \textbf{Note}: To throttle a transmission rate means to deliberately limit or slow down the speed at which data is sent or received over a network
+            \bigbreak \noindent 
+            Imagine an e-commerce website on Black Friday. Without a throttle, millions of users clicking "Buy Now" at the exact same millisecond would completely overwhelm the website's database. The server would run out of memory, crash, and the entire website would go offline for everyone. By implementing a rate limiter (throttle), the website's server sets a strict boundary—for example, a maximum of 10,000 requests per second.
+            \bigbreak \noindent 
+            Instead of the entire system crashing and ruining the experience for 100\% of the shoppers, the throttle keeps the website healthy and running smoothly by making a tiny fraction of users wait just an extra moment.
+        \item \textbf{Network Layer}: The Internet’s network layer is responsible for moving network-layer packets known as \textbf{datagrams} from one host to another. The Internet transport-layer protocol (TCP or UDP) in a source host passes a transport-layer segment and a destination address to the network layer, just as you would give the postal service a letter with a destination address. The network layer then provides the service of delivering the segment to the transport layer in the destination host.
+            \bigbreak \noindent 
+            The Internet’s network layer includes the celebrated IP protocol, which defines the fields in the datagram as well as how the end systems and routers act on these fields. There is only one IP protocol, and all Internet components that have a network layer must run the IP protocol. The Internet’s network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations. 
+            \bigbreak \noindent 
+            The Internet has many routing protocols. The Internet is a network of networks, and within a network, the network administrator can run any routing protocol desired. Although the network layer contains both the IP protocol and numerous routing protocols, it is often simply referred to as the IP layer, reflecting the fact that IP is the glue that binds the Internet together.
+        \item \textbf{Link Layer}: 
 
     \end{itemize}
 
