@@ -3106,9 +3106,256 @@
         \item \textbf{Avoid overloading directly on forwarding references}: A forwarding-reference overload can match more arguments than expected and may defeat overloads accepting const T\&.
             \bigbreak \noindent 
             Forwarding-reference constructors are particularly dangerous because they can interfere with copying, moving, and derived-to-base conversions.
+        \item \textbf{Notes about forwarding references}: 
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T>
+            void f(T&& p);
+            \end{cppcode}
+            \bigbreak \noindent 
+            It is attractive because it accepts both lvalues and rvalues and preserves their value category with std::forward
+            \bigbreak \noindent 
+            The problem is that this template accepts almost anything. It can capture arguments that should have gone to another overload, and invalid arguments often produce complicated errors deep inside the function.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                class Person {
+                    public:
+                        template<typename T>
+                        explicit Person(T&& name)
+                            : name_(std::forward<T>(name)) {}
+
+                    private:
+                        std::string name_;
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            But copying a non-const Person may select the template instead of the copy constructor:
+            \bigbreak \noindent 
+            When the accepted type is known, write ordinary overloads:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            class Person {
+            public:
+                explicit Person(const std::string& name)
+                    : name_(name) {}
+
+                explicit Person(std::string&& name)
+                    : name_(std::move(name)) {}
+
+            private:
+                std::string name_;
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            The first overload copies from lvalues, the second moves from rvalues. This is explicit and prevents unrelated types from being accepted. The important distinction is that these are overloads for the concrete type std::string; replacing std::string with an unconstrained template parameter would reintroduce much of the original problem.
+            \bigbreak \noindent 
+            Often, a single by-value overload is simpler
+            \bigbreak \noindent 
+            \begin{cppcode}
+            class Person {
+            public:
+                explicit Person(std::string name)
+                    : name_(std::move(name)) {}
+
+            private:
+                std::string name_;
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            For an lvalue, the argument is copied into name, and then moved into name\_. For an rvalue, the parameter is constructed or moved efficiently:
+            \bigbreak \noindent 
+            This is particularly useful when the function needs to own a copy of the argument anyway. The tradeoff is that an lvalue may involve one copy followed by one move. For types such as std::string, the additional move is normally inexpensive.
+        \item \textbf{Tag dispatch}: Tag dispatch uses a compile-time property to choose an internal implementation.
+            \bigbreak \noindent 
+            Suppose integral arguments represent database IDs, while string-like arguments represent names:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            class Person {
+            public:
+                explicit Person(int id)
+                    : Person(nameFromId(id)) {}
+
+                template<typename T>
+                explicit Person(T&& name)
+                    : Person(
+                          std::forward<T>(name),
+                          std::is_integral<std::remove_reference_t<T>>{}
+                      ) {}
+
+            private:
+                template<typename T>
+                Person(T&& value, std::false_type)
+                    : name_(std::forward<T>(value)) {}
+
+                template<typename T>
+                Person(T value, std::true_type)
+                    : name_(nameFromId(value)) {}
+
+                static std::string nameFromId(int id);
+
+                std::string name_;
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            The tags are
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::true_type
+                std::false_type
+            \end{cppcode}
+            \bigbreak \noindent 
+            They select an overload at compile time.
+            \bigbreak \noindent
+            In C++17 and later, if constexpr is often clearer for simple cases:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                template<typename T>
+                void process(T&& value) {
+                    using U = std::remove_cvref_t<T>;
+
+                    if constexpr (std::integral<U>) {
+                        processId(value);
+                    } else {
+                        processName(std::forward<T>(value));
+                    }
+                }
+            \end{cppcode}
+        \item \textbf{Constrained templates}: C++20 concepts let you keep perfect forwarding while clearly limiting which types are accepted.
+            \bigbreak \noindent 
+            \begin{cppcode}
+            #include <concepts>
+            #include <string>
+            #include <utility>
+
+            class Person {
+            public:
+                template<typename T>
+                    requires std::constructible_from<std::string, T>
+                explicit Person(T&& name)
+                    : name_(std::forward<T>(name)) {}
+
+            private:
+                std::string name_;
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            A named concept can make the interface even clearer:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T>
+            concept StringLike =
+                std::constructible_from<std::string, T>;
+
+            class Person {
+            public:
+                template<StringLike T>
+                explicit Person(T&& name)
+                    : name_(std::forward<T>(name)) {}
+
+            private:
+                std::string name_;
+            };
+            \end{cppcode}
 
 
 
+
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Modern STL}
+    \begin{itemize}
+        \item \textbf{std::ref}: In C++, std::ref is a helper function template that generates an object of type std::reference\_wrapper. It is used to pass true references to function templates (like std::thread or std::bind) or standard library algorithms that aggressively copy or consume their arguments by value      
+            \bigbreak \noindent 
+            Because native C++ references (T\&) are not objects, they cannot be copied, reassigned, or stored in standard containers directly. std::ref solves this by wrapping the reference inside a copyable, assignable object that behaves exactly like the underlying reference
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <functional>
+
+                template<typename T>
+                auto f(T p) -> void {
+                    p.get() = 20;
+                }
+
+                int x = 10;
+                f(std::ref(x));
+
+                // 20
+                std::cout << x << '\n';
+            \end{cppcode}
+        \item \textbf{std::cref}: std::cref stands for "constant reference". It is the exact same utility as std::ref, but instead of wrapping a mutable reference (T\&), it wraps a read-only, constant reference (const T\&).
+            \bigbreak \noindent 
+            You use std::cref when you want to pass an object to a value-copying template (like std::thread, std::bind, or std::async) to prevent copies and achieve better performance, but you also want a guarantee that the receiving function cannot modify your original variable.
+            \bigbreak \noindent 
+            If you attempt to modify a variable wrapped by std::cref, the compiler will block it, protecting your data:
+        \item \textbf{std::bind and std::placeholders}: In C++, std::bind is a standard library function template defined in the <functional> header that generates a new callable object (a functor) by "binding" or fixing specific arguments of an existing callable (a function, lambda, or member function).
+            \bigbreak \noindent 
+            It allows for partial function application, where you pre-fill some function parameters now and leave others to be passed later at the call site
+            \bigbreak \noindent 
+            To leave arguments variable so they can be provided when the new function is actually called, you use placeholders (std::placeholders::\_1, std::placeholders::\_2, etc.)
+            \bigbreak \noindent 
+            \begin{cppcode}
+                #include <functional>
+
+                void printValues(int a, int b, int c) {
+                    std::cout << "a: " << a << ", b: " << b << ", c: " << c << "\n";
+                }
+
+                using namespace std::placeholders;
+
+                auto boundFunc = std::bind(printValues, 10, _1, _2);
+
+                // Call site: 20 maps to _1, 30 maps to _2
+                boundFunc(20, 30); // Output: a: 10, b: 20, c: 30
+            \end{cppcode}
+            \bigbreak \noindent 
+            You can also reorder arguments using placeholders
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto reorderedFunc = std::bind(printValues, _2, _1, 99);
+                reorderedFunc(5, 15); // Output: a: 15, b: 5, c: 99
+            \end{cppcode}
+        \item \textbf{Binding member functions}: When binding a non-static class member function, you must pass a pointer to the member function as the first argument, and a pointer or reference to the object instance as the second argument
+            \bigbreak \noindent 
+            \begin{cppcode}
+                struct Calculator {
+                    void add(int x, int y) {
+                        std::cout << "Sum: " << (x + y) << "\n";
+                    }
+                };
+
+                Calculator calc;
+    
+                // Bind to a specific instance (&calc)
+                auto quickAdd = std::bind(&Calculator::add, &calc, 5, std::placeholders::_1);
+            \end{cppcode}
+        \item \textbf{std::bind gotcha}: By default, std::bind copies or moves its arguments into the internal storage of the returned functional object. If your original function takes an argument by reference, std::bind will still copy it unless you explicitly wrap it using std::ref or std::cref
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void increment(int& num) { num++; }
+
+                int main() {
+                    int x = 0;
+
+                    auto badIncrement = std::bind(increment, x); // Copies x
+                    badIncrement(); // 'x' remains 0 inside main
+
+                    auto goodIncrement = std::bind(increment, std::ref(x)); // Passes reference
+                    goodIncrement(); // 'x' is now 1
+                }
+            \end{cppcode}
+        \item \textbf{Modern std::bind functionality}: Prefer lambdas, they result in cleaner compilation errors, better optimization potential for compilers, and more readable code.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void f(int x, int y, int z) {
+                    std::cout << x << ", " << y << ", " << z << '\n';
+                }
+
+                auto g = [](int b, int c) { f(1,b,c); };
+                g(2,3);
+            \end{cppcode}
 
 
 
