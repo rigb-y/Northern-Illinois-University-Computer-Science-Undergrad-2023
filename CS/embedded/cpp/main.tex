@@ -3256,6 +3256,77 @@
                 std::string name_;
             };
             \end{cppcode}
+        \item \textbf{C++ 14 variable templates}: Introduced in C++14, variable templates allow you to define a family of variables or static data members parameterized by types or values. Prior to C++14, only classes, functions, and type aliases could be templated; variables had to be awkwardly wrapped inside a templated class to achieve a similar effect
+            \bigbreak \noindent 
+            \begin{cppcode}
+            template<typename T> T pi = T(3.14159);
+
+            cout << pi<double> << '\n';
+            cout << pi<float> << '\n';
+            cout << pi<int> << '\n';
+            \end{cppcode}
+        \item \textbf{C++ 20 designated initializers}: Introduced in C++20, designated initializers allow you to initialize the members of an aggregate type (like a struct or class) by explicitly stating their names rather than relying entirely on their positional order. This feature significantly enhances code readability, prevents bugs caused by mismatched argument positions, and simplifies the initialization of large data structures
+            \bigbreak \noindent 
+            \begin{cppcode}
+            WindowConfig config {
+                .title = "My Game",
+                .width = 1920,
+                .height = 1080
+                // .fullscreen is omitted, so it defaults to false!
+            };
+            \end{cppcode}
+            \bigbreak \noindent 
+            While designated initializers are incredibly helpful, C++20 imposes strict constraints to maintain language safety, making it uniquely different from C99's implementation
+            \bigbreak \noindent 
+            Unlike in C, where you can initialize fields in any arbitrary order, C++20 requires you to list fields in the exact order they are declared in the struct. Breaking this rule results in a compilation error.
+            \bigbreak \noindent 
+            You can only use designated initializers on types that qualify for aggregate initialization. This means the class/struct must have:
+            \begin{itemize}
+                \item Only public data members.
+                \item No user-declared or explicit constructors.
+                \item No virtual functions.
+                \item No private or protected base classes.
+            \end{itemize}
+        \item \textbf{Do not assume a move is performed or is cheaper}: A move request may become a copy because:
+            \begin{enumerate}
+                \item The source is const.
+                \item The type has no move operation.
+                \item The move operation is not usable.
+                \item A library chooses copying to preserve exception guarantees.
+            \end{enumerate}
+            Small or fixed-size objects may also be no cheaper to move than to copy.
+        \item \textbf{When perfect forwarding fails}:  Forwarding cannot always preserve the intended meaning of:
+            \begin{itemize}
+                \item Braced initializers.
+                \item 0 or NULL used as null pointers.
+                \item Declaration-only integral static const members lacking definitions in pre-C++17 code.
+                \item Overloaded function names.
+                \item Function templates.
+                \item Bit-fields.
+            \end{itemize}
+            The usual solution is to first store or cast the expression into an unambiguous typed value.
+        \item \textbf{Avoid default capture modes}: 
+            \begin{itemize}
+                \item [\&] can leave dangling references when a closure outlives captured local variables.
+                \item [=] can misleadingly appear self-contained while indirectly capturing this; member access still depends on the original object’s lifetime.
+            \end{itemize}
+            Prefer explicit captures when lifetime or ownership matters.
+        \item \textbf{Use initializer capture to move objects into closures}: C++14 generalized lambda capture allows creation of a new closure member:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto task = [data = std::move(data)] {
+                    use(data);
+                };
+            \end{cppcode}
+            \bigbreak \noindent 
+            It also supports transforming or constructing captured state directly.
+        \item \textbf{Forward generic-lambda parameters with decltype}: Generic lambda parameters declared as auto\&\& are forwarding references. Because the type has no explicit template name, use decltype:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto call = [](auto&& value) {
+                    process(std::forward<decltype(value)>(value));
+                };
+            \end{cppcode}
 
 
 
