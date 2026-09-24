@@ -630,8 +630,35 @@
                 {R_5 + \bigl(R_6 \parallel (R_7 + R_8)\bigr)}.
             \]
             Note that || has higher precedence than + or -, therefore || is performed first, rather like multiplication when mixed with addition and subtraction.
+        \item \textbf{Any Route Works}: To find some voltage $V_{XY}$, start at point $X$ and proceed along any convenient route to $Y$, subtracting voltage rises (polarities of - to +) and adding voltage drops (polarities of + to -) along the way.
+        \item \textbf{R-2R Ladder}: As promised earlier in the chapter, it's time to look at a ladder network. While ladders can use any resistance values desired, certain ratios turn out to be eminently practical. Of particular note is the R-2R ladder
+            \bigbreak \noindent 
+            In this configuration, only two different resistor values are used; some initial value and a second value of precisely twice that size
+            \bigbreak \noindent 
+            \fig{.6}{./figures/29.png}
+            \bigbreak \noindent 
+            It turns out that this arrangement offers something very unique: a halving of successive node voltages and branch currents. This is extremely useful in digital to analog conversion circuits; the sort of hardware that would turn the digital bits of an MP3 or WAV file into listenable analog signals to feed loudspeakers or headphones.
+            \bigbreak \noindent 
+            Starting at the far right end, it should be obvious that the last two 6 $k \Omega$ resistors comprise a 50\% voltage divider, and thus $V_{e}$ will half of $V_{d}$ 
+            \bigbreak \noindent 
+            The combination of the final three resistors works out to 12 $k \Omega$ || (6 $k \Omega$ + 6 $k \Omega $), or 6 $k \Omega$ again. Thus, the divider from c to d is also 50\%. This process repeats as we move to the left, each equivalent working out to $R$ and resulting in a 50\% voltage divider. It will not matter what value is chosen for $R$. As long as $2R$ is used for the other set of resistors, the result will always be successive 50\% voltage dividers.
+        \item \textbf{Bridges}: A bridge is a particular series-parallel configuration consisting of two pairs of series connected elements placed in parallel. 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/30.png}
+            \bigbreak \noindent 
+            A typical use for a bridge is the measurement of some environmental quantity. There are certain resistive devices that are sensitive to environmental change. Examples include photoresistors, whose resistance is a function of light level; and thermistors, whose resistance is a function of temperature.
+            \bigbreak \noindent 
+            To understand the operation, the voltages $V_{b}$ and $V_{c}$ are established by the voltage dividers comprised of $R_1$ and $R_2$; and $R_3$ and $R_4$, respectively. With ordinary resistors, these voltages would be unchanging and therefore $V_{bc}$ would also be a fixed value. We shall set it up such that $V_{b}$ and $V_{c}$ are the same voltage, and thus $V_{bc}$ will be zero. Now assume that we replace $R_1$ with a photoresistor. As the light level increases, its resistance decreases. This will cause $V_{b}$ to rise which will cause $V_{bc}$ to go positive. If the light level decreases, the resistance of $R_1$ will increase, forcing Vb to drop which will cause $V_{bc}$ to go negative. The greater the change in light, the larger $V_{bc}$ will be, and its sign indicates whether the light level has increased or decreased compared to the original set point. By simply placing some manner of voltmeter between points $b$ and $c$, we can create a display that indicates light levels.
+            \bigbreak \noindent 
+            If we want to flip the sign, we would place the photoresistor in the position of $R_2$ instead of $R_1$. Further, it is possible to increase the sensitivity by using sensors at opposite corners (e.g., $R_1$ and $R_4$), and comparative or differential measurements are possible by using both sides (e.g., $R_1$ with $R_3$).
 
 
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Analysis theorems and techniques}
+    \begin{itemize}
+                
 
 
 
