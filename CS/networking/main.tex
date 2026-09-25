@@ -362,7 +362,54 @@
             The Internet’s network layer includes the celebrated IP protocol, which defines the fields in the datagram as well as how the end systems and routers act on these fields. There is only one IP protocol, and all Internet components that have a network layer must run the IP protocol. The Internet’s network layer also contains routing protocols that determine the routes that datagrams take between sources and destinations. 
             \bigbreak \noindent 
             The Internet has many routing protocols. The Internet is a network of networks, and within a network, the network administrator can run any routing protocol desired. Although the network layer contains both the IP protocol and numerous routing protocols, it is often simply referred to as the IP layer, reflecting the fact that IP is the glue that binds the Internet together.
-        \item \textbf{Link Layer}: 
+        \item \textbf{Link Layer}:  The Internet’s network layer routes a datagram through a series of routers between the source and destination. To move a packet from one node (host or router) to the next node in the route, the network layer relies on the services of the link layer. In particular, at each node, the network layer passes the datagram down to the link layer, which delivers the datagram to the next node along the route. At this next node, the link layer passes the datagram up to the network layer.
+            \bigbreak \noindent 
+            The services provided by the link layer depend on the specific link-layer protocol that is employed over the link. For example, some link-layer protocols provide reliable delivery, from transmitting node, over one link, to receiving node. Note that this reliable delivery service is different from the reliable delivery service of TCP, which provides reliable delivery from one end system to another. Examples of link-layer protocols include Ethernet, WiFi, and the cable access network’s DOCSIS protocol. As datagrams typically need to traverse several links to travel from source to destination, a datagram may be handled by different link-layer protocols at different links along its route
+            \bigbreak \noindent 
+            The network layer will receive a different service from each of the different link-layer protocols. In this book, we’ll refer to the link-layer packets as \textbf{frames}
+        \item \textbf{Physical Layer}: While the job of the link layer is to move entire frames from one network element to an adjacent network element, the job of the physical layer is to move the individual bits within the frame from one node to the next. The protocols in this layer are again link dependent and further depend on the actual transmission medium of the link (for example, twisted-pair copper wire, single-mode fiber optics). For example, Ethernet has many physical-layer protocols: one for twisted-pair copper wire, another for coaxial cable, another for fiber, and so on. In each case, a bit is moved across the link in a different way
+        \item \textbf{Encapsulation}
+            \bigbreak \noindent 
+            \fig{.5}{./figures/2.png}
+            \bigbreak \noindent 
+            At the sending host, an application-layer message  is passed to the transport layer. In the simplest case, the transport layer takes the message and appends additional information (so-called transport-layer header information, $H_{t}$) that will be used by the receiver-side transport layer. The application-layer message and the transport-layer header information together constitute the transport-layer segment
+            \bigbreak \noindent 
+            The added information might include information allowing the receiver-side transport layer to deliver the message up to the appropriate application, and error-detection bits that allow the receiver to determine whether bits in the message have been changed in route. The transport layer then passes the segment to the network layer, which adds network-layer header information such as source and destination end system addresses, creating a \textbf{network-layer datagram}. The datagram is then passed to the link layer, which (of course!) will add its own link-layer header information and create a \textbf{link-layer frame}. Thus, we see that at each layer, a packet has two types of fields: header fields and a \textbf{payload field}. The payload is typically a packet from the layer above.
+        \item \textbf{Networks Under Attack}: Unfortunately, along with all that good stuff comes malicious stuff— collectively known as malware—that can also enter and infect our devices. 
+            \bigbreak \noindent 
+            Our compromised host may also be enrolled in a network of thousands of similarly compromised devices, collectively known as a botnet, which the bad guys control and leverage for spam e-mail distribution or distributed denial-of-service attacks (soon to be discussed) against targeted hosts.
+            \bigbreak \noindent 
+            Much of the malware out there today is self-replicating: once it infects one host, from that host it seeks entry into other hosts over the Internet, and from the newly infected hosts, it seeks entry into yet more hosts. In this manner, self-replicating malware can spread exponentially fast.
+            \bigbreak \noindent 
+            Another broad class of security threats are known as denial-of-service (DoS) attacks. As the name suggests, a DoS attack renders a network, host, or other piece of infrastructure unusable by legitimate users.
+            \begin{itemize}
+                \item \textbf{Vulnerability attack}: This involves sending a few well-crafted messages to a vulnerable application or operating system running on a targeted host. If the right sequence of packets is sent to a vulnerable application or operating system, the service can stop or, worse, the host can crash.
+                \item \textbf{Bandwidth flooding}: The attacker sends a deluge of packets to the targeted host—so many packets that the target’s access link becomes clogged, preventing legitimate packets from reaching the server.
+                \item \textbf{Connection flooding}: The attacker establishes a large number of half-open or fully open TCP connections (TCP connections are discussed in Chapter 3) at the target host. The host can become so bogged down with these bogus connections that it stops accepting legitimate connections.
+            \end{itemize}
+            it’s evident that if the server has an access rate of $R$ bps, then the attacker will need to send traffic at a rate of approximately $R$ bps to cause damage. If $R$ is very large, a single attack source may not be able to generate enough traffic to harm the server. Furthermore, if all the traffic emanates from a single source, an upstream router may be able to detect the attack and block all traffic from that source before the traffic gets near the server. In a \textbf{distributed DoS (DDoS)} attack
+            \bigbreak \noindent 
+            The attacker controls multiple sources and has each source blast traffic at the target. With this approach, the aggregate traffic rate across all the controlled sources needs to be approximately $R$ to cripple the service
+            \bigbreak \noindent 
+            By placing a passive receiver in the vicinity of the wireless transmitter, that receiver  can obtain a copy of every packet that is transmitted! These packets can contain all kinds of sensitive information, including passwords, social security numbers, trade secrets, and private personal messages. A passive receiver that records a copy of every packet that flies by is called a \textbf{packet sniffer}.
+            \bigbreak \noindent 
+            Packet-sniffing software is freely available at various Web sites and as commercial products. Professors teaching a networking course have been known to assign lab exercises that involve writing a packet-sniffing and application-layer data reconstruction program
+            \bigbreak \noindent 
+            Because packet sniffers are passive—that is, they do not inject packets into the channel—they are difficult to detect. So, when we send packets into a wireless channel, we must accept the possibility that some bad guy may be recording copies of our packets. As you may have guessed, some of the best defenses against packet sniffing involve cryptography.
+            \bigbreak \noindent 
+            It is surprisingly easy (you will have the knowledge to do so shortly as you proceed through this text!) to create a packet with an arbitrary source address, packet content, and destination address and then transmit this hand-crafted packet into the Internet, which will dutifully forward the packet to its destination. Imagine the unsuspecting receiver (say an Internet router) who receives such a packet, takes the (false) source address as being truthful, and then performs some command embedded in the packet’s contents (say modifies its forwarding table). The ability to inject packets into the Internet with a false source address is known as \textbf{IP spoofing}, and is but one of many ways in which one user can masquerade as another user. To solve this problem, we will need end-point authentication, that is, a mechanism that will allow us to determine with certainty if a message originates from where we think it does.
+            \bigbreak \noindent 
+            In closing this section, it’s worth considering how the Internet got to be such an insecure place in the first place. The answer, in essence, is that the Internet was originally designed to be that way, based on the model of “a group of mutually trusting users attached to a transparent network”
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Application layer}
+    \begin{itemize}
+                
+
+
 
     \end{itemize}
 
