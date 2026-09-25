@@ -361,9 +361,9 @@
             .\end{align*}
             Thus, current passes:
             \begin{itemize}
-                Through \(R_1\) from right to left.
-                Through \(E_1\) from its positive terminal to its negative terminal.
-                Through \(R_2\) from left to right.
+                \item Through \(R_1\) from right to left.
+                \item Through \(E_1\) from its positive terminal to its negative terminal.
+                \item Through \(R_2\) from left to right.
             \end{itemize}
             A source delivers energy when conventional current leaves its positive terminal. Current leaves the positive terminal of \(E_2\), so \(E_2\) supplies power.
             \bigbreak \noindent 
@@ -661,7 +661,7 @@
         \item \textbf{Intro}: We begin by considering a more realistic model for constant voltage and constant current sources. The ideal voltage source produces a stated potential forever, and without regard to what it is connected to. The ideal current source behaves similarly; it will always produce the same current regardless of its load. These expectations are not realistic. For example, if we were to place a solid bar of copper across the terminals of a voltage source, the bar may exhibit a resistance of mere milliohms, implying an output current of thousands of amps. Similarly, if we were to disconnect a current source from any load, its effective load would be the resistance of the air between its terminals and Ohm's law would dictate an output voltage of perhaps thousands or even millions of volts. Real world sources do not behave like this.          
             \bigbreak \noindent 
             Thus, ideal voltage and current sources cannot exist in the real world because they would theoretically produce infinite or destructive amounts of power.
-        \item \textbf{Internal resistance}: A highly precise model for any voltage source or current source could be fairly complex but for general purpose work, we can greatly improve our ideal sources by simply adding a resistor to them. This resistance is referred to as the internal resistance of the source.
+        \item \textbf{Internal resistance (Voltage source)}: A highly precise model for any voltage source or current source could be fairly complex but for general purpose work, we can greatly improve our ideal sources by simply adding a resistor to them. This resistance is referred to as the internal resistance of the source.
             \bigbreak \noindent 
             It is important to understand that this is not a resistor, as in an internal component that can be altered, but rather a mathematical addition to the source that better predicts how it will behave. Further, the value of this effective resistance can be deduced in a laboratory via proper measurements.
             \bigbreak \noindent 
@@ -675,6 +675,11 @@
             \end{quote}
             \bigbreak \noindent 
             Given a zero ohm internal resistance, this improved model reverts back to the original ideal source. In the case of a lab power supply, the internal resistance typically will be a small fraction of an ohm.
+        \item \textbf{Internal resistance (Current source)}: For a current source, the improved model adds a resistance in parallel
+            \bigbreak \noindent 
+            \fig{.6}{./figures/32.png}
+            \bigbreak \noindent 
+            Hello world
             
 
 

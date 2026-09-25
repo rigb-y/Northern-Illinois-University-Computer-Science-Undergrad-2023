@@ -3327,6 +3327,183 @@
                     process(std::forward<decltype(value)>(value));
                 };
             \end{cppcode}
+        \item \textbf{Prefer task-based programming to direct thread management}: Express work using std::async and futures when appropriate instead of manually creating std::thread objects. Tasks provide natural result and exception propagation and leave more scheduling decisions to the runtime.
+        \item \textbf{Request std::launch::async when concurrent execution is required}: The default std::async policy may run the function asynchronously or defer it until the future is queried. Use
+            \bigbreak \noindent 
+            \begin{cppcode}
+            std::async(std::launch::async, function);
+            \end{cppcode}
+            \bigbreak \noindent 
+            when the operation must run on another thread rather than possibly being deferred.
+        \item \textbf{Understand future destructor behavior}: Most futures do not block when destroyed. However, a future representing a task launched through std::async with std::launch::async may block during destruction if it still owns the task’s shared state. Consequently, an apparently temporary future can accidentally serialize asynchronous work.
+            \bigbreak \noindent 
+            A std::future is a handle to a shared state containing an asynchronous operation’s status and eventual result. Normally, destroying a future simply releases that handle:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            std::future<int> result = obtain_future();
+            \end{cppcode}
+            \bigbreak \noindent 
+            If result is destroyed without calling get(), its destructor generally does not wait for the operation to finish.
+            \bigbreak \noindent 
+            The important exception involves std::async:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            auto result = std::async(std::launch::async, perform_work);
+            \end{cppcode}
+            \bigbreak \noindent 
+            With std::launch::async, perform\_work runs asynchronously, normally on another thread. If the returned future is the last owner of the shared state and the task is still running when the future is destroyed, destruction waits for the task to finish. It behaves somewhat like an implicit join().
+        \item \textbf{Accidental serialization}: Consider discarded temporary futures:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::async(std::launch::async, task1);
+                std::async(std::launch::async, task2);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The first future is a temporary. Its lifetime ends at the semicolon. Its destructor waits for task1 to complete. Only afterward does execution reach the call that starts task2. Therefore, the program effectively behaves like
+            \bigbreak \noindent 
+            \begin{cppcode}
+            task1();
+            task2();
+            \end{cppcode}
+            \bigbreak \noindent 
+            The tasks are serialized even though both were launched with std::launch::async. To let them run concurrently, preserve the futures:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto future1 = std::async(std::launch::async, task1);
+                auto future2 = std::async(std::launch::async, task2);
+
+                future1.get();
+                future2.get();
+            \end{cppcode}
+            \bigbreak \noindent 
+            Both tasks are launched before either future is waited upon. Thus, never discard a future returned by std::async(std::launch::async, ...) when you intend the operation to continue concurrently.
+            \bigbreak \noindent 
+            Also remember that a named future may still block when it goes out of scope:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void function() {
+                    auto future = std::async(std::launch::async, task);
+
+                    do_other_work();
+                } // may wait here if task has not finished
+            \end{cppcode}
+            \bigbreak \noindent 
+            Calling get() or wait() earlier makes the synchronization point explicit and easier to reason about.
+        \item \textbf{The shared state}: The shared state is a hidden object that connects the code producing a result with the code waiting to receive it.
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::promise<int> promise;
+                std::future<int> future = promise.get_future();
+            \end{cppcode}
+            \bigbreak \noindent 
+            Conceptually, the relationship is:
+            \begin{verbatim}
+                promise ------> shared state <------ future
+                 producer        result/status        consumer
+            \end{verbatim}
+            \bigbreak \noindent 
+            The promise and future are separate objects, but both refer to the same shared state.
+            \bigbreak \noindent 
+            The shared state normally contains:
+            \begin{itemize}
+                \item Whether the operation has completed
+                \item The resulting value, if successful
+                \item An exception, if the operation failed
+                \item Synchronization information used by wait() and get()
+                \item For std::async, information associated with the asynchronous task
+            \end{itemize}
+            \bigbreak \noindent 
+            \begin{cppcode}
+                std::promise<int> promise;
+                std::future<int> future = promise.get_future();
+
+                promise.set_value(42);  // writes 42 into the shared state
+
+                int result = future.get(); // reads 42 from the shared state
+            \end{cppcode}
+            \bigbreak \noindent 
+            Before set\_value(), the shared state is not ready. If future.get() is called first, it blocks until the state becomes ready.
+            \bigbreak \noindent 
+            std::async creates the shared state automatically:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto future = std::async(std::launch::async, [] {
+                    return 42;
+                });
+            \end{cppcode}
+            \begin{enumerate}
+                \item std::async creates a shared state.
+                \item It starts the asynchronous task.
+                \item The task places its result or exception into that state.
+                \item The returned future refers to that state.
+                \item future.get() retrieves the stored result.
+            \end{enumerate}
+            \bigbreak \noindent 
+            \begin{cppcode}
+            int value = future.get();
+            \end{cppcode}
+            \bigbreak \noindent 
+            The shared state remains alive while something still refers to it. Destroying a future normally releases its reference; it does not cancel the underlying operation.
+            \bigbreak \noindent 
+            For a task started by std::async with std::launch::async, releasing the last reference may wait for the task to finish:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                {
+                    auto future = std::async(std::launch::async, long_task);
+                } // may wait here
+            \end{cppcode}
+            \bigbreak \noindent 
+            The future owns a reference to the shared state, and that state is associated with the running task. If the future is the last owner and the task is unfinished, releasing the state can require waiting for the task.
+            \bigbreak \noindent 
+            Finally, get() consumes the future’s connection to the state:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                int result = future.get();
+
+                future.valid(); // false
+            \end{cppcode}
+            \bigbreak \noindent 
+            By contrast, wait() only waits; it does not consume the result:
+        \item \textbf{No policy std::async}: If you omit the policy
+            \bigbreak \noindent 
+            \begin{cppcode}
+            auto future = std::async(task);
+            \end{cppcode}
+            \bigbreak \noindent 
+            it is effectively:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                auto future = std::async(std::launch::async | std::launch::deferred, task);
+            \end{cppcode}
+            \bigbreak \noindent 
+            The implementation chooses how to run the task.
+            \begin{itemize}
+                \item If it chooses std::launch::async, the same destructor-waiting behavior applies. Destruction of the last future associated with an unfinished task may wait for completion.
+                \item If it chooses std::launch::deferred, the task does not run until get() or a non-timed wait() is called. Destroying the future without waiting means the deferred task might never run.
+            \end{itemize}
+        \item \textbf{Consider pass-by-value when a parameter will always be copied}: If a function must place a copy of an argument into a member, taking the argument by value can unify lvalue and rvalue overloads:
+            \bigbreak \noindent 
+            \begin{cppcode}
+                void set_name(std::string name) {
+                    name_ = std::move(name);
+                }
+            \end{cppcode}
+            \bigbreak \noindent 
+            Best when they type
+            \begin{itemize}
+                \item Is copyable.
+                \item Is cheap to move.
+                \item Will always be copied or moved into storage.
+            \end{itemize}
+            It may be inappropriate when assignments often reuse existing capacity, moving is expensive, or the extra move matters.
+        \item \textbf{Consider emplacement}: Functions such as emplace\_back can construct an element directly inside a container:
+            \bigbreak \noindent 
+            \begin{cppcode}
+            values.emplace_back(constructor_argument);
+            \end{cppcode}
+            \bigbreak \noindent 
+            Emplacement is most beneficial when insertion would otherwise create and then move a temporary. It is not automatically faster, and it can accept explicit constructors or implicit conversions that ordinary insertion would reject.
+
 
 
 
