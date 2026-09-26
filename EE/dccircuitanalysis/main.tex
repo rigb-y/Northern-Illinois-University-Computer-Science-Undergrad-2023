@@ -801,7 +801,9 @@
             When you connect opposing terminals together (+ to + or - to -), the two sources try to force current in opposite directions. One source tries to raise the potential while the other tries to lower it.
         \item \textbf{Short}: A short means a direct connection with zero ohms of resistance between two points.
         \item \textbf{Open}: An open circuit is an incomplete electrical path where the connection is broken, resulting in infinite resistance and zero current flow.
-        \item \textbf{Superposition Theorem}: Superposition allows the analysis of multi-source series-parallel circuits. Superposition can only be applied to networks that are linear and bilateral. Further, it cannot be used to find values for non-linear functions, such as power, directly. Fortunately, if the circuit contains nothing but resistors, and ordinary voltage sources and current sources, the circuit will be a linear bilateral network. Also, although power is a square law function (i.e., it is proportional to the square of voltage or current), it can be computed from the resulting voltage or current values so this presents no limits to analysis.
+        \item \textbf{Superposition Theorem}: The superposition principle states that the total voltage or current at any point in a linear circuit with multiple independent sources is the algebraic sum of the individual voltages or currents produced by each source acting alone
+            \bigbreak \noindent 
+            Superposition allows the analysis of multi-source series-parallel circuits. Superposition can only be applied to networks that are linear and bilateral. Further, it cannot be used to find values for non-linear functions, such as power, directly. Fortunately, if the circuit contains nothing but resistors, and ordinary voltage sources and current sources, the circuit will be a linear bilateral network. Also, although power is a square law function (i.e., it is proportional to the square of voltage or current), it can be computed from the resulting voltage or current values so this presents no limits to analysis.
             \bigbreak \noindent 
             The basic idea is to determine the contribution of each source by itself, and then adding the results to get the final answer(s). Consider
             \fig{.6}{./figures/36.png}
@@ -817,6 +819,102 @@
                 \item Solve each of the sub-circuits for the desired voltages and/or currents using standard series-parallel analysis techniques. Make sure to note the voltage polarities and current directions for these items.
                 \item Add all of the contributions from each of the sub-circuits to arrive at the final values, being sure to account for current directions and voltage polarities in the process.
             \end{itemize}
+            Reconsider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/34.png}
+            \bigbreak \noindent 
+            The two sub circuits are
+            \bigbreak \noindent 
+            \fig{.6}{./figures/37.png}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/38.png}
+            \bigbreak \noindent 
+            Solving for $V_{b}$ on the first yields $V_{b} = 10.34V$, solving for $V_{b}$ on the second yields $V_{b} = 1.034V$. By the superposition principle, we add both contributions. Thus, $V_{b}$ in the original circuit is approximately
+            \begin{align*}
+                V_{b} \approx 11.37V
+            .\end{align*}
+            If the $6V$ source was reversed, it would pull node $b$ toward $-6V$. Its contribution would then be negative, since $V_{b}$ in this case would be below ground.
+        \item \textbf{Ports}: In electrical circuit theory, a port is a pair of terminals connecting a circuit or network to the outside world where the current entering one terminal must equal the current exiting the other terminal
+            \bigbreak \noindent 
+            The net current flowing into the pair of terminals must be zero. This means the current entering one terminal is equal and opposite to the current leaving the companion terminal
+        \item \textbf{Thevenin's Theorem}: Any single port linear network can be reduced to a simple voltage source, $E_{th}$, in series with an internal resistance, $R_{th}$.
+            \bigbreak \noindent 
+            The phrase “single port network” means that the circuit is cut in such a way that only two connections exist to the remainder of the circuit (two connection points makes up one port). The remainder of the circuit may be a single component or a large multi-component sub-circuit. As there are many ways to cut a typical circuit, there are many possible Thevenin equivalents. The important thing is that there are only two connection points between the two portions of the circuit and neither point has to be ground.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/39.png}
+            \bigbreak \noindent 
+            Suppose we cut the circuit immediately to the left of $R_4$. That is, we will find the Thevenin equivalent that drives $R_4$. The first step is to make the cut, removing the remainder of the circuit (in this case, just $R_4$). We then determine the open circuit output voltage. This is the maximum voltage that could appear between the cut points and is called the Thevenin voltage, $E_{th}$.
+            \bigbreak \noindent 
+            In a circuit such as this, basic series-parallel analysis may be used to find $E_{th}$. This process turns out to be quite straightforward in this particular circuit. Due to the open, no current flows through $R_3$, thus no voltage is developed across $R_3$, and therefore $E_{th}$ must equal the voltage developed across $R_2$ which may be obtained via a voltage divider with resistor $R_1$ and source $E$.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/40.png}
+            \bigbreak \noindent 
+            The second part is finding the Thevenin resistance, $R_{th}$. Beginning with the “cut” circuit, replace all sources with their ideal internal resistance (thus shorting voltage sources and opening current sources). From the perspective of the cut point, look back into the circuit and simplify by making appropriate series and parallel combinations to determine its equivalent resistance.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/41.png}
+            \bigbreak \noindent 
+            We find that $R_1$ and $R_2$ are in parallel, and this combination is then in series with $R_3$. Thus, $R_{th} = R_3 + (R_1 || R_2)$. A common error is to determine the equivalent resistance that the source drives. Remember, everything is determined from the vantage point of the cut or port.
+            \bigbreak \noindent 
+            Thevenin equivalents are not limited to single source circuits. It is possible to find the equivalent of a network with several sources. Finding the open circuit output voltage will undoubtedly require some extra work, for example the use of superposition of source conversions. Finding the Thevenin resistance is unchanged, just remember to replace every source with its ideal internal resistance before simplifying the network.
+            \bigbreak \noindent 
+            Consider 
+            \bigbreak \noindent 
+            \fig{.8}{./figures/42.png}
+            \bigbreak \noindent 
+            Suppose we want to determine the Thevenin equivalent of the circuit driving the 1k$\Omega$. Then,
+            \bigbreak \noindent 
+            \fig{.8}{./figures/43.png}
+            \bigbreak \noindent 
+            Now, since there is no current passing through the $200$, we have
+            \begin{align*}
+                R_{\text{EQ}} = 100 + 800 = 900
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                I = \frac{10}{900} = 0.0111A
+            .\end{align*}
+            Since there is no voltage drop across the 200, $E_{th}$ is given by the voltage at $b$, which is equal to the voltage drop across the 800, or the source voltage minus the voltage drop across the 100.
+            \begin{align*}
+                10 - V_{100} &= 10 - 0.0111(100) = 8.89V, \\
+                0.0111(800) &= 8.89V
+            .\end{align*}
+            The equivalent resistance is found by shorting the voltage source and then simplifying the circuit. We have:
+            \begin{align*}
+                200 + 100 || 800 = 288.89 \Omega
+            .\end{align*}
+            Now, we can find $V_{c}$
+            \bigbreak \noindent 
+            \fig{.4}{./figures/44.png}
+            \bigbreak \noindent 
+            In this equivalent circuit,
+            \begin{align*}
+                I = \frac{8.889}{1000 + 288.89} = 0.006897A
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                V_{c} = V_{1k} = 0.006987(1000) = 6.897V
+            .\end{align*}
+            Now, lets analyse the original circuit. We have 
+            \begin{align*}
+                R_{\text{EQ}} = (1000 + 200) || 800 + 100 = 580 \Omega
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                I &= \frac{10}{580} = 0.0172A, \\
+                V_{b} &= 10 - 0.0172(100) = 8.276V
+            .\end{align*}
+            The current through $c$ is given by 
+            \begin{align*}
+                I_{c} = I_{200} = I_{1000} = \frac{V_{b}}{1200} = 0.0069A
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                V_{c} = 0.0069(1000) = 6.897V
+            .\end{align*}
+            Notice that the voltages found at $c$ match perfectly, while the voltage at $b$ is only slightly off.
+
 
 
 
