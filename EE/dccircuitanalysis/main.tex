@@ -675,12 +675,151 @@
             \end{quote}
             \bigbreak \noindent 
             Given a zero ohm internal resistance, this improved model reverts back to the original ideal source. In the case of a lab power supply, the internal resistance typically will be a small fraction of an ohm.
+            \bigbreak \noindent 
+            An ideal voltage source has zero internal resistance, meaning it maintains a completely constant terminal voltage regardless of how much current is drawn by the connected circuit. It provides a fixed voltage output at all times.
+            \bigbreak \noindent 
+            The voltage drop is then
+            \begin{align*}
+                V = IR = 0 
+            .\end{align*}
         \item \textbf{Internal resistance (Current source)}: For a current source, the improved model adds a resistance in parallel
             \bigbreak \noindent 
             \fig{.6}{./figures/32.png}
             \bigbreak \noindent 
-            Hello world
-            
+            This resistance sets an upper limit on the source's voltage output. If the output terminals are opened, the maximum voltage will no longer produce a huge voltage. Instead, it is dictated by Ohm's law to be the source current times the internal resistance, or $IR$. This internal resistance will create some current divider effect with the attached load. To minimize this effect, the internal resistance should be as large as practicably possible. Thus,
+            \begin{quote}
+               "\textit{The ideal internal resistance of a current source is infinite ohms. }" 
+            \end{quote}
+            \bigbreak \noindent 
+            Given an infinite ohm internal resistance (i.e., an open), this improved model reverts back to the original ideal source. From here on, whenever we deal with practical voltage and current sources, we understand that these sources have some associated internal resistance, even if they're not shown explicitly in a schematic diagram. Further, whenever we talk about ideal sources, we simply use a short for the internal resistance of a voltage source and an open for the internal resistance of a current source.
+            \bigbreak \noindent 
+            An ideal current source has infinite internal resistance, meaning it delivers a completely constant current regardless of the voltage across its terminals.
+            \bigbreak \noindent 
+            When you connect an external load (\[R_{load}\]): 
+            \begin{itemize}
+                \item The total current splits into two paths: some goes through \[R_{internal}\] (bleed current), and the rest goes to your load.
+                \item Because they are in parallel, both paths experience the exact same voltage (V)
+            \end{itemize}
+            Since
+            \begin{align*}
+                I_{\text{internal}} = \frac{V}{\infty} = 0
+            ,\end{align*}
+            there is no internal current bleed.
+        \item \textbf{Open load}: An open load in a circuit is a condition where the intended device or component (the "load") is disconnected, broken, or missing, creating a break in the electrical pathway that stops current from flowing
+            \bigbreak \noindent 
+            Because the conductive path is incomplete, the electrical current drops to zero amperes ($I \approx  0$).
+            \bigbreak \noindent 
+            The gap or break acts as an extremely high (effectively infinite) resistance barrier.
+            \bigbreak \noindent 
+            While current cannot flow, the full source voltage can still be measured across the break or the terminals where the load should be
+            \bigbreak \noindent 
+            To continue, if we look at the open load case, for the voltage source the load current would be zero and the load voltage would be the entire source voltage of $E$. For the current source, the load would also see no current and its voltage would be the voltage appearing across its internal resistance which is R times the current $E/R$, or just $E$. Thus, the two behave identically at the load limits.
+        \item \textbf{Source Equivalences}: For any simple voltage source consisting of an ideal voltage source with a series internal resistance, an equivalent current source may be created. Similarly, for any simple current source consisting of an ideal current source with a parallel internal resistance, an equivalent voltage source may be created. By “equivalent”, we mean the load currents must be identical for both circuits given any value of load resistance. (Note that if the currents are the same then the voltages must also be the same due to Ohm’s Law.)
+            \bigbreak \noindent 
+            Given a voltage source, the maximum current is developed when the load is shorted producing a current of $E/R$. Under that same load condition, all of the current from the current source version must be flowing through the load. Therefore, the value of the equivalent current source must be the maximum current of $E/R$. It would be nonsensical to use a current source that was larger or smaller than this value.
+            \bigbreak \noindent 
+            To continue, if we look at the open load case, for the voltage source the load current would be zero and the load voltage would be the entire source voltage of $E$. For the current source, the load would also see no current and its voltage would be the voltage appearing across its internal resistance which is $R$ times the current $E/R$, or just $E$. Thus, the two behave identically at the load limits.
+            \bigbreak \noindent 
+            Similarly, if we start with a current source, an open load produces the maximum load voltage of $IR$. Therefore, the equivalent voltage source must have a value of $IR$. For the current source, a shorted load would produce a load current equal to the source value, or $I$. The voltage source version would produce a current of $E/R$, where the value of $E$ was just found to be equal to $IR$, and thus the load current would be $IR/R$, or just $I$. Once again, the two versions behave identically at the load limits
+            \bigbreak \noindent 
+            To summarize the process of source conversion:
+            \begin{itemize}
+                \item The internal resistance will be the same for both versions.
+                \item If converting from a voltage source to a current source, the value of the current source will be the maximum current available from the voltage source (shorted load case), and is equal to $E/R$.
+                \item If converting from a current source to a voltage source, the value of the voltage source will be the maximum voltage available from the current source (opened load case), and is equal to $IR$.
+            \end{itemize}
+            If a multi-source is being converted (i.e., voltage sources in series or current sources in parallel), first combine the sources to arrive at the simplest source and then do the conversion. Do not convert the sources first and then combine them as you will wind up with series-parallel configurations rather than simple sources.
+            \bigbreak \noindent 
+            Judicious use of source conversions can sometimes simplify multi-source circuits by allowing converted sources to be combined, resulting in a single source
+            \bigbreak \noindent 
+            Now, consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/33.png}
+            \bigbreak \noindent 
+            This circuit is unlike any circuit we have seen so far. Although we have analyzed circuits using multiple voltage sources, they have always been in a simple series loop. As such, their voltages may be added together to find a single equivalent voltage source. Such is not the case here. In this circuit the voltage sources are part of a series-parallel network and thus their potentials cannot be merely added. In fact, there are no further simplifications to be performed on this circuit using basic series-parallel techniques. We appear to be stuck.
+            \bigbreak \noindent 
+            But we're not. This circuit can be simplified into a straight all-parallel network through the use of source conversions. The $E_{1}$, $R_{1}$ combo can be converted into one current source while the $E_{2}$, $R_{2}$ combo can be converted into a second source. Once these are converted, the resulting circuit will consist of two current sources and three resistors, all in parallel
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/34.png}
+            \bigbreak \noindent 
+            The converted circuit is then
+            \bigbreak \noindent 
+            \fig{.6}{./figures/35.png}
+            \bigbreak \noindent 
+            The equivalent resistance is 
+            \begin{align*}
+                V_{\text{EQ}} = 1000 || 4000 || 5000 = 689.7 \Omega
+            .\end{align*}
+            Since the total current is $15 + 1.5 = 16.5$mA,
+            \begin{align*}
+                V_{b} = 0.0165(689.7) = 11.38V
+            .\end{align*}
+            We can now take this voltage and apply it back to the original (unconverted) circuit. With this potential known, it is relatively easy to determine the other currents and voltages using KVL and Ohm's law.
+            \bigbreak \noindent 
+            Looking at the \(1\,\mathrm{k}\Omega\) resistor, the voltage across it is
+            \[
+                15\,\mathrm{V} - 11.38\,\mathrm{V} = 3.62\,\mathrm{V}.
+            \]
+            Therefore, the current through it is
+            \[
+                I_1 = \frac{3.62\,\mathrm{V}}{1\,\mathrm{k}\Omega}
+                = 3.62\,\mathrm{mA}.
+            \]
+            Similarly, the voltage across the \(4\,\mathrm{k}\Omega\) resistor is
+            \[
+                11.38\,\mathrm{V} - 6\,\mathrm{V} = 5.38\,\mathrm{V},
+            \]
+            which yields a current of
+            \[
+                I_2 = \frac{5.38\,\mathrm{V}}{4\,\mathrm{k}\Omega}
+                = 1.345\,\mathrm{mA}.
+            \]
+            Both currents flow from left to right. The third current, which flows downward through the \(5\,\mathrm{k}\Omega\) resistor, is
+            \[
+                I_3 = \frac{11.38\,\mathrm{V}}{5\,\mathrm{k}\Omega}
+                = 2.276\,\mathrm{mA}.
+            \]
+            According to KCL, the current entering node \(b\) must equal the total current leaving it. The entering current is \(3.62\,\mathrm{mA}\), while the sum of the exiting currents is
+            \[
+                I_2 + I_3
+                = 1.345\,\mathrm{mA} + 2.276\,\mathrm{mA}
+                = 3.621\,\mathrm{mA}
+                \approx 3.62\,\mathrm{mA}.
+            \]
+            Therefore, KCL is satisfied within the rounding precision of the calculated values.
+            \bigbreak \noindent 
+            \textbf{Note:} In the equivalent circuit, nodes $a$ and $c$ disappeared. This brings up an important point. Equivalent circuits are equivalent in terms that the items connected to the equivalent behave the same way as they do with the original circuit. That does not mean that the items within the equivalent see the same current or voltage. We do not expect the voltage across the 1 $k \Omega$ or 4 $k \Omega$ resistors in the converted version to be the same as those in the original version.
+        \item \textbf{Linear and bilateral circuits}: A linear circuit has an output that is directly proportional to its input, while a bilateral circuit allows current to flow and behave the same way in either direction
+        \item \textbf{Linear circuits}: A circuit where values like resistance, inductance, and capacitance stay constant and do not change when voltage or current changes.  They follow Ohm's law and obey the principle of superposition 
+        \item \textbf{Bilateral circuits}: A network or circuit whose properties and current-voltage behavior are identical regardless of the direction of the current. Reversing the voltage polarity reverses the current by the exact same magnitude, meaning the circuit is bidirectional.
+        \item \textbf{Recall multiple voltage sources}: A voltage source acts like a pump for electrical charge, with a positive terminal pushing current out one way and a negative terminal pulling it back
+            \bigbreak \noindent 
+            When you connect the positive terminal of one battery to the negative terminal of another (+ to -), both sources pump charge in the same direction. Their efforts combine, so you add their voltages
+            \bigbreak \noindent 
+            When you connect opposing terminals together (+ to + or - to -), the two sources try to force current in opposite directions. One source tries to raise the potential while the other tries to lower it.
+        \item \textbf{Short}: A short means a direct connection with zero ohms of resistance between two points.
+        \item \textbf{Open}: An open circuit is an incomplete electrical path where the connection is broken, resulting in infinite resistance and zero current flow.
+        \item \textbf{Superposition Theorem}: Superposition allows the analysis of multi-source series-parallel circuits. Superposition can only be applied to networks that are linear and bilateral. Further, it cannot be used to find values for non-linear functions, such as power, directly. Fortunately, if the circuit contains nothing but resistors, and ordinary voltage sources and current sources, the circuit will be a linear bilateral network. Also, although power is a square law function (i.e., it is proportional to the square of voltage or current), it can be computed from the resulting voltage or current values so this presents no limits to analysis.
+            \bigbreak \noindent 
+            The basic idea is to determine the contribution of each source by itself, and then adding the results to get the final answer(s). Consider
+            \fig{.6}{./figures/36.png}
+            \bigbreak \noindent 
+            Here we have two voltage sources driving a pair of resistors. It is a basic series circuit. As the two sources are in opposition, the net voltage is 10.5 volts while the total resistance is 500 $\Omega$. This yields a circulating current of 21 mA. 
+            \bigbreak \noindent 
+            From earlier work we have discovered that the ideal internal resistance of a voltage source is a short, or zero ohms. Thus, we wind up with two circuits: one with a 12 volt source that drives 100 $\Omega$, 400 $\Omega$ and a short; and a second circuit with a 1.5 volt source that drives pretty much the same thing, but with an opposing current direction.
+            \bigbreak \noindent 
+            The first circuit produces a clockwise current of $12 V/ 500 \Omega$, or 24 milliamps. Meanwhile, the second circuit produces a counterclockwise current of $1.5 V / 500 \Omega$, or 3 mA. As these two currents oppose each other, the resulting current is $24$ mA $- 3$ mA, or 21 mA, the same value originally computed
+            \begin{itemize}
+                \item For every voltage or current source in the original circuit, create a new subcircuit. The sub-circuits will be identical to the original except that all sources other than the one under consideration will be replaced by their ideal internal resistance. This means that all remaining voltage sources will be shorted and all remaining current sources will be opened.
+                \item Label the current directions and voltage polarities on each of the new subcircuits, as generated by the source under consideration.
+                \item Solve each of the sub-circuits for the desired voltages and/or currents using standard series-parallel analysis techniques. Make sure to note the voltage polarities and current directions for these items.
+                \item Add all of the contributions from each of the sub-circuits to arrive at the final values, being sure to account for current directions and voltage polarities in the process.
+            \end{itemize}
+
+
+
 
 
 
