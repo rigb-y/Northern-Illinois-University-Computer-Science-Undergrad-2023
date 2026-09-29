@@ -914,10 +914,263 @@
                 V_{c} = 0.0069(1000) = 6.897V
             .\end{align*}
             Notice that the voltages found at $c$ match perfectly, while the voltage at $b$ is only slightly off.
+        \item \textbf{Norton's theorem}: In a nutshell, Norton's theorem is the current source version of Thevenin's theorem. 
+            \bigbreak \noindent 
+            That is, a single port DC network can be reduced to a single current source, $I_{N}$, with parallel internal resistance, $R_{N}$.
+            \bigbreak \noindent 
+            replace all sources with their ideal internal resistance and then perform appropriate series and parallel combinations to reduce this to a single resistance value. Consequently, the Norton and Thevenin resistance values are identical, $R_{N} = R_{th} $. Second, instead of finding the open circuit output voltage, we find the short circuit output current. This is the Norton current. Instead of thinking in terms of a voltmeter at the opened load, we think in terms of connecting a shorting ammeter across the load. Either way, we're looking for the maximum value that can be obtained.
+            \bigbreak \noindent 
+            Perhaps the most useful thing to remember here is that if we can create a Thevenin equivalent for a network then it must be possible to create a Norton equivalent. Indeed, once a Thevenin equivalent is found, a source conversion can be performed on it to yield the Norton equivalent!
+        \item \textbf{Normalized source}: Consider a source voltage $E$ with internal resistance $R_{i}$ connected in series to load resistor $R$. Suppose we wanted to normalize such that $E = R_{i} = 1$.
+            \bigbreak \noindent 
+            Define
+            \begin{align*}
+                E_{\text{base}} = E, \quad R_{\text{base}} = R_{i}
+            .\end{align*}
+            Define normalized quantities by dividing each value by its corresponding base
+            \begin{align*}
+                e = \frac{E}{E_{\text{base}}} = 1, \quad r_{i} = \frac{R_{i}}{R_{\text{base}}} = 1
+            .\end{align*}
+            The normalized load resistance becomes 
+            \begin{align*}
+                r = \frac{R}{R_{i}}
+            .\end{align*}
+            Normalization does not physically change \(E\) or \(R_i\); it expresses the circuit using \(E\) volts and \(R_i\) ohms as the chosen units.
+        \item \textbf{Base}: A base is a chosen reference value used to express a physical quantity as a dimensionless ratio. 
+            \bigbreak \noindent 
+            For any quantity $X$,
+            \begin{align*}
+                X_{\text{normalized}} = \frac{X_{\text{actual}}}{X_{\text{base}}}
+            .\end{align*}
+            To recover an actual quantity, multiply its normalized value by its base
+        \item \textbf{Maximum Power Transfer Theorem}: Given a simple voltage source with internal resistance, a useful question to ask is “What value of load resistance will yield the maximum amount of power in the load?” While it is not true that maximizing load power is a goal of all circuit designs, it is a goal of a portion of them and thus worth a closer look.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/45.png}
+            \bigbreak \noindent 
+            We have source $E$, source internal resistance $R_{i}$ and load resistance $R$. 
+            \bigbreak \noindent 
+            We would like to describe the load power in terms of the load resistance. To make the job easier, we may normalize the voltage source $E$ to 1 volt and the source resistance $R_i$ to 1 Ohm. By doing this, $R$ also becomes a normalized value, that is, it no longer represents a simple resistance value but rather represents a ratio in comparison to $R_i$. In this way the analysis will work for any set of source values. Note that the value of $E$ will equally scale the power in both $R_i$ and $R$, so a precise value is not needed, and thus, we may as well chose 1 volt for convenience.
+            \bigbreak \noindent 
+            Note that 
+            \begin{align*}
+                P = I^{2}R, \quad I = \frac{E}{R_{i} + R} = \frac{1}{1 +  R}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                P = \left(\frac{1}{1+r}\right)^{2}R = \frac{R}{R^{2} + 2R + 1}
+            .\end{align*}
+            We now have an equation that describes the load power in terms of the load resistance. Notice that if $R = 0$ or $R = \infty$ (shorted and open case) the power is zero.
+            \bigbreak \noindent 
+            While shorting the load will yield the maximum load current, it will also yield zero load voltage and thus no power. Similarly, opening the load will yield maximum load voltage but it will also yield zero load current, and again, no load power
+            \bigbreak \noindent 
+            Its easy to see that maximum power will be achieved when $R = 1$. Thus,
+            \begin{quote}
+               "\textit{Maximum load power will be achieved when the load resistance is equal to the internal resistance of the driving source. }" 
+            \end{quote}
+            While matching the resistance produces the maximum load power, it does not produce maximum load current or maximum load voltage. In fact, this condition produces a load voltage and a load current that are half of their maximums. Their product, however, is at the maximum. Further, efficiency at maximum load power is only 50\% (i.e., only half of all generated power goes to the load with the other half being wasted internally). Values of $R$ greater than $R_{i}$ will achieve higher efficiency but at reduced load power. Sometimes we favor efficiency over maximal load power.
+        \item \textbf{Delta-Y Conversions}: Certain component configurations, such as bridged networks, cannot be reduced to a single resistance using basic series-parallel conversion techniques. One method for simplification involves converting sections into more convenient forms. The configurations in question are three-point networks containing three resistors. Due to the manner in which they drawn, they are referred to as delta networks and $Y$ networks
+            \bigbreak \noindent 
+            \fig{.6}{./figures/46.png}
+            \bigbreak \noindent 
+            Alternately, if they are slightly redrawn they are known as pi networks and $T$ networks
+            \bigbreak \noindent 
+            \fig{.6}{./figures/47.png}
+            \bigbreak \noindent 
+            It is possible to convert back and forth between delta and $Y$ networks. That is, for every delta network, there exists a $Y$ network such that the resistances seen between the $X$, $Y$ and $Z$ terminals are identical, and vice versa. Consequently, one configuration can replace another in order to simplify a larger circuit.
+        \item \textbf{$\Delta$-Y conversions}: A true equivalent circuit would present the same resistance between any two terminals as the original circuit. Consider the unloaded case. The equivalent resistances seen between each pair of terminals for the delta and $Y$ respectively are
+            \begin{align*}
+                R_{XY} &= R_{a} || (R_{b} + R_{c}) = R_{d} + R_{e} \\
+                R_{XZ} &= R_{b} || (R_{a} + R_{c}) = R_{d} + R_{f} \\
+                R_{ZY} &= R_{c} || (R_{b} + R_{a}) = R_{e} + R_{f} 
+            .\end{align*}
+            Assuming we have the delta and are looking for the $Y$ equivalent, note that we have three equations with three unknowns ($R_{d}$, $R_{e}$ and $R_{f}$). Thus, they can be solved using a term elimination process.
+            \bigbreak \noindent 
+            If we subtract the third equation from the first, we eliminate the second resistance ($R_{e}$) and arrive at a difference between the first and third unknown resistances ($R_{d} - R_{f}$). This quantity can then be added to the second to eliminate the third resistance ($R_{f}$), leaving just the first unknown resistance ($R_{d}$).
+            \begin{align*}
+                (R_d + R_e) - (R_e + R_f) &= R_d - R_f  = \left(R_a \parallel (R_b + R_c)\right) - \left(R_b \parallel (R_a + R_c)\right), \\[6pt]
+                (R_d + R_f) + (R_d - R_f) &= 2R_d = R_b \parallel (R_a + R_c) + R_a \parallel (R_b + R_c) - R_c \parallel (R_a + R_b) 
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                2R_{d} = R_{b} || (R_{a} + R_{c}) + R_{a} || (R_{b} + R_{c}) - R_{c} || (R_{a} + R_{b})
+            .\end{align*}
+            After simplifying,
+            \begin{align*}
+                R_{d} = \frac{R_{a}R_{b}}{R_{a} + R_{b} + R_{c}}
+            .\end{align*}
+            Similarly, 
+            \begin{align*}
+                R_{e} &= \frac{R_{a}R_{c}}{R_{a} + R_{b} + R_{c}}, \\
+                R_{f} &= \frac{R_{b}R_{c}}{R_{a} + R_{b} + R_{c}}
+            .\end{align*}
+        \item \textbf{$Y-\Delta$ conversion}: First, observe that
+            \begin{align*}
+                \frac{R_{d}}{R_{e}} = \frac{R_{b}}{R_{c}}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                R_{b} = \frac{R_{c}R_{d}}{R_{e}}
+            .\end{align*}
+            Similarly, 
+            \begin{align*}
+                R_{a} &= \frac{R_{d}R_{c}}{R_{f}}, \\
+                R_{c} &= \frac{R_{a}R_{f}}{R_{d}}
+            .\end{align*}
+            Now, we can plug the expressions for $R_{a}$ and $R_{b}$ into 
+            \begin{align*}
+                R_{d} = \frac{R_{a}R_{b}}{R_{a} + R_{b} + R_{c}}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                R_{d} = \frac{\frac{R_{d}^{2}R_{c}^{2}}{R_{f}R_{e}}}{\frac{R_{d}R_{c}}{R_{f}} + \frac{R_{d}R_{c}}{R_{e}} + R_{c}}
+            .\end{align*}
+            Yielding
+            \begin{align*}
+                R_{c} = \frac{R_{d}R_{e} + R_{d}R_{f} + R_{e}R_{f}}{R_{e}}
+            .\end{align*}
+            Now, substitute this into
+            \begin{align*}
+                R_{b} = \frac{R_{c}R_{d}}{R_{e}}
+            \end{align*}
+            and
+            \begin{align*}
+                R_{a} = \frac{R_{c}R_{d}}{R_{f}}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                R_{a} &= \frac{R_{d}R_{e} + R_{e}R_{f} + R_{d}R_{f}}{R_{f}} \\
+                R_{b} &= \frac{R_{d}R_{e} + R_{e}R_{f} + R_{d}R_{f}}{R_{e}} \\
+                R_{c} &= \frac{R_{d}R_{e} + R_{e}R_{f} + R_{d}R_{f}}{R_{d}}
+            .\end{align*}
+            If three identical resistors are used, the values of the delta equivalent will all be three times that value, the inverse of the situation when converting from delta to Y
 
 
+    \end{itemize}
 
-
+    \pagebreak 
+    \unsect{Nodal and Mesh Analysis, Dependent Sources}
+    \begin{itemize}
+        \item \textbf{Dependent sources}: Current and voltage sources whos value is not fixed to some particular value, but rather is dependent on some other current or voltage in the circuit.
+        \item \textbf{Nodal and mesh analysis}: Nodal analysis and mesh analysis are two systematic methods used to solve for unknown voltages and currents in DC circuits.
+        \item \textbf{Nodal analysis}: Nodal analysis is a technique that can be applied to virtually any circuit. In general use, it might be considered a universal solution technique as there are no practical circuit configurations that it cannot handle. Nodal analysis relies on the application of Kirchhoff's current law to create a series of node equations that can be solved for node voltages. These equations are based on Ohm's law and will be of the form $I = V/R$
+            \bigbreak \noindent 
+            Once the node voltages are obtained, finding any branch currents or component powers becomes an almost trivial exercise. We will examine two variations; a general version that can be used with both voltage and current sources, and a second somewhat quicker version that can be used with circuits only driven by current sources.
+        \item \textbf{Nodal analysis, general method}: Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/49.png}
+            \bigbreak \noindent 
+            We begin by labeling connection nodes and assigning current directions. We are particularly interested in \textbf{current junctions}, that is, places where currents can combine or split. These are also known as \textbf{summing nodes} and are circled in green on the figure. The current directions are chosen arbitrarily and may be the opposite of reality. This is not a problem. If we assign directions that are wrong, the resulting directions will ultimately show up reversed but the computed node voltages will be just fine.
+            \bigbreak \noindent 
+            One node is chosen as the reference. This is the point to which all other node voltages will be measured against. Typically, the reference node is ground, although it does not have to be.
+            \bigbreak \noindent 
+            We now write a current summation equation for each summing node, except for the reference node. In this circuit there is only one node where currents combine (other than ground) and that's node $b$. Points $a$ and $c$ are places where components connect, but they are not summing nodes, so we can ignore them for now. Using KCL on node $b$ we can say:
+            \begin{align*}
+                I_{1} + I_{2} = I_{3}
+            .\end{align*}
+            Next, we describe these currents in terms of the node voltages and associated components via Ohm's law. For example, $I_{3}$ is the node $b$ voltage divided by $R_{3}$ while $I_{1}$ is the voltage across $R_{1}$ divided by $R_{1}$. This voltage is $V_{a} - V_{b}$. Therefore
+            \begin{align*}
+                \frac{V_{a}-V_{b}}{R_{1}} + \frac{V_{c} - V_{b}}{R_{2}} = \frac{V_{b}}{R_{3}}
+            .\end{align*}
+            With $V_{a} = E_{1}$, and $V_{c} = E_{2}$ and some algebra, we have
+            \begin{align*}
+               \left(\frac{1}{R_{1}}\right) E_{1} + \left(\frac{1}{R_{2}}\right)E_{2} = \left(\frac{1}{R_{1}} + \frac{1}{R_{2}} + \frac{1}{R_{3}}\right)V_{b}
+            .\end{align*}
+            Notice that we have a series of products of conductances and voltages. All quantities are known except for $V_{b}$ and thus it is easily found with a little more algebra.
+            \bigbreak \noindent 
+            For current sources, a more direct approach is possible. We start as before, identifying nodes and labeling currents.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/50.png}
+            \bigbreak \noindent 
+            We then write current summation equations at each node (except for ground). We consider currents entering a node as positive, and exiting as negative.
+            \begin{align*}
+                \text{Node a: } I1 &= I3 + I4 \\
+                \text{Node b: } I3 &= I2 + I5, \text{ and rearranging in terms of the fixed source,} \\
+                \text{Node b: } -I2 &= -I3 + I5
+            .\end{align*}
+            The currents are then described by their Ohm's law equivalents:
+            \begin{align*}
+                \text{Node a: } I_{1} &= \frac{V_{a} - V_{b}}{R_{3}} + \frac{V_{a}}{R_{1}} \\
+                \text{Node b: } -I_{2} &= -\frac{V_{a} - V_{b}}{R_{3}} + \frac{V_{b}}{R_{2}}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                \text{Node a: } I_{1} &= \left(\frac{1}{R_{1}} + \frac{1}{R_{3}}\right)V_{a} - \left(\frac{1}{R_{3}}\right)v_{b} \\
+                \text{Node b: } -I_{2} &= -\left(\frac{1}{R_{3}}\right)V_{a} + \left(\frac{1}{R_{3}} + \frac{1}{R_{2}}\right)V_{b}
+            .\end{align*}
+            As the resistor values and currents are known, simultaneous equation solution techniques may be used to solve for the node voltages. Once again, there will be as many equations as node voltages
+        \item \textbf{Inspection Method}: The system of equations can be obtained directly through inspection if the circuit contains no voltage sources
+            \bigbreak \noindent 
+             For the node under inspection, sum all of the current sources connected to it to obtain the current constant The conductance term for that node will be the sum of all of the conductances connected to that node. For the other node conductances, determine the conductances between the node under inspection and these other nodes. These terms will all be negative As a crosscheck, the set of equations produced must exhibit diagonal symmetry
+             \bigbreak \noindent 
+             The inspection method is summarized as follows:
+             \begin{enumerate}
+                 \item Verify that the circuit uses only current sources with resistors and no voltage sources. If voltage sources exist, they must be converted to current sources before proceeding
+                 \item Find all of the current summing nodes and number them. Also decide on the reference node (usually ground).
+                 \item To generate an equation, locate the first node. This is the node of interest and the next few steps will be associated with it.
+                 \item Sum the current sources feeding the node of interest. Entering is deemed positive while exiting is deemed negative. The sum is placed on one side of the equals sign
+                 \item Next, find all of the resistors connected to the node of interest and write them as a sum of conductances on the other side of the equals sign, the group being multiplied by this node's voltage (e.g., $V_{1}$).
+                 \item Now find all of the resistors that are connected to the node of interest and to other nodes (except the ground reference). For each of these other nodes, multiply the sum of the conductances between the node of interest and this other node by this other node's voltage, and then subtract that product from the equation built so far. Once all other nodes are considered, this equation is finished.
+                 \item Find the next node and treat this as the new node of interest
+                 \item Repeat steps 4 through 7 until all nodes have been treated as the node of interest. Each iteration creates a new equation. There will be as many equations as there are nodes, less the reference node. Check for diagonal symmetry and solve.
+             \end{enumerate}
+             As an example, consider
+             \bigbreak \noindent 
+             \fig{.6}{./figures/51.png}
+             \bigbreak \noindent 
+             Observe the three nodes $a$, $b$ and reference ground. Focus on node $a$. The current sources feeding this node are 800mA in, 2mA out. Thus,
+             \begin{align*}
+                 0.8A - 2A = ...
+             .\end{align*}
+             The conductances connected to node $a$ give
+             \begin{align*}
+                 0.8A - 2A = \left(\frac{1}{10} + \frac{1}{50} + \frac{1}{100}\right) V_{a}...
+             .\end{align*}
+             Now find all of the resistors that are connected to this node and to the other nodes. Multiply those resistors (expressed as conductances) by the other associated node voltages and subtract the products from the expression built so far. Repeat for all remaining nodes except the ground reference. In this example there is only one other node, node $b$, and thus only one iteration.
+             \begin{align*}
+                 0.8A - 2A &= \left(\frac{1}{10} + \frac{1}{50} + \frac{1}{100}\right) V_{a} - \left(\frac{1}{50} + \frac{1}{100}\right) V_{b} \\
+                  &= -1.2A = 130mSV_{a} - 30mSV_{b}
+             .\end{align*}
+             Recall that conductance is expressed in \textbf{siemens} (S).
+             \bigbreak \noindent 
+             Now we repeat the entire process for the next equation. Node $b$ is our new node of interest. The fixed current sources are:
+             \begin{align*}
+                 -800mA - 300mA &= -\left(\frac{1}{50} + \frac{1}{100}\right)V_{a} + \left(\frac{1}{25} + \frac{1}{50} + \frac{1}{100}\right)V_{b} \\
+                                &= -1.1A = -30mSV_{a} + 70mSV_{b}
+             .\end{align*}
+             Hence, our two equations are 
+             \begin{align*}
+                 -1.2A &= 130mSV_{a} - 30mSV_{b} \\
+                 -1.1A &= -30mSV_{a} + 70mSV_{b}
+             .\end{align*}
+             So,
+             \begin{align*}
+                 \begin{pmatrix} 0.130 & -0.030 \\ -0.030 & 0.070 \end{pmatrix}\begin{pmatrix} V_{a} \\ V_{b} \end{pmatrix} = \begin{pmatrix} -1.2 \\ -1.1 \end{pmatrix}
+             .\end{align*}
+             Notice that we indeed have symmetry. Solving this system yields
+             \begin{align*}
+                 V_{a} &= -14.27V, \\
+                 V_{b} &= -21.83V
+             .\end{align*}
+             The current flowing through the 100 $\Omega$ resistor is 
+             \begin{align*}
+                 \frac{V_{a} - V_{b}}{100} = 75.6mA
+             \end{align*}
+             flowing left to right.
+             \bigbreak \noindent 
+             Next, consider
+             \bigbreak \noindent 
+             \fig{.6}{./figures/52.png}
+             \bigbreak \noindent 
+             We get
+             \begin{align*}
+                 \begin{pmatrix} 0.4  & -0.25 & 0 \\ -0.25 & 0.8 & -0.5 \\ 0 & -0.5 & 0.6 \end{pmatrix} \begin{pmatrix} V_{a} \\ V_{b} \\ V_{c} \end{pmatrix} = \begin{pmatrix} 1.5 \\ 0 \\ 1 \end{pmatrix}
+             .\end{align*}
+             Thus,
+             \begin{align*}
+                 V_{a}  &= 8.62V \\
+                 V_{b} &= 7.8V \\
+                 V_{c} &= 8.17V
+             .\end{align*}
 
 
 
