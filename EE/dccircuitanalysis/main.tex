@@ -1171,6 +1171,83 @@
                  V_{b} &= 7.8V \\
                  V_{c} &= 8.17V
              .\end{align*}
+            \item \textbf{Converting Sources and Other Simplifications}: Given circuits with voltage sources, it may be easier to convert them to current sources and then apply the inspection technique rather than using the general approach outlined initially. There is one trap to watch out for when using source conversions: the voltage across or current through a converted component will most likely not be the same as the voltage or current in the original circuit. This is because the location of the converted component will have changed. 
+                \bigbreak \noindent 
+                Consider
+                \bigbreak \noindent 
+                \fig{.6}{./figures/53.png}
+                \bigbreak \noindent 
+                could be solved using nodal analysis by converting the voltage source and the associated resistance into a current source. That is, $E/R_{1}$ would be converted into a source $I_{3}$ with a parallel resistor $R_{1}$.
+                \bigbreak \noindent 
+                \fig{.6}{./figures/54.png}
+                \bigbreak \noindent 
+                In the converted circuit, although $R_1$ still connects to node $a$, the other end no longer connects to the voltage source. Rather, the right side now connects to node $c$. Therefore, the voltage drop across $R_1$ in the converted circuit is not likely to equal the voltage drop seen across $R_1$ in the original circuit (unless $E$ was 0 volts).
+                \bigbreak \noindent 
+                In the converted circuit, nodes $a$ and $c$ have not changed from the original, so the original voltage across $R_1$ can be determined via Va, $V_{c}$ and $E$ in the original circuit
+                \bigbreak \noindent 
+                If a circuit uses voltage sources exclusively, or even a very large proportion of voltage sources, an alternate technique called mesh analysis may be a better choice than using numerous conversions. 
+            \item \textbf{Reduction}: A final item to consider is to simplify resistor networks in order to reduce the number of nodes. Fewer nodes means fewer equations and a quicker solution.
+            \item \textbf{Supernode}: Consider
+                \bigbreak \noindent 
+                \fig{.6}{./figures/55.png}
+                \bigbreak \noindent 
+                On occasion you may come across a circuit like this, a voltage source without a series resistance. Without that resistance, it becomes impossible to create an expression for the current passing through the source using the general method, and impossible to convert the voltage source into a current source in order to use the inspection method.
+                \bigbreak \noindent 
+                One possible way out of this quandary is to simply add a very small resistor in series with it so that a source conversion is possible. The resistor in question would have to be much smaller than any surrounding resistors in order to have minimal impact on the results. A reduction by two orders of magnitude would generally yield a variation smaller than that produced by resistor tolerances in all but high precision circuits. The other way out is to use a \textbf{supernode}.
+                \bigbreak \noindent 
+                A supernode is, in effect, the combination of two nodes. It relies on a simple observation. Notice that the path of the voltage source produces identical currents flowing into and out of nodes $a$ and $b$
+                \bigbreak \noindent 
+                As a consequence, if we treat the two nodes as one big node, then when we write a KCL summation, these two terms will cancel.
+                \bigbreak \noindent 
+                \textbf{Note:} For a two-terminal voltage source, the current leaving the positive terminal has the same magnitude as the current entering the negative terminal. The current may split into several paths throughout the external circuit, but all those branch currents eventually recombine before returning to the negative terminal. Charge cannot continuously accumulate inside the source or circuit.
+                \bigbreak \noindent 
+                This describes a voltage source \textbf{delivering power}. If current instead enters the positive terminal and leaves the negative terminal, the source is \textbf{absorbing power}, as when a battery is being charged.
+                \bigbreak \noindent 
+                \fig{.6}{./figures/56.png}
+                \bigbreak \noindent 
+                In this version we have replaced the voltage source with its ideal internal resistance, a short. We have also labeled the two nodes of interest, $a$ and $b$, and labeled the currents, drawn with convenient directions
+                \bigbreak \noindent 
+                Due to the shorted voltage source, nodes $a$ and $b$ are now the same node. Consider the currents entering and exiting this combined or “super” node. On the left side (formerly node $a$) we see a constant current Ix entering while $I_{1}$, $I_{2}$ and $I_{3}$ are exiting. On the right side (formerly node $b$) we see $I_{y}$ exiting along with $I_{4}$, and entering we see $I_{1}$ and $I_{2}$. Now let's set up the entering currents on the left side of the equals sign with the exiting currents on the right:
+                \begin{align*}
+                    \sum I_{\text{in}} = I_{x} + I_{1} + I_{2} = \sum I_{\text{out}} = I_{y} + I_{1} + I_{2} + I_{3} + I_{4}
+                .\end{align*}
+                Thus,
+                \begin{align*}
+                    I_{x} - I_{y} = I_{3} + I_{4} = \frac{1}{R_{1}}V_{a} + \frac{1}{R_{3}}V_{b}
+                .\end{align*}
+                We also know that $V_{a} - V_{b} = E$ from the original circuit. Assuming all sources and resistors are known, that makes two equations with two unknowns, solvable using simultaneous equation techniques. 
+                \bigbreak \noindent 
+                Consider
+                \bigbreak \noindent 
+                \fig{.6}{./figures/57.png}
+                \bigbreak \noindent 
+                The KCL equation for node $a$ is 
+                \begin{align*}
+                    1 + I_{E} - \frac{V_{a} - V_{b}}{20} - \frac{V_{a}}{4} = 0
+                .\end{align*}
+                The KCL equation for node $b$ is 
+                \begin{align*}
+                    -2.5 + \frac{V_{a}  - V_{b}}{20} - I_{E} - \frac{V_{b}}{10} = 0
+                .\end{align*}
+                Adding these two yields
+                \begin{align*}
+                    -\frac{V_{a}}{4}-1.5-\frac{V_{b}}{10} = 0
+                .\end{align*}
+                Hence,
+                \begin{align*}
+                    \frac{V_{a}}{4} + \frac{V_{b}}{10} = -1.5
+                .\end{align*}
+                The second equation is $V_{a} - V_{b} = 60$. Thus,
+                \begin{align*}
+                    \begin{pmatrix} 0.25 & 0.1 \\ 1 & -1  \end{pmatrix}\begin{pmatrix} V_{a} \\ V_{b} \end{pmatrix} = \begin{pmatrix} -1.5 \\ 60 \end{pmatrix}
+                .\end{align*}
+                Therefore,
+                \begin{align*}
+                    V_{a} &= 12.857V \\
+                    V_{b} &= -47.143V
+                .\end{align*}
+            \item \textbf{Mesh analysis}: 
+
 
 
 
