@@ -1246,7 +1246,159 @@
                     V_{a} &= 12.857V \\
                     V_{b} &= -47.143V
                 .\end{align*}
-            \item \textbf{Mesh analysis}: 
+            \item \textbf{Planar circuit}: A planar circuit is an electrical circuit that can be drawn on a flat, two-dimensional surface without any of its wires or branches crossing each other. The defining feature is that a crossing-free drawing can exist
+                \bigbreak \noindent 
+                In essence, these circuits can be drawn so that they appear like a series of window panes.
+            \item \textbf{Branch current and mesh current}: Branch currents are the actual, physical currents flowing through individual components in a circuit, while mesh currents are mathematical loop currents used to simplify circuit analysis
+                \bigbreak \noindent 
+                A branch current is a hypothetical circulating current assigned to a closed loop or "window" of a planar circuit. It is purely conceptual; shared elements carry a net combination of adjacent mesh currents rather than a single standalone mesh current
+            \item \textbf{Mesh analysis}: In some respects mesh analysis is a mirror of nodal analysis. While nodal analysis leverages KCL to create a series of node equations that are used to solve for node voltages, mesh analysis uses KVL to create a series of loop equations that can be solved for mesh currents. 
+                \bigbreak \noindent 
+                While branch currents represent the current flowing through a particular component, mesh currents combine to create branch currents. That is, the current through any particular component may be an individual mesh current or a combination of two mesh currents.
+                \bigbreak \noindent 
+                Circuits using complex series-parallel arrangement with multiple voltage and/or current sources may be solved using this technique. It is, however, limited to planar circuits
+                \bigbreak \noindent 
+                Non-planar circuits may be 3D in appearance and in such a circuit it becomes impossible to define the loop equations as any given component might have more than two meshing currents.
+            \item \textbf{General method}:  We begin by designating a series of loops. These loops should be minimal in size and cover all components at least once. By convention, the loops are drawn clockwise. There is nothing magic about them being clockwise, it is just a matter of consistency. The current path along a loop is referred to as a mesh current.
+                \bigbreak \noindent 
+                \fig{.6}{./figures/59.png}
+                \bigbreak \noindent 
+                we have two loops, and thus, two mesh currents, $I_1$ and $I_2$. Note that all components exist in at least one loop (and sometimes in more than one loop, like $R_3$). Depending on circuit values, one or more of these loop's directions may in fact be opposite of reality. This is not a problem. If this is the case, the currents will show up as negative values, and thus we know that they're really flowing counter-clockwise.
+                \begin{align*}
+                    \text{Loop 1: } E_{1} &= \text{ voltage across } R_{1} + \text{ voltage across } R_{3} \\
+                    \text{Loop 2: } -E_{2} &= \text{ voltage across } R_{2} + \text{ voltage across } R_{3}
+                .\end{align*}
+                $E_2$ is negative as $I_2$ is drawn flowing out of its negative terminal. If we choose downward as the positive reference direction, then \(I_1\) is positive and \(I_2\) is negative. Using Ohm's law:
+                \begin{align*}
+                    E_{1} &= I_{1}R_{1} + (I_{1} - I_{2})R_{3} \\
+                    -E_{2} &= I_{2}R_{2} + (I_{2} - I_{1})R_{3}
+                .\end{align*}
+                For the second loop, we take upward current to be positive.
+                \begin{itemize}
+                    \item For loop 1, you traverse \(R_3\) downward, so the current in that direction is
+                    \[
+                        I_{R_3,\downarrow}=I_1-I_2.
+                    \]
+                \item For loop 2, you traverse \(R_3\) upward, so the current in that direction is
+                    \[
+                        I_{R_3,\uparrow}=I_2-I_1.
+                    \]
+            \end{itemize}
+            These are the same physical current expressed using opposite reference directions:
+            \begin{align*}
+                I_{R_3,\uparrow}=-I_{R_3,\downarrow}
+            .\end{align*}
+            Therefore, it is valid to use downward as positive while writing loop 1 and upward as positive while writing loop 2. You simply must remain consistent within each equation.
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                E_{1} &= (R_{1} + R_{3})I_{1} - R_{3}I_{2} \\
+                -E_{2} &= R_{3}I_{1} + (R_{2}+R_{3})I_{2}
+            .\end{align*}
+            Assuming that the resistor values and source voltages are known, we have two equations with two unknowns. These can be solved for $I_1$ and $I_2$ using simultaneous equation solution techniques such as determinants or Gauss-Jordan elimination.
+            \bigbreak \noindent 
+            Consider an example
+            \bigbreak \noindent 
+            \fig{.8}{./figures/60.png}
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                \ell_{1}:\; 12V = (I_{1} - I_{2})1k + (I_{1}-I_{3})2k \\
+                \ell_{2}:\; 0V = (I_{2}-I_{1})1k + 3kI_{2}+(I_{2} - I_{3})5k \\
+                \ell_{3}:\; 0V = (I_{3} - I_{2})5k + 4kI_{3} + (I_{3} - I_{1})2k
+            .\end{align*}
+            Thus, the system is 
+            \begin{align*}
+                1000\begin{pmatrix} 3 & -1 & -2 \\-1 & 9 & -5 \\ -2 & -5 & 11 \end{pmatrix}\begin{pmatrix} I_{1} \\ I_{2} \\ I_{3} \end{pmatrix} = \begin{pmatrix} 12 \\ 0 \\ 0 \end{pmatrix}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                I_{1} = 5.729mA \\
+                I_{2} = 1.626mA \\
+                I_{3} = 1.781mA 
+            .\end{align*}
+            To find $V_{b}$, we use net current through the $2k$ resistor. Thus,
+            \begin{align*}
+                V_{b} = (I_{1} - I_{3})2000 = 7.8968V
+            .\end{align*}
+            Similarly, 
+            \begin{align*}
+                V_{bc} = (I_{3} - I_{2})5000 = 774mV
+            .\end{align*}
+        \item \textbf{Inspection Method}: Like nodal analysis, there is a method to generate the equations by inspection. Simply focus on one loop, which we'll call the loop under inspection, and ask the following questions: what is the total source voltage in this loop? This yields the voltage constant for the equation. Then sum all of the resistance values in the loop under inspection. This yields the coefficient for that current term. For the remaining current coefficients in this equation, sum the resistances that are in common between the loop under inspection and the other loops, respectively. These values will always be negative. Repeat this process for all loops, with each loop in turn becoming the loop under inspection. As was the case with nodal analysis, the set of equations produced must exhibit diagonal symmetry
+            \bigbreak \noindent 
+            While it is possible to extend this technique to include current sources, it is often easier and less error-prone to convert the current sources into voltage sources and continue with the direct inspection method outlined above. Either way, it is important to remember that the number of loops determines the number of equations to be solved.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/61.png}
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                50V &= (100 + 200)I_{1} - 200I_{2} = 300I_{1} - 200I_{2} \\
+                0V &= (300 + 400 + 200)I_{2} - 200I_{1} - 400I_{3} = - 200I_{1} + 900I_{2}  - 400I_{3} \\
+                20V &= (500 + 400)I_{3} - 400I_{2} = 0I_{1} - 400I_{2} + 900 I_{3}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \begin{pmatrix} 300 & -200 & 0 \\ -200 & 900 & -400 \\ 0 & -400 & 900 \end{pmatrix}\begin{pmatrix} I_{1} \\ I_{2} \\ I_{3} \end{pmatrix} = \begin{pmatrix} 50 \\ 0 \\ 20 \end{pmatrix}
+            .\end{align*}
+        \item \textbf{Supermesh}: Sometimes you may run across a current source which has no associated internal resistance
+            \bigbreak \noindent 
+            This is similar to the situation seen previously under nodal analysis where a voltage source does not have a specified internal resistance. There are two ways of solving this predicament. The first is add a very large resistance in parallel with the current source and then perform a source conversion on the pair so that the inspection method of mesh can be followed. The larger the value of this resistor, the more accuracy that is obtained. As a general rule it should be, at minimum, at least a couple of orders of magnitude larger than any surrounding resistor, and preferably larger. The second method is to use supermesh. A supermesh is a larger mesh loop that contains other mesh loops inside of it.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/62.png}
+            \bigbreak \noindent 
+            In the center we have a current source, Is, which lacks an associated internal resistance. Two traditional mesh loops, $I_1$ and $I_2$, are labeled as usual. The problem here is that we cannot use an Ohm's law based $IR$ voltage drop for Vb. We have no way to express this as the voltage across Is is an unknown. On the other hand, what we do know is that Is must equal the combination of the traditional mesh currents $I_1$ and $I_2$. That is, from the perspective of the first loop, $I_{s} = I_{1} - I_{2}$. Remember, one or both of the mesh currents could be negative, and thus rotating counterclockwise.
+            \bigbreak \noindent 
+            At this point we invoke the idea of a supermesh loop. First, we replace the offending current source with its ideal internal resistance (an open). The supermesh loop is drawn which encompasses the original two loops.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/63.png}
+            \bigbreak \noindent 
+            We now perform a KVL summation around the supermesh loop, similar to what we have done previously. The difference this time is that we need to recognize that components each see one of the original mesh currents; namely $I_1$ or $I_2$ in this case. We do not solve for a supermesh current, we simply use the supermesh to define the loop for the KVL summation
+            \begin{align*}
+                \sum V_{\text{rises}} = E_{1} = \sum V_{\text{drops}} = V_{R_{1}} + V_{R_{2}} + E_{2}
+            .\end{align*}
+            The voltage drops across the resistors can be expanded using Ohm's law, using the original mesh current associated with each resistor.
+            \begin{align*}
+                E_{1} - E_{2} = I_{1}R_{1} + I_{2}R_{2}
+            .\end{align*}
+            By inspection,
+            \begin{align*}
+                I_{S} = I_{1} - I_{2} 
+            .\end{align*}
+            We now have two equations with two unknowns and can solve for $I_1$ and $I_2$.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/64.png}
+            \bigbreak \noindent 
+            So, we have
+            \bigbreak \noindent 
+            \fig{.6}{./figures/65.png}
+            \bigbreak \noindent 
+            By KVL, we have
+            \begin{align*}
+                20 = 5I_{1} + 8I_{2} + 12
+            .\end{align*}
+            So, 
+            \begin{align*}
+                8 = 5I_{1} + 8I_{2}
+            .\end{align*}
+            By inspection, 
+            \begin{align*}
+                3 = -I_{1} - I_{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \begin{pmatrix} 5 & 8 \\ -1 & 1 \end{pmatrix}\begin{pmatrix} I_{1} \\ I_{2} \end{pmatrix} = \begin{pmatrix} 8 \\ 3 \end{pmatrix}
+            .\end{align*}
+            So,
+            \begin{align*}
+                I_{1} &= -1.231A \\
+                I_{2} &= 1.769A
+            .\end{align*}
+        \item \textbf{Dependent Sources}: 
 
 
 
