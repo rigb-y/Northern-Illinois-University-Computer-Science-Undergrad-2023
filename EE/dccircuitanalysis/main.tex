@@ -1405,10 +1405,335 @@
             where $X$ and $Y$ are currents or voltages and $k$ is a proportionality factor. For example, the value of a dependent voltage source may be a function of a current, so instead of the source being equal to, say, 10 volts, it could be equal to twenty times the current passing through a particular resistor, or $V=20I$.
             \bigbreak \noindent 
             There are four possible dependent sources: the voltage-controlled voltage source (VCVS), the current-controlled voltage source (CCVS), the voltage-controlled current source (VCCS), and the current-controlled current source (CCCS).
+            \bigbreak \noindent 
+            The source and control parameters are the same for both the VCVS and the CCCS so k is unitless (although it may be given as volts/volt and amps/amp, respectively). For the VCCS and CCVS, k has units of amps/volt and volts/amp, respectively. These are referred to as the \textbf{transconductance} and \textbf{transresistance} of the sources with units of siemens and ohms, respectively.
+            \bigbreak \noindent 
+            The schematic symbols for dependent or controlled sources are usually drawn using a diamond. Also, there may be a secondary connection for the controlling current or voltage.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/66.png}
+            \bigbreak \noindent 
+            On each of these symbols, the control element is shown to the left of the source. This portion is not always drawn on a schematic. Instead, the source simply may be labeled as a function. For example,
+            \begin{align*}
+                V = 0.02 I_{x}
+            \end{align*}
+            where $I_{x}$i s the controlling current. Dependent sources are not “off-the-shelf” items in the same way that a battery is. Rather, dependent sources usually are used to model the behavior of more complex devices. For example, a bipolar junction transistor commonly is modeled as a CCCS while a field effect transistor may be modeled as a VCCS.
+            \bigbreak \noindent 
+            Similarly, many op amp circuits are modeled as VCVS systems. Solutions for circuits using dependent sources follow along the lines of those established for independent sources (i.e., the application of Ohm's law, KVL, KCL, etc.), however, the sources are now dependent on the remainder of the circuit which tends to complicate the analysis.
+        \item \textbf{Isolated and coupled}: In general, there are two possible configurations: isolated and coupled. A example of the isolated form is
+            \bigbreak \noindent 
+            \fig{.6}{./figures/67.png}
+            \bigbreak \noindent 
+            In this configuration, the dependent source (center) does not interact with the subcircuit on the left driven by the independent source, thus it can be analyzed as two separate circuits. Solutions for this form are relatively straightforward in that the control value for the dependent source can be computed directly. This value is then substituted into the dependent source and the analysis continues as is usual. Sometimes it is convenient if the solution for a particular voltage or current is defined in terms of the control parameter rather than as a specific value (e.g., the voltage across a particular resistor might be expressed as 8 $V_{A}$ instead of 12 volts, where $V_{A}$ is 1.5 volts).
+            \bigbreak \noindent 
+            The second type of circuit (coupled) is somewhat more complex in that the dependent source can affect the parameter that controls the dependent source. In other words, the dependent source(s) will contribute terms that include the controlling parameter(s), thus partly controlling itself. Some additional effort will be in order to solve these circuits.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/68.png}
+            \bigbreak \noindent 
+            In this example it should be obvious that the current from the dependent source can affect the voltage at node a, and it is this very voltage that in turn sets up the value of the current source. Circuits of this type can be analyzed using mesh or nodal analysis. Nodal analysis works well here and is illustrated following.
+            \bigbreak \noindent 
+            We begin by defining current directions. Assume that the currents through $R_1$ and $R_3$ are flowing into node $a$, the current through $R_2$ is flowing out of node $a$, and the current through $R_4$ is flowing out of node $b$. We shall number the branch currents to reflect the associated resistor.
+            \begin{align*}
+                &\text{Node $a$: } I_{1} + I_{3} = I_{2} \\
+                &\text{Node $b$: } kV_{a} = I_{3} + I_{4}
+            .\end{align*}
+            Notice that 
+            \begin{align*}
+                I_{1} &= \frac{E - V_{a}}{R_{1}} \\
+                I_{2} &= \frac{V_{a}}{R_{2}} \\
+                I_{3} &= \frac{V_{b} - V_{a}}{R_{3}} \\
+                I_{4} &= \frac{V_{b}}{R_{4}}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                &\text{Node $a$: } \frac{E - V_{a}}{R_{1}} + \frac{V_{b}-V_{a}}{R_{3}} = \frac{V_{a}}{R_{2}} \\
+                &\text{Node $b$: } kV_{a} = \frac{V_{b} - V_{a}}{R_{3}} + \frac{V_{b}}{R_{4}}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                &\text{Node $a$: } \frac{E}{R_{1}} - \frac{V_{a}}{R_{1}} + \frac{V_{b}}{R_{3}} - \frac{V_{a}}{R_{3}} = \frac{V_{a}}{R_{2}} \\
+                &\text{Node $b$: } kV_{a} = \frac{V_{b}}{R_{3}} - \frac{V_{a}}{R_{3}} + \frac{V_{b}}{R_{4}}
+            .\end{align*}
+            So,
+            \begin{align*}
+                &\text{Node $a$: } \frac{E}{R_{1}} = \left(\frac{1}{R_{1}} + \frac{1}{R_{2}} + \frac{1}{R_{3}}\right)V_{a} - \frac{1}{R_{3}}V_{b} \\
+                &\text{Node $b$: } 0 = -\left(k + \frac{1}{R_{3}}\right)V_{a} + \left(\frac{1}{R_{3}} + \frac{1}{R_{4}}\right)V_{b}
+            .\end{align*}
+            Values for the resistors, $k$, and $E$ normally are known, so the analysis proceeds directly.
+            \bigbreak \noindent 
+            Also, it is worth remembering that it is possible to perform source conversions on dependent sources, within limits. The same procedure is followed as for independent sources. The new source will remain a dependent source (e.g., converting VCVS to VCCS). This process is not applicable if the control parameter directly involves the internal impedance (i.e., is its voltage or current).
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/69.png}
+            \bigbreak \noindent 
+            First observe that $a$ and $b$ refer to the same node. This CCCS would be typical of a simple model of a bipolar junction transistor (nodes $a$, $b$, and $c$). Ideally, the output voltage, $V_{c}$, would be equal to the input voltage (1 V) times the resistor ratio of 15 k$\Omega$ / 2 k$\Omega$ and inverted, or approximately -7.5 volts. In reality, it usually comes up a little short of this. Let's see how well this works out.
+            \bigbreak \noindent 
+            Note that
+            \begin{align*}
+                I_{x} = \frac{1V - V_{b}}{10k}
+            .\end{align*}
+            Using KCL at node $b$, we have
+            \begin{align*}
+                I_{x} + 100I_{x} = 101I_{x} = 101 \frac{1-V_{b}}{10000} = \frac{V_{b}}{2000}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \frac{101}{10k} = \left(\frac{1}{2k} + \frac{101}{10k}\right)V_{b}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                V_{b} = 0.95283V
+            .\end{align*}
+            For node $c$:
+            \begin{align*}
+                -\frac{V_{c}}{15k} = 100I_{x} = 100 \frac{1-V_{b}}{10k}
+            .\end{align*}
+            So,
+            \begin{align*}
+                V_{c} = -7.0755V
+            .\end{align*}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Capacitors}
+    \begin{itemize}
+        \item \textbf{Intro}: Capacitors are fundamentally different from resistors in terms of both their construction and their operation. For starters, when placed in DC circuits, capacitors are not ohmic, unlike resistors. Their current-voltage characteristic does not respond to Ohm's law. Instead, their current-voltage characteristic is dynamic in nature. Further, in the ideal case, capacitors do not dissipate power. Indeed, capacitors are energy storage devices. In a way, you could imagine them to be a little like rechargeable batteries, but unlike batteries these devices could be charged or discharged in tiny fractions of a second and last for billions upon billions of cycles.         
+            \bigbreak \noindent 
+            Capacitors are an integral part of modern electronic systems. They are used in AC-to-DC power supplies to help smooth and stabilize the output voltage. In audio and communications systems they are used in filters, for example to control the high and low frequency response of amplifiers and similar equipment, or for tuning purposes. Essentially, in any application that needs to smooth out a varying voltage, store electric charge or filter a signal; a capacitor is likely to be used.
+        \item \textbf{Capacitance and Capacitors}: A capacitor is a device that stores energy. Capacitors store energy in the form of an electric field. At its most simple, a capacitor can be little more than a pair of metal plates separated by air. As this constitutes an open circuit, DC current will not flow through a capacitor. If this simple device is connected to a DC voltage source. Negative charge will build up on the bottom plate while positive charge builds up on the top plate. This process will continue until the voltage across the capacitor is equal to that of the voltage source. In the process, a certain amount of electric charge will have accumulated on the plates.
+            \bigbreak \noindent 
+            \fig{.8}{./figures/70.png}
+            \bigbreak \noindent 
+            The ability of this device to store charge with regard to the voltage appearing across it is called \textbf{capacitance}. Its symbol is $C$ and it has units of \textbf{farads (F)}.
+            \bigbreak \noindent 
+            By definition, if a total charge of 1 coulomb is associated with a potential of 1 volt across the plates, then the capacitance is 1 farad
+            \begin{align*}
+                1 \text{ farad } \equiv 1 \text{ coulomb } / 1 \text{ volt}
+            .\end{align*}
+            That is,
+            \begin{align*}
+                C = \frac{Q}{V}
+            .\end{align*}
+            For any given voltage, the greater the capacitance, the greater the amount of charge that can be stored. We can also see that, given a certain size capacitor, the greater the voltage, the greater the charge that is stored. These observations relate directly to the amount of energy that can be stored in a capacitor.
+            \bigbreak \noindent 
+            Unsurprisingly, the energy stored in capacitor is proportional to the capacitance. It is also proportional to the square of the voltage across the capacitor.
+            \begin{align*}
+                W = \frac{1}{2}CV^{2}
+            .\end{align*}
+            The basic capacitor consists of two conducting plates separated by an insulator, or dielectric. This material can be air or made from a variety of different materials such as plastics and ceramics.
+            \bigbreak \noindent 
+            \fig{.8}{./figures/71.png}
+            \bigbreak \noindent 
+            For practical capacitors, the plates may be stacked alternately or even made of foil and formed into a rolled tube. However it is constructed, the characteristics of the dielectric will play a major role in the performance of the device, as we shall see.
+            \bigbreak \noindent 
+            In general, capacitance increases directly with plate area, $A$, and inversely with plate separation distance, $d$. Further, it is also proportional to a physical characteristic of the dielectric; the \textbf{permittivity}, $\varepsilon$. Thus, capacitance is equal to:
+            \begin{align*}
+                C = \varepsilon \frac{A}{d}
+            .\end{align*}
+        \item \textbf{Fringing}: It should be noted that the effective plate area is somewhat larger than the precise physical area of the plates. This is due to a phenomenon called \textbf{fringing}. Essentially, the electric field lines bulge outward at the plate edges rather than maintain uniform parallel orientation.
+            \bigbreak \noindent 
+            \fig{.8}{./figures/72.png}
+        \item \textbf{Efficiency}: the permittivity of the dielectric plays a major role in determining the \textbf{volumetric efficiency} of the capacitor, in other words, the amount of capacitance that can be packed into a given sized component. Some dielectrics are notably more efficient than others. To make comparisons easier, \textbf{relative permittivity} is often used, that is, the ratio of the dielectric's permittivity to that of a vacuum, $\varepsilon_{0}$
+            \bigbreak \noindent 
+            It might seem that choosing the dielectric with the highest permittivity would be the best choice but this is not necessarily the case. There are several other factors that go into this decision including temperature stability, leakage resistance (effective parallel resistance), ESR (equivalent series resistance) and breakdown strength. For an ideal capacitor, leakage resistance would be infinite and ESR would be zero.
+        \item \textbf{Breakdown strength}: Unlike resistors, capacitors do not have maximum power dissipation ratings. Instead, they have maximum voltage ratings. The \textbf{breakdown strength} of the dielectric will set an upper limit on how large of a voltage may be placed across a capacitor before it is damaged.
+            \bigbreak \noindent 
+            Breakdown strength is measured in volts per unit distance, thus, the closer the plates, the less voltage the capacitor can withstand. For example, halving the plate distance doubles the capacitance but also halves its voltage rating.
+        \item \textbf{Capacitor Styles and Packaging}: Unlike resistors, whose physical size relates to their power rating and not their resistance value, the physical size of a capacitor is related to both its capacitance and its voltage rating
+            \bigbreak \noindent 
+            Modest surface mount capacitors can be quite small while the power supply filter capacitors commonly used in consumer electronics devices such as an audio amplifier can be considerably larger than a D cell battery
+            \bigbreak \noindent 
+            For large capacitors, the capacitance value and voltage rating are usually printed directly on the case. Some capacitors use “MFD” which stands for “microfarads”. While a capacitor color code exists, rather like the resistor color code, it has generally fallen out of favor. For smaller capacitors a numeric code is used that echoes the color code. Typically it consists of a three digit number such as “152”.
+            \bigbreak \noindent 
+            The first two digits are the precision portion and the third digit is the power of ten multiplier. The result is in picofarads. Thus, 152 is 1500 pf.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/73.png}
+            \bigbreak \noindent
+            \fig{.6}{./figures/74.png}
+        \item \textbf{Capacitor Data Sheet}: 
+            \bigbreak \noindent 
+            \fig{.6}{./figures/75.png}
+        \item \textbf{Capacitors in Series and in Parallel}: Multiple capacitors placed in series and/or parallel do not behave in the same manner as resistors. Placing capacitors in parallel increases overall plate area, and thus increases capacitance,
+            \bigbreak \noindent 
+            Therefore capacitors in parallel add in value, behaving like resistors in series. In contrast, when capacitors are placed in series, it is as if the plate distance has increased, thus decreasing capacitance. Therefore capacitors in series behave like resistors in parallel. Their value is found via the reciprocal of summed reciprocals or the product-sum rule.
+            \bigbreak \noindent 
+            If a circuit contains nothing but a voltage source in parallel with a group of capacitors, the voltage will be the same across all of the capacitors, just as it is in a resistive parallel circuit. If the circuit instead consists of multiple capacitors that are in series with a voltage source
+            \bigbreak \noindent 
+            the voltage will divide between them in inverse proportion. In other words, the larger the capacitance, the smaller its share of the applied voltage. The voltages can also be found by first determining the series equivalent capacitance. The total charge may then be determined using the applied voltage. 
+            \bigbreak \noindent 
+            Finally, the individual voltages are computed from
+            \begin{align*}
+                V = \frac{Q}{C}
+            .\end{align*}
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/76.png}
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                C_{\text{total}} &= \frac{1}{\frac{1}{C_{1}} + \frac{1}{C_{2}} + \frac{1}{C_{3}}} =1.143\mu F
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                Q = VC = 12V (1.143)\mu F = 13.71\mu C
+            .\end{align*}
+            Charge is constant across all of the series capacitors, so
+            \begin{align*}
+                V_{2\mu F} &= \frac{13.71}{2} = 6.855V, \\
+                V_{4\mu F} &= \frac{13.71}{4} = 3.427V, \\
+                V_{8\mu F} &= \frac{13.71}{8} = 1.714V
+            .\end{align*}
+            The sum of the three voltages is 12 volts (within rounding error) and verifies KVL as expected.
+        \item \textbf{Note:} While it may be tempting to try, do not attempt to verify the operation of Example 8.3 in the laboratory using a standard DMM. The reason is because the internal resistance of a typical digital voltmeter is many orders of magnitude lower than the leakage resistance of the capacitors. As a result, charge will be transferred to the meter, ruining the measurement. It would be akin to trying to measure the voltages across a string of resistors, each in excess of 100 M$\Omega$, with a meter whose internal resistance is 1 M$\Omega$. The meter's resistance dominates the parallel combination and causes excessive loading which ruins the measurement. A special sort of voltmeter, an electrostatic voltmeter or electrometer, is needed for these types of measurements. These are sometimes referred to as non-charge transfer meters.
+        \item \textbf{Current-Voltage Relationship}: The fundamental current-voltage relationship of a capacitor is not the same as that of resistors. Capacitors do not so much resist current; it is more productive to think in terms of them reacting to it. The current through a capacitor is equal to the capacitance times the rate of change of the capacitor voltage with respect to time (i.e., its slope). That is, the value of the voltage is not important, but rather how quickly the voltage is changing. Given a fixed voltage, the capacitor current is zero and thus the capacitor behaves like an open. If the voltage is changing rapidly, the current will be high and the capacitor behaves more like a short. Expressed as a formula
+            \begin{align*}
+                i = C \frac{dv}{dt}
+            .\end{align*}
+            Note that $i$ is the current flowing through the capacitor. From this, we see 
+            \begin{align*}
+                \frac{dv}{dt} = \frac{i}{C}
+            .\end{align*}
+            If a capacitor is fed by a constant current source, the voltage will rise at a constant rate ($dv/dt$). It is continuously depositing charge on the plates of the capacitor at a rate of $I$, which is equivalent to $Q/t$. As long as the current is present, feeding the capacitor, the voltage across the capacitor will continue to rise. A good analogy is if we had a pipe pouring water into a tank, with the tank's level continuing to rise. This process of depositing charge on the plates is referred to as charging the capacitor.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/77.png}
+            \bigbreak \noindent 
+            \fig{.6}{./figures/78.png}
+            \bigbreak \noindent 
+            As time progresses, the voltage across the capacitor increases with a positive polarity from top to bottom. With a theoretically perfect capacitor and source, this would continue forever, or until the current source was turned off. In reality, this line would either begin to deflect horizontally as the source reached its limits, or the capacitor would fail once its breakdown voltage was reached. The slope of this line is dictated by the size of the current source and the capacitance
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/79.png}
+            \bigbreak \noindent 
+            We wish to determine the rate of change of voltage across the capacitor, and determine the capacitors voltage 10 ms after power is switched on.
+            \begin{align*}
+                \frac{dv}{dt} = \frac{i}{C} = \frac{-5\mu A}{30nF} = -166.7 \frac{V}{s}
+            .\end{align*}
+            So, after 10 ms, we see
+            \begin{align*}
+                -166.7(10) = -1.667V
+            .\end{align*}
+            This is assuming it is completely uncharged when power is applied.
+        \item \textbf{Limit}: If a capacitor is driven by a fixed current source, the voltage across it rises at the constant rate of $i/C$. There is a limit to how quickly the voltage across the capacitor can change. An instantaneous change means that $dv/dt$ is infinite, and thus, the current driving the capacitor would also have to be infinite (an impossibility). This is not an issue with resistors, which obey Ohm's law, but it is a limitation of capacitors. Therefore we can state a particularly important characteristic of capacitors:
+            \begin{quote}
+               "\textit{The voltage across a capacitor cannot change instantaneously.}" 
+            \end{quote}
+            Note that instantaneous change means the voltage changes in zero time. Thus, the rate becomes infinitely large. This would force the current $i$ to also be infinite.
+            \bigbreak \noindent 
+            This observation will be key to understanding the operation of capacitors in DC circuits.
+        \item \textbf{Initial and Steady-State Analysis of RC Circuits}: When analyzing resistor-capacitor circuits, always remember that capacitor voltage cannot change instantaneously. If we assume that a capacitor in a circuit is not initially charged, then its voltage must be zero. 
+            \bigbreak \noindent 
+            The instant the circuit is energized, the capacitor voltage must still be zero. If there is no voltage across the device, then it is behaving like a short circuit. We call this the initial state. Thus, we have our first rule regarding RC circuits:
+            \begin{quote}
+                "\textit{For DC analysis, initially capacitors appear as shorts}"
+            \end{quote}
+            Assume that $C_{1}$ and $C_{2}$ are initially uncharged and there is no voltage across them.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/80.png}
+            \bigbreak \noindent 
+            The instant power is applied, the two capacitors appear as short circuits. If we redraw the circuit for this instant in time
+            \bigbreak \noindent 
+            \fig{.6}{./figures/81.png}
+            \bigbreak \noindent 
+            Given this equivalent, we can see that shorting $C_2$ places $R_2$ and $R_3$ in parallel, however, they are both shorted out by $C_1$. This leaves only $R_1$ left in the circuit along with the source, $E$. At this point, currents will begin to flow, and thus begin charging up the capacitors. As the capacitor voltages rise, the current will begin to decrease, and eventually the capacitors will stop charging. At that point no further current will be flowing, and thus the capacitor will behave like an open. We call this the \textbf{steady-state condition} and we can state our second rule:
+            \begin{quote}
+               "\textit{At steady-state, capacitors appear as opens.}" 
+            \end{quote}
+            Current decreases as a capacitor charges because the voltage building up across the capacitor's plates grows closer to the supply voltage, reducing the effective voltage difference that pushes electrons through the circuit
+            \bigbreak \noindent 
+            The current flowing into a capacitor is directly proportional to how fast its voltage changes over time (\(i = C \frac{dv}{dt}\)). As the capacitor approaches full charge, the voltage changes more slowly (\[\frac{dv}{dt}\] approaches zero), which forces the current down to zero.
+            \bigbreak \noindent 
+            at steady-state both capacitors behave as opens
+            \bigbreak \noindent 
+            \fig{.8}{./figures/82.png}
+            \bigbreak \noindent 
+            This leaves $E$ to drop across $R_1$ and $R_2$. This will create a simple voltage divider. The steady-state voltage across $C_1$ will equal that of $R_2$. As $C_2$ is also open, the voltage across $R_3$ will be zero while the voltage across $C_2$ will be the same as that across $R_2$.
+            \bigbreak \noindent 
+            In reality, practical capacitors can be thought of as an ideal capacitance in parallel with a very large (leakage) resistance, so there will be a limit to this performance.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/83.png}
+            \bigbreak \noindent 
+            Initially, the capacitor is treated as a short. Thus, 
+            \begin{align*}
+                V_{6k} = 24 - \frac{24}{6k||3k+1k}(1000) = 16V
+            .\end{align*}
+            When the capacitor is fully charged, we treat it as an open. Thus,
+            \begin{align*}
+                V_{6k}= 24 - \frac{24}{1k + 6k}(1000) = 20.57V
+            .\end{align*}
+            \textbf{Remark}: A capacitor acts like a short circuit only at the exact moment \(t=0\) when it is completely uncharged, and transitions gradually into an open circuit as the voltage across it builds up
+        \item \textbf{Transient Response of RC Circuits}: The question remains, “What happens between the time the circuit is powered up and when it reaches steady-state?” This is known as the transient response
+            \bigbreak \noindent 
+            \fig{.8}{./figures/84.png}
+            \bigbreak \noindent 
+            The key to the analysis is to remember that capacitor voltage cannot change instantaneously. Assuming the capacitor is uncharged, the instant power is applied, the capacitor voltage must be zero. Therefore all of the source voltage drops across the resistor. This creates the initial current, and this current starts to charge the capacitor
+            \bigbreak \noindent 
+            According to Kirchhoff's voltage law, as the capacitor voltage begins to increase, the resistor voltage must decrease because the sum of the two must equal the fixed source voltage. This means that the circulating current must also decrease
+            \bigbreak \noindent 
+            This, in turn, means that the rate of capacitor voltage increase begins to slow. As the capacitor voltage continues to increase, less voltage is available for the resistor, causing further reductions in current, and a further slowing of the rate of capacitor voltage change. Eventually, the capacitor voltage will be nearly equal to the source voltage.
+            \bigbreak \noindent 
+            This will result in a very small potential across the resistor and an equally small current, slowing subsequent capacitor voltage increases to a near standstill.
+            \bigbreak \noindent 
+            Theoretically, the capacitor voltage approaches the source voltage but never quite equals it.
+            \bigbreak \noindent 
+            Similarly, the current drops to near zero, but never completely turns off.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/85.png}
+            \bigbreak \noindent 
+            The dashed red line represents the initial rate of change of capacitor voltage. This trajectory is what would be expected if an ideal current source drove the capacitor. As noted previously, the rate of voltage change versus times is equal to $i/C$, and therefore in this case, $E/(RC)$. If the initial rate of change were to continue unabated, the source voltage, $E$, would be reached in $RC$ seconds. Consequently, $RC$ is referred to as the charge \textbf{time constant} and is denoted by $\tau$. Thus
+            \begin{align*}
+                \tau = RC
+            .\end{align*}
+            As noted, once the capacitor begins to charge, the current begins to decrease and the capacitor voltage curve begins to fall away from the initial trajectory. The solid red curve represents the capacitor voltage. Notice that after five time constants the capacitor is nearly fully charged and the circuit is considered to be in steady-state
+            \begin{quote}
+               "\textit{Steady-state is reached in approximately five time constants.}" 
+            \end{quote}
+            This sort of recursively dependent operation is characteristic of exponential functions. The equation for the capacitor's voltage charging curve is:
+            \begin{align*}
+                V_{C}(t) = E\left(1-e^{-\frac{t}{\tau}}\right)
+            .\end{align*}
+            The dashed blue line shows the initial slope of current change. The solid blue curve shows the circulating current (and by extension of Ohm's law, the resistor voltage). The equation for this curve, which follows the general shape $e^{-t}$ is 
+            \begin{align*}
+                I(t) &= \frac{E}{R}e^{-\frac{t}{\tau}}, \\
+                V_{R}(t) &= Ee^{-\frac{t}{\tau}}
+            .\end{align*}
+            Once power is removed or bypassed, the stored charge on the capacitor will dissipate through any associated resistor(s) creating a discharge current which will end with the capacitor voltage drained back to zero. During the discharge phase, both the capacitor's voltage and current will follow the solid blue curve
+            \bigbreak \noindent 
+            The discharge time constant may be different from the charge times constant, depending on the associated resistances.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/86.png}
+            \bigbreak \noindent 
+            Assume the switch is closed at time $t = 0$. Determine the charging time constant, the amount of time after the switch is closed before the circuit reaches steady-state, and the capacitor voltage at $t = 0$, $t = 50$ milliseconds and $t = 1$ second. Assume the capacitor is initially uncharged.
+            \bigbreak \noindent 
+            The time constant is 
+            \begin{align*}
+                \tau = RC = 50k\Omega \cdot 2\mu F = 100ms
+            .\end{align*}
+            Steady-state will be reached in five time constants, or 500 milliseconds. So,
+            \begin{align*}
+                V_{C}(0) &= 0V,\\
+                V_{C}(1) &= 100V
+            .\end{align*}
+            Also,
+            \begin{align*}
+                V_{C}(50) = 100V\left(1-e^{-\frac{50}{100}}\right) \approx 39.35V
+            .\end{align*}
+            
+            
+            
+            
+
 
 
 
     \end{itemize}
+
 
 
 
