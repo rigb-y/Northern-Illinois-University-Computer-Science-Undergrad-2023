@@ -1532,6 +1532,12 @@
             \begin{align*}
                 C = \varepsilon \frac{A}{d}
             .\end{align*}
+        \item \textbf{Dielectric}: A dielectric is an electrical insulator that can store electrical energy when placed in an electric field through a process called polarization. 
+        \item \textbf{Polarization}: When exposed to an external electric field, the positive and negative charges inside the material shift slightly. Positive charges move toward the field, and negative charges move in the opposite direction, creating tiny internal electric dipoles. This is \textbf{polarization}.
+            \bigbreak \noindent 
+            In polarization, the charges cannot escape because they are tightly bound to the atoms or molecules of the dielectric material. Unlike conductors, dielectrics do not have "free electrons."
+        \item \textbf{Dipoles}: A dipole is a separation of positive and negative charges (or magnetic poles) over a small distance, creating an overall neutral object or molecule that has distinct positive and negative ends.
+        \item \textbf{Permittivity}: Dielectric permittivity measures how much a material polarizes and stores electrical energy when placed in an external electric field
         \item \textbf{Fringing}: It should be noted that the effective plate area is somewhat larger than the precise physical area of the plates. This is due to a phenomenon called \textbf{fringing}. Essentially, the electric field lines bulge outward at the plate edges rather than maintain uniform parallel orientation.
             \bigbreak \noindent 
             \fig{.8}{./figures/72.png}
@@ -1666,6 +1672,31 @@
                 V_{6k}= 24 - \frac{24}{1k + 6k}(1000) = 20.57V
             .\end{align*}
             \textbf{Remark}: A capacitor acts like a short circuit only at the exact moment \(t=0\) when it is completely uncharged, and transitions gradually into an open circuit as the voltage across it builds up
+        \item \textbf{Time constant resistance}: Use the equivalent resistance seen by the capacitor, i.e the Thevenin resistance
+            \begin{align*}
+                \tau = R_{\text{th}}C
+            .\end{align*}
+        \item \textbf{Note on the time constant $\tau$}: Recall that 
+            \begin{align*}
+                C = \frac{Q}{V}
+            ,\end{align*}
+            with
+            \begin{align*}
+                Q = It
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                C = \frac{It}{V}
+            .\end{align*}
+            Now, with $V = IR$, 
+            \begin{align*}
+                \frac{1}{I} = \frac{R}{V}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \tau = RC = \frac{R}{V}It = \frac{1}{I}It = t
+            .\end{align*}
+            So, $\tau$ is indeed a measure of time.
         \item \textbf{Transient Response of RC Circuits}: The question remains, “What happens between the time the circuit is powered up and when it reaches steady-state?” This is known as the transient response
             \bigbreak \noindent 
             \fig{.8}{./figures/84.png}
@@ -1724,15 +1755,615 @@
             \begin{align*}
                 V_{C}(50) = 100V\left(1-e^{-\frac{50}{100}}\right) \approx 39.35V
             .\end{align*}
-            
-            
-            
-            
+            \bigbreak \noindent 
+            Next, consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/87.png}
+            \bigbreak \noindent 
+            At time $t = 0$ the switch contacts position 1. The switch is thrown to position 2 at time $t = 50$ milliseconds.
+            \bigbreak \noindent 
+            Determine the charging time constant, the amount of time after the switch is closed before the circuit reaches steady-state, the maximum charging and discharging currents, and the capacitor voltage at $t = 0$, $t = 50$ milliseconds, $t = 90$ milliseconds, and $t = 1$ second. 
+            \bigbreak \noindent 
+            We have 
+            \begin{align*}
+               \tau = 20k\Omega(220nF) = 4.4ms
+            .\end{align*}
+            Thus, steady-state will be reached in 
+            \begin{align*}
+                5\tau = 5(4.4) = 22ms
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                V_{C}(0) &= 0,\\
+                V_{C}(50) &= 12
+            .\end{align*}
+            The maximum charging current will occur at $t=0$ when all of the 12 volt source drops across the 20k$\Omega$ resistor, or 600$\mu A$, flowing left to right.
+            \bigbreak \noindent 
+            At $t=50$, the switch is thrown to position two. The 12 volt source and 20 k$\Omega$ resistor are no longer engaged. At this point the capacitor has 12 volts across it, positive to negative, top to bottom. As the capacitor voltage cannot change instantaneously, the capacitor now acts as a voltage source and discharges through the 120 k$\Omega$ resistor
+            \bigbreak \noindent 
+            Note that the discharge current is flowing counterclockwise, the opposite of the charging current. The discharge time constant is:
+            \begin{align*}
+                \tau_{\text{discharge}} = RC = 120000 \Omega \cdot 220 \times 10^{-9}F = 26.4ms
+            .\end{align*}
+            The capacitor will fully discharge down to 0 volts in 5 time constants, or some 132 milliseconds after the switch is thrown to position 2.
+            \bigbreak \noindent 
+            Thus steadystate occurs at $t = 182$ milliseconds. The maximum discharge current occurs the instant the switch is thrown to position 2 when all of the capacitor's 12 volts drops across the 120 k$\Omega$ resistor, yielding 100 $\mu A$, flowing top to bottom.
+            \bigbreak \noindent 
+            Clearly, at $t = 90$ milliseconds the capacitor is in the discharge phase. The capacitor's voltage and current during the discharge phase follow the solid blue curve of Figure 8.25. The elapsed time for discharge is 90 milliseconds minus 50 milliseconds, or 40 milliseconds net.
+            \begin{align*}
+                V_{C}(t) = Ee^{-\frac{t}{\tau}} = 12 - e^{-\frac{40}{26.4}} = 2.637V
+            .\end{align*}
+            \bigbreak \noindent 
+            Basic single resistor-capacitor circuits prove to be fairly easy to solve given a little practice, but what if a more complex circuit is used? In this situation the section feeding the capacitor may be simplified using Thevenin's theorem to determine the effective source voltage and charging resistance. The circuit then reverts back to a simple RC network which may be solved directly
+            \bigbreak \noindent 
+            If power is interrupted before the capacitor is fully charged, the equations presented previously may be used to determine the precise voltage(s) and current(s) reached. The capacitor will then behave as a voltage source and begin to discharge.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/98.png}
+            \bigbreak \noindent 
+            Determine the charging time constant, the amount of time after the switch is closed before the circuit reaches steady-state, and the capacitor voltage at $t = 0$, 100 milliseconds, and 200 milliseconds. At 200 milliseconds, the switch is opened. Determine how long it takes for the capacitor to fully discharge and the voltage across the 6 k$\Omega$ resistor at $t = 275$ milliseconds (i.e., 75 milliseconds after the switch is opened).
+            \bigbreak \noindent 
+            Let's use Thevenin. If we replace the capacitor with an open, we see that the Thevenin voltage $E_{th}$ is the voltage dropped by $R_{6k}$. With source current
+            \begin{align*}
+                I_{s} = \frac{24}{7000} = 0.003428A
+            ,\end{align*}
+            we have
+            \begin{align*}
+                E_{\text{th}} = 0.003428(6000) = 20.57V
+            .\end{align*}
+            Now, the resistance $R_{\text{th}}$ is 
+            \begin{align*}
+                R_{\text{th}} = 6k || 1k + 3k = 3.857
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \tau = 3.857 \times 10^{3} \cdot 10 \times 10^{-6} = 38.57ms
+            .\end{align*}
+            So,
+            \begin{align*}
+               5\tau = 192.85ms 
+            .\end{align*}
+            Thus, the capacitor will reach 20.57V in 192.85ms.
+            \begin{align*}
+                V_{C}(0) = 0V, \quad V_{C}(200) = 20.57V
+            .\end{align*}
+            At 100ms,
+            \begin{align*}
+                V_{C}(100) = E(1-e^{-\frac{t}{\tau}}) = 20.57\left(1-e^{-\frac{100}{38.57}}\right) = 19.03V
+            .\end{align*}
+            With the voltage source removed, the capacitor discharges.
+            \begin{align*}
+                \tau_{\text{discharge}} = RC = 9k\Omega(10\mu F) = 90ms
+            .\end{align*}
+            Steady-state after discharge will be reached 
+            \begin{align*}
+                5\tau_{\text{discharge}} = 450ms
+            .\end{align*}
+            Since the switch is flipped open at $t=200$, this occurs at $t=650ms$. Regarding $V_{6k}$ at $ t=275ms$,
+            \begin{align*}
+                V_{C}(275 - 200) = V_{C}(75) = 20.57\left(1-e^{-\frac{75}{90}}\right) = 8.94V
+            .\end{align*}
+            The current through the 6k and the 3k is 
+            \begin{align*}
+                I = \frac{8.94}{6000 + 3000}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                V_{6k} = \frac{8.94}{9000}\cdot 6000 = 5.96V
+            .\end{align*}
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Inductors}
+    \begin{itemize}
+        \item \textbf{Intro}: Inductors are fundamentally different from both resistors and capacitors in terms of their construction and their operation. Inductors do, however, share certain broad traits with capacitors. First, they are energy storage devices. In the case of the inductor, energy is stored in a magnetic field, similar to the case of the capacitor which utilizes an electric field. Further, in the ideal case, inductors do not dissipate power. Also like capacitors, when inductors are placed in DC circuits they are not ohmic, meaning that their current-voltage characteristic does not respond to Ohm's law. Instead, their currentvoltage characteristic is dynamic in nature. In some respects, though, their current-voltage behavior is opposite to the way in which capacitors behave, and thus they offer their own unique performance characteristics.
+            \bigbreak \noindent 
+            Unfortunately, real-world inductors generally do not behave as close to their desired ideal operation as do realworld capacitors. The secondary effects of inductor construction limit their performance; perhaps the most notable factor being their potentially large equivalent series resistance. They are also susceptible to external magnetic fields which can introduce noise and interference, degrading signal quality. For these reasons, there are areas where, given a choice, capacitors would be preferred over inductors. But this is by no means a broad condemnation and there are areas where the use of inductors is essential. Beyond this, the very concept of inductance is important in that informs designers of the practical limits of performance of their circuits.
+            \bigbreak \noindent 
+            Inductors are commonly referred to as coils or chokes, for reasons that will be apparent shortly.
+        \item \textbf{Unit and symbol}: The unit of inductance is the henry ($H$), the symbol for inductance is $L$.
+        \item \textbf{Inductance and Inductors}: To begin, we need to examine the interrelation between electric current and magnetic fields in a conductor. When a current passes through a conductor, such as a wire, a magnetic field is created around the conductor that is proportional to the strength of the current.
+            \bigbreak \noindent 
+            \fig{.8}{./figures/99.png}
+            \bigbreak \noindent 
+            The magnetic field can be thought of as sets of concentric rings around the conductor, although for clarity only single loops are drawn. The number of magnetic lines in a given area is known as the \textbf{magnetic flux} and is given the symbol $\Phi$. The unit of megnetic flux is the \textbf{weber} (wb).
+            \begin{align*}
+                \text{Magnetic flux } \equiv \text{ the number of magnetic lines enclosed in a given area}
+            .\end{align*}
+            Note that the magnetic field runs the length of the conductor. The direction of the field lines follows the right hand rule: if you grasp the wire with your right hand such that your thumb is pointing in the direction of conventional current flow, then your fingers wrap in the direction of the magnetic field.
+        \item \textbf{Electromagnetic induction}: A changing magnetic field induces an electric current in a conductor, a process known as electromagnetic induction.
+            \bigbreak \noindent 
+            A steady, unmoving magnetic field produces no current at all. The magnetic field must change over time to create electricity. This change involves the amount of magnetic field passing through a closed loop of wire, known as magnetic flux
+        \item \textbf{Solenoid}: If we form the conductor into a loop, the field lines are corralled into the center of the loop.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/100.png}
+            \bigbreak \noindent 
+            The enhancement effect can be magnified by adding more loops in tandem. This is known as a solenoid It is the most basic form of an inductor.
+            \bigbreak \noindent 
+            A solenoid is an electromechanical device that converts electrical energy into linear mechanical motion using a coil of wire and a movable metal core
+            \bigbreak \noindent 
+            An electric current flows through a tightly wound coil of copper wire. The current creates a uniform, directional magnetic field inside the coil. The magnetic field pulls a movable metal core (called a plunger or armature) into the center of the coil. A spring pushes the plunger back to its original resting position when the electric current is turned off.
+            \bigbreak \noindent 
+            \bigbreak \noindent 
+            \fig{.8}{./figures/102.png}
+            \bigbreak \noindent 
+            \fig{.8}{./figures/101.png}
+            \bigbreak \noindent 
+            In this figure, the coil is shown from the side, as a cross-section of the individual loops. The dots inside the conductors indicate that the current is flowing toward you, out of the page; while the the crosses indicate that the current is flowing into the page. The lines of flux exit out the right, loop around, and reenter from the left. Due to limited space, the entire loop for each line is not drawn, and it is important to remember that magnetic flux lines do not end, but always create a loop. Further, although it is shown as a plane here, this field is three dimensional, with lines looping back into the page as well as in front of it.
+            \bigbreak \noindent 
+            This is how electromagnets can be created. The north pole is the exiting end (right side), while the south pole is the entering end (left side). 
+            \bigbreak \noindent 
+            If the current changes, there will be a commensurate change in the magnetic field. Further, this change in the field will induce a current in the conductor that creates a magnetic field that opposes the original change in the field This is known as Lenz's law. Alternately, it can be stated that the induced current caused by a changing magnetic field will oppose the change in the original current that created that change in the original magnetic field.
+            \bigbreak \noindent 
+            At this point we can offer a proper definition of the weber:
+            \begin{quote}
+               \textit{1 weber $ \equiv $ the magnetic flux that, acting on a single loop of a conductor, produces a potential of 1 volt if the flux is reduced to zero at an even rate over 1 sec}
+            \end{quote}
+        \item \textbf{Induced current}: An induced current is an electric current produced in a conductor when it experiences a changing magnetic environment
+        \item \textbf{Magnetic flux density}: In magnetic circuits we are also interested in the magnetic flux density which is the magnetic flux per unit area. The symbol for flux density is $B$ and has units of teslas ($T$),
+            \begin{align*}
+                1 \text{ tesla } \equiv 1 \text{ weber } / \text{ meter }^{2}
+            .\end{align*}
+        \item \textbf{Inductance}: Finally, we come to the definition of inductance and its unit, the henry.
+            \bigbreak \noindent 
+            Inductance is a measure of the tendency of a conductor to oppose a change in the current flowing through it.
+            \begin{align*}
+                1 \text{ henry } \equiv  1 \text{ weber } / 1 \text{ amp}
+            .\end{align*}
+        \item \textbf{Work}: Unsurprisingly, the energy stored in the magnetic field of an inductor is proportional to the inductance. It is also proportional to the square of the current through the inductor
+            \begin{align*}
+                W = \frac{1}{2}LI^{2}
+            .\end{align*}
+        \item \textbf{Simple inductor}: An inductor in its simplest form consists of a series of wire loops. These might be wound around an iron core, although a non-ferrous core might also be used. For a simple single layer inductor, the inductance is described by the following formula:
+            \begin{align*}
+                L = \mu \frac{AN^{2}}{l}
+            .\end{align*}
+            \begin{itemize}
+                \item $L$ is the inductance in henries,
+                \item $\mu$ is the permeability of the core material,
+                \item $A$ is the cross sectional area of the coil,
+                \item $N$ is the number of coils or turns,
+                \item $l$ is the length of the coil.
+            \end{itemize}
+            \fig{.7}{./figures/103.png}
+        \item \textbf{Permeability}: Inductor permeability is a measure of how easily a magnetic core material can concentrate and support magnetic flux when an electric current flows through the inductor's coil.
+        \item \textbf{Why coils}: to concentrate and amplify the magnetic field, which maximizes the component's ability to store energy and oppose changes in electric current.
+            \bigbreak \noindent 
+            When electric current flows through a straight wire, it creates a weak, scattered circular magnetic field. By winding that same wire into a coil (solenoid), the magnetic fields from every individual loop add together (superpose) inside the center, creating a strong, dense, and uniform magnetic field.
+        \item \textbf{Inductor Styles and Packaging}: In order to achieve high inductance, we would like a core with high permeability, permeability being a measure of how easy it is to establish magnetic flux in said material. Substances such as iron or ferrite have a much greater permeability than air and are used commonly for cores. They do have a disadvantage in that they will saturate sooner than an air core, and this can lead to distortion. 
+            \bigbreak \noindent 
+            Another approach is to pack as many turns as is possible within a given length. One way to do this is to minimize the thickness of the insulation around the wire. This can be achieved by using a thin enamel coating instead of the typical plastic insulation. 
+            \bigbreak \noindent 
+            A second method is to use a very fine wire. This leads to two problems, namely an undesirable increase in equivalent series resistance (known colloquially as coil resistance or $R_{\text{coil}}$), and limited current carrying capacity. All of these effects have to be balanced in order to achieve the best performance for a given application.
+            \bigbreak \noindent 
+            Commercial inductors range in value from a fraction of a nanohenry for small surface mount “chip” inductors up to several henries. Some devices exhibit large internal inductances even though they are not specifically used as inductors. One common example is a transformer. Another example is an electric guitar or bass pickup. Units such as this may be constructed of several thousand turns of very fine wire (typically AWG 41 to 44) and achieve inductances in excess of one henry.
+            \bigbreak \noindent 
+            \textbf{Note:} The wound wire must be insulated otherwise each loop will short to the loops next to it and we'd be left with a tube instead of a series of loops.
+            \bigbreak \noindent 
+            \fig{.7}{./figures/104.png}
+            \bigbreak \noindent 
+            A variety of inductors is shown above, all of which are of the through-hole type (surface mount inductors do not appear considerably different from their surface mount resistor and capacitor cousins).
+            \bigbreak \noindent 
+            The two units toward the left are molded inductors and use a standard color code, similar to the ones used for resistors and capacitors. The unit at the top (yellow) is a high current inductor that features low $R_{\text{coil}}$.
+            \bigbreak \noindent 
+            The three inductors in the center use obvious ferrite cores, two wound on straight cores and the third wound on a toroidal core. The unit to the right uses a high permeability material at the very top and is wrapped in a plastic sheath for protection. Variable inductors are also a possibility and can be made by using a ferrite core that can be slid within the coils, effectively changing the permeability of the core (part ferrite, part air).
+        \item \textbf{Schematic symbol}: 
+            \bigbreak \noindent 
+            \fig{.8}{./figures/105.png}
+            \bigbreak \noindent 
+            The standard symbol is at the top. The variable inductor symbol is in the middle and is a two lead device, somewhat reminiscent of the symbol for a rheostat. At the bottom is the symbol for an inductor with an iron, ferrite, or similar high permeability core. In general, like resistors, single inductors are not polarized and cannot be inserted into a circuit backwards. There are, however, special applications where multiple coils can be wound on a common core, and for these, the polarity of their interconnection can make a difference.
+        \item \textbf{Inductors in Series and in Parallel}: Suppose we take two identical inductors and place them in series. This effectively doubles both the length and the number of loops. 
+            \bigbreak \noindent 
+            Suppose we take two identical inductors and place them in series. This effectively doubles both the length and the number of loops. This is because $N^{2}$ goes up by a factor of four which is then halved be the increased length. Consequently, inductors in series add values just like resistors in series. By extension, inductors in parallel behave like resistors in parallel. The equivalent of parallel inductors can be found by using either the product-sum rule or by taking the reciprocal of the sum of their reciprocals. 
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/106.png}
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                L = (12 || 6 + 5)mH = 9mH
+            .\end{align*}
+        \item \textbf{Current voltage relationship}: The fundamental current-voltage relationship of the inductor is the mirror image of that of the capacitor
+            \begin{align*}
+                v = L \frac{di}{dt}
+            .\end{align*}
+            This states that the voltage across the inductor is a function of how quickly the current is changing. If the current is not changing (i.e., in steady-state), then the voltage across the inductor is zero. In this case, the inductor behaves like a short, or more accurately, like its $R_{\text{coil}}$ value. In contrast, during a rapid initial current change, the inductor voltage can be large, and thus the inductor behaves like an open. In contrast, during a rapid initial current change, the inductor voltage can be large, and thus the inductor behaves like an open.
+            \bigbreak \noindent 
+            An inductor resists any change in its magnetic field. When current tries to rise rapidly from zero, the expanding magnetic field induces a voltage (back-EMF) that opposes the incoming source voltage.
+            \bigbreak \noindent 
+            Because the inductor drops nearly all of the supply voltage to force the initial current to start at zero, very little current flows right away. From the perspective of the rest of the circuit, it acts like an open circuit (infinite initial resistance/impedance).
+            \bigbreak \noindent 
+            When you first apply power to a circuit containing an inductor, the current tries to rush in. Because an inductor hates sudden changes in current, it fights back by instantly generating an opposing voltage (back-EMF) that is practically equal to the power supply's voltage.
+            \bigbreak \noindent 
+            An inductor resists changes in current because a changing current creates a changing magnetic field, which induces a fighting voltage (back-EMF) governed by Faraday's Law of Induction and Lenz's Law.  When current flows through an inductor’s coil, it builds a magnetic field. Changing that current means the magnetic field must grow or shrink. According to Faraday's Law, a changing magnetic field induces a voltage (electromotive force, or EMF) inside the coil. Lenz's Law states that this induced voltage will always try to oppose the change that caused it. If you try to increase the current, the inductor pushes back with a voltage that fights the incoming flow. If you try to decrease or stop the current, the collapsing magnetic field releases stored energy and pushes current forward to keep it from dropping.
+            \bigbreak \noindent 
+            If your battery is 10 Volts, the inductor instantly generates an opposing 10 Volts across itself. Because it matches the battery's push, it "absorbs" or drops the entire voltage right at its terminals. Because the inductor has generated an opposing voltage equal to the battery, the net voltage pushing current through the rest of the circuit is essentially zero (\(10\text{V} - 10\text{V} = 0\text{V}\)). With no net voltage to push it, the current is forced to start at exactly zero Amps at the very first moment (\(t = 0\)).
+            \bigbreak \noindent 
+            The inductor has "hogged" or absorbed all of the circuit's available electrical pressure. Because it uses up the full 10V just to fight the battery, there is no voltage left over to push current through the rest of the circuit.
+            \bigbreak \noindent 
+            Notice that
+            \begin{align*}
+                \frac{d}{dt} = \frac{v}{L}
+            .\end{align*}
+            Thus if an inductor is fed by a constant voltage source, the current will rise at a constant rate equal to $v/L$.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/108.png}
+            \bigbreak \noindent 
+            We see a voltage source feeding a single inductor. If we were to plot the inductor's current over time, we would see something like
+            \bigbreak \noindent 
+            \fig{.6}{./figures/107.png}
+            \bigbreak \noindent 
+            As time progresses, the current through the inductor increases, flowing from top to bottom. With a theoretically perfect inductor and source, this would continue as long as the circuit was energized. In reality, this line would either begin to deflect horizontally as the source reached its limits, or the inductor would fail once its maximum current or power handling was reached. The slope of this line is dictated by the size of the applied voltage source and the inductance.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.6}{./figures/109.png}
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                \frac{di}{dt} = \frac{v}{L} = \frac{10V}{50mH} = \frac{200A}{s}
+            .\end{align*}
+            As noted previously, if an inductor is driven by a fixed voltage source and ignoring $R_{\text{coil}}$, the current through it rises at the constant rate of $v/L$. This change in current through the inductor is not limitless. An instantaneous change requires that $di/dt$ is infinite, and thus, the voltage driving the inductor would also have to be infinite, which is a clear impossibility. Therefore we can state a particularly important characteristic of capacitors:
+            \bigbreak \noindent 
+            \begin{quote}
+               "\textit{The current through an inductor cannot change instantaneously}" 
+            \end{quote}
+        \item \textbf{Initial and Steady-State Analysis of RL Circuits}: When analyzing resistor-inductor circuits, remember that current through an inductor cannot change instantaneously as this would require an infinite voltage source. When a circuit is first energized, the current through the inductor will still be zero, which is characteristic of opens. Once at steady-state, the current has leveled out and therefore the voltage across the inductor will approach zero, which is characteristic of shorts. Thus, we can state the general behavior of inductors at the beginning and ending of the charge cycle:
+            \begin{itemize}
+                \item For DC analysis, initially inductors appear as opens.
+                \item At steady-state, inductors appear as shorts.
+            \end{itemize}
+            This is the opposite of what was seen with capacitors.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/110.png}
+            \bigbreak \noindent 
+            Initially $L$ is open, leaving us with $R_1$ and $R_2$ in series with the source, E. At steady-state, $L$ shorts out, leaving $R_1$ in series with the parallel combination of $R_2$ and $R_3$. All practical inductors will exhibit some internal resistance, so it is often best to think of an inductor as an ideal inductance with a small resistance ($R_{\text{coil}}$) in series with it.
+            \bigbreak \noindent 
+            Now, consider 
+            \bigbreak \noindent 
+            \fig{.8}{./figures/111.png}
+            \bigbreak \noindent 
+            Initially, the inductor behaves as on open 
+            \bigbreak \noindent 
+            \fig{.7}{./figures/112.png}
+            \bigbreak \noindent 
+            Thus,
+            \begin{align*}
+                V_{2k} = I_{S}2k = \frac{25}{3k} \cdot 2k = 16.67V
+            .\end{align*}
+             For steady-state, we redraw using a short in place of the inductor
+             \bigbreak \noindent 
+             \fig{.8}{./figures/113.png}
+             \bigbreak \noindent 
+             Here,
+             \begin{align*}
+                 V_{2k} = I_{S}(6k || 2k) = \frac{25}{6k || 2k + 1k} \cdot 6k || 2k = 15V
+             .\end{align*}
+        \item \textbf{Initial and Steady-State Analysis of RLC Circuits}: When analyzing resistor-inductor-capacitor circuits, remember that capacitor voltage cannot change instantaneously, thus, initially, capacitors behave as a short circuit. Once the capacitor has been charged and is in a steady-state condition, it behaves like an open. This is opposite of the inductor. As we have seen, initially an inductor behaves like an open, but once steady-state is reached, it behaves like a short
+            \bigbreak \noindent 
+            \fig{.8}{./figures/114.png}
+            \bigbreak \noindent 
+            Initially $L$ is open and $C$ is a short, leaving us with $R_1$ and $R_2$ in series with the source, $E$. At steady-state, $L$ shorts out both $C$ and $R_2$, leaving all of $E$ to drop across $R_1$. For improved accuracy, replace the inductor with an ideal inductance in series with the corresponding $R_{\text{coil}}$ value. Similarly, practical capacitors can be thought of as an ideal capacitance in parallel with a very large (leakage) resistance.
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.7}{./figures/115.png}
+            \bigbreak \noindent 
+            Assuming the initial current through the inductor is zero and the capacitor is uncharged, determine the current through the 2 k$\Omega$ resistor when power is applied and after the circuit has reached steady-state
+            \bigbreak \noindent 
+            \fig{.7}{./figures/116.png}
+            \bigbreak \noindent 
+            The shorted capacitor removes everything to its right from the circuit. All that's left is the source and the 2 k$\Omega$ resistor
+            \bigbreak \noindent 
+            We can find the current through the 2 k$\Omega$ resistor using Ohm's law
+            \begin{align*}
+                I_{2k} = \frac{14V}{2k\Omega} = 7mA
+            .\end{align*}
+            In steady-state, 
+            \bigbreak \noindent 
+            \fig{.8}{./figures/117.png}
+            \bigbreak \noindent 
+            We are left with a resistance of 2 k$\Omega$ in series with the parallel combination of 1 k$\Omega$ and 4 k$\Omega$, or 2.8 k$\Omega$ in total.
+            \bigbreak \noindent 
+            \begin{align*}
+                I_{2k} = \frac{14V}{2.8k\Omega} = 5mA
+            .\end{align*}
+        \item \textbf{Transient Response of RL Circuits}: The transient response of RL circuits is nearly the mirror image of that for RC circuits.
+            \bigbreak \noindent 
+            \fig{.7}{./figures/118.png}
+            \bigbreak \noindent 
+            Again, the key to this analysis is to remember that inductor current cannot change instantaneously. When power is first applied, the circulating current must remain at zero. Therefore no voltage drop is produced across the resistor, and by KVL, the voltage across the inductor must equal the source, $E$. This establishes the initial rate of change of current via
+            \begin{align*}
+                \frac{di}{dt} = \frac{E}{L}
+            \end{align*}
+            and is represented by the dashed red line. As the current starts to increase, the voltage drop across the resistor begins to increase. This reduces the voltage available for the inductor, thus slowing the rate of change of current. This is depicted by the solid red curve on the graph.
+            \bigbreak \noindent 
+            Meanwhile, the solid blue curve represents the decreasing inductor voltage. Thus, in the RL circuit, the inductor's voltage curve echoes the RC circuit's current curve (or resistor voltage curve), and the RL current curve echoes the RC circuit's capacitor voltage curve.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/119.png}
+            \bigbreak \noindent 
+            As noted before, the rate of current change versus time is equal to $v/L$, and therefore in this case, $E/L$. If the initial rate of change were to continue unabated, the maximum (steady-state) current, $E/R$, would be reached in $L/R$ seconds. Therefore the time constant for an RL circuit is
+            \begin{align*}
+                \tau = \frac{L}{R}
+            .\end{align*}
+            Once again, five constants will achieve steady-state. Following the prior work on capacitors, the relevant equations for the RL circuit can be shown to be
+            \begin{align*}
+                V_{L}(t) &= Ee^{-\frac{t}{\tau}}, \\
+                V_{R}(t) &= E\left(1-e^{-\frac{t}{\tau}}\right), \\
+                I(t) &= \frac{E}{R}\left(1-e^{-\frac{t}{\tau}}\right)
+            .\end{align*}
+            \bigbreak \noindent 
+            Consider
+            \bigbreak \noindent 
+            \fig{.8}{./figures/120.png}
+            \bigbreak \noindent 
+            Assume the switch is closed at time $t = 0$. Determine the charging time constant, the amount of time after the switch is closed before the circuit reaches steady-state, and the inductor voltage and current at $t = 0$, $t = 2$ microseconds and $t = 1$ millisecond. Assume the inductor is initially uncharged.
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                \tau = \frac{L}{R} = \frac{400\mu H}{150\Omega} = 2.667\mu s
+            .\end{align*}
+            Thus, steady-state is reached in 
+            \begin{align*}
+                5\tau = 2.667(5) = 13.33\mu s
+            .\end{align*}
+            So,
+            \begin{align*}
+                V_{L}(0) = 9V, \quad V_{L}(1) = 0V
+            .\end{align*}
+            Because the inductor is initially open, 
+            \begin{align*}
+                I_{L}(0) = 0A
+            .\end{align*}
+            At $I_{L}(1)$, the circuit is in steady-state and the inductor acts like a short. Thus, all of the 9 volt source drops across the 150 $\Omega$ resistor, for 60mA.
+            \bigbreak \noindent 
+            To find $V_{L}(2\mu s)$,
+            \begin{align*}
+                V_{L}(t) = Ee^{-\frac{t}{\tau}} \implies V_{L}(2\mu s) = 9Ve^{-\frac{2\mu s}{2.667\mu s}} = 4.251V
+            .\end{align*}
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{Magnetic Circuits and Transformers}
+    \begin{itemize}
+        \item \textbf{Intro}: Here we shall take a closer look at the parameters of magnetic circuits such as permeability and flux density, and introduce new parameters including reluctance and magnetizing force. We shall also examine a key graphic that helps define the magnetic properties of materials, namely the BH curve.        
+            \bigbreak \noindent 
+            As we shall see, there are certain parallels between magnetic circuits and electrical circuits. For example, there is an “Ohm's law for magnetic circuits”, sometimes referred to as Hopkinson's law
+            \bigbreak \noindent 
+            There is also a version of Kirchhoff's voltage law dealing with the magnetic equivalents of voltage rises and drops.
+            \bigbreak \noindent 
+            Perhaps the two most common applications of magnetic circuits for the new student involve the use of transformers and relays.
+            \bigbreak \noindent 
+            Other common applications include dynamic loudspeakers and microphones, magnetic resonance imaging (i.e., medical MRI)
+        \item \textbf{Electromagnetic Induction}: Perhaps the most important observation regarding magnetic systems is Faraday's law of electromagnetic induction. Briefly, it states:
+            \begin{quote}
+               "\textit{If a conductor is cut by changing magnetic lines of force, a voltage will be induced in the conductor}" 
+            \end{quote}
+            More specifically, 
+            \begin{align*}
+                e = -\frac{d\Phi}{dt}
+            .\end{align*}
+            Note that $e$ is the \textbf{induced voltage}, and $\frac{d\Phi}{dt}$ is the rate of change of magnetic flux with respect to time.
+            \bigbreak \noindent 
+            Therefore, the larger the flux and the more quickly it fluctuates, the greater the induced voltage. What is important here is a relative change with respect to the conductor and field. This can be accomplished in two basic ways: by a magnetic field that is itself fluctuating around a fixed conductor, or by a conductor moving through a magnetic field.
+        \item \textbf{Transducer}: The concept of electromagnetic induction is a key element of a variety of transducers. Simply put,
+            \begin{quote}
+                "\textit{A transducer is a device that transforms energy from one type to another.}" 
+            \end{quote}
+            An electric motor transforms electrical energy into mechanical energy and a generator does the precise opposite, transforming mechanical energy into electrical energy. More commonly, the word transducer is associated with devices such as loudspeakers and microphones. A loudspeaker transforms its electrical input into an acoustic pressure wave (sound) whereas the microphone performs the complementary function of transforming an acoustic pressure wave into an electrical signal. While there are different ways of constructing these devices, the most common designs are the dynamic loudspeaker and dynamic microphone, both of which rely on the principle of electromagnetic induction.
+        \item \textbf{Dynamic Loudspeakers and Microphones}: Regardless of their output capabilities and frequency range, all dynamic loudspeakers share a common set of elements. Corresponding elements can be found in dynamic microphones. Indeed, the devices are so similar that in some applications, small loudspeakers might pull double duty and switch over to a microphone mode of operation.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/121.png}
+            \bigbreak \noindent 
+            The heart of the system is a voice coil (H) which is a coil of tightly wound magnet wire. This sits inside of a magnetic field that is created by a powerful permanent magnet (E). The voice coil is connected to a diaphragm (F) that is is usually made of paper or plastic. This assembly is connected to the frame by the spider (D) at the top of the voice coil, and a suspension at the end of the diaphragm (B). The voice coil and diaphragm can move back and forth relative to the frame, like a piston.
+            \bigbreak \noindent 
+            To understand the operation, recall that passing a current through a coil of wire creates a magnetic field around the coil
+            \bigbreak \noindent 
+            This magnetic field is the same as is created by a normal magnet. In this case the north pole is on the left side (i.e., lines of force exiting). Consequently, this coil will interact with a permanent magnet just like any other magnet would. In the case of the loudspeaker, the voice coil is fed a current from the amplifier that echoes the music or voice signal. This current creates a magnetic field around the voice coil which interacts with the field of the permanent magnet. As the direction of the current changes, the poles of the voice coil's field reverse. Thus, sometimes the voice coil is pushed outward and sometimes it is pulled inward. Further, the larger the current, the greater the field it creates, and the greater the push or pull.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/122.png}
+            \bigbreak \noindent 
+            This results in a back-and-forth motion of the diaphragm that echoes the shape of the waveform being fed from the amplifier. As the diaphragm pushes against the air, it sets up a pressure wave, and we have sound.
+            \bigbreak \noindent 
+            A dynamic microphone runs the sequence in reverse. First, the diaphragm will move back and forth in accordance to an applied sound wave. This causes the voice coil to move back and forth within the field of the permanent magnet. We now have a coil of wire being cut by magnetic lines of force, and by Faraday's law of induction, this means that a voltage will be induced in the coil. As long as the diaphragm can respond to the subtle changes in the acoustic pressure wave, then the resulting induced voltage should be of high fidelity. Clearly, to do this with great accuracy, the diaphragm/voice coil/suspension assembly will need to very light and nimble, meaning that the components of the microphone will tend to be much smaller than those of a loudspeaker.
+        \item \textbf{Magnetic Circuits}: Magnetic circuits include applications such as transformers and relays. A very simple magnetic circuit is shown below
+            \bigbreak \noindent 
+            \fig{.8}{./figures/123.png}
+            \bigbreak \noindent 
+            First, it consists of a magnetic core. The core may be comprised of a single material such as sheet steel but can also use multiple sections and air gap(s). Around the core is at least one set of turns of wire, i.e., a coil formed around the core. Multiple sets of turns are used for transformers
+            \bigbreak \noindent 
+            As we have seen already, passing current through the windings generates a magnetic flux, $\Phi$, in the core. As this flux is constrained within the cross sectional area of the core, $A$, we can derive a flux density, $B$.
+            \begin{align*}
+                B = \frac{\Phi}{A}
+            .\end{align*}
+            \begin{itemize}
+                \item $B$ is the magnetic flux density in teslas,
+                \item $\Phi$ is the magnetic flux in webers,
+                \item $A$ is the area in square meters.
+            \end{itemize}
+            Recall that one tesla is defined as one weber per square meter. An alternate unit that is sometimes used is \textbf{gauss}.
+            \begin{align*}
+                1 \text{ tesla } = 10^{3} \text{ gauss }
+            .\end{align*}
+            Consider an example. Suppose a magnetic flux of $6\times 10^{-5}$ webers exists in a core whose cross section has dimensions of 1 centimeter by 2 centimeters. Determine the flux density in teslas.
+            \begin{align*}
+                B = \frac{\Phi}{A} = \frac{6\times 10^{-5}}{0.01m \times 0.02m} = 0.3 T
+            .\end{align*}
+        \item \textbf{Ohm's Law for Magnetic Circuits (Hopkinson's or Rowland's Law)}: There is a common parallel drawn between magnetic circuits and electrical circuits, namely Hopkinson's law.
+            \begin{align*}
+                F = \Phi R
+            .\end{align*}
+            \begin{itemize}
+                \item $F$ is the magnetomotive force (or MMF) in amp-turns,
+                \item $\Phi$ is the magnetic flux in webers,
+                \item $R$ is the reluctance of the material in amp-turns/weber
+            \end{itemize}
+            The magnetomotive force compares to a source voltage or electromotive force (EMF), the magnetic flux is likened to the flow of current, and the reluctance stands in for resistance (i.e., on the one hand we have a material that resists the flow of current, and on the other, a material in which there is “reluctance” to establish magnetic flux). Further, magnetomotive force is the product of the current flowing through a coil and the number of loops or turns in the coil:
+            \begin{align*}
+                F = NI
+            .\end{align*}
+            \begin{itemize}
+                \item $F$ is the magnetomotive force in amp-turns,
+                \item $N$ is the number of loops or turns in the coil,
+                \item $I$ is the current in the coil in amps.
+            \end{itemize}
+        \item \textbf{amp-turns}: The unit of magnetomotive force (MMF), which is the magnetic "pressure" or driving force that produces a magnetic field in an electromagnetic coil
+            \bigbreak \noindent 
+            One ampere-turn is equal to the magnetomotive force produced when a direct current of one ampere flows through a single-turn loop of wire
+        \item \textbf{Reluctance}: The equation for reluctance has a nice parallel with the equation for resistance
+            \bigbreak \noindent 
+            \begin{align*}
+                R = \frac{l}{\mu A}
+            .\end{align*}
+            \begin{itemize}
+                \item $R$ is the reluctance in amp-turns/weber,
+                \item $l$ is the length of the material in meters,
+                \item $A$ is the cross sectional area of the material in square meters,
+                \item $\mu$ is the permeability of the material in henries/meter.
+            \end{itemize}
+        \item \textbf{Magnetizing force}: Given the characteristics of the coil and the path length of the magnetic circuit, the magnetic flux gives rise to a magnetizing force, $H$. 
+            \begin{align*}
+                H = \frac{NI}{l}
+            .\end{align*}
+            \begin{itemize}
+                \item $H$ is the magnetizing force in amp-turns/meter,
+                \item $N$ is the number of turns or loops in the coil,
+                \item $I$ is the coil current in amps,
+                \item $l$ is the length of the magnetic path in meters.
+            \end{itemize}
+        \item \textbf{Relation}: Ferromagnetic materials (i.e., materials that have high permeability, such as steel) produce a low reluctance. The practical problem here is that $\mu$, unlike the resistivity $\rho$ of resistors, is not a constant for these sorts of materials. It can vary considerably.
+            \bigbreak \noindent 
+            \fig{.7}{./figures/124.png}
+            \bigbreak \noindent 
+            As a result, it is impractical to find reluctance in same manner that we find resistance. All is not lost, though.
+            \bigbreak \noindent 
+            The flux density and corresponding magnetizing force for any given material are related by the following equation
+            \begin{align*}
+                B = \mu H
+            .\end{align*}
+            \begin{itemize}
+                \item $B$ is the flux density in teslas,
+                \item $\mu$ is the permeability of the material in henries/meter,
+                \item $H$ is the magnetizing force in amp-turns/meter.
+            \end{itemize}
+            Once again, the tricky bit here is the permeability of the core material. For air, we can use the permeability of free space, $\mu_{0}$
+            \begin{align*}
+                \mu_{0} = 4\pi \times 10^{-7} \frac{H}{m} \approx 1.257 \times 10^{-6} \frac{H}{m}
+            .\end{align*}
+        \item \textbf{BH curve intro}: For other materials, such as sheet steel or cast steel, we shall take another path; namely an empirically derived curve that plots flux density $B$ against magnetizing force $H$
+            \bigbreak \noindent 
+            \fig{.7}{./figures/125.png}
+            \bigbreak \noindent 
+            Clearly, this curve is not a nice straight line, or even an obvious, predictable function. The immediately apparent attributes are the initial steep rise which is followed by a flattening of the curve. This flattening corresponds to saturation of the magnetic material. In contrast, a plot for air would reveal a straight line with a very shallow slope. As we shall see, being able to achieve a high flux density for a given magnetizing force will result in an effective and efficient magnetic circuit. So while air has the positive attribute of not saturating, the resulting flux density is low, usually leading to lower performance.
+        \item \textbf{The BH curve}:  The process of generating a BH curve is as follows. First, we create a core of the material to be investigated. A coil of wire is then wrapped around this core
+            \bigbreak \noindent 
+            \fig{.7}{./figures/126.png}
+            \bigbreak \noindent 
+            Here we have a basic toroid with a coil of $N$ turns. We begin with the system at rest and not energized. A small current, I, is applied to the coil. This produces a magnetizing force via
+            \begin{align*}
+                H = \frac{NI}{l}
+            .\end{align*}
+            There will be a corresponding flux density, as per
+            \begin{align*}
+                B = \mu H
+            .\end{align*}
+            The current is then increased. This produces an increase in magnetizing force and a corresponding change in flux density. The current is increased further, until the curve flattens, indicating that saturation has been reached.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/126.png}
+            \bigbreak \noindent
+            Starting at point $a$ with point $b$ indicating saturation. The current is then reduced. This causes a reduction in magnetizing force, but while the flux density decreases, it does not trace back perfectly along the original trajectory. Instead, the curve is displaced above the original.
+            \bigbreak \noindent 
+            Eventually, the current will be reduced to zero. This corresponds to point $c$. At this point, even though there is no current in the coil, there is still flux in the core. The resulting flux density is referred to as \textbf{retentivity} and is a measure of residual magnetism. This phenomenon is what makes it possible to magnetize materials. 
+            \bigbreak \noindent 
+            If we now reverse the direction of the coil current and begin to increase its magnitude, the flux density will continue to drop. At point $d$, it will have reached zero. As we have effectively coerced the flux back to zero, we call the magnetizing force required to do this the \textbf{coercivity} or \textbf{coercive force}.
+            \bigbreak \noindent 
+            As the current magnitude increases, the flux density also increases but with opposite sign. Eventually, saturation is reached again at point $e$. Once again, if the current's magnitude is decreased, the magnitude of the flux density will also decrease but will not perfectly trace back along the original trajectory. This time it will follow a lower path. When the current is reduced to zero at point $f$, a mirror retentivity is evident. Further positive increases in current show a mirror coercivity at point $g$. Finally, as current is increased to maximum, we again reach saturation at point $b$.
+            \bigbreak \noindent 
+            If the current is cycled in this manner again, the process is repeated, and the outer path indicated by the arrows is taken again. Thus, a specific value of magnetizing force can give rise to different values of flux density: it depends on the recent history of the material. This effect is known as hysteresis and is found in other areas as well.
+            \bigbreak \noindent 
+            Effectively, published BH curves follow the middle of the hysteresis loop. An example of BH curves for three different core materials is shown
+            \bigbreak \noindent 
+            Curve A is for sheet steel (which is common in transformers), curve B is for cast steel, and curve C is for cast iron. We shall make use of these in upcoming examples. Curves for other materials are also available.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/128.png}
+            \bigbreak \noindent 
+            As an example, assume the toroid we saw earlier is made of cast steel, has a 500 turn coil, a cross section of 2 cm by 2 cm, and an average path length of 50 cm. Determine the flux in webers if a current of 0.3 amps feeds the coil.
+            \bigbreak \noindent 
+            So, 
+            \begin{align*}
+                H = \frac{NI}{l} = \frac{500(0.3)}{0.5}  = 300 \frac{At}{m}
+            .\end{align*}
+            Using the curve for cast steel, a decent for the flux density is 0.52 teslas. This is the corresponding flux density. In order to find the flux, we need to find the area of the core.
+            \begin{align*}
+                A = 0.02^{2} = 0.0004m^{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \Phi = BA = 0.52T \times 0.0004m^{2} = 2.08 \times 10^{-4}Wb
+            .\end{align*}
+        \item \textbf{Summary}: 
+            \begin{itemize}
+                \item \textbf{Electromagnetic induction}: Electromagnetic induction is the process of generating a voltage and electric current in a conductor by placing it in a changing magnetic field or moving it relative to one
+                    \begin{align*}
+                        e = -\frac{d\Phi}{dt}
+                    .\end{align*}
+                    $e$ is the \textbf{induced voltage}.
+                \item \textbf{Magnetic flux ($\Phi$)}: Magnetic flux is the total measure of a magnetic field passing through a given surface area
+                    \bigbreak \noindent 
+                    Measured in \textbf{Weber (Wb)}
+                \item \textbf{Magnetic flux density}:  Magnetic flux density is a vector quantity that measures the strength and direction of a magnetic field based on the number of magnetic field lines passing through a given area
+                    \begin{align*}
+                        B = \frac{\Phi}{A} = \mu H
+                    .\end{align*}
+                    Measured in \textbf{Telsa (T)} or \textbf{Gauss (G)}.
+                \item \textbf{Magnetomotive force (amp-turns)}: Magnetomotive force (MMF) is the magnetic "pressure" or potential that drives magnetic flux through a magnetic circuit
+                    \bigbreak \noindent 
+                    You can think of MMF as the magnetic equivalent of voltage (electromotive force, or EMF) in an electrical circuit. Just as voltage pushes electric current through a wire, MMF pushes magnetic field lines (flux) through a core or material
+                    \begin{align*}
+                        F = NI
+                    \end{align*}
+                    where $N$ is the number of turns (loops) in a wire coil, and $I$ is the current through the wire. Magnetomotive force is measured in \textbf{amp-turn (At)}.
+                \item \textbf{Magnetic Reluctance}:  The opposition a material offers to magnetic flux, measured in ampere-turns per weber
+                    \begin{align*}
+                        R = \frac{l}{\mu A}
+                    ,\end{align*}
+                    where $l$ is the path length, $A$ is the cross-sectional area, and $\mu$ is the permeability of the material
+                    \bigbreak \noindent 
+                    Unlike electrical resistance, magnetic reluctance does not dissipate power or energy as heat; it merely stores energy in the magnetic field
+                \item \textbf{Hopkinson's Law}: Hopkinson's law is the magnetic circuit counterpart to Ohm's law, stating that the magnetomotive force is equal to the magnetic flux multiplied by the magnetic reluctance
+                    \begin{align*}
+                        F = \Phi R
+                    .\end{align*}
+                \item \textbf{Magnetizing force}: The magnetizing force ($H$), also known as magnetic field intensity, is the external magnetic field strength applied to a material to induce magnetic flux or align internal magnetic domains
+                    \begin{align*}
+                       H = \frac{NI}{l} 
+                    \end{align*}
+                    Where $I$ is current, $N$ is the number of coil turns, and $l$ is the length of the magnetic circuit. 
+                    \bigbreak \noindent 
+                    Measured in amp-turns per meter ($\frac{At}{m}$)
+                \item \textbf{Magnetizing force vs magnetomotive force}: Magnetomotive force (MMF) is the total "pressure" or driving potential that creates magnetic flux in a magnetic circuit, while magnetizing force (\(H\)) is the magnetomotive force distributed per unit length of the magnetic path (also called magnetic field strength).
+            \end{itemize}
+        \item \textbf{KVL for Magnetic Circuits}: We have
+            \begin{align*}
+                F = Hl = NI
+            .\end{align*}
 
 
 
 
     \end{itemize}
+
+
+
 
 
 
