@@ -2352,10 +2352,129 @@
                     Measured in amp-turns per meter ($\frac{At}{m}$)
                 \item \textbf{Magnetizing force vs magnetomotive force}: Magnetomotive force (MMF) is the total "pressure" or driving potential that creates magnetic flux in a magnetic circuit, while magnetizing force (\(H\)) is the magnetomotive force distributed per unit length of the magnetic path (also called magnetic field strength).
             \end{itemize}
+        \item \textbf{Notes}: Consider
+            \bigbreak \noindent 
+            \fig{.7}{./figures/131.png}
+            \bigbreak \noindent 
+            The magnetic flux \(\Phi\) flows mainly inside the magnetic core, following a closed loop
+            \begin{enumerate}
+                \item Through the left leg surrounded by the coil.
+                \item Across the top section.
+                \item Down the right leg.
+                \item Across the bottom section and back to the left leg.
+            \end{enumerate}
+            \bigbreak \noindent 
+            It does not primarily travel through the rectangular opening. Some small leakage flux may pass through the surrounding air.
+            \bigbreak \noindent 
+            The exact clockwise or counterclockwise direction is determined using the right-hand grip rule: curl your fingers in the direction of current around the coil, and your thumb points in the flux direction through the left leg.
+            \bigbreak \noindent 
+            The cross sectional area $A$ is the area of the core cut perpendicular to the magnetic flux.
+            \bigbreak \noindent 
+            The path length $l$ is the total closed distance the magnetic flux travels around the core. It is usually approximated along the centerline of the core material, halfway between the inner and outer edges.
+        \item \textbf{Core window}: The missing center section is called the core window. It is an opening filled with air, often used to provide space for the coil and its insulation. The magnetic flux travels around the window through the core, rather than directly across it.
+            \bigbreak \noindent 
+            The window is not normally called an air gap. An air gap is a small, intentional break placed directly across the magnetic flux path. The core window is simply the large central opening enclosed by the core.
+        \item \textbf{Note about flux}: The flux appears neatly directional because the coil and the core geometry organize the magnetic field. When current flows through the coil, it produces a magnetomotive force
+            \begin{align*}
+                F = NI
+            .\end{align*}
+            This establishes a magnetic field around the core. The iron core has a much higher permeability than the surrounding air, so it provides a low-reluctance path. Consequently, most of the field follows the rectangular core instead of spreading through the air.
+            \bigbreak \noindent 
+            Inside the material, microscopic magnetic domains tend to align with the applied field, reinforcing it. The direction is determined by the coil’s winding and current direction using the right-hand rule.
+            \bigbreak \noindent 
+            Note that the flux is not perfectly neat
+            \begin{itemize}
+                \item Some leakage flux escapes into the air.
+                \item Flux curves and spreads near the corners.
+                \item The flux density may not be completely uniform across the core.
+            \end{itemize}
+            The clean loop usually drawn in diagrams is an approximation. A more realistic picture would contain many slightly curved, closed field lines concentrated inside the core.
+        \item \textbf{Usage}: An EMF pushes electric charge, producing current. Similarly, an MMF establishes magnetic flux through the core.
+            \bigbreak \noindent 
+            However, flux is not a flow of magnetic particles and does not carry electricity like current. It is a magnetic field distributed through the core. That field can:
+            \begin{itemize}
+                \item Store energy.
+                \item Exert mechanical force.
+                \item Induce an EMF in another coil when the flux changes.
+            \end{itemize}
         \item \textbf{KVL for Magnetic Circuits}: We have
             \begin{align*}
                 F = Hl = NI
             .\end{align*}
+            Continuing the Ohm's law analogy, the amp-turns product of the coil, $NI$, is analogous to a voltage rise. Further, the $Hl$ product is analogous to a voltage drop. If we then extend the analogy to include the concept of Kirchhoff's voltage law, it should come as no surprise that the sum of $NI$ “rises” must equal the sum of the $Hl$ “drops”.
+            \bigbreak \noindent 
+            In 
+            \bigbreak \noindent 
+            \fig{.7}{./figures/126.png}
+            \bigbreak \noindent 
+            there is a single “rise” and a single “drop”. Thus, the magnetic circuit is analogous to the minimal electric circuit
+            \bigbreak \noindent 
+            \fig{.7}{./figures/129.png}
+            \bigbreak \noindent 
+            $F$ is the magnetomotive force, $NI$, while $R$ is the reluctance of the toroidal core. This reluctance will experience a “drop” of $Hl$.
+            \bigbreak \noindent 
+            The core could consist of two or more different materials, creating the equivalent of a series circuit. In this case, a table such as the one found below can be used to aid in computation.
+            \bigbreak \noindent 
+            In this table, each section of the core gets its own row. The table is divided into two sides (note the thick separating line in the center). In general, we will be working through problems where we know the data on the left side and need to find something on the right side, or vice versa. The bridge between the two sides (i.e., traversing the thick line) is a BH curve for the material of that particular section. The exception to this rule is if the section is an air gap, in that case we can use $H \approx  7.958E5 B$ or alternately, $B \approx  1.257E-6 H$.
+            \bigbreak \noindent 
+            \fig{.7}{./figures/130.png}
+            \bigbreak \noindent 
+            Consider an example, 
+            \bigbreak \noindent 
+            \fig{.7}{./figures/131.png}
+            \bigbreak \noindent 
+            Assume the core is made of sheet steel, has a 200 turn coil, a cross section of 1 cm by 1 cm, and an average path length of 12 cm. Determine the coil current required to achieve a flux of $1E-4$ webers.
+            \bigbreak \noindent 
+            We have
+            \begin{align*}
+                \Phi &= 10^{-4},\\
+                N &= 200, \\
+                A &= (10^{-2})^{2} = 10^{-4}m, \\
+                \ell &= 12 \times 10^{-2}m
+            .\end{align*}
+            Then,
+            \begin{align*}
+                B = \frac{\Phi}{A} = \frac{10^{-4}}{10^{-4}} = 1T
+            .\end{align*}
+            Now, we can use a BH curve to find $H$ from this flux density, we find that $H$ is roughly 190 $\frac{At}{m}$.
+            \bigbreak \noindent 
+            The "drop" is
+            \begin{align*}
+                Hl = 190(12\times 10^{-2}) = 22.8 At
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                I = \frac{Hl}{N} = \frac{22.8}{200} = 114mA
+            .\end{align*}
+            Now, let's consider a core with two sections.
+            \bigbreak \noindent
+            \fig{.8}{./figures/132.png}
+            \bigbreak \noindent 
+            Assume section $A$ is made of sheet steel and section $B$ is made of cast steel. Each part has a cross section of 2 cm by 2 cm. The path length of $A$ is 12 cm and the path length of $B$ is 4 cm. If the coil has 50 turns, determine the coil current required to achieve a flux of $2E-4$ webers.
+            \bigbreak \noindent 
+            The analogous circuit consists of a single source and two reluctances. Thus,
+            \begin{align*}
+                NI = H_{A}\ell_{A} + H_{B}\ell_{B}
+            .\end{align*}
+            \bigbreak \noindent 
+            \fig{.7}{./figures/133.png}
+            \bigbreak \noindent 
+            The flux, like the current in a series loop, will be the same in both sections.
+            \begin{align*}
+                \Phi = \frac{2\times 10^{-4}}{4\times 10^{-4}} = \frac{1}{2}
+            .\end{align*}
+            Using the $BH$ curve, $H_{A} = 70 At /m$, and $H_{B} = 290 At /m$. Thus,
+            \begin{align*}
+                NI = 70(12\times 10^{-2}) + 290(4 \times 10^{-2}) = 20
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                I = \frac{H\ell}{N} = \frac{20}{50} = 400mA
+            .\end{align*}
+            Notice that even though the cast steel section is shorter than the sheet steel section, it produces a larger “drop”; just like a larger resistor in an electrical circuit. This requires a larger current in the coil than if the entire core had been made of sheet steel.
+            \bigbreak \noindent 
+            Finally, it should be apparent that the current demand can be reduced if the coil has more turns. There is a practical limit here because all of the turns have to fit within the opening of the core. Once that space is full, the only way to increase the number of turns is to use finer gauge wire but doing so increases wire resistance and power loss, and also lowers maximum current capacity
+        \item \textbf{Dealing With Air Gaps}: 
 
 
 
