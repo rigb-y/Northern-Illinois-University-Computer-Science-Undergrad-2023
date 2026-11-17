@@ -1,0 +1,211 @@
+\documentclass{report}
+
+\input{~/dev/latex/template/preamble.tex}
+\input{~/dev/latex/template/macros.tex}
+
+\title{\Huge{}}
+\author{\huge{Nathan Warner}}
+\date{\huge{}}
+\fancyhf{}
+\rhead{}
+\fancyhead[R]{\itshape Warner} % Left header: Section name
+\fancyhead[L]{\itshape\leftmark}  % Right header: Page number
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt} % Optional: Removes the header line
+%\pagestyle{fancy}
+%\fancyhf{}
+%\lhead{Warner \thepage}
+%\rhead{}
+% \lhead{\leftmark}
+%\cfoot{\thepage}
+%\setborder
+% \usepackage[default]{sourcecodepro}
+% \usepackage[T1]{fontenc}
+
+% Change the title
+\hypersetup{
+    pdftitle={Computer Vision}
+}
+
+\begin{document}
+    % \maketitle
+        \begin{titlepage}
+       \begin{center}
+           \vspace*{1cm}
+    
+           \textbf{Computer Vision}
+    
+           \vspace{0.5cm}
+            
+                
+           \vspace{1.5cm}
+    
+           \textbf{Nathan Warner}
+    
+           \vfill
+                
+                
+           \vspace{0.8cm}
+         
+           \includegraphics[width=0.4\textwidth]{~/niu/seal.png}
+                
+           Computer Science \\
+           Northern Illinois University\\
+           United States\\
+           
+                
+       \end{center}
+    \end{titlepage}
+    \tableofcontents
+    \pagebreak 
+    \unsect{Introduction}
+    \begin{itemize}
+        \item \textbf{Projective transformations}: When we look at a picture, we see squares that are not squares, or circles that are not circles. The transformation that maps these planar objects onto the picture is an example of a projective transformation. 
+            \bigbreak \noindent 
+            So what properties of geometry are preserved by projective transformations? Certainly, shape is not, since a circle may appear as an ellipse. Neither are lengths since two perpendicular radii of a circle are stretched by different amounts by the projective transformation. Angles, distance, ratios of distances – none of these are preserved, and it may appear that very little geometry is preserved by a projective transformation. However, a property that is preserved is that of straightness. It turns out that this is the most general requirement on the mapping, and we may define a projective transformation of a plane as any mapping of the points on the plane that preserves straight lines.
+        \item \textbf{Ideal points}: Euclidean geometry is troublesome in one major respect – we need to keep making an exception to reason about some of the basic concepts of the geometry – such as intersection of lines. Two lines (we are thinking here of 2-dimensional geometry) almost always meet in a point, but there are some pairs of lines that do not do so – those that we call parallel. A common linguistic device for getting around this is to say that parallel lines meet “at infinity”. However this is not altogether convincing, and conflicts with another dictum, that infinity does not exist, and is only a convenient fiction. We can get around this by enhancing the Euclidean plane by the addition of these points at infinity where parallel lines meet, and resolving the difficulty with infinity by calling them “ideal points.”
+            \bigbreak \noindent 
+            An ideal point (also called a point at infinity) is an idealized limiting point added to a geometric space to represent the "ends" of lines or where parallel lines meet
+        \item \textbf{Collinear points}: Points that lie on the same line
+        \item \textbf{Coincident lines}: Coincident lines are two or more straight lines that lie directly on top of each other in a plane, sharing every single point in common
+            \bigbreak \noindent 
+            Coincident planes are planes that lie directly on top of each other.
+        \item \textbf{Projective space}: By adding these points at infinity, the familiar Euclidean space is transformed into a new type of geometric object, projective space. This is a very useful way of thinking, since we are familiar with the properties of Euclidean space, involving concepts such as distances, angles, points, lines and incidence. There is nothing very mysterious about projective space – it is just an extension of Euclidean space in which two lines always meet in a point, though sometimes at mysterious points at infinity
+        \item \textbf{Coordinates / Homogeneous coordinates}: 
+            A point in Euclidean 2-space is represented by an ordered pair of real numbers, $(x, y)$. We may add an extra coordinate to this pair, giving a triple $(x, y, 1)$, that we declare to represent the same point. This seems harmless enough, since we can go back and forward from one representation of the point to the other, simply by adding or removing the last coordinate. We now take the important conceptual step of asking why the last coordinate needs to be 1 - after all, the others two coordinates are not so constrained. What about a coordinate triple $(x, y, 2)$. It is here that we make a definition and say that $(x, y, 1)$ and $(2x, 2y, 2)$ represent the same point, and furthermore, $(kx, ky, k)$ represents the same point as well, for any non-zero value $k$. Formally, points are represented by equivalence classes of coordinate triples, where two triples are equivalent when they differ by a common multiple. These are called the homogeneous coordinates of the point.
+            \bigbreak \noindent 
+            Given a coordinate triple $(kx, ky, k)$, we can get the original coordinates back by dividing by $k$ to get $(x,y)$
+            \bigbreak \noindent 
+            there is no point that corresponds to the triple $(x, y, 0)$. If we try to divide by the last coordinate, we get the point $(x/0, y/0)$ which is infinite. This is how the points at infinity arise then. They are the points represented by homogeneous coordinates in which the last coordinate is zero.
+            \bigbreak \noindent 
+            Once we have seen how to do this for 2-dimensional Euclidean space, extending it to a projective space by representing points as homogeneous vectors, it is clear that we can do the same thing in any dimension
+            \bigbreak \noindent 
+            The Euclidean space $\mathbb{R}^{n}$ con be extended to a projective space $\mathbb{P}^{n}$ by representing points as homogeneous vectors.
+        \item \textbf{Line/Plane at infinity}: It turns out that the points at infinity in the two-dimensional projective space form a line, usually called the \textbf{line at infinity}. In three-dimensions they form the \textbf{plane at infinity}.
+        \item \textbf{Homogeneity / Euclidean transforms}: In classical Euclidean geometry all points are the same. There is no distinguished point. The whole of the space is homogeneous. When coordinates are added, one point is seemingly picked out as the origin. However, it is important to realize that this is just an accident of the particular coordinate frame chosen. We could just as well find a different way of coordinatizing the plane in which a different point is considered to be the origin. In fact, we can consider a change of coordinates for the Euclidean space in which the axes are shifted and rotated to a different position. We may think of this in another way as the space itself translating and rotating to a different position. The resulting operation is known as a \textbf{Euclidean transform}.
+            \bigbreak \noindent 
+            \textbf{Note:} We mean that Euclidean space has no intrinsic center, edge, or special location; every point is geometrically identical, and the space looks and behaves the same everywhere.
+        \item \textbf{Affine transformation}: A more general type of transformation is that of applying a linear transformation to $\mathbb{R}^{n}$, followed by a Euclidean transformation moving the origin of the space. We may think of this as the space moving, rotating and finally stretching linearly possibly by different ratios in different directions. The resulting transformation is known as an affine transformation
+            \bigbreak \noindent 
+            The result of either a Euclidean or an affine transformation is that points at infinity remain at infinity. Such points are in some way preserved, at least as a set, by such transformations. They are in some way distinguished, or special in the context of Euclidean or affine geometry.
+            \bigbreak \noindent 
+            From the point of view of projective geometry, points at infinity are not any different from other points. Just as Euclidean space is uniform, so is projective space. The property that points at infinity have final coordinate zero in a homogeneous coordinate representation is nothing other than an accident of the choice of coordinate frame.
+        \item \textbf{Projective transformation (Homography)}: We may define a projective transformation of projective space. A linear transformation of Euclidean space $\mathbb{R}^{n}$ is represented by matrix multiplication applied to the coordinates of the point. In just the same way a projective transformation of projective space $\mathbb{P}^{n}$ is a mapping of the homogeneous coordinates representing a point (an $(n+1)$-vector), in which the coordinate vector is multiplied by a non-singular matrix. 
+            \bigbreak \noindent 
+            Under such a mapping, points at infinity (with final coordinate zero) are mapped to arbitrary other points. The points at infinity are not preserved. Thus, a projective transformation of projective space $P^{n}$ is represented by a linear transformation of homogeneous coordinates
+            \begin{align*}
+                X^{\prime} = H_{(n+1)\times (n+1)}X
+            .\end{align*}
+            In computer vision problems, projective space is used as a convenient way of representing the real 3D world, by extending it to the 3-dimensional (3D) projective space.
+            \bigbreak \noindent 
+            Similarly images, usually formed by projecting the world onto a 2-dimensional representation, are for convenience extended to be thought of as lying in the 2-dimensional projective space. In reality, the real world, and images of it do not contain points at infinity, and we need to keep our finger on which are the fictitious points, namely the line at infinity in the image and the plane at infinity in the world. For this reason, although we usually work with the projective spaces, we are aware that the line and plane at infinity are in some way special. This goes against the spirit of pure projective geometry, but makes it useful for our practical problems. Generally we try to have it both ways by treating all points in projective space as equals when it suits us, and singling out the line at infinity in space or the plane at infinity in the image when that becomes necessary.
+        \item \textbf{Remark}: In ordinary two-dimensional coordinates, a point is written as \((x,y)\). In homogeneous coordinates, we represent it by a triple
+            \begin{align*}
+                \begin{pmatrix} X & Y & W \end{pmatrix}^{T}
+            .\end{align*}
+            When $W \ne 0$, its ordinary coordinates are 
+            \begin{align*}
+                x=\frac{X}{W},\quad y = \frac{Y}{W}
+            .\end{align*}
+            Thus, all points 
+            \begin{align*}
+                \begin{pmatrix} WX & WY & W \end{pmatrix}^{T}
+            \end{align*}
+            are the same point. In fact,
+            \begin{align*}
+                \begin{pmatrix} X & Y & W \end{pmatrix}^{T} \sim \begin{pmatrix} \lambda X & \lambda Y & \lambda W \end{pmatrix}^{T}
+            ,\end{align*}
+            provided $\lambda \ne 0$.
+            \bigbreak \noindent 
+            To see why this helps with perspective, imagine projecting a three-dimensional point \((x,y,z)\) onto the plane \(z=1\), looking from the origin. Its projected position is
+            \[
+                (u,v)=\left(\frac{x}{z},\frac{y}{z}\right).
+            \]
+            This is nonlinear because the divisor \(z\) varies with the input.
+            \bigbreak \noindent 
+            Imagine a flat screen in front of you at the plane \(z=1\). Every point on this screen has coordinates \((u,v,1)\). To determine where $P = (x,y,z)$ sits on that screen, draw a straight line from your viewpoint through $P$. Its intersection with the screen is the projected image of $P$.
+            \bigbreak \noindent 
+            Notice that every point on the projected line has the form
+            \begin{align*}
+                t(x,y,z) = (tx,ty,tz)
+            .\end{align*}
+            Since $(u,v,1)$ lies on that line,
+            \begin{align*}
+                (u,v,1) = (tx,ty,tz)
+            .\end{align*}
+            Thus, 
+            \begin{align*}
+                1 = tz \implies t = \frac{1}{z}
+            .\end{align*}
+            So, it must be that
+            \begin{align*}
+                \begin{pmatrix} u \\ v \\ 1 \end{pmatrix} = \begin{pmatrix} x/z \\ y/z \\ 1 \end{pmatrix}
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                \begin{pmatrix} u \\ v \end{pmatrix} = \begin{pmatrix} x/z \\ y/z \end{pmatrix}
+            .\end{align*}
+            This explains perspective: increasing depth \(z\), while holding \(x\) and \(y\) fixed, moves the projected position closer to the screen’s center. More generally, a screen at \(z=d\) gives \((u,v)=(dx/z,dy/z)\).
+            \bigbreak \noindent 
+            In homogeneous coordinates, however, we can represent the projected point directly as
+            \[
+                [U,V,W]^T=[x,y,z]^T.
+            \]
+            The divisions are postponed until we convert back to ordinary coordinates:
+            \[
+                (u,v)=\left(\frac{U}{W},\frac{V}{W}\right).
+            \]
+            More generally, a projective transformation of the plane can be written as a matrix multiplication:
+            \[
+                \begin{bmatrix}X'\\Y'\\W'\end{bmatrix}
+                =
+                \begin{bmatrix}
+                    a&b&c\\
+                    d&e&f\\
+                    g&h&i
+                \end{bmatrix}
+                \begin{bmatrix}x\\y\\1\end{bmatrix}.
+            \]
+            Converting the result back gives
+            \[
+                x'=\frac{ax+by+c}{gx+hy+i}, \qquad y'=\frac{dx+ey+f}{gx+hy+i}.
+            \]
+            The matrix calculation is linear in homogeneous coordinates; the division appears when we return to ordinary coordinates. Adding the extra coordinate gives us a convenient way to carry that denominator through the calculation.
+            \bigbreak \noindent 
+            Geometrically, all nonzero scalar multiples of a vector lie on the same line through the origin. A projective point represents that entire line, rather than one particular vector on it. Triples with \(W=0\) represent additional points at infinity, for which ordinary finite coordinates are unavailable.
+        \item \textbf{The ordinary 2-d origin}: The triple \([0,0,0]^T\) is excluded from homogeneous coordinates: it does not represent any projective point.
+            \bigbreak \noindent 
+            A projective point represents a line through the origin, specified by a nonzero vector. For example, \([2,3,1]^T\) specifies the line consisting of all multiples of \((2,3,1)\). The zero vector cannot specify a direction or a particular line.
+            \begin{itemize}
+                \item \([0,0,1]^T\):	The ordinary two-dimensional origin \((0,0)\)
+                \item \([X,Y,0]^T\), with \(X,Y\) not both zero:	A point at infinity representing a direction
+                \item \([0,0,0]^T\):	Invalid; represents no projective point
+            \end{itemize}
+            Thus, \(W=0\) describes a point at infinity only when the remaining coordinates are not all zero.
+        \item \textbf{Affine and Euclidean Geometry}: We have seen that projective space can be obtained from Euclidean space by adding a line (or plane) at infinity. We now consider the reverse process of going backwards. This discussion is mainly concerned with two and three-dimensional projective space.
+        \item \textbf{3D projective space}: Formally, 3D projective space is the set of all 1-dimensional vector subspaces (lines through the origin) in a 4-dimensional vector space \(V \cong \mathbb{R}^4\).
+            \bigbreak \noindent 
+            A point in 3D projective space is represented using four homogeneous coordinates $(X, Y, Z, W)$. When $W \ne 0$, you can divide through by W to recover ordinary 3D Cartesian coordinates $(x, y, z) = (X/W, Y/W, Z/W)$. 
+            \bigbreak \noindent 
+            When $W = 0$, the points do not correspond to ordinary finite points in Euclidean space. Instead, they form a 2D "plane at infinity," where parallel lines and parallel planes meet
+            \bigbreak \noindent 
+            When you see \(V \cong \mathbb{R}^4\), it reads as "the vector space \(V\) is \textbf{isomorphic} to \(\mathbb{R}^{4}\)."
+            \bigbreak \noindent 
+            Saying \(V \cong \mathbb{R}^4\) means that although \(V\) might be defined abstractly (for example, as a space of polynomials or matrices), it has the exact same algebraic structure as the standard 4-dimensional Euclidean vector space \(\mathbb{R}^{4}\).
+            \bigbreak \noindent 
+            Practically, it means once you pick a basis for \(V\), every vector in \(V\) can be uniquely written as a list of four real numbers \((X, Y, Z, W)\), allowing you to do calculations in \(V\) just as if you were working directly in \(\mathbb{R}^{4}\).
+            \bigbreak \noindent 
+            • Mathematicians define projective space using an abstract 4D vector space \(V\) rather than \(\mathbb{R}^{4}\) directly to emphasize that geometry does not depend on a specific choice of coordinate axes.
+
+
+
+
+
+    \end{itemize}
+
+
+
+
+
+    
+\end{document}
