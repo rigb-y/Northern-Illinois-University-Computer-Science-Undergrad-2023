@@ -195,7 +195,179 @@
             \bigbreak \noindent 
             Practically, it means once you pick a basis for \(V\), every vector in \(V\) can be uniquely written as a list of four real numbers \((X, Y, Z, W)\), allowing you to do calculations in \(V\) just as if you were working directly in \(\mathbb{R}^{4}\).
             \bigbreak \noindent 
-            • Mathematicians define projective space using an abstract 4D vector space \(V\) rather than \(\mathbb{R}^{4}\) directly to emphasize that geometry does not depend on a specific choice of coordinate axes.
+            Mathematicians define projective space using an abstract 4D vector space \(V\) rather than \(\mathbb{R}^{4}\) directly to emphasize that geometry does not depend on a specific choice of coordinate axes.
+        \item \textbf{Affine geometry}: We will take the point of view that the projective space is initially homogeneous, with no particular coordinate frame being preferred. 
+            \bigbreak \noindent 
+            In such a space, there is no concept of parallelism of lines, since parallel lines (or planes in the three-dimensional case) are ones that meet at infinity. However, in projective space, there is no concept of which points are at infinity – all points are created equal. We say that parallelism is not a concept of projective geometry. It is simply meaningless to talk about it.
+            \bigbreak \noindent 
+            In order for such a concept to make sense, we need to pick out some particular line, and decide that this is the line at infinity. This results in a situation where although all points are created equal, some are more equal than others.
+            \bigbreak \noindent 
+            Start with a blank sheet of paper, and imagine that it extends to infinity and forms a projective space $\mathbb{P}^{2}$.
+            \bigbreak \noindent 
+            What we see is just a small part of the space, that looks a lot like a piece of the ordinary Euclidean plane. Now, let us draw a straight line on the paper, and declare that this is the line at infinity. Next, we draw two other lines that intersect at this distinguished line. Since they meet at the “line at infinity”, we define them as being parallel. The situation is similar to what one sees by looking at an infinite plane.
+            \bigbreak \noindent 
+            Think of a photograph taken in a very flat region of the earth. The points at infinity in the plane show up in the image as the horizon line. Lines, such as railway tracks show up in the image as lines meeting at the horizon. Points in the image lying above the horizon (the image of the sky) apparently do not correspond to points on the world plane. However, if we think of extending the corresponding ray backwards behind the camera, it will meet the plane at a point behind the camera. Thus there is a one-to-one relationship between points in the image and points in the world plane.
+            \bigbreak \noindent 
+            The points at infinity in the world plane correspond to a real horizon line in the image, and parallel lines in the world correspond to lines meeting at the horizon. From our point of view, the world plane and its image are just alternative ways of viewing the geometry of a projective plane, plus a distinguished line. The geometry of the projective plane and a distinguished line is known as affine geometry and any projective transformation that maps the distinguished line in one space to the distinguished line of the other space is known as an affine transformation.
+            \bigbreak \noindent 
+            By identifying a special line as the “line at infinity” we are able to define parallelism of straight lines in the plane. However, certain other concepts make sense as well, as soon as we can define parallelism. For instance, we may define equalities of intervals between two points on parallel lines. For instance, if $A, B, C$ and $D$ are points, and the lines $AB$ and $CD$ are parallel, then we define the two intervals $AB$ and $CD$ to have equal length if the lines $AC$ and $BD$ are also parallel. Similarly, two intervals on the same line are equal if there exists another interval on a parallel line that is equal to both.
+        \item \textbf{Affine plane}: An affine plane consists of a set of points and lines that satisfy these fundamental axioms
+            \begin{itemize}
+                \item \textbf{Unique Line:} Any two distinct points lie on a single, unique line.
+                \item \textbf{Parallelism (Playfair’s Axiom):} Given any line and a point not on that line, there is a unique line through that point that is parallel to the given line (meaning they never intersect or they are identical).
+                \item \textbf{Non-Collinearity:} There exist at least three (or four, depending on the exact axiomatic formulation) points that do not all lie on a single line.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{No Fixed Origin:} Unlike a standard Cartesian coordinate plane, an affine plane does not require a fixed "origin point" $(0,0)$ or rigid metric measurements like lengths and angles. It describes relative positions and parallelism rather than distances.
+                \item \textbf{Relation to Projective Planes:} An affine plane can be created by taking a projective plane and removing a single line (often called the "line at infinity") along with all of its points.
+                \item \textbf{Finite Affine Planes:} An affine plane can also be finite. If a line contains $n$ points (called the order $n$ of the plane), then the entire plane contains $n^{2}$ points and $n(n+1)$ lines
+            \end{itemize}
+            An affine plane can be created from a projective plane by removing one line (and all the points on it) because removing that single "line at infinity" strips away the points where parallel lines meet, restoring the concept of parallelism.
+            \bigbreak \noindent 
+            In a projective plane, every pair of distinct lines intersects at a single point—meaning parallel lines do not exist. When you delete one line, you transform those intersection points back into parallel directions.
+            \bigbreak \noindent 
+            Lines always meet in a projective plane because the geometry is constructed by adding a "point at infinity" to every family of parallel lines, and its very axioms require any two distinct lines to intersect.
+            \bigbreak \noindent 
+            In a projective plane, two lines \(L_{1}\) and \(L_{2}\) meet at some point \(P\). If you choose to remove the specific line \(L_{\infty }\) that passes through \(P\), the point \(P\) is deleted along with it. Now, \(L_{1}\) and \(L_{2}\) still exist in the remaining plane, but they no longer share an intersection point—making them parallel.
+            \bigbreak \noindent 
+            Any two remaining points in the plane still define a single, unique line. Removing \(L_{\infty }\) simply removes the single point where each remaining line used to intersect \(L_{\infty }\); it does not break the remaining lines into pieces or change how remaining points connect.
+            \bigbreak \noindent 
+            Suppose you have a remaining line \(L\) and a point \(Q\) not on \(L\). In the original projective plane, \(L\) intersected the removed line \(L_{\infty }\) at a single point \(P_{\infty }\). Because \(Q\) and \(P_{\infty }\) are two distinct points in the projective plane, there was a unique projective line connecting them. Once \(L_{\infty }\) (and thus \(P_{\infty }\)) is removed, that connecting line remains passing through \(Q\) and no longer intersects \(L\) anywhere in the plane—giving you the unique parallel line required for an affine plane.
+        \item \textbf{Euclidean geometry}: By distinguishing a special line in a projective plane, we gain the concept of parallelism and with it affine geometry. Affine geometry is seen as specialization of projective geometry, in which we single out a particular line (or plane – according to the dimension) and call it the line at infinity
+            \bigbreak \noindent 
+            Next, we turn to Euclidean geometry and show that by singling out some special feature of the line or plane at infinity affine geometry becomes Euclidean geometry. In  doing so, we introduce one of the most important concepts of this book, the absolute conic
+            \bigbreak \noindent 
+            We begin by considering two-dimensional geometry, and start with circles. Note that a circle is not a concept of affine geometry, since arbitrary stretching of the plane, which preserves the line at infinity, turns the circle into an ellipse. Thus, affine geometry does not distinguish between circles and ellipses.
+            \bigbreak \noindent 
+            In Euclidean geometry however, they are distinct, and have an important difference. Algebraically, an ellipse is described by a second-degree equation. It is therefore expected, and true that two ellipses will most generally intersect in four points. However, it is geometrically evident that two distinct circles can not intersect in more than two points. Algebraically, we are intersecting two second-degree curves here, or equivalently solving two quadratic equations. We should expect to get four solutions. The question is, what is special about circles that they only intersect in two points.
+        \item \textbf{Bezout's theorem}: Bézout’s theorem says that two plane algebraic curves of degrees \(m\) and \(n\) intersect \(mn\) times, provided they share no curve component and you count intersections in the \textbf{complex projective plane with multiplicity}.
+            \bigbreak \noindent 
+            A plane algebraic curve is the set of points \((x,y)\) in a plane that satisfy a polynomial equation \(F(x,y)=0\). “Plane” means there are two coordinates, and “algebraic” means the equation is polynomial
+            \bigbreak \noindent 
+            A curve component is one of the pieces of an algebraic curve that comes from an irreducible factor of its defining polynomial. An irreducible factor is a polynomial that cannot be factored further over the number system you’re working in.
+            \bigbreak \noindent 
+            For example, the equation from subtracting the two ellipse equations is
+            \[
+                y^2-x^2=(y-x)(y+x)=0.
+            \]
+            A product is zero when at least one factor is zero, so this curve is the union of two components, the line \(y=x\) and the line \(y=-x\). The lines cross at the origin and are still separate components. Here, a component means an algebraic piece, so the pieces can touch or cross.
+            \bigbreak \noindent 
+            When Bézout’s theorem says that two curves must share no component, it means they must have no entire algebraic piece in common. For example, the curves \(xy=0\) and \(x(y-1)=0\) both contain the whole line \(x=0\), because \(x\) is a factor of both polynomials. Every point on that line is an intersection, so there are infinitely many. This is why the theorem needs that condition.
+            \bigbreak \noindent 
+            For ellipses, each equation has degree \(2\), so two distinct ellipses have a total intersection count of \(2\cdot 2=4\). The counting rules explain why you might see fewer than four points on a graph.
+            \begin{itemize}
+                \item Complex points count. The line \(y=2\) misses the real unit circle \(x^2+y^2=1\). Substituting gives \(x^2=-3\), so there are two complex intersections.
+                \item Points at infinity count. Two parallel lines meet at their common point at infinity in the projective plane. This gives the expected \(1\cdot 1=1\) intersection.
+                \item A point can count more than once. The line \(y=1\) is tangent to the unit circle. Substituting gives \(x^2=0\), so the single point \((0,1)\) counts twice because \(x=0\) is a double root.
+            \end{itemize}
+            \(y=2\) is a plane algebraic curve of degree 1. Its equation can be written as \(F(x,y)=y-2=0\).
+            \bigbreak \noindent 
+            The equation fixes \(y\) at \(2\) and leaves \(x\) free, so its solutions are all points \((x,2)\). Together they form a horizontal line. In algebraic geometry, straight lines count as curves.
+            \bigbreak \noindent 
+            If \(f\) and \(g\) are distinct quadratic polynomials, their graphs intersect at at most two points in the ordinary plane. And their graphs are plane algebraic curves. For instance, the graph \(y=x^2\) is the degree-2 curve defined by \(y-x^2=0\).
+            \bigbreak \noindent 
+            At an intersection, the two graphs must give the same $y$, so you solve 
+            \begin{align*}
+                f(x) - g(x) = 0
+            .\end{align*}
+            That is a polynomial equation in one variable of degree at most \(2\). Each root gives exactly one intersection point.
+            \bigbreak \noindent 
+            Bézout’s theorem still applies to the two parabolas in the example. They have two ordinary intersections, and they share a point at infinity that counts twice, for a total of four under Bézout’s counting rules.
+            \bigbreak \noindent 
+            For the two parabolas \(y=x^2\) and \(y=2x^2-1\), the ordinary intersections are \((-1,1)\) and \((1,1)\). They also meet at the projective point \([0:1:0]\), which counts twice.
+            \bigbreak \noindent 
+            At a crossing, both formulas must give the same \(y\).
+            \[
+                x^2=2x^2-1
+                \quad\Longrightarrow\quad
+                x^2=1.
+            \]
+            Thus \(x=\pm1\), and \(y=1\) in both cases. In homogeneous coordinates, these points are \([-1:1:1]\) and \([1:1:1]\).
+            \bigbreak \noindent 
+            In homogeneous coordinates \([X:Y:W]\), an ordinary point has \(W\ne 0\), with \(x=X/W\) and \(y=Y/W\). Substituting and clearing denominators gives the projective equations
+            \[
+                YW=X^2,
+                \qquad
+                YW=2X^2-W^2.
+            \]
+            To find points at infinity, set \(W=0\). Both equations then force \(X=0\), so both parabolas pass through \([0:1:0]\). Geometrically, this is the vertical direction.
+        \item \textbf{Real / complex projective planes}: The real projective plane \(\mathbb{RP}^2\) and the complex projective plane \(\mathbb{CP}^2\) use the same construction. A point is a nonzero triple \([X:Y:W]\), and multiplying all three coordinates by the same nonzero scalar gives the same point. The difference is which numbers you can use.
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXl@{}}
+                    \toprule
+                    \textbf{Space}  & \textbf{Coordinates \(X,Y,W\)} &  \textbf{Allowed scaling} \\
+                    \midrule
+                    \(\mathbb{RP}^2\)  Real numbers  Any nonzero real number  \\[2ex]
+                    \(\mathbb{CP}^2\)  Complex numbers  Any nonzero complex number \\[2ex]
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+        \item \textbf{No distance / angles}: Projective planes lack distance and angles because projective geometry is a non-metrical incidence geometry whose allowed transformations (projective transformations) do not preserve lengths or angle measures. Unlike Euclidean geometry, which relies on rigid motions (translations and rotations) and congruence, projective geometry treats all points—including points at infinity—on equal footing and focuses on incidence and cross-ratio
+            \bigbreak \noindent 
+            Projecting a figure from one plane onto another through a center of projection changes sizes and angles.
+            \bigbreak \noindent 
+            A square or circle can project into a trapezoid or an ellipse, and a right angle can stretch into an acute or obtuse angle.
+            \bigbreak \noindent 
+            Additionally,
+            \begin{itemize}
+                \item \textbf{All lines intersect:} Every pair of distinct lines meets at a single point, so parallel lines do not exist.
+                \item \textbf{No direction vectors:} Because lines that used to be parallel now meet on the line at infinity, lines no longer have a distinct direction or slope.
+                \item \textbf{No "betweenness" (linear order):} Because a projective line is closed like a circle (wrapping around through a point at infinity), you cannot say point \(B\) lies "between" \(A\) and \(C\) without knowing which direction around the loop you are traveling.
+                \item \textbf{No area or volume}: Since lengths and angles can stretch arbitrarily under perspective, shapes have no fixed area.
+            \end{itemize}
+        \item \textbf{Circles}: The equation for a circle in homogeneous coordinates $(x, y, w)$ is of the form
+            \begin{align*}
+                (x- aw)^{2} + (y-bw)^{2} = r^{2}w^{2}
+            .\end{align*}
+            Recall that in a standard 2D Euclidean (or affine) plane, a circle with center $(a,b)$ and radius $r$ is given by
+            \begin{align*}
+                (X - a)^{2} + (Y-b)^{2} = r^{2}
+            .\end{align*}
+            So, 
+            \begin{align*}
+                (x- aw)^{2} + (y-bw)^{2} = r^{2}w^{2}
+            \end{align*}
+            represents the circle with centre represented in homogeneous coordinates as
+            \begin{align*}
+                (x_{0}, y_{0}, w_{0})^{T} = (a,b,1)^{T}
+            .\end{align*}
+            It is quickly verified that the points
+            \begin{align*}
+                (x,y,w)^{T} = (1, \pm i, 0)^{T}
+            \end{align*}
+            lie on every such circle. To repeat this interesting fact, every circle passes through the points $(1, \pm i, 0)^{T}$, and therefore they lie in the intersection of any two circles
+            \bigbreak \noindent 
+            Since their final coordinate is zero, these two points lie on the line at infinity. For obvious reasons, they are called the circular points of the plane.
+            \bigbreak \noindent 
+            Note that although the two circular points are complex, they satisfy a pair of real equations
+            \begin{align*}
+                x^{2} + y^{2} = 0, \quad w= 0 
+            .\end{align*}
+            This observation gives the clue of how we may define Euclidean geometry. Euclidean geometry arises from projective geometry by singling out first a line at infinity and subsequently, two points called circular points lying on this line. Of course the circular points are complex points, but for the most part we do not worry too much about this.
+            \bigbreak \noindent 
+            Now, we may define a circle as being any conic (a curve defined by a second degree equation) that passes through the two circular points. Note that in the standard Euclidean coordinate system, the circular points have the coordinates
+            \begin{align*}
+                (1, \pm i, 0)^{T}
+            .\end{align*}
+            In assigning a Euclidean structure to a projective plane, however, we may designate any line and any two (complex) points on that line as being the line at infinity and the circular points.
+            \bigbreak \noindent 
+            We can designate any line and any two distinct points on it as the line at infinity and the circular points because a projective plane has no built-in "infinity" or metric structure, and projective transformations can map any such choice onto the standard Euclidean one
+            \bigbreak \noindent 
+            A projective plane treats points and lines purely by incidence. No line is intrinsically "at infinity" until we label one that way.
+            \bigbreak \noindent 
+            Deleting any single line leaves behind an affine plane with a well-defined notion of parallelism—namely, lines that meet on that chosen line.
+            \bigbreak \noindent 
+            \textbf{The choice defines the Euclidean metric:} Picking a line \(\ell \) and two points \(I, J\) on \(\ell \) fixes the "absolute" geometry of the plane:
+            \begin{itemize}
+                \item Lines meeting \(\ell \) at the same point are declared parallel.
+                \item Conics passing through \(I\) and \(J\) become the circles of the new Euclidean structure.
+                \item Cross-ratios involving \(I\) and \(J\) determine angles and orthogonality
+            \end{itemize}
+            Conics that pass through the circular points form circles because in homogeneous coordinates, the algebraic condition for a conic to contain \((1 : i : 0)\) and \((1 : -i : 0)\) forces its equation to take the exact form of a Euclidean circle.
+
+
+
+
 
 
 
