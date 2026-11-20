@@ -59,6 +59,7 @@
     \tableofcontents
     \pagebreak 
     \unsect{Introduction}
+    \subsection{Projective Spaces and the Homogeneous Coordinate System}
     \begin{itemize}
         \item \textbf{Projective transformations}: When we look at a picture, we see squares that are not squares, or circles that are not circles. The transformation that maps these planar objects onto the picture is an example of a projective transformation. 
             \bigbreak \noindent 
@@ -364,12 +365,147 @@
                 \item Cross-ratios involving \(I\) and \(J\) determine angles and orthogonality
             \end{itemize}
             Conics that pass through the circular points form circles because in homogeneous coordinates, the algebraic condition for a conic to contain \((1 : i : 0)\) and \((1 : -i : 0)\) forces its equation to take the exact form of a Euclidean circle.
+        \item \textbf{General quadratic}: The general form is 
+            \begin{align*}
+                ax^{2} + bxy + cy^{2} + dx + ey + f = 0
+            .\end{align*}
+            In algebra, curves are organized by their degree (the highest sum of exponents in any single term):
+            \begin{itemize}
+                \item \textbf{Degree 1 (Lines):} You take every combination of \(x\) and \(y\) up to power 1:
+                \item \textbf{Degree 2 (Conics):} To get the next level of complexity, you include every possible combination of \(x\) and \(y\) where the exponents add up to 2 (\(x^{2}\), \(xy\), and \(y^{2}\)), plus the lower-degree terms:
+                    \bigbreak \noindent 
+                    There are literally no other ways to multiply \(x\) and \(y\) together without exceeding degree 2, so this equation covers every possible quadratic curve in a flat plane.
+            \end{itemize}
+            In \(y = ax^2 + bx + c\), if you plug in \(x = 2\), you get one answer for \(y\). Because \(y\) is not squared, the graph can only go up or down—it can never loop back around to close into a circle or open sideways.
+            \bigbreak \noindent 
+            Look at what happens when you solve for \(y\) in an equation with \(y^{2}\), like a circle \(x^2 + y^2 = 25\):
+            \begin{align*}
+                y^{2} &= 25 -x^{2} \\
+                y &= \pm \sqrt{25-x^{2}}
+            .\end{align*}
+            \begin{itemize}
+                \item \(+\sqrt{25-x^{2}}\) draws the top semicircle.
+                \item \(-\sqrt{25-x^{2}}\) draws the bottom semicircle.
+            \end{itemize}
+            Without \(y^{2}\), you only have one function \(y = f(x)\), which can only draw half of a closed loop. Squaring \(y\) combines two functions (\(y = +f(x)\) and \(y = -f(x)\)) into a single smooth curve.
+            \bigbreak \noindent 
+            The \(y^{2}\) term allows a curve to bend vertically because squaring a number erases its plus or minus sign, meaning a positive \(y\) and a negative \(y\) produce the exact same value in the equation.
+            \bigbreak \noindent 
+            Because \(y^{2}\) cannot tell the difference between \(+y\) and \(-y\), every point above the \(x\)-axis automatically gets a mirror-image partner below the \(x\)-axis.
+            \bigbreak \noindent 
+            As an example of applying this viewpoint, we note that a general conic may be found passing through five arbitrary points in the plane, as may be seen by counting the number of coefficients of a general quadratic equation
+            \begin{align*}
+                ax^{2} + by^{2} + \dots + fw^{2} = 0
+            .\end{align*}
+            A circle on the other hand is defined by only three points. Another way of looking at this is that it is a conic passing through two special points, the circular points, as well as three other points, and hence as any other conic, it requires five points to specify it uniquely
+            \bigbreak \noindent 
+            It should not be a surprise that as a result of singling out two circular points one obtains the whole of the familiar Euclidean geometry. In particular, concepts such as angle and length ratios may be defined in terms of the circular points. However, these concepts are most easily defined in terms of some coordinate system for the Euclidean plane, as will be seen.
+            \bigbreak \noindent 
+            This is an application of Felix Klein’s Erlangen Program, which states that a geometry is completely defined by the group of transformations that leave its fundamental objects unchanged.
+            \bigbreak \noindent 
+            once you fix the line at infinity and the two circular points on it, the only projective transformations left that keep those two points fixed are the exact transformations of Euclidean geometry.
+            \bigbreak \noindent 
+            In a blank projective plane, all conics look identical because you can stretch, shear, and tilt the plane freely using projective transformations. There is no concept of length, angle, or "roundness."
+            \bigbreak \noindent 
+            First, you pick one special line to be the line at infinity (\(w = 0\)). Restricting yourself to transformations that preserve this line gives you affine geometry, where parallel lines stay parallel, but circles and ellipses are still indistinguishable.
+            \bigbreak \noindent 
+            Next, you pick two specific complex points on that line at infinity: \(I = (1, i, 0)\) and \(J = (1, -i, 0)\), known as the circular points. If you restrict your transformations even further so that they must map the pair \(\{I, J\}\) to itself, you eliminate all stretching and shearing. The only transformations left are rotations, translations, reflections, and uniform scaling—the exact similarity transformations of standard Euclidean geometry.
+            \bigbreak \noindent 
+            \textbf{Note:} Shearing is the act of cutting, clipping, or separating material
+            \bigbreak \noindent 
+            Intuitively, it happens because the circular points are the "DNA of roundness," and stretching or shearing is literally the act of destroying roundness. Every circle passes through the two circular points \(I\) and \(J\). 
+        \item \textbf{3D Euclidean geometry}: We saw how the Euclidean plane is defined in terms of the projective plane by specifying a line at infinity and a pair of circular points. The same idea may be applied to 3D geometry. As in the two-dimensional case, one may look carefully at spheres, and how they intersect. Two spheres intersect in a circle, and not in a general fourth-degree curve, as the algebra suggests, and as two general ellipsoids (or other quadric surfaces) do. 
+            \bigbreak \noindent 
+            This line of thought leads to the discovery that in homogeneous coordinates
+            \begin{align*}
+                (X,Y,Z,T)^{T} 
+            \end{align*}
+            all spheres intersect the plane at infinity in a curve with the equations
+            \begin{align*}
+                X^{2} + Y^{2} + Z^{2} = 0,\quad T = 0
+            .\end{align*}
+            This is a second-degree curve (a conic) lying on the plane at infinity, and consisting only of complex points. It is known as the absolute conic and is one of the key geometric entities in this book, most particularly because of its connection to camera calibration, as will be seen later.
+            \bigbreak \noindent 
+            In 3D Euclidean space, any sphere with center \((x_0, y_0, z_0)\) and radius \(r\) has the equation:
+            \begin{align*}
+                (x-x_{0})^{2} + (y-y_{0})^{2} + (z-z_{0})^{2} = r^{2}                
+            .\end{align*}
+            To move into 3D projective space (\(\mathbb{P}^{3}\)), we replace the Euclidean coordinates with homogeneous coordinates: \(x = X/T\), \(y = Y/T\), and \(z = Z/T\). Substituting these in and multiplying the entire equation by \(T^{2}\) clears the denominators:
+            \begin{align*}
+                (X - x_{0}T)^{2} + (Y - y_{0}T)^{2} + (Z - z_{0}T)^{2} = r^{2}T^{2}
+            .\end{align*}
+            Let's now look at the points at infinity, so $T=0$.
+            \begin{align*}
+                (X - 0)^{2} + (Y-0)^{2} +(Z-0)^{2} = r^{2}(0)^{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                X^{2} + Y^{2} + Z^{2} = 0,\quad T = 0
+            .\end{align*}
+            Both \((x_0, y_0, z_0)\) and \(r\) are multiplied by \(T\). Setting \(T = 0\) completely wipes them out. Every sphere—regardless of its size or location in 3D space—intersects the plane at infinity in this exact same curve, called the absolute conic (\(\Omega _{\infty }\)).
+            \bigbreak \noindent 
+            For real numbers \(X, Y, Z\), the sum of squares \(X^2 + Y^2 + Z^2 = 0\) only holds when \(X = Y = Z = 0\), which is not a valid point in projective space. Thus, the absolute conic consists purely of complex points (making it the 3D generalization of the circular points \(I\) and \(J\) in 2D).
+            \bigbreak \noindent 
+            The absolute conic is defined by the above equations only in the Euclidean coordinate system. In general we may consider 3D Euclidean space to be derived from projective space by singling out a particular plane as the plane at infinity and specifying a particular conic lying in this plane to be the absolute conic. These entities may have quite general descriptions in terms of a coordinate system for the projective space.
+            \bigbreak \noindent 
+            We will not here go into details of how the absolute conic determines the complete Euclidean 3D geometry. A single example will serve. Perpendicularity of lines in space is not a valid concept in affine geometry, but belongs to Euclidean geometry.
+            \bigbreak \noindent 
+            The perpendicularity of lines may be defined in terms of the absolute conic, as follows. By extending the lines until they meet the plane at infinity, we obtain two points called the directions of the two lines. Perpendicularity of the lines is defined in terms of the relationship of the two directions to the absolute conic. The lines are perpendicular if the two directions are conjugate points with respect to the absolute conic
+            \bigbreak \noindent 
+            Two points $P$ and $Q$ are conjugate with respect to a conic section (such as a parabola, ellipse, or hyperbola) if the polar line of point $Q$ passes through point $Q$, which symmetrically means the polar line of point $Q$ passes through point $P$
+            \bigbreak \noindent 
+            Briefly, if the absolute conic is represented by a 3 $\times$ 3 symmetric matrix $\Omega_{\infty} $, and the directions are the points $d_{1}$ and $d_{2}$, then they are conjugate with respect to $\Omega_{\infty}$ if $d_{1}^{T}\Omega_{\infty}d_{2} = 0$. More generally, angles may be defined in terms of the absolute conic in any arbitrary coordinate system.
+        \item \textbf{Visualizing projective spaces}: Consider the real projective plane $\mathbb{RP}^{2}$
+            \begin{itemize}
+                \item \textbf{Vanishing points:} Parallel lines in a flat plane appear to meet on the horizon in perspective drawings.
+                \item \textbf{Line at infinity:} Projective space adds one "point at infinity" for each direction of parallel lines, grouping all those points into a single line at infinity.
+                \item \textbf{Affine plane model:} Picture a flat plane at height $z = 1$ in 3D space. Lines through the origin pierce this plane at single points, while horizontal lines in the $xy$-plane ($z = 0$) never hit it and correspond to points at infinity
+            \end{itemize}
+            Every point in \(\mathbb{RP}^2\) corresponds to an entire straight line passing through the origin (0,0,0) in \(\mathbb{R}^{3}\)
+            \bigbreak \noindent 
+            Each line through the origin hits the unit sphere at two opposite (antipodal) points. Gluing each opposite pair into a single point gives the projective plane
+            \bigbreak \noindent 
+            Take just the upper hemisphere and glue opposite points along its equator boundary. This upper-hemisphere-with-glued-boundary view makes the topology of \(\mathbb{RP}^n\) concrete.
+            \bigbreak \noindent 
+            In projective geometry, a "point" is defined as an entire straight line passing through the origin \((0, 0, 0)\) in 3D space.
+            \bigbreak \noindent 
+            The origin is the single focal point where all light rays converge. If a line missed the origin, it wouldn't represent a line of sight from that viewpoint.
+            \bigbreak \noindent 
+            In 3D space, every point on a line through the origin is just a scaled multiple of a single direction vector \((x, y, z)\):
+            \begin{itemize}
+                \item Take the point \((2, 3, 1)\) on the screen \(z = 1\).
+                \item Multiply it by \(2\) to get \((4, 6, 2)\), or by \(-5\) to get \((-10, -15, -5)\).
+                \item All of these points lie on the exact same straight line passing through \((0, 0, 0)\).
+            \end{itemize}
+            Gluing opposite pairs means defining two diametrically opposite (antipodal) points on a sphere—like \((x, y, z)\) and \((-x, -y, -z)\)—to be the exact same location.
+            \bigbreak \noindent 
+            In topology, "gluing" is a mathematical rule for creating a new space by declaring that two separate points are now treated as one single, indistinguishable point.
+            \bigbreak \noindent 
+            Remember that a single projective point is an entire straight line passing through the center of a sphere (the origin):
+            \begin{itemize}
+                \item \textbf{Two intersections:} Every straight line through the center pokes out of the sphere at two spots: one point \(P = (x, y, z)\) and its exact opposite on the other side, \(-P = (-x, -y, -z)\) (like the North Pole and the South Pole).
+                \item \textbf{One line, one point:} Because both \(P\) and \(-P\) belong to the exact same line through the origin, they represent the same projective point.
+                \item \textbf{Eliminating duplicates:} To turn the sphere into projective space, you merge every pair \(\{P, -P\}\) into a single entity.
+            \end{itemize}
+            \begin{itemize}
+                \item \textbf{Teleporter rule:} Whenever you step on a spot, you are simultaneously standing on the exact opposite side of the globe.
+                \item \textbf{Crossing the equator:} If you trim away the southern hemisphere to avoid duplicates, you are left with just the northern hemisphere (a dome) and its circular edge (the equator). If you walk off the northern edge of the equator, you instantly wrap around and step back onto the exact opposite side of the equator, upside down.
+            \end{itemize}
+            Cutting away the lower hemisphere removes all the duplicate points in the interior, leaving duplicates only along the equator's edge.
+            \bigbreak \noindent 
+            Every straight line through the center of the sphere hits the surface twice—once at a point \(P\) and once at its exact opposite \(-P\). Removing the lower half keeps one representative for almost every pair, except right on the boundary.
 
 
+    \end{itemize}
 
-
-
-
+    \pagebreak 
+    \subsection{Camera Projections}
+    \begin{itemize}
+        \item \textbf{Intro}: One of the principal topics of this book is the process of image formation, namely the formation of a two-dimensional representation of a three-dimensional world, and what we may deduce about the 3D structure of what appears in the images.        
+            \bigbreak \noindent 
+            The drop from three-dimensional world to a two-dimensional image is a projection process in which we lose one dimension. The usual way of modelling this process is by central projection in which a ray from a point in space is drawn from a 3D world point through a fixed point in space, the centre of projection. This ray will intersect a specific plane in space chosen as the image plane. The intersection of the ray with the image plane represents the image of the point. If the 3D structure lies on a plane then there is no drop in dimension.
+            \bigbreak \noindent 
+            This model is in accord with a simple model of a camera, in which a ray of light from a point in the world passes through the lens of a camera and impinges on a film or digital device, producing an image of the point. Ignoring such effects as focus and lens thickness, a reasonable approximation is that all the rays pass through a single point, the centre of the lens.
 
 
 
