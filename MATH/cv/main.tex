@@ -598,11 +598,29 @@
             A singular matrix has a non-trivial null space (kernel)—a set of non-zero vectors that get mapped straight to the zero vector \(\mathbf{0}\). Geometrically, this means an entire line or plane of points collapses into a single point, or becomes completely undefined in projective space (since \(\mathbf{0}\) is not a valid homogeneous coordinate).
             \bigbreak \noindent 
             In a valid \(\mathbb{P}^2 \to \mathbb{P}^2\) homography, three non-collinear points always map to three non-collinear points. If the 3 × 3 matrix is singular (rank 2 or 1), it squashes the entire 2D plane onto a single line or a single point, destroying the structure of the shapes. • Because distinct points get merged into the same output, you cannot reverse the transformation to recover the original geometry.
+        \item \textbf{What does a homography look like?}: Visually, a homography warps a flat grid or planar image into a keystone or trapezoid-like perspective shape while keeping straight lines straight. Algebraically, for 2D projective space (\(\mathbb{P}^{2}\), it looks like an invertible 3 $\times$ 3 matrix acting on homogeneous coordinates
+            \begin{itemize}
+                \item \textbf{Lines stay straight:} Any straight line or collinear set of points maps to another straight line.
+                \item \textbf{Shapes warp:} Squares and rectangles can become trapezoids or general quadrilaterals as one edge appears closer or farther away.
+                \item \textbf{Angles and lengths change:} Unlike rigid motions or affine transformations, parallel lines can converge and lengths or angles are generally not preserved
+            \end{itemize}
+            \fig{.1}{./figures/2.png}
         \item \textbf{Cameras as points}: In a central projection, points in $\mathbb{P}^{3}$ are mapped to points in $\mathbb{P}^{2}$, all points in a ray passing through the centre of projection projecting to the same point in an image. For the purposes of image projection, it is possible to consider all points along such a ray as being equal. We can go one step further, and think of the ray through the projection centre as representing the image point. Thus, the set of all image points is the same as the set of rays through the camera centre. If we represent the ray from $(0, 0, 0, 1)^{\mathsf{T}}$ through the point ($X$, $ Y$, $ Z$, $ T$)$^{T}$ by its first three coordinates ($X$, $ Y$, $ Z$)$^{T}$, it is easily seen that for any constant $k$, the ray $k$($X$, $ Y$, $ Z$)$^{T}$ represents the same ray. Thus the rays themselves are represented by homogeneous coordinates.
             \bigbreak \noindent 
             In fact, they make up a 2-dimensional space of rays. The set of rays themselves may be thought of as a representation of the image space $\mathbb{P}^{2}$. In this representation of the image, all that is important is the camera centre, for this alone determines the set of rays forming the image. Different camera matrices representing the image formation from the same centre of projection reflect only different coordinate frames for the set of rays forming the image. Thus two images taken from the same point in space are projectively equivalent. It is only when we start to measure points in an image, that a particular coordinate frame for the image needs to be specified. Only then does it become necessary to specify a particular camera matrix. In short, modulo field-of-view which we ignore for now, all images acquired with the same camera centre are equivalent – they can be mapped onto each other by a projective transformation without any information about the 3D points or position of the camera centre.
             \bigbreak \noindent 
             Images captured with the same image center are photographs taken from the exact same 3D optical center (also called the camera center, focal point, or center of projection), meaning the camera was rotated, zoomed, or changed lenses without translating its physical position in space.
+            \bigbreak \noindent 
+            \fig{.6}{./figures/1.png}
+            \bigbreak \noindent 
+            The camera centre is the essence. 
+            \begin{enumerate}[label=(\alph*)]
+                \item Image formation: the image points $\mathbf{x}_{i}$ are the intersection of a plane with rays from the space points $\mathbf{X}_{i}$ through the camera centre $\mathbf{C}$. 
+                \item If the space points are coplanar then there is a projective transformation between the world and image planes, $\mathbf{x}_{i}=\mathtt{H}_{3\times 3}$X${}_{i}$. 
+                \item All images with the same camera centre are related by a projective transformation, $\mathbf{x}_{i}'=\mathtt{H}_{3\times 3}'\mathbf{x}_{i}$. Compare (b) and (c) – in both cases planes are mapped to one another by rays through a centre. In (b) the mapping is between a scene and image plane, in (c) between two image planes. 
+                \item If the camera centre moves, then the images are in general not related by a projective transformation, unless 
+                \item all the space points are coplanar.
+            \end{enumerate}
         \item \textbf{Calibrated cameras}: To understand fully the Euclidean relationship between the image and the world, it is necessary to express their relative Euclidean geometry. As we have seen, the Euclidean geometry of the 3D world is determined by specifying a particular plane in $\mathbb{P}^{3}$ as being the plane at infinity, and a specific conic $\Omega $ in that plane as being the absolute conic. For a camera not located on the plane at infinity, the plane at infinity in the world maps one-to-one onto the image plane. This is because any point in the image defines a ray in space that meets the plane at infinity in a single point. Thus, the plane at infinity in the world does not tell us anything new about the image.
             \bigbreak \noindent 
             The absolute conic, however being a conic in the plane at infinity must project to a conic in the image. The resulting image curve is called the Image of the Absolute Conic, or IAC. If the location of the IAC is known in an image, then we say that the camera is calibrated.
@@ -873,6 +891,69 @@
                         \~{v}=A^{-1}v\quad \iff \quad \~{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
                     .\end{align*}
             \end{enumerate}
+        \item \textbf{Basis notation}: Use \(v\in V\) for membership in a vector space and \([v]_{\mathcal B}\) for the coordinates of \(v\) in a basis. The same vector can have different coordinate columns in different bases.
+            \bigbreak \noindent 
+            Write \(\mathcal B=(e_1,e_2)\) for an ordered basis of \(V\). The order tells you which basis vector goes with each coordinate.
+            \begin{align*}
+                v = xe_{1} + ye_{2} \implies [v]_{\mathcal{B}} =\begin{pmatrix} x \\ y \end{pmatrix},\quad v \in V
+            .\end{align*}
+            Here \(x,y\) are the coordinates, and \(xe_1+ye_2\) is the vector they represent.
+            \bigbreak \noindent 
+            To specify the space and its basis together, write “\(v\in V\), where \(V\) has ordered basis \(\mathcal B\).” If you also want to show how the basis describes the space, write 
+            \begin{align*}
+                V=\operatorname{span}\{e_1,e_2\}
+            .\end{align*}
+            If \(\mathcal C=(\tilde e_1,\tilde e_2)\) is another basis of \(V\), you can write \(\mathcal B\to\mathcal C\) for the change of basis. To show the direction of the coordinate conversion, use
+            \[
+                [v]_{\mathcal C}=P_{\mathcal C\leftarrow\mathcal B}[v]_{\mathcal B}.
+            \]
+        \item \textbf{Vector sigma notation}: For a vector $v \in V$ in two basis choices $\left\{e_{1}, e_{2}\right\} $, $\left\{\tilde{e}_{1}, \tilde{e}_{2}\right\} $,
+            \begin{align*}
+                v = \sum_{i}v^{i}e_{i} = \sum_{j}\tilde{v}^{j}\tilde{e}_{j}
+            .\end{align*}
+            This is called the invariant vector. The change of basis matrix $B$ is the matrix whose columns are the new basis expressed in the old basis. If 
+            \begin{align*}
+                \tilde{e}_{1} &= ae_{1} + ce_{2} = \begin{pmatrix} e_{1} & e_{2} \end{pmatrix} \begin{pmatrix} a \\ c \end{pmatrix}, \\
+                \tilde{e}_{2} &= be_{1} + de_{2} = \begin{pmatrix} e_{1} & e_{2} \end{pmatrix} \begin{pmatrix} b \\ d \end{pmatrix}
+            ,\end{align*}
+            then
+            \begin{align*}
+                B = \begin{pmatrix} a & b \\ c & d \end{pmatrix}
+            .\end{align*}
+            If we let $A = \begin{pmatrix} e_{1} & e_{2} \end{pmatrix} $, then
+            \begin{align*}
+                \tilde{e}_{1} &= AB_{1}, \quad \tilde{e}_{2} = AB_{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                B = \begin{pmatrix} A^{-1}\tilde{e}_{1} & A^{-1}\tilde{e}_{2} \end{pmatrix}
+            .\end{align*}
+            From the expressions for $\tilde{e}_{1},\tilde{e}_{2}$ we see 
+            \begin{align*}
+                \tilde{e}_{j} = \sum_i B_{j}^{i}e_{i}
+            .\end{align*}
+            From the invariant vector we see
+            \begin{align*}
+                \sum_{i}v^{i}e_{i} &= \sum_{j}\tilde{v}^{j}\tilde{e}_{j} = \sum_j\tilde{v}^{j}\left(\sum_i B_{j}^{i}e_{i}\right) \\
+                                   &= \sum_j\sum_i\tilde{v}^{j}B_{j}^{i}e_{i} = \sum_i\sum_j\tilde{v}^{j}B_{j}^{i}e_{i} \\
+                                   &= \sum_i\left(\sum_j\tilde{v}^{j}B_{j}^{i}\right)e_{i} = \sum_i\left(\sum_jB_{j}^{i}\tilde{v}^{j}\right)e_{i}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                v^{i} = \sum_j B_j^{i}\tilde{v}^{j}
+            .\end{align*}
+            If we drop the restriction of the index $i$,
+            \begin{align*}
+                v = \sum_j B_j\tilde{v} = B\tilde{v}
+            .\end{align*}
+            Thus, 
+            \begin{align*}
+                \tilde{v}  = B^{-1}v
+            .\end{align*}
+            In general, 
+            \begin{align*}
+                \hat{v} = Av = \sum_j A_{j}v^{j}, \quad \hat{v}^{i} = \sum_j A_{j}^{i}v^{j}
+            .\end{align*}
 
 
         \item \textbf{Three-view geometry (Trifocal Tensor)}: In the last section it was discussed how reconstruction of a set of points, and the relative placement of the cameras, is possible from two views of a set of points. The reconstruction is possible only up to a projective transformation of space, and the corresponding adjustment to the camera matrices.
@@ -885,13 +966,13 @@
             \bigbreak \noindent 
             It is customary to write some of the indices of a tensor as lower and some as upper indices. These are referred to as the covariant and contravariant indices. The trifocal tensor is of the form $\mathcal{T}_{i}^{jk}$ , having two upper and one lower index.
             \bigbreak \noindent 
-            The most basic relationship between image entities in three views concerns a correspondence between two lines and a point. We consider a correspondence $\mathbf{x}\leftrightarrow \mathbf{l}'\leftrightarrow \mathbf{l}''$ between a point $\mathbf{x}$ in one image and two lines $\mathbf{l}'$ and $\mathbf{l}''$ in the other two images. This relationship means that there is a point X in space that maps to $\mathbf{x}$ in the first image, and to points $\mathbf{x}'$ and $\mathbf{x}''$ lying on the lines $\mathbf{l}'$ and $\mathbf{l}''$ in the other two images. The coordinates of these three images are then related via the trifocal tensor relationship:
+            The most basic relationship between image entities in three views concerns a correspondence between two lines and a point. We consider a correspondence $\mathbf{x}\leftrightarrow \ell'\leftrightarrow \ell''$ between a point $\mathbf{x}$ in one image and two lines $\ell'$ and $\ell''$ in the other two images. This relationship means that there is a point X in space that maps to $\mathbf{x}$ in the first image, and to points $\mathbf{x}'$ and $\mathbf{x}''$ lying on the lines $\ell'$ and $\ell''$ in the other two images. The coordinates of these three images are then related via the trifocal tensor relationship:
             \begin{align*}
                 \sum_{ijk} x^{i}\ell_{j}^{\prime}\ell_{k}^{\prime\prime}\mathcal{T}_{i}^{jk} = 0
             .\end{align*}
             This relationship gives a single linear relationship between the elements of the tensor. With sufficiently many such correspondences, it is possible to solve linearly for the elements of the tensor.
             \bigbreak \noindent 
-            Fortunately, one can obtain more equations from a point correspondence x $\leftrightarrow \mathbf{x}'\leftrightarrow \mathbf{x}''$. In fact, in this situation, one can choose any lines $\mathbf{l}'$ and $\mathbf{l}''$ passing through the points $\mathbf{x}'$ and $\mathbf{x}''$ and generate a relation of the sort
+            Fortunately, one can obtain more equations from a point correspondence x $\leftrightarrow \mathbf{x}'\leftrightarrow \mathbf{x}''$. In fact, in this situation, one can choose any lines $\ell'$ and $\ell''$ passing through the points $\mathbf{x}'$ and $\mathbf{x}''$ and generate a relation of the sort
             \begin{align*}
                 \sum_{ijk} x^{i}\ell_{j}^{\prime}\ell_{k}^{\prime\prime}\mathcal{T}_{i}^{jk} = 0
             .\end{align*}
@@ -906,16 +987,163 @@
                 \item It is possible to use a mixture of line and point correspondences to compute the projective reconstruction. With two views, only point correspondences can be used.
                 \item Using three views gives greater stability to the reconstruction, and avoids unstable configurations that may occur using only two views for the reconstruction.
             \end{enumerate}
-        \item \textbf{Four view geometry and $n$-view reconstruction}
+        \item \textbf{Four view geometry and $n$-view reconstruction}: It is possible to go one more step with tensor-based methods and define a quadrifocal tensor relating entities visible in four views. This method is seldom used, however, because of the relative difficulty of computing a quadrifocal tensor that obey its internal constraints. Nevertheless, it does provide a non-iterative method for computing a projective reconstruction based on four views. The tensor method does not extend to more than four views, however, and so reconstruction from more than four views becomes more difficult.
+            \bigbreak \noindent 
+            Many methods have been considered for reconstruction from several views, and we consider a few of these in the book. One way to proceed is to reconstruct the scene bit by bit, using three-view or two-view techniques. Such a method may be applied to any image sequence, and with care in selecting the right triples to use, it will generally succeed. 
+            \bigbreak \noindent 
+            There are methods that can be used in specific circumstances. The task of reconstruction becomes easier if we are able to apply a simpler camera model, known as the affine camera. This camera model is a fair approximation to perspective projection whenever the distance to the scene is large compared with the difference in depth between the back and front of the scene. If a set of points are visible in all of a set of $n$ views. involving an affine camera, then a well-known algorithm, the factorization algorithm, can be used to compute both the structure of the scene, and the specific camera models in one step using the Singular Value Decomposition. This algorithm is very reliable and simple to implement. Its main difficulties are the use of the affine camera model, rather than a full projective model, and the requirement that all the points be visible in all views.
+            \bigbreak \noindent 
+            This method has been extended to projective cameras in a method known as projective factorization. Although this method is generally satisfactory, it can not be proven to converge to the correct solution in all cases. Besides, it also requires all points to be visible in all images.
+            \bigbreak \noindent 
+            Other methods for $n$-view reconstruction involve various assumptions, such as knowledge of four coplanar points in the world visible in all views, or six or seven points that are visible in all images in the sequence. Methods that apply to specific motion sequences, such as linear motion, planar motion or single axis (turntable) motion have also been developed.
+            \bigbreak \noindent 
+            The dominant methodology for the general reconstruction problem is bundle adjustment. This is an iterative method, in which one attempts to fit a non-linear model to the measured data (the point correspondences). The advantage of bundle-adjustment is that it is a very general method that may be applied to a wide range of reconstruction and optimization problems. It may be implemented in such a way that the discovered solution is the Maximum Likelihood solution to the problem, that is a solution that is in some sense optimal in terms of a model for the inaccuracies of image measurements.
+            \bigbreak \noindent 
+            Unfortunately, bundle adjustment is an iterative process, which can not be guaranteed to converge to the optimal solution from an arbitrary starting point. Much research in reconstruction methods seeks easily computable non-optimal solutions that can be used as a starting point for bundle adjustment. An initialization step followed by bundle adjustment is the generally preferred technique for reconstruction. A common impression is that bundle-adjustment is necessarily a slow technique. The truth is that it is quite efficient when implemented carefully. Using $n$-view reconstruction techniques, it is possible to carry out reconstructions automatically from quite long sequences of images.
+        \item \textbf{Transfer}: We have discussed 3D reconstruction from a set of images. Another useful application of projective geometry is that of transfer: given the position of a point in one (or more) image(s), determine where it will appear in all other images of the set. To do this, we must first establish the relationship between the cameras using (for instance) a set of auxiliary point correspondences. Conceptually transfer is straightforward given that a reconstruction is possible. For instance, suppose the point is identified in two views (at $\mathbf{x}$ and $\mathbf{x}'$) and we wish to know its position $\mathbf{x}''$ in a third, then this may be computed by the following steps:
+            \begin{enumerate}
+                \item Compute the camera matrices of the three views $\mathtt{P}, \mathtt{P}', \mathtt{P}''$ from other point correspondences
+                \begin{align*}
+                    \mathbf{x}_{i}\leftrightarrow \mathbf{x}_{i}'\leftrightarrow \mathbf{x}_{i}''
+                .\end{align*}
+                \item Triangulate the 3D point X from $\mathbf{x}$ and $\mathbf{x}'$ using P and $\mathtt{P}'$. 
+                \item Project the 3D point into the third view as $\mathbf{x}''=\mathtt{P}''X$
+            \end{enumerate}
+            This procedure only requires projective information. An alternative procedure is to use the multi-view tensors (the fundamental matrix and trifocal tensor) to transfer the point directly without an explicit 3D reconstruction. Both methods have their advantages.
+            \bigbreak \noindent 
+            Suppose the camera rotates about its centre or that all the scene points of interest lie on a plane. Then the appropriate multiple view relations are the planar projective transformations between the images. In this case, a point seen in just one image can be transferred to any other image
+        \item \textbf{Euclidean reconstruction}: So far we have considered the reconstruction of a scene, or transfer, for images taken with a set of uncalibrated cameras. For such cameras, important parameters such as the focal length, the geometric centre of the image (the principal point) and possibly the aspect ratio of the pixels in the image are unknown. If a complete calibration of each of the cameras is known then it is possible to remove some of the ambiguity of the reconstructed scene.
+            \bigbreak \noindent 
+            So far, we have discussed projective reconstruction, which is all that is possible without knowing something about the calibration of the cameras or the scene. Projective reconstruction is insufficient for many purposes, such as application to computer graphics, since it involves distortions of the model that appear strange to a human used to viewing a Euclidean world. For instance, the distortions that projective transformations induce in a simple object are shown below
+            \bigbreak \noindent 
+            \fig{.4}{./figures/3.png}
+            \bigbreak \noindent 
+            Reconstructions of a mug (shown with the true shape in the centre) under 3D projective transformations in the Z direction. Five examples of the cup with different degrees of projective distortion are shown. The shapes are quite different from the original.
+            \bigbreak \noindent 
+            Using the technique of projective reconstruction, there is no way to choose between any of the possible shapes of the mug, and a projective reconstruction algorithm is as likely to come up with any one of the reconstructions shown there as any other. Even more severely distorted models may arise from projective reconstruction.
+            \bigbreak \noindent 
+            In order to obtain a reconstruction of the model in which objects have their correct (Euclidean) shape, it is necessary to determine the calibration of the cameras. It is easy to see that this is sufficient to determine the Euclidean structure of the scene. As we have seen, determining the Euclidean structure of the world is equivalent to specifying the plane at infinity and the absolute conic. In fact, since the absolute conic lies in a plane, the plane at infinity, it is enough to find the absolute conic in space.
+            \bigbreak \noindent 
+            Now, suppose that we have computed a projective reconstruction of the world, using calibrated cameras. By definition, this means that the IAC is known in each of the images; let it be denoted by $\boldsymbol{\omega}_{i}$ in the $i$-th image. The back-projection of each $\boldsymbol{\omega}_{i}$ is a cone in space, and the absolute conic must lie in the intersection of all the cones. Two cones in general intersect in a fourth-degree curve, but given that they must intersect in a conic, this curve must split into two conics. Thus, reconstruction of the absolute conic from two images is not unique – rather, there are two possible solutions in general
+            \bigbreak \noindent 
+            However, from three or more images, the intersection of the cones is unique in general. Thus the absolute conic is determined and with it the Euclidean structure of the scene
+            \bigbreak \noindent 
+            Of course, if the Euclidean structure of the scene is known, then so is the position of the absolute conic. In this case we may project it back into each of the images, producing the IAC in each image, and hence calibrating the cameras. Thus knowledge of the camera calibration is equivalent to being able to determine the Euclidean structure of the scene.
+        \item \textbf{Auto-calibration}: Without any knowledge of the calibration of the cameras, it is impossible to do better than projective reconstruction. There is no information in a set of feature correspondences across any number of views that can help us find the image of the absolute conic, or equivalently the calibration of the cameras. However, if we know just a little about the calibration of the cameras then we may be able to determine the position of the absolute conic
+
+
+    \end{itemize}
+
+    \pagebreak 
+    \unsect{The Background: Projective Geometry, Transformations, and Estimation}
+    \subsection{Projective Geometry and Transformations of 2D}
+    \begin{itemize}
+        \item \textbf{Planar geometry}:  At an elementary level, geometry is the study of points and lines and their relationships.
+            \bigbreak \noindent 
+            To the purist, the study of geometry ought properly to be carried out from a “geometric” or coordinate-free viewpoint. In this approach, theorems are stated and proved in terms of geometric primitives only, without the use of algebra. The classical approach of Euclid is an example of this method. Since Descartes, however, it has been seen that geometry may be algebraicized, and indeed the theory of geometry may be developed from an algebraic viewpoint. Our approach in this book will be a hybrid approach, sometimes using geometric, and sometimes algebraic methods. In the algebraic approach, geometric entities are described in terms of coordinates and algebraic entities. Thus, for instance a point is identified with a vector in terms of some coordinate basis. A line is also identified with a vector, and a conic section (more briefly, a conic) is represented by a symmetric matrix. In fact, we often carry this identification so far as to consider that the vector actually is a point, or the symmetric matrix is a conic, at least for convenience of language. A significant advantage of the algebraic approach to geometry is that results derived in this way may more easily be used to derive algorithms and practical computational methods. Computation and algorithms are a major concern in this book, which justifies the use of the algebraic method.
+        \item \textbf{The 2D projective plane}: As we all know, a point in the plane may be represented by the pair of coordinates $(x, y)$ in $\mathbb{R}^{2}$. Thus, it is common to identify the plane with $\mathbb{R}^{2} $. Considering $\mathbb{R}^{2} $ as a vector space, the coordinate pair $(x, y)$ is a vector – a point is identified as a vector. In this section we introduce the homogeneous notation for points and lines on a plane.
+            \bigbreak \noindent 
+            Row and column vectors. Later on, we will want to consider linear mappings between vector spaces, and represent such mappings as matrices. In the usual manner, the product of a matrix and a vector is another vector, the image under the mapping. This brings up the distinction between “column” and “row” vectors, since a matrix may be multiplied on the right by a column and on the left by a row vector. Geometric entities will by default be represented by column vectors. A bold-face symbol such as $\mathbf{x}$ always represents a column vector, and its transpose is the row vector $\mathbf{x}^{\mathsf{T}}$. In accordance with this convention, a point in the plane will be represented by the column vector $(x, y)^{\mathsf{T}}$, rather than its transpose, the row vector $(x, y)$. We write $\mathbf{x}=(x, y)^{\mathsf{T}}$, both sides of this equation representing column vectors
+        \item \textbf{Equations of a line in a plane}: We have the general (standard) form
+            \begin{align*}
+               ax + by = c, \quad ax + by + d = 0 
+            \end{align*}
+            where $a,b \ne 0$. The vector $(a,b)^{T}$ is normal to the line.
+            \bigbreak \noindent 
+            Suing a known point $r_{0} = (x_{0}, y_{0}) $ and a direction vector $v = (a,b)^{T}$, we get
+            \begin{align*}
+                r(t) = r_{0} + tv = (x_{0} + at, y_{0} + bt)^{T}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                x = x_{0} + at, \quad y=  y_{0} + bt
+            ,\end{align*}
+            which are the \textbf{parametric equations}.
+        \item \textbf{The standard form of a line in a plane}: Fix a point $P_{0} = (x_{0}, y_{0})^{T}$ on the line. Let \(P = (x, y)\) be any other point on the line. The vector connecting them along the line is:
+            \begin{align*}
+                v = (x-x_{0}, y-y_{0})^{T}
+            .\end{align*}
+            Choose a normal vector $n = (a,b)^{T}$ that is normal to the line. Because $n$ is orthogonal to $v$, their dot product must be zero.
+            \begin{align*}
+                n^{T}v = 0
+            .\end{align*}
+            Hence,
+            \begin{align*}
+                a(x-x_{0}) + b(y-y_{0}) = 0 = ax -ax_{0} + by -by_{0} = ax + by + (-ax_{0} - by_{0}) = ax + by + d = 0
+            ,\end{align*}
+            where $d = -ax_{0} - by_{0}$.
+        \item \textbf{Equations of a plane}: a plane is uniquely defined by a point on the plane and a normal vector (a vector perpendicular to the plane). You can write its equation in several common forms
+            \begin{itemize}
+                \item \textbf{Point-Normal Form:} \(\vec{n} \cdot (\vec{r} - \vec{r}_0) = 0\), or \(a(x - x_0) + b(y - y_0) + c(z - z_0) = 0\), where \(\vec{n} = \langle a, b, c \rangle\) is the normal vector and \((x_0, y_0, z_0)\) is a point on the plane.
+                \item \textbf{Scalar / Standard Form:} \(ax + by + cz = d\), where \(d = ax_0 + by_0 + cz_0\).
+                \item \textbf{General Form:} \(ax + by + cz + d = 0\).
+                \item \textbf{Parametric Form:} \(\vec{r}(s, t) = \vec{r}_0 + s\vec{u} + t\vec{v}\), where \(\vec{u}\) and \(\vec{v}\) are two non-parallel vectors lying in the plane and \(s, t\) are real parameters
+            \end{itemize}
+            Given three non-collinear points $P,Q,R$
+            \begin{itemize}
+                \item Form two vectors in the plane, such as \(\vec{u} = \vec{PQ}\) and \(\vec{v} = \vec{PR}\).
+                \item Compute their cross product \(\vec{n} = \vec{u} \times \vec{v}\) to get a normal vector.
+                \item Use \(\vec{n}\) and any one of the three points in the point-normal formula
+            \end{itemize}
+        \item \textbf{Homogeneous representation of lines}: A line in the plane is represented by an equation such as $ax+by+c=0$, different choices of $a$, $b$ and $c$ giving rise to different lines. Thus, a line may naturally be represented by the vector $(a, b, c)^{\mathsf{T}}$. The correspondence between lines and vectors $(a, b, c)^{\mathsf{T}}$ is not one-to-one, since the lines $ax+by+c=0$ and $(ka)x+(kb)y+(kc)=0$ are the same, for any non-zero constant $k$. Thus, the vectors $(a, b, c)^{\mathsf{T}}$ and $k(a, b, c)^{\mathsf{T}}$ represent the same line, for any non-zero $k$.
+            \bigbreak \noindent 
+            In fact, two such vectors related by an overall scaling are considered as being equivalent. An equivalence class of vectors under this equivalence relationship is known as a homogeneous vector. Any particular vector $(a, b, c)^{\mathsf{T}}$ is a representative of the equivalence class. The set of equivalence classes of vectors in $\mathbb{R}^{3}$ $-(0, 0, 0)^{\mathsf{T}}$ forms the projective space $\mathbb{P}^{2}$. The notation $-(0, 0, 0)^{\mathsf{T}}$ indicates that the vector $(0, 0, 0)^{\mathsf{T}}$, which does not correspond to any line, is excluded.
+        \item \textbf{Homogeneous representation of points}: A point $\mathbf{x}=(x, y)^{\mathsf{T}}$ lies on the line $ \ell = (a, b, c)^{\mathsf{T}}$ if and only if $ax+by+c=0$. This may be written in terms of an inner product of vectors representing the point as $(x, y, 1)(a, b, c)^{\mathsf{T}}=(x, y, 1)\ell=0$; that is the point $(x, y)^{\mathsf{T}}$ in $\mathbb{R}^{2}$ is represented as a 3-vector by adding a final coordinate of 1.
+            \bigbreak \noindent 
+            Note that for any non-zero constant $k$ and line $\ell$ the equation $(kx, ky, k)\ell=0$ if and only if $(x, y, 1)\ell=0$. It is natural, therefore, to consider the set of vectors $(kx, ky, k)^{\mathsf{T}}$ for varying values of $k$ to be a representation of the point $(x, y)^{\mathsf{T}}$ in $\mathbb{R}^{2}$. Thus, just as with lines, points are represented by homogeneous vectors
+            \bigbreak \noindent 
+            An arbitrary homogeneous vector representative of a point is of the form $\mathbf{x}=(x_{1}, x_{2}, x_{3})^{\mathsf{T}}$, representing the point $(x_{1}/x_{3}, x_{2}/x_{3})^{\mathsf{T}}$ in $\mathbb{R}^{2}$. Points, then, as homogeneous vectors are also elements of $\mathbb{P}^{2}$. One has a simple equation to determine when a point lies on a line, namely
+        \item \textbf{Result 2.1}: The point $\mathbf{x}$ lies on the line $\ell$ if and only if $\mathbf{x}^{T}\ell = 0$.
+            \bigbreak \noindent 
+            Note that the expression $\mathbf{x}^{\mathsf{T}}\ell$ is just the inner or scalar product of the two vectors $\ell$ and x. The scalar product $\mathbf{x}^{\mathsf{T}}\ell=\ell^{\mathsf{T}}\mathbf{x}=\mathbf{x}.\ell$. In general, the transpose notation lTx will be preferred, but occasionally, we will use a $.$ to denote the inner product. We distinguish between the homogeneous coordinates $\mathbf{x}=(x_{1}, x_{2}, x_{3})^{\mathsf{T}}$ of a point, which is a 3-vector, and the inhomogeneous coordinates $(x, y)^{\mathsf{T}}$, which is a 2-vector
+        \item \textbf{Degrees of freedom (dof)}:  It is clear that in order to specify a point two values must be provided, namely its $x$- and $y$-coordinates. In a similar manner a line is specified by two parameters (the two independent ratios $\{a:b:c\}$) and so has two degrees of freedom. For example, in an inhomogeneous representation, these two parameters could be chosen as the gradient and $y$ intercept of the line.
+            \bigbreak \noindent 
+            In projective geometry, degrees of freedom (dof) means the number of independent numbers you must set to uniquely pick out a point or a line in the 2D projective plane (\(\mathbb{P}^{2}\)). Both a point and a line in \(\mathbb{P}^{2}\) have 2 degrees of freedom because of projective duality and scale invariance
+            \begin{itemize}
+                \item \textbf{Euclidean / Inhomogeneous view:} A standard point in the plane needs two independent coordinates, \(x\) and \(y\).
+                \item \textbf{Homogeneous view:} In \(\mathbb{P}^{2}\), a point is written with three homogeneous coordinates \((X, Y, W)\), not all zero.
+                \item \textbf{Removing scale:} Multiplying all three coordinates by any non-zero scalar \(k\) gives the same point: \((kX, kY, kW)\) represents the same projective point as \((X, Y, W)\).
+            \end{itemize}
+            3 coordinates, 1 scale factor, so 2 degrees of freedom
+            \bigbreak \noindent 
+            A line in 2D is given by \(aX + bY + cW = 0\) (or \(ax + by + c = 0\) in inhomogeneous form), represented by the homogeneous line vector \(\ell = (a, b, c)^T\).
+            \bigbreak \noindent 
+            Scaling \((a, b, c)\) by any non-zero constant \(k\) scales the entire equation by \(k\), leaving the solution set (the line itself) unchanged. Only the ratios \(\{a : b : c\}\) matter.
+            \bigbreak \noindent 
+            3 coefficients, 1 overall scale, so 2 degrees of freedom.
+        \item \textbf{Notation}: The notation \(\{a : b : c\}\) (often written as \([a : b : c]\) or \((a : b : c)\)) represents homogeneous coordinates—specifically an equivalence class of ratios rather than three fixed numbers. Proportions, not fixed values: The colons indicate a three-way ratio, just like a standard two-way ratio \(a : b\).
+            \bigbreak \noindent 
+            Two triples represent the exact same object if one is a non-zero scalar multiple of the other:
+            \begin{align*}
+                \{a:b:c\}=\{ka:kb:kc\}\quad \text{for\ any\ }k\ne 0
+            .\end{align*}
+            At least one of \(a, b,\) or \(c\) must be non-zero, because \(\{0 : 0 : 0\}\) does not define a valid ratio or line.
+            \bigbreak \noindent 
+            Even though three numbers are written down, fixing one non-zero number determines the rest.
+            \bigbreak \noindent 
+            If \(c \neq 0\), you can divide everything by \(c\) to get 
+            \begin{align*}
+                \left\{\frac{a}{c} : \frac{b}{c} : 1\right\}
+            .\end{align*}
+            Those two fractions, \(\frac{a}{c}\) and \(\frac{b}{c}\), are the two independent ratios that give the line its 2 degrees of freedom.
+        \item \textbf{Intersection of lines}: Given two lines $\ell=(a, b, c)^{\mathsf{T}}$ and $\ell'=(a', b', c')^{\mathsf{T}}$, we wish to find their intersection. Define the vector $\mathbf{x}=\ell\times \ell'$, where $\times $ represents the vector or cross product. From the triple scalar product identity $\ell.(\ell\times \ell')=\ell'.(\ell\times \ell')=0$, we see that $\ell^{\mathsf{T}}\mathbf{x}=\ell'^{\mathsf{T}}\mathbf{x}=0$. Thus, if x is thought of as representing a point, then x lies on both lines $\ell$ and $\ell'$, and hence is the intersection of the two lines. This shows
+        \item \textbf{Result 2.2}: The intersection of two lines $\ell$ and $\ell'$ is the point $\mathbf{x}=\ell\times \ell'$
+            \bigbreak \noindent 
+            Note that the simplicity of this expression for the intersection of the two lines is a direct consequence of the use of homogeneous vector representations of lines and points.
+
 
 
 
 
 
         
+    \end{itemize}
 
-
-
+    \pagebreak 
+    \unsect{Part 0 Results and Definitions}
+    \begin{itemize}
+        \item \textbf{Result 2.1}: The point $\mathbf{x}$ lies on the line $\ell$ if and only if $\mathbf{x}^{T}\ell = 0$.
+        \item \textbf{Result 2.2}: The intersection of two lines $\ell$ and $\ell'$ is the point $\mathbf{x}=\ell\times \ell'$
 
     \end{itemize}
 
