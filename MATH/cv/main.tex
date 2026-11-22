@@ -501,11 +501,419 @@
     \pagebreak 
     \subsection{Camera Projections}
     \begin{itemize}
+        \item \textbf{Block matrix (partitioned matrix)}: A larger matrix divided into smaller sub-matrices called blocks
+            \begin{align*}
+                A = \begin{pmatrix} \hat{A}_{1} & \hat{A}_{2} \\ \hat{A}_{3} & \hat{A}_{4} \end{pmatrix}
+            \end{align*}
+            where $\hat{A}_{i}$ is itself a matrix.
         \item \textbf{Intro}: One of the principal topics of this book is the process of image formation, namely the formation of a two-dimensional representation of a three-dimensional world, and what we may deduce about the 3D structure of what appears in the images.        
             \bigbreak \noindent 
             The drop from three-dimensional world to a two-dimensional image is a projection process in which we lose one dimension. The usual way of modelling this process is by central projection in which a ray from a point in space is drawn from a 3D world point through a fixed point in space, the centre of projection. This ray will intersect a specific plane in space chosen as the image plane. The intersection of the ray with the image plane represents the image of the point. If the 3D structure lies on a plane then there is no drop in dimension.
             \bigbreak \noindent 
             This model is in accord with a simple model of a camera, in which a ray of light from a point in the world passes through the lens of a camera and impinges on a film or digital device, producing an image of the point. Ignoring such effects as focus and lens thickness, a reasonable approximation is that all the rays pass through a single point, the centre of the lens.
+            \bigbreak \noindent 
+            In applying projective geometry to the imaging process, it is customary to model the world as a 3D projective space, equal to $\mathbb{R}^{3}$ with points at infinity.
+            \bigbreak \noindent 
+            Similarly the model for the image is the 2D projective plane $\mathbb{P}^{2}$. Central projection is simply a map from $\mathbb{P}^{3}$ to $\mathbb{P}^{2}$.
+            \bigbreak \noindent 
+            If we consider points in $\mathbb{P}^{3}$ written in terms of homogeneous coordinates ($X$, $ Y$, $ Z$, $ T$)$^{T}$ and let the centre of projection be the origin $(0, 0, 0, 1)^{\mathsf{T}}$, then we see that the set of all points ($X$, $ Y$, $ Z$, $ T$)$^{T}$ for fixed $X$, $Y$ and $Z$, but varying $T$ form a single ray passing through the point centre of projection, and hence all mapping to the same point. Thus, the final coordinate of ($X$, $ Y$, $ Z$, $ T$)$^{T}$ is irrelevant to where the point is imaged.
+            \bigbreak \noindent 
+            Recall that  scaling $X,$ $Y,$ $Z$ by $k$ is mathematically identical to keeping $X,$ $Y,$ $Z$ fixed and dividing $T$ by $k$.
+            \bigbreak \noindent 
+        \item \textbf{Planar constraint}: A planar constraint is a geometric or mechanical restriction that forces points, surfaces, or objects to lie on or move within a single flat plane, while restricting movement out of that plane. 
+            \bigbreak \noindent 
+            \textbf{Note:} The line version is called a \textbf{linear constraint} or \textbf{collinear constraint}.
+        \item \textbf{The camera matrix}: In fact, the image point is the point in $\mathbb{P}^{2}$ with homogeneous coordinates ($X$, $ Y$, $ Z$)$^{T}$
+            \bigbreak \noindent 
+            Thus, the mapping may be represented by a mapping of 3D homogeneous coordinates, represented by a $3\times 4$ matrix $P$ with the block structure
+            \begin{align*}
+                P = [I_{3\times3}\mid 0_{3}] = \begin{pmatrix} 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{pmatrix}
+            .\end{align*}
+            Making allowance for a different centre of projection, and a different projective coordinate frame in the image, it turns out that the most general imaging projection is represented by an arbitrary $3\times 4$ matrix of rank 3, acting on the homogeneous coordinates of the point in $\mathbb{P}^{3}$ mapping it to the imaged point in $\mathbb{P}^{2}$. This matrix $P$ is known as the camera matrix
+            \bigbreak \noindent 
+            In summary, the action of a projective camera on a point in space may be expressed in terms of a linear mapping of homogeneous coordinates as
+            \[\begin{pmatrix}x\\y\\w\end{pmatrix}=\mathtt{P}_{3\times 4}\begin{pmatrix} X \\ Y \\ Z \\ T \end{pmatrix}\]
+            \bigbreak \noindent 
+            Furthermore, if all the points lie on a plane (we may choose this as the plane $Z = 0$) then the linear mapping reduces to
+            \[\begin{pmatrix}x\\y\\w\end{pmatrix}=\mathtt{H}_{3\times 3}\begin{pmatrix} X \\ Y \\ T \end{pmatrix}\]
+            which is a projective transformation.
+            \bigbreak \noindent 
+            Setting \(Z = 0\) (planar constraint) eliminates the third column of the camera matrix \(\mathtt{P}_{3\times 4}\) during matrix-vector multiplication, reducing the projection to a \(3 \times 3\) homography.
+            \bigbreak \noindent 
+            Let the columns of the \(3 \times 4\) projective camera matrix \(\mathtt{P}\) be \(\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_3, \mathbf{p}_4 \in \mathbb{R}^3\). The standard camera projection equation expands as a linear combination of these columns:
+            \begin{align*}
+                \begin{pmatrix} x \\ y \\ w \end{pmatrix} = \begin{pmatrix} p_{1} & p_{2} & p_{3} & p_{4} \end{pmatrix}\begin{pmatrix} X \\ Y \\ Z \\ T  \end{pmatrix} = Xp_{1} + Yp_{2} + Zp_{3} + Tp_{4}
+            .\end{align*}
+            Because we choose the world coordinate system so that the target plane aligns with \(Z = 0\), any point lying on this plane has homogeneous coordinates \(\left(\begin{matrix}X&Y&0&T\end{matrix}\right)^{\top }\).
+            \bigbreak \noindent 
+            Substituting \(Z = 0\) into the linear combination causes the third term to vanish:
+            \begin{align*}
+                \left(\begin{matrix}x\\ y\\ w\end{matrix}\right)=X\mathbf{p}_{1}+Y\mathbf{p}_{2}+(0)\mathbf{p}_{3}+T\mathbf{p}_{4}=X\mathbf{p}_{1}+Y\mathbf{p}_{2}+T\mathbf{p}_{4}
+            .\end{align*}
+            We can now repackage the remaining three terms back into matrix-vector form by dropping the unused third column (\(\mathbf{p}_{3}\)) and the zero coordinate (\(Z\)):
+            \begin{align*}
+                \left(\begin{matrix}x\\ y\\ w\end{matrix}\right)=\left(\begin{matrix}\mathbf{p}_{1}&\mathbf{p}_{2}&\mathbf{p}_{4}\end{matrix}\right)\left(\begin{matrix}X\\ Y\\ T\end{matrix}\right)=\mathtt{H}_{3\times 3}\left(\begin{matrix}X\\ Y\\ T\end{matrix}\right)
+            .\end{align*}
+            Restricting points to the plane \(Z = 0\) reduces the 3D projective space (\(\mathbb{P}^{3}\)) to a 2D projective plane (\(\mathbb{P}^{2}\)) parameterized by homogeneous coordinates \((X, Y, T)^\top\).
+            \bigbreak \noindent 
+            Unlike the general \(3 \times 4\) projection from \(\mathbb{P}^3 \to \mathbb{P}^2\) (which loses depth information), the resulting \(3 \times 3\) matrix \(\mathtt{H}\) maps \(\mathbb{P}^2 \to \mathbb{P}^2\).
+            \bigbreak \noindent 
+            Provided the camera center does not lie on the plane \(Z = 0\), the remaining columns \(\mathbf{p}_1, \mathbf{p}_2, \mathbf{p}_4\) are linearly independent. This makes \(\mathtt{H}\) a non-singular \(3 \times 3\) matrix, which is the exact algebraic definition of a 2D projective transformation (homography).
+            \bigbreak \noindent 
+            Suppose we choose $Z = k$. Since
+            \begin{align*}
+                (X,Y,Z,T)^{T} = \left(\frac{X}{T}, \frac{Y}{T}, \frac{Z}{T}\right)^{T}
+            ,\end{align*}
+            \begin{align*}
+                \frac{Z}{T} = k \implies Z = kT
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                \begin{pmatrix} x \\y \\w \end{pmatrix} = Xp_{1} + Yp_{2} + kTp_{3} + Tp_{4} = Xp_{1} + Yp_{2} + T(kp_{3} + p_{4})
+            .\end{align*}
+            Thus, another homography.
+
+        \item \textbf{Homography}: A projective transformation (also called a projectivity or homography) is a mapping between projective spaces that preserves straight lines and incidence. In 2D geometry and computer vision, it models how a flat surface looks from different viewpoints or under perspective distortion
+            \bigbreak \noindent 
+            A 2D projective transformation is represented by a non-singular $3 \times 3$ matrix acting on homogeneous coordinates \([x, y, w]^T\).
+            \begin{itemize}
+                \item \textbf{Preserves straight lines:} Straight lines map to straight lines, and collinear points stay collinear.
+                \item \textbf{Does not preserve parallelism:} Parallel lines can converge and intersect at a vanishing point.
+                \item \textbf{Does not preserve lengths or angles:} Distances, angles, and length ratios along a line can change.
+                \item \textbf{Preserves cross-ratios:} The cross-ratio of four collinear points remains invariant.
+                \item \textbf{Maps conics to conics:} For example, a circle can transform into an ellipse, parabola, or hyperbola
+            \end{itemize}
+        \item \textbf{nD homography}: An $nD$ homography is an invertible map from the projective plane $\mathbb{P}^{n}$ to itself
+            \begin{align*}
+                \mathbb{P}^{n} \to \mathbb{P}^{n}
+            \end{align*}
+            that maps straight lines to straight lines. The map is represented by a non-singular matrix $P_{n+1\times n+1}$.
+            \bigbreak \noindent 
+            So, a mapping from \(\mathbb{P}^{3}\) to \(\mathbb{P}^{2}\) is a perspective projection (or camera projection), not a homography. 
+            \bigbreak \noindent 
+            By definition, a homography must be an invertible, one-to-one mapping (an isomorphism) between projective spaces of the same dimension (\(\mathbb{P}^n \to \mathbb{P}^n\)), represented by a non-singular square $(n+1) \times (n+1)$ matrix.
+            \bigbreak \noindent 
+            \textbf{Note:} A singular matrix collapses dimensions, which destroys the geometric properties a homography is designed to preserve.
+            \bigbreak \noindent 
+            A singular matrix has a non-trivial null space (kernel)—a set of non-zero vectors that get mapped straight to the zero vector \(\mathbf{0}\). Geometrically, this means an entire line or plane of points collapses into a single point, or becomes completely undefined in projective space (since \(\mathbf{0}\) is not a valid homogeneous coordinate).
+            \bigbreak \noindent 
+            In a valid \(\mathbb{P}^2 \to \mathbb{P}^2\) homography, three non-collinear points always map to three non-collinear points. If the 3 × 3 matrix is singular (rank 2 or 1), it squashes the entire 2D plane onto a single line or a single point, destroying the structure of the shapes. • Because distinct points get merged into the same output, you cannot reverse the transformation to recover the original geometry.
+        \item \textbf{Cameras as points}: In a central projection, points in $\mathbb{P}^{3}$ are mapped to points in $\mathbb{P}^{2}$, all points in a ray passing through the centre of projection projecting to the same point in an image. For the purposes of image projection, it is possible to consider all points along such a ray as being equal. We can go one step further, and think of the ray through the projection centre as representing the image point. Thus, the set of all image points is the same as the set of rays through the camera centre. If we represent the ray from $(0, 0, 0, 1)^{\mathsf{T}}$ through the point ($X$, $ Y$, $ Z$, $ T$)$^{T}$ by its first three coordinates ($X$, $ Y$, $ Z$)$^{T}$, it is easily seen that for any constant $k$, the ray $k$($X$, $ Y$, $ Z$)$^{T}$ represents the same ray. Thus the rays themselves are represented by homogeneous coordinates.
+            \bigbreak \noindent 
+            In fact, they make up a 2-dimensional space of rays. The set of rays themselves may be thought of as a representation of the image space $\mathbb{P}^{2}$. In this representation of the image, all that is important is the camera centre, for this alone determines the set of rays forming the image. Different camera matrices representing the image formation from the same centre of projection reflect only different coordinate frames for the set of rays forming the image. Thus two images taken from the same point in space are projectively equivalent. It is only when we start to measure points in an image, that a particular coordinate frame for the image needs to be specified. Only then does it become necessary to specify a particular camera matrix. In short, modulo field-of-view which we ignore for now, all images acquired with the same camera centre are equivalent – they can be mapped onto each other by a projective transformation without any information about the 3D points or position of the camera centre.
+            \bigbreak \noindent 
+            Images captured with the same image center are photographs taken from the exact same 3D optical center (also called the camera center, focal point, or center of projection), meaning the camera was rotated, zoomed, or changed lenses without translating its physical position in space.
+        \item \textbf{Calibrated cameras}: To understand fully the Euclidean relationship between the image and the world, it is necessary to express their relative Euclidean geometry. As we have seen, the Euclidean geometry of the 3D world is determined by specifying a particular plane in $\mathbb{P}^{3}$ as being the plane at infinity, and a specific conic $\Omega $ in that plane as being the absolute conic. For a camera not located on the plane at infinity, the plane at infinity in the world maps one-to-one onto the image plane. This is because any point in the image defines a ray in space that meets the plane at infinity in a single point. Thus, the plane at infinity in the world does not tell us anything new about the image.
+            \bigbreak \noindent 
+            The absolute conic, however being a conic in the plane at infinity must project to a conic in the image. The resulting image curve is called the Image of the Absolute Conic, or IAC. If the location of the IAC is known in an image, then we say that the camera is calibrated.
+            \bigbreak \noindent 
+            In a calibrated camera, it is possible to determine the angle between the two rays back-projected from two points in the image. We have seen that the angle between two lines in space is determined by where they meet the plane at infinity, relative to the absolute conic. In a calibrated camera, the plane at infinity and the absolute conic $\Omega_{\infty }$ are projected one-to-one onto the image plane and the IAC, denoted $\omega$
+            \bigbreak \noindent 
+            The projective relationship between the two image points and $\boldsymbol{\omega}$ is exactly equal to the relationship between the intersections of the back-projected rays with the plane at infinity, and $\Omega _{\infty }$. Consequently, knowing the IAC, one can measure the angle between rays by direct measurements in the image. Thus, for a calibrated camera, one can measure angles between rays, compute the field of view represented by an image patch or determine whether an ellipse in the image back-projects to a circular cone. Later on, we will see that it helps us to determine the Euclidean structure of a reconstructed scene.
+        \item \textbf{3D reconstructions from paintings}: Using techniques of projective geometry, it is possible in many instances to reconstruct scenes from a single image. This cannot be done without some assumptions being made about the imaged scene. Typical techniques involve the analysis of features such as parallel lines and vanishing points to determine the affine structure of the scene, for example by determining the line at infinity for observed planes in the image. Knowledge (or assumptions) about angles observed in the scene, most particularly orthogonal lines or planes, can be used to upgrade the affine reconstruction to Euclidean.
+        \item \textbf{Point correspondences}: Point correspondences are pairs or sets of points across different images, views, models, or frames that represent the same physical feature, location, or structural point. In computer vision and geometry, finding them is known as the \textbf{correspondence problem}
+        \item \textbf{Reconstruction from more than one view}: We now turn to one of the major topics in the book – that of reconstructing a scene from several images. The simplest case is that of two images, which we will consider first. As a mathematical abstraction, we restrict the discussion to “scenes” consisting of points only.
+            \bigbreak \noindent 
+            The usual input to many of the algorithms given in this book is a set of point correspondences. In the two-view case, therefore, we consider a set of correspondences
+            \begin{align*}
+                x_{i} \leftrightarrow x_{i}^{\prime}
+            \end{align*}
+            in two images. It is assumed that there exist some camera matrices, $P$ and $P^{\prime}$ and a set of 3D points $X_{i}$ that give rise to these image correspondences in the sense that $PX_{i}=\mathbf{x}_{i}$ and $P^{\prime}X_{i}=\mathbf{x}_{i}^{\prime}$. Thus, the point $X_{i}$ projects to the two given data points. However, neither the cameras (represented by projection matrices $P$ and $P^{\prime}$), nor the points $X_{i}$ are known. It is our task to determine them
+            \bigbreak \noindent 
+            It is clear from the outset that it is impossible to determine the positions of the points uniquely. This is a general ambiguity that holds however many images we are given, and even if we have more than just point correspondence data. For instance, given several images of a cube, it is impossible to tell its absolute position (is it located in a night-club in Addis Ababa, or the British Museum), its orientation (which face is facing north) or its scale. We express this by saying that the reconstruction is possible at best up to a similarity transformation of the world. However, it turns out that unless something is known about the calibration of the two cameras, the ambiguity in the reconstruction is expressed by a more general class of transformations – projective transformations.
+            \bigbreak \noindent 
+            This ambiguity arises because it is possible to apply a projective transformation (represented by a $4\times 4$ matrix $H$) to each point $X_{i}$, and on the right of each camera matrix $\mathtt{P}_{j}$, without changing the projected image points, thus
+            \begin{align*}
+                P_{j}X_{i} = (P_{j}H^{-1})(HX_{i})
+            .\end{align*}
+            There is no compelling reason to choose one set of points and camera matrices over the other. The choice of H is essentially arbitrary, and we say that the reconstruction has a projective ambiguity, or is a projective reconstruction.
+            \bigbreak \noindent 
+            However, the good news is that this is the worst that can happen. It is possible to reconstruct a set of points from two views, up to an unavoidable projective ambiguity. Well, to be able to say this, we need to make a few qualifications; there must be sufficiently many points, at least seven, and they must not lie in one of various well-defined critical configurations.
+        \item \textbf{Projective ambiguity}: Projective ambiguity occurs in 3D reconstruction from images when multiple different sets of 3D points and camera matrices produce the exact same 2D image projections. If you only have uncalibrated image correspondences, you cannot uniquely determine the true 3D geometry—you can only recover it up to an arbitrary invertible \(4 \times 4\) projective transformation matrix \(H\) acting on homogeneous 3D coordinates (\(\mathbb{P}^{3}\))
+            \bigbreak \noindent 
+            Suppose a camera projection matrix \(P\) (size \(3 \times 4\)) projects a homogeneous 3D point \(X\) (size \(4 \times 1\)) to a homogeneous 2D image point \(x\) (size \(3 \times 1\)):
+            \begin{align*}
+                x \sim PX
+            \end{align*}
+            where \(\sim \) denotes equality up to a non-zero scale factor. Insert any invertible \(4 \times 4\) matrix \(H\) and its inverse \(H^{-1}\) between \(P\) and \(X\): 
+            \begin{align*}
+                x\sim PX=(PH^{-1})(HX)=\tilde{P}\tilde{X}
+            .\end{align*}
+            Define the transformed camera matrix and transformed 3D point as:
+            \begin{align*}
+                \tilde{P}=PH^{-1},\qquad \tilde{X}=HX
+            .\end{align*}
+            Because \(H H^{-1} = I_4\), the projected 2D pixel location \(x\) does not change. Given only the 2D image points \(x\) across views, both \((P, X)\) and \((\tilde{P}, \tilde{X})\) are valid explanations of the observed images
+        \item \textbf{Fundemental matrix}: The basic tool in the reconstruction of point sets from two views is the fundamental matrix, which represents the constraint obeyed by image points $\mathbf{x}$ and $\mathbf{x}'$ if they are to be images of the same 3D point
+            \bigbreak \noindent 
+            This constraint arises from the coplanarity of the camera centres of the two views, the images points and the space point. Given the fundamental matrix F, a pair of matching points $\mathbf{x}_{i}\leftrightarrow \mathbf{x}_{i}'$ must satisfy
+            \begin{align*}
+                \mathbf{x}^{\prime T}_{i}F\mathbf{x}_{i} = 0
+            .\end{align*}
+            where $F$ is a $3\times 3$ matrix of rank 2. These equations are linear in the entries of the matrix F, which means that if F is unknown, then it can be computed from a set of point correspondences.
+            \bigbreak \noindent 
+            Let a point in the first image be \(\mathbf{x}_i = \begin{bmatrix} u_i & v_i & 1 \end{bmatrix}^\top\) and its match in the second image be \(\mathbf{x}'_i = \begin{bmatrix} u'_i & v'_i & 1 \end{bmatrix}^\top\) in homogeneous coordinates.
+            \bigbreak \noindent 
+            Write the \(3 \times 3\) fundamental matrix \(\mathbf{F}\) with unknown entries \(f_{jk}\):
+            \begin{align*}
+                F = \begin{pmatrix} f_{11} & f_{12} & f_{13} \\ f_{21} & f_{22} & f_{23} \\ f_{31} & f_{32} & f_{33} \end{pmatrix}
+            .\end{align*}
+            Expanding \(\mathbf{x}_i^{\prime \top} \mathbf{F} \mathbf{x}_i = 0\) gives:
+            \begin{align*}
+                \left[\begin{pmatrix}u_{i}^{\prime }&v_{i}^{\prime }&1\end{pmatrix}\right]\left[\begin{pmatrix}f_{11}&f_{12}&f_{13}\\ f_{21}&f_{22}&f_{23}\\ f_{31}&f_{32}&f_{33}\end{pmatrix}\right]\left[\begin{pmatrix}u_{i}\\ v_{i}\\ 1\end{pmatrix}\right]=0
+            .\end{align*}
+            Multiplying this out produces a single scalar equation:
+            \begin{align*}
+                u_{i}^{\prime }u_{i}f_{11}+u_{i}^{\prime }v_{i}f_{12}+u_{i}^{\prime }f_{13}+v_{i}^{\prime }u_{i}f_{21}+v_{i}^{\prime }v_{i}f_{22}+v_{i}^{\prime }f_{23}+u_{i}f_{31}+v_{i}f_{32}+f_{33}=0
+            .\end{align*}
+            Notice that no entry \(f_{jk}\) is squared, multiplied by another entry of \(\mathbf{F}\), or inside a nonlinear function. 
+            \bigbreak \noindent 
+            Stack the 9 unknowns into a single column vector \(\mathbf{f} \in \mathbb{R}^9\)
+            \begin{align*}
+                \mathbf{F} = \begin{pmatrix} f_{11} \\ f_{12} \\ f_{13} \\ f_{21} \\ f_{22} \\ f_{23} \\ f_{31} \\ f_{32} \\ f_{33} \end{pmatrix}
+            .\end{align*}
+            Then the single equation from correspondence \(i\) becomes one row vector \(\mathbf{a}_i^\top \in \mathbb{R}^{1 \times 9}\):
+            \begin{align*}
+                \mathbf{a}_{i}^{\top }\mathbf{f}=\left[\begin{matrix}u_{i}^{\prime }u_{i}&u_{i}^{\prime }v_{i}&u_{i}^{\prime }&v_{i}^{\prime }u_{i}&v_{i}^{\prime }v_{i}&v_{i}^{\prime }&u_{i}&v_{i}&1\end{matrix}\right]\mathbf{f}=0
+            .\end{align*}
+            For \(n\) matching point pairs, stacking all rows gives a homogeneous linear system:
+            \begin{align*}
+                \mathbf{Af}=\mathbf{0},\quad \text{where\ }\mathbf{A}\in \mathbb{R}^{n\times 9}
+            .\end{align*}
+            A pair of camera matrices P and $\mathtt{P}'$ uniquely determine a fundamental matrix F, and conversely, the fundamental matrix determines the pair of camera matrices, up to a 3D projective ambiguity. Thus, the fundamental matrix encapsulates the complete projective geometry of the pair of cameras, and is unchanged by projective transformation of 3D.
+            \bigbreak \noindent 
+            The fundamental-matrix method for reconstructing the scene is very simple, consisting of the following steps
+            \begin{enumerate}[label=(\roman*)]
+                \item Given several point correspondences $\mathbf{x}_{i}\leftrightarrow \mathbf{x}_{i}'$ across two views, form linear equations in the entries of F based on the coplanarity equations $\mathbf{x}_{i}'^{\mathsf{T}}\mathtt{F}\mathbf{x}_{i}=0$. 
+               \item Find $F$ as the solution to a set of linear equations. 
+               \item Compute a pair of camera matrices from $F$ 
+               \item Given the two cameras $(\mathtt{P}, \mathtt{P}')$ and the corresponding image point pairs $\mathbf{x}_{i}\leftrightarrow \mathbf{x}_{i}'$, find the 3D point X${}_{i}$ that projects to the given image points. Solving for X in this way is known as triangulation 
+            \end{enumerate}
+        \item \textbf{Tensors}: A tensor is a mathematical object whose components depend on the coordinate system, while the object itself stays the same. Scalars and vectors are the simplest examples.
+            \bigbreak \noindent 
+            Imagine an arrow pointing northeast. In east–north coordinates, it might have components \((3,3)\). If you rotate your axes so that the first axis points northeast, its components become \((3\sqrt{2},0)\). The arrow hasn’t moved. You’ve only changed how you describe it. A vector is an order-1 tensor.
+            \bigbreak \noindent 
+            What does a tensor of order 2 do? One common kind takes two vectors and returns a number, linearly in each vector. The dot product is a familiar example. In ordinary Cartesian coordinates, it looks like
+            \begin{align*}
+                g(u,v) = u_{x}v_{x} + u_{y}v_{y} = \begin{pmatrix} u_{x} & u_{y} \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} v_{x}v_{y} \end{pmatrix}
+            .\end{align*}
+            Now suppose your first basis vector is twice as long as before, and your second stays the same. The same physical vector that had components \((2,0)\) now has components \((1,0)\). Its dot product with itself should still be \(4\), so the matrix describing \(g\) in the new basis becomes
+            \[
+                \begin{bmatrix}4&0\\0&1\end{bmatrix}.
+            \]
+            Both the vector components and the matrix entries change, and those changes cancel when you compute the dot product.
+            \bigbreak \noindent 
+            A tensor’s \textbf{order} is the number of indices you need to specify one of its components. An index tells you which basis direction to use in a particular slot.
+            \bigbreak \noindent 
+            Once you choose a basis, you can list a tensor’s components. An order-0 tensor has one number, an order-1 tensor has one index \(v_i\), an order-2 tensor has two indices \(T_{ij}\), and so on. Each index tracks one factor of the basis change. What makes those entries tensor components is the rule they follow when you change basis.
+            \bigbreak \noindent 
+            In a two-dimensional space with basis vectors \(\mathbf e_1\) and \(\mathbf e_2\), each index can be \(1\) or \(2\).
+            \begin{center}
+                \begin{tabularx}{\textwidth}{@{}lXX@{}}
+                    \toprule
+                    \textbf{Order}&  \textbf{Component notation}&  \textbf{What the indices select} \\
+                    \midrule
+                    0  &\(s\)  &A scalar has just one value \\[2ex]
+                    1  &\(v^i\)  &One direction, giving \(v^1\) or \(v^2\) \\[2ex]
+                    2  &\(g_{ij}\) & Two directions, giving \(g_{11}, g_{12}, g_{21}, g_{22}\) \\[2ex]
+                    3  &\(T_{ijk}\)&  Three directions, giving eight entries such as \(T_{112}\) \\
+                    \bottomrule
+                \end{tabularx}
+            \end{center}
+            For the dot product from earlier, \(g\) has two indices because it has two input slots. The first index selects the basis vector for the first input, and the second selects the basis vector for the second input. For instance,
+            \[
+                g_{12}=g(\mathbf e_1,\mathbf e_2)=\mathbf e_1\cdot\mathbf e_2.
+            \]
+            This also explains why doubling the first basis vector made \(g_{11}\) four times as large. The index \(1\) appears in both slots, so the factor of \(2\) enters twice:
+            \[
+                g'_{11}=g(2\mathbf e_1,2\mathbf e_1)=4g_{11}.
+            \]
+            The order counts the slots, and the dimension tells you how many choices each slot has. So an order-2 tensor has \(2^2=4\) entries in 2D and \(3^2=9\) entries in 3D.
+        \item \textbf{Dual space}: The dual space (\(V^{*}\)) of a vector space \(V\) over a field \(F\) is the vector space of all linear maps (called linear functionals or covectors) from \(V\) to \(F\)
+            \begin{itemize}
+                \item \textbf{Elements:} Each element \(\varphi \in V^*\) is a linear function \(\varphi: V \to F\) satisfying \(\varphi(u + v) = \varphi(u) + \varphi(v)\) and \(\varphi(c v) = c \varphi(v)\) for all \(u, v \in V\) and \(c \in F\).
+                \item \textbf{Vector space operations:} Addition and scalar multiplication are defined pointwise: \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\) and \((c\varphi)(v) = c\,\varphi(v)\).
+            \end{itemize}
+        \item \textbf{Covariant / contravariant}: Covariant and contravariant describe how the components of a vector or tensor change when you switch to a new basis (coordinate system) in order to keep the underlying geometric object invariant. When you stretch or shrink your basis vectors, the numerical coordinates of a vector must adjust so the actual arrow in space stays the same.
+            \bigbreak \noindent 
+            A standard vector \(v = \sum_i v^i e_i\) is contravariant because its components \(v^{i}\) vary contrary to the basis vectors \(e_{i}\).
+            \bigbreak \noindent 
+            Suppose a displacement vector is 6 meters long. If your basis vector is 1 meter, the component is 6. If you double your basis vector to 2 meters, the component halves to 3.
+            \bigbreak \noindent 
+            If new basis vectors are scaled by a matrix A (\(\tilde{e}_j = \sum_i A^i_j e_i\)), the components transform by the inverse matrix A⁻¹:
+            \begin{align*}
+                \tilde{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
+            .\end{align*}
+            The vector itself does not change when you switch coordinate systems; the inverse matrix \(A^{-1}\) is needed to cancel out the change in the basis vectors so the total geometric arrow stays identical.
+            \bigbreak \noindent 
+            Think of a vector \(v\) as a physical arrow in space. You can write that single arrow in two different coordinate systems—the old basis \(\{e_i\}\) and the new basis \(\{\tilde{e}_j\}\):
+            \begin{align*}
+                v=\sum _{i}v^{i}e_{i}=\sum _{j}\tilde{v}^{j}\tilde{e}_{j}
+            .\end{align*}
+            When you switch from an old basis \(\{e_1, e_2, \dots, e_n\}\) to a new basis \(\{\tilde{e}_1, \tilde{e}_2, \dots, \tilde{e}_n\}\), each new basis vector \(\tilde{e}_{j}\) is a linear combination of the old basis vectors:
+            \begin{align*}
+                \tilde{e}_{j} = \sum_{i}A_{j}^{i}e_{i}
+            .\end{align*}
+            To construct the matrix \(A\), take each new basis vector \(\tilde{e}_{j}\), find its coordinates in the old basis, and place those coordinates into the \(j\)-th column of \(A\):
+            \bigbreak \noindent 
+            Consider a basis change $\left\{e_{\ell}\right\} \to \left\{e_{k}\right\}$, where 
+            \begin{align*}
+                e_{1} = \begin{pmatrix} a \\ b \end{pmatrix}, \quad e_{2} = \begin{pmatrix} c \\ d \end{pmatrix}
+            .\end{align*}
+            Now, suppose that
+            \begin{align*}
+                \tilde{e}_{1} = \begin{pmatrix} \alpha \\ \beta \end{pmatrix}, \quad \tilde{e}_{2} = \begin{pmatrix} \gamma \\ \delta \end{pmatrix}
+            .\end{align*}
+            Since $\left\{e_{i}\right\}$ is a basis that describes the same space as $\left\{e_{j}\right\}$, the basis vectors in $\left\{e_{j}\right\}$ can be described by the basis $\left\{e_{i}\right\}$. Thus, 
+            \begin{align*}
+                \tilde{e}_{1} = e \begin{pmatrix} a \\b \end{pmatrix} + f \begin{pmatrix} c \\ d \end{pmatrix} = \begin{pmatrix} a & c \\ b & d \end{pmatrix} \begin{pmatrix} e \\ f \end{pmatrix}
+            .\end{align*}
+            Similarly,
+            \begin{align*}
+                \tilde{e}_{2} = \begin{pmatrix} a & c \\ b & d  \end{pmatrix} \begin{pmatrix} g \\ h \end{pmatrix}
+            .\end{align*}
+            If we let
+            \begin{align*}
+                B = \begin{pmatrix} e & g \\ f & h \end{pmatrix}
+            ,\end{align*}
+            then
+            \begin{align*}
+                \tilde{e}_{1} = \sum_{i}B_{1}^{i}e_{i} = e \begin{pmatrix} a \\ b \end{pmatrix} + f \begin{pmatrix} c \\ d \end{pmatrix}
+            .\end{align*}
+            Similarly,
+            \begin{align*}
+                \tilde{e}_{2} = \sum_{i}B_{2}^{i}e_{i} = g \begin{pmatrix} a \\ b \end{pmatrix} + h \begin{pmatrix} c \\ d \end{pmatrix}
+            .\end{align*}
+            $B$ is the change-of-basis matrix whose columns are the new basis vectors written in terms of the old basis.
+            \bigbreak \noindent 
+            Notice that if 
+            \begin{align*}
+                \begin{pmatrix} a & c \\ b & d  \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+            ,\end{align*}
+            we have
+            \begin{align*}
+                B = \begin{pmatrix} e & g \\f & h \end{pmatrix} = \begin{pmatrix} \tilde{e}_{1} & \tilde{e}_{2} \end{pmatrix}
+            .\end{align*}
+            Further notice that 
+            \begin{align*}
+                \begin{pmatrix} e \\ f \end{pmatrix} &= \begin{pmatrix} a & c \\ b & d \end{pmatrix}^{-1}\tilde{e}_{1}, \\
+                \begin{pmatrix} g \\ h \end{pmatrix} &= \begin{pmatrix} a & c \\ b & d \end{pmatrix}^{-1}\tilde{e}_{2}
+            .\end{align*}
+            Suppose some vector $v$ is expressed in the basis $\left\{e_{\ell}\right\}$ with coordinates $x,y$. So,
+            \begin{align*}
+                v = x\begin{pmatrix} a \\ b \end{pmatrix} + y \begin{pmatrix} c \\ d \end{pmatrix}
+            .\end{align*}
+            To find the vector $v^{\prime}$ expressed in basis $\left\{e_{k}\right\}$, we examine
+            \begin{align*}
+                v = xe_{1} + ye_{2}
+            ,\end{align*}
+            and remark that this vector must equal the new vector expressed in $\left\{e_{k}\right\}$ with coordinates $x^{\prime}, y^{\prime}$ in that basis.
+            \begin{align*}
+                v = xe_{1} + ye_{2} = x^{\prime} \tilde{e}_{1} + y^{\prime}\tilde{e}_{2}
+            .\end{align*}
+            Earlier we found that
+            \begin{align*}
+                \tilde{e}_{1} &= e\begin{pmatrix} a \\b \end{pmatrix} + f \begin{pmatrix} c \\d \end{pmatrix} = ee_{1} + fe_{2}, \\
+                \tilde{e}_{2} &= g\begin{pmatrix} a \\b \end{pmatrix} + h \begin{pmatrix} c \\d \end{pmatrix} = ge_{1} + he_{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                v &= xe_{1} + ye_{2} = x^{\prime} (ee_{1} + fe_{2}) + y^{\prime}(ge_{1} + he_{2}) \\
+                &=x^{\prime} ee_{1} + x^{\prime}fe_{2} + y^{\prime}ge_{1} + y^{\prime}he_{2} \\
+                &= (x^{\prime} e + y^{\prime} g )e_{1} + (x^{\prime} f  + y^{\prime} h)e_{2}
+            .\end{align*}
+            Thus,
+            \begin{align*}
+                x &= x^{\prime}e + y^{\prime} g, \\
+                y &= x^{\prime} f + y^{\prime} h
+            .\end{align*}
+            So,
+            \begin{align*}
+                \begin{pmatrix} x \\y  \end{pmatrix} &= \begin{pmatrix} x^{\prime}e + y^{\prime} g \\ x^{\prime} f + y^{\prime} h \end{pmatrix} \\
+                                                     &= \begin{pmatrix} e & g \\ f & h \end{pmatrix}\begin{pmatrix} x^{\prime} \\ y^{\prime} \end{pmatrix} = B\begin{pmatrix} x^{\prime} \\ y^{\prime} \end{pmatrix}
+            .\end{align*}
+            The coordinates of \(v\) in the basis \((e_1,e_2)\) are \(x\) and \(y\). The expression \(xe_1+ye_2\) is the vector \(v\) written as a linear combination of that basis.
+            \[
+                \underbrace{[v]_{(e_1,e_2)}=\begin{pmatrix}x\\y\end{pmatrix}}_{\text{coordinates in the chosen basis}}
+                \qquad
+                \underbrace{v=xe_1+ye_2}_{\text{vector reconstructed from those coordinates}}
+            \]
+            For example, if \(e_1=\begin{pmatrix}2\\0\end{pmatrix}\) and \(e_2=\begin{pmatrix}0\\1\end{pmatrix}\), then the vector \(v=\begin{pmatrix}6\\4\end{pmatrix}\), written here in standard coordinates, satisfies \(v=3e_1+4e_2\). Its coordinates in the basis \((e_1,e_2)\) are therefore \((3,4)\).
+            \bigbreak \noindent 
+            “Reconstructed” means getting the vector from its coordinates and the basis. Each coordinate tells you how much of the corresponding basis vector to add.
+            \bigbreak \noindent 
+            For example, coordinates \((3,4)\) mean take three copies of \(e_1\) and four copies of \(e_2\), then add them. With \(e_1=(2,0)\) and \(e_2=(0,1)\), that gives
+            \[
+                v=3e_1+4e_2=3(2,0)+4(0,1)=(6,4).
+            \]
+            \bigbreak \noindent 
+            You can picture \(e_1\) as a step two units to the right and \(e_2\) as a step one unit up. Three steps of the first kind and four of the second take you six units right and four units up. So \((3,4)\) counts basis steps, while \((6,4)\) counts standard unit steps. Both describe the same vector.
+            \bigbreak \noindent 
+            Now, back to 
+            \begin{align*}
+                v = \sum_i v^{i}e_{i} = \sum_j\tilde{v}^{j}\tilde{e}_{j}
+            .\end{align*}
+            substitute the definition of the new basis vectors (\(\tilde{e}_j = \sum_i A^i_j e_i\)) into the right side of the equation above (where here we are using $A$ as the change of basis vector instead of $B$):
+            \begin{enumerate}
+                \item Start with the invariant vector:
+                \begin{align*}
+                    \sum _{i}v^{i}e_{i}=\sum _{j}\~{v}^{j}\~{e}_{j}
+                .\end{align*}
+                \item Substitute \(\tilde{e}_j = \sum_i A^i_j e_i\):
+                    \begin{align*}
+                        \sum _{i}v^{i}e_{i}=\sum _{j}\~{v}^{j}\left(\sum _{i}A_{j}^{i}e_{i}\right)=\sum _{i}\left(\sum _{j}A_{j}^{i}\~{v}^{j}\right)e_{i}
+                    .\end{align*}
+                \item Since the basis vectors \(e_{i}\) are linearly independent, the numbers multiplying each \(e_{i}\) on both sides must be equal:
+                    \begin{align*}
+                        v^{i}=\sum _{j}A_{j}^{i}\~{v}^{j}
+                    .\end{align*}
+                \item Solve for the new components \(\~{v}^{j}\):
+                    In matrix-vector form, step 3 says \(v = A\tilde{v}\). To isolate \(\~{v}\), multiply both sides on the left by the inverse matrix \(A^{-1}\):
+                    \begin{align*}
+                        \~{v}=A^{-1}v\quad \iff \quad \~{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
+                    .\end{align*}
+            \end{enumerate}
+
+
+        \item \textbf{Three-view geometry (Trifocal Tensor)}: In the last section it was discussed how reconstruction of a set of points, and the relative placement of the cameras, is possible from two views of a set of points. The reconstruction is possible only up to a projective transformation of space, and the corresponding adjustment to the camera matrices.
+            \bigbreak \noindent 
+            In this section, we consider the case of three views. Whereas for two views, the basic algebraic entity is the fundamental matrix, for three views this role is played by the \textbf{trifocal tensor}.
+            \bigbreak \noindent 
+            The trifocal tensor is a $3\times 3\times 3$ array of numbers that relate the coordinates of corresponding points or lines in three views.
+            \bigbreak \noindent 
+            Just as the fundamental matrix is determined by the two camera matrices, and determines them up to projective transformation, so in three views, the trifocal tensor is determined by the three camera matrices, and in turn determines them, again up to projective transformation. Thus, the trifocal tensor encapsulates the relative projective geometry of the three cameras.
+            \bigbreak \noindent 
+            It is customary to write some of the indices of a tensor as lower and some as upper indices. These are referred to as the covariant and contravariant indices. The trifocal tensor is of the form $\mathcal{T}_{i}^{jk}$ , having two upper and one lower index.
+            \bigbreak \noindent 
+            The most basic relationship between image entities in three views concerns a correspondence between two lines and a point. We consider a correspondence $\mathbf{x}\leftrightarrow \mathbf{l}'\leftrightarrow \mathbf{l}''$ between a point $\mathbf{x}$ in one image and two lines $\mathbf{l}'$ and $\mathbf{l}''$ in the other two images. This relationship means that there is a point X in space that maps to $\mathbf{x}$ in the first image, and to points $\mathbf{x}'$ and $\mathbf{x}''$ lying on the lines $\mathbf{l}'$ and $\mathbf{l}''$ in the other two images. The coordinates of these three images are then related via the trifocal tensor relationship:
+            \begin{align*}
+                \sum_{ijk} x^{i}\ell_{j}^{\prime}\ell_{k}^{\prime\prime}\mathcal{T}_{i}^{jk} = 0
+            .\end{align*}
+            This relationship gives a single linear relationship between the elements of the tensor. With sufficiently many such correspondences, it is possible to solve linearly for the elements of the tensor.
+            \bigbreak \noindent 
+            Fortunately, one can obtain more equations from a point correspondence x $\leftrightarrow \mathbf{x}'\leftrightarrow \mathbf{x}''$. In fact, in this situation, one can choose any lines $\mathbf{l}'$ and $\mathbf{l}''$ passing through the points $\mathbf{x}'$ and $\mathbf{x}''$ and generate a relation of the sort
+            \begin{align*}
+                \sum_{ijk} x^{i}\ell_{j}^{\prime}\ell_{k}^{\prime\prime}\mathcal{T}_{i}^{jk} = 0
+            .\end{align*}
+            Since it is possible to choose two independent lines passing through $\mathbf{x}'$, and two others passing through $\mathbf{x}''$, one can obtain four independent equations in this way. A total of seven point correspondences are sufficient to compute the trifocal tensor linearly in this way. It can be computed from a minimum of six point correspondences using a non-linear method
+            \bigbreak \noindent 
+            The 27 elements of the tensor are not independent, however, but are related by a set of so called internal constraints. These constraints are quite complicated, but tensors satisfying the constraints can be computed in various ways, for instance by using the 6 point non-linear method. The fundamental matrix (which is a 2-view tensor) also satisfies an internal constraint but a relatively simple one: the elements obey $\det(F) = 0$.
+            \bigbreak \noindent 
+            As with the fundamental matrix, once the trifocal tensor is known, it is possible to extract the three camera matrices from it, and thereby obtain a reconstruction of the scene points and lines. As ever, this reconstruction is unique only up to a 3D projective transformation; it is a projective reconstruction
+            \bigbreak \noindent 
+            Thus, we are able to generalize the method for two views to three views. There are several advantages to using such a three-view method for reconstruction.
+            \begin{enumerate}[label=(\roman*)]
+                \item It is possible to use a mixture of line and point correspondences to compute the projective reconstruction. With two views, only point correspondences can be used.
+                \item Using three views gives greater stability to the reconstruction, and avoids unstable configurations that may occur using only two views for the reconstruction.
+            \end{enumerate}
+        \item \textbf{Four view geometry and $n$-view reconstruction}
+
+
+
+
+
+        
+
 
 
 
