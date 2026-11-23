@@ -1126,10 +1126,39 @@
                 \left\{\frac{a}{c} : \frac{b}{c} : 1\right\}
             .\end{align*}
             Those two fractions, \(\frac{a}{c}\) and \(\frac{b}{c}\), are the two independent ratios that give the line its 2 degrees of freedom.
+        \item \textbf{Triple scalar identities}: For $a,b,c \in \mathbb{R}^{3}$,
+            \begin{align*}
+                [a,b,c,] = a \cdot (b\times c)
+            \end{align*}
+            is called the \textbf{scalar triple product}. Its absolute value equals the volume of the parallelepiped spanned by $a,b,c$. We have
+            \begin{align*}
+                a \cdot (b\times c) = b \cdot (c\times a) = c \cdot (a\times b)
+            .\end{align*}
+            Further,
+            \begin{align*}
+                a \cdot (b\times c) = -b \cdot (a\times c) = -c \cdot (b\times a) = -a \cdot (c \times b)
+            ,\end{align*}
+            and 
+            \begin{align*}
+                [a,b,c] = 0
+            \end{align*}
+            if any two vectors are equal parallel, or if $a,b,c$ are coplanar. 
+            \bigbreak \noindent 
+            Lastly, we have that
+            \begin{align*}
+                [a,b,c] = \det \begin{pmatrix} a^{T} \\ b^{T} \\ c^{T} \end{pmatrix} = \det \begin{pmatrix} a_{1} & a_{2} & a_{3} \\ b_{1} & b_{2} & b_{3} \\ c_{1} & c_{2} & c_{3} \end{pmatrix}
+            .\end{align*}
         \item \textbf{Intersection of lines}: Given two lines $\ell=(a, b, c)^{\mathsf{T}}$ and $\ell'=(a', b', c')^{\mathsf{T}}$, we wish to find their intersection. Define the vector $\mathbf{x}=\ell\times \ell'$, where $\times $ represents the vector or cross product. From the triple scalar product identity $\ell.(\ell\times \ell')=\ell'.(\ell\times \ell')=0$, we see that $\ell^{\mathsf{T}}\mathbf{x}=\ell'^{\mathsf{T}}\mathbf{x}=0$. Thus, if x is thought of as representing a point, then x lies on both lines $\ell$ and $\ell'$, and hence is the intersection of the two lines. This shows
         \item \textbf{Result 2.2}: The intersection of two lines $\ell$ and $\ell'$ is the point $\mathbf{x}=\ell\times \ell'$
             \bigbreak \noindent 
             Note that the simplicity of this expression for the intersection of the two lines is a direct consequence of the use of homogeneous vector representations of lines and points.
+        \item \textbf{Example}: Consider the simple problem of determining the intersection of the lines $x=1$ and $y=1$. The line $x=1$ is equivalent to $-1x+1=0$, and thus has homogeneous representation $\ell=(-1, 0, 1)^{\mathsf{T}}$. The line $y=1$ is equivalent to $-1y+1=$ 0, and thus has homogeneous representation $\ell'=(0, -1, 1)^{\mathsf{T}}$. From result 2.2 the intersection point is
+            \begin{align*}
+                x = \ell \times \ell^{\prime} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
+            .\end{align*}
+            which is the inhomogeneous point $(1, 1)^{\mathsf{T}}$ as required
+        \item \textbf{Line joining points}:  An expression for the line passing through two points x and $\mathbf{x}'$ may be derived by an entirely analogous argument. Defining a line l by $\ell=\mathbf{x}\times \mathbf{x}'$, it may be verified that both points $\mathbf{x}$ and $\mathbf{x}'$ lie on $\ell$. Thus
+        \item \textbf{Result 2.4}: The line through two points x and $\mathbf{x}'$ is $\ell=\mathbf{x}\times \mathbf{x}'$
 
 
 
@@ -1144,6 +1173,7 @@
     \begin{itemize}
         \item \textbf{Result 2.1}: The point $\mathbf{x}$ lies on the line $\ell$ if and only if $\mathbf{x}^{T}\ell = 0$.
         \item \textbf{Result 2.2}: The intersection of two lines $\ell$ and $\ell'$ is the point $\mathbf{x}=\ell\times \ell'$
+        \item \textbf{Result 2.4}: The line through two points x and $\mathbf{x}'$ is $\ell=\mathbf{x}\times \mathbf{x}'$
 
     \end{itemize}
 
