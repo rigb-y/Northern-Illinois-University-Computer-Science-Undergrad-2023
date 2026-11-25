@@ -411,7 +411,7 @@
             \bigbreak \noindent 
             Next, you pick two specific complex points on that line at infinity: \(I = (1, i, 0)\) and \(J = (1, -i, 0)\), known as the circular points. If you restrict your transformations even further so that they must map the pair \(\{I, J\}\) to itself, you eliminate all stretching and shearing. The only transformations left are rotations, translations, reflections, and uniform scaling—the exact similarity transformations of standard Euclidean geometry.
             \bigbreak \noindent 
-            \textbf{Note:} Shearing is the act of cutting, clipping, or separating material
+            \textbf{Note:} Shearing in geometry refers to sliding motion.
             \bigbreak \noindent 
             Intuitively, it happens because the circular points are the "DNA of roundness," and stretching or shearing is literally the act of destroying roundness. Every circle passes through the two circular points \(I\) and \(J\). 
         \item \textbf{3D Euclidean geometry}: We saw how the Euclidean plane is defined in terms of the projective plane by specifying a line at infinity and a pair of circular points. The same idea may be applied to 3D geometry. As in the two-dimensional case, one may look carefully at spheres, and how they intersect. Two spheres intersect in a circle, and not in a general fourth-degree curve, as the algebra suggests, and as two general ellipsoids (or other quadric surfaces) do. 
@@ -758,7 +758,7 @@
             \bigbreak \noindent 
             Suppose a displacement vector is 6 meters long. If your basis vector is 1 meter, the component is 6. If you double your basis vector to 2 meters, the component halves to 3.
             \bigbreak \noindent 
-            If new basis vectors are scaled by a matrix A (\(\tilde{e}_j = \sum_i A^i_j e_i\)), the components transform by the inverse matrix A⁻¹:
+            If new basis vectors are scaled by a matrix A (\(\tilde{e}_j = \sum_i A^i_j e_i\)), the components transform by the inverse matrix $A^{-1}$:
             \begin{align*}
                 \tilde{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
             .\end{align*}
@@ -875,20 +875,20 @@
             \begin{enumerate}
                 \item Start with the invariant vector:
                 \begin{align*}
-                    \sum _{i}v^{i}e_{i}=\sum _{j}\~{v}^{j}\~{e}_{j}
+                    \sum _{i}v^{i}e_{i}=\sum _{j}\tilde{v}^{j}\tilde{e}_{j}
                 .\end{align*}
                 \item Substitute \(\tilde{e}_j = \sum_i A^i_j e_i\):
                     \begin{align*}
-                        \sum _{i}v^{i}e_{i}=\sum _{j}\~{v}^{j}\left(\sum _{i}A_{j}^{i}e_{i}\right)=\sum _{i}\left(\sum _{j}A_{j}^{i}\~{v}^{j}\right)e_{i}
+                        \sum _{i}v^{i}e_{i}=\sum _{j}\tilde{v}^{j}\left(\sum _{i}A_{j}^{i}e_{i}\right)=\sum _{i}\left(\sum _{j}A_{j}^{i}\tilde{v}^{j}\right)e_{i}
                     .\end{align*}
                 \item Since the basis vectors \(e_{i}\) are linearly independent, the numbers multiplying each \(e_{i}\) on both sides must be equal:
                     \begin{align*}
-                        v^{i}=\sum _{j}A_{j}^{i}\~{v}^{j}
+                        v^{i}=\sum _{j}A_{j}^{i}\tilde{v}^{j}
                     .\end{align*}
-                \item Solve for the new components \(\~{v}^{j}\):
-                    In matrix-vector form, step 3 says \(v = A\tilde{v}\). To isolate \(\~{v}\), multiply both sides on the left by the inverse matrix \(A^{-1}\):
+                \item Solve for the new components \(\tilde{v}^{j}\):
+                    In matrix-vector form, step 3 says \(v = A\tilde{v}\). To isolate \(\tilde{v}\), multiply both sides on the left by the inverse matrix \(A^{-1}\):
                     \begin{align*}
-                        \~{v}=A^{-1}v\quad \iff \quad \~{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
+                        \tilde{v}=A^{-1}v\quad \iff \quad \tilde{v}^{j}=\sum _{i}(A^{-1})_{i}^{j}v^{i}
                     .\end{align*}
             \end{enumerate}
         \item \textbf{Basis notation}: Use \(v\in V\) for membership in a vector space and \([v]_{\mathcal B}\) for the coordinates of \(v\) in a basis. The same vector can have different coordinate columns in different bases.
@@ -1157,7 +1157,7 @@
                 x = \mathbf{\ell} \times \ell^{\prime} = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}
             .\end{align*}
             which is the inhomogeneous point $(1, 1)^{\mathsf{T}}$ as required
-        \item \textbf{Line joining points}:  An expression for the line passing through two points x and $\mathbf{x}'$ may be derived by an entirely analogous argument. Defining a line l by $\mathbf{\ell}=\mathbf{x}\times \mathbf{x}'$, it may be verified that both points $\mathbf{x}$ and $\mathbf{x}'$ lie on $\ell$. Thus
+        \item \textbf{Line joining points}:  An expression for the line passing through two points x and $\mathbf{x}'$ may be derived by an entirely analogous argument. Defining a line $\ell$ by $\mathbf{\ell}=\mathbf{x}\times \mathbf{x}'$, it may be verified that both points $\mathbf{x}$ and $\mathbf{x}'$ lie on $\ell$. Thus
         \item \textbf{Result 2.4}: The line through two points x and $\mathbf{x}'$ is $\mathbf{\ell}=\mathbf{x}\times \mathbf{x}'$
         \item \textbf{Intersection of parallel lines}: Consider two lines $ax+by+c=0$ and $ax+by+c'=0$. These are represented by vectors $\mathbf{\ell}=(a, b, c)^{\mathsf{T}}$ and $\ell'=(a, b, c')^{\mathsf{T}}$ for which the first two coordinates are the same. Computing the intersection of these lines gives no difficulty, using result 2.2. The intersection is $\ell\times \ell'=(c'-c)(b, -a, 0)^{\mathsf{T}}$, and ignoring the scale factor $(c'-c)$, this is the point $(b, -a, 0)^{\mathsf{T}}$
             \bigbreak \noindent 
@@ -1273,8 +1273,102 @@
                 \mathsf{C} = \begin{pmatrix} a & \frac{b}{2} & \frac{d}{2} \\ \frac{b}{2} & c & \frac{e}{2} \\ \frac{d}{2} & \frac{e}{2} & f \end{pmatrix}
             .\end{align*}
             Note that the conic coefficient matrix is symmetric. As in the case of the homogeneous representation of points and lines, only the ratios of the matrix elements are important, since multiplying $\mathsf{C}$ by a non-zero scalar does not affect the above equations. Thus $\mathsf{C}$ is a homogeneous representation of a conic. The conic has five degrees of freedom which can be thought of as the ratios $\{a:b:c:d:e:f\}$ or equivalently the six elements of a symmetric matrix less one for scale.
-        \item \textbf{Five points define a conic}: 
-
+        \item \textbf{Five points define a conic}: Suppose we wish to compute the conic which passes through a set of points, $\mathbf{x}_{i}$ How many points are we free to specify before the conic is determined uniquely? The question can be answered constructively by providing an algorithm to determine the conic. Each point $\mathbf{x}_{i}$ places one constraint on the conic coefficients, since if the conic passes through $(x_{i}\hookrightarrow y_{i})$ then
+            \begin{align*}
+                ax_{i}^{2} + bx_{i}y_{i} + cy_{i}^{2} + dx_{i} + ey_{i} + f =0
+            .\end{align*}
+            This constraint can be written as
+            \begin{align*}
+                \begin{pmatrix} x_{i}^{2} & x_{i}y_{i} & y_{i}^{2} & x_{i} & y_{i} & 1 \end{pmatrix}\mathbf{c} = 0
+            ,\end{align*}
+            where $\mathsf{C} = \begin{pmatrix} a,b,c,d,e,f \end{pmatrix}^{T} $ is the conic $\mathsf{C}$ represented as a 6-vector.
+            \bigbreak \noindent 
+            Stacking the constraints from five points we obtain
+            \begin{align*}
+                \begin{bmatrix}x_{1}^{2}&x_{1}y_{1}&y_{1}^{2}&x_{1}&y_{1}&1\\x_{2}^{2}&x_{2}y_{2}&y_{2}^{2}&x_{2}&y_{2}&1\\x_{3}^{2}&x_{3}y_{3}&y_{3}^{2}&x_{3}&y_{3}&1\\x_{4}^{2}&x_{4}y_{4}&y_{4}^{2}&x_{4}&y_{4}&1\\x_{5}^{2}&x_{5}y_{5}&y_{5}^{2}&x_{5}&y_{5}&1\end{bmatrix}\mathsf{c} = 0
+            .\end{align*}
+            and the conic is the null vector of this $5\times 6$ matrix. This shows that a conic is determined uniquely (up to scale) by five points in general position. The method of fitting a geometric entity (or relation) by determining a null space will be used frequently in the computation chapters throughout this book
+        \item \textbf{Tangent lines to conics}: The line $\ell $ tangent to a conic at a point $\mathbf{x}$ has a particularly simple form in homogeneous coordinates:
+        \item \textbf{Result 2.7}: The line $\ell$ tangent to $\mathsf{C}$ at a point $x$ on $\mathsf{C}$ is given by 
+            \begin{align*}
+                \mathbf{\ell} = \mathsf{C}\mathbf{x}
+            .\end{align*}
+            \textbf{\textit{Proof.}} Consider $\mathbf{\ell} = \mathsf{C}x$. Since $\mathbf{x} \in \mathsf{C}$,
+            \begin{align*}
+                \mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{x} = \mathbf{x}^{\mathsf{\top}}\mathbf{\ell}  = 0
+            .\end{align*}
+            Thus, $\mathbf{x} \in \mathbf{\ell}$ by the incidence equation $\mathbf{x}^{\mathsf{\top}}\mathbf{\ell} = 0$.
+            \bigbreak \noindent 
+            If $\mathbf{\ell}$ has only one point contact with $\mathsf{C}$, then it is tangent. Suppose then that there exists some additional point $\mathbf{y}$ on both $\mathbf{\ell}$ and $\mathsf{C}$. Then,
+            \begin{align*}
+                \mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{y} = 0
+            .\end{align*}
+            Furthermore,
+            \begin{align*}
+                \mathbf{\ell}^{\mathsf{\top}}\mathbf{y} = \mathbf{y}^{\mathsf{\top}}\mathbf{\ell} = \mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{x} = 0
+            .\end{align*}
+            Notice that 
+            \begin{align*}
+                \mathbf{\ell}^{\mathsf{\top}}\mathbf{y} = 0 \implies (\mathsf{C}\mathbf{x})^{\mathsf{\top}}\mathbf{y} = \mathbf{x}^{\top}\mathsf{C}^{\mathsf{\top}}\mathbf{y} = 0
+            .\end{align*}
+            Since $\mathsf{C}$ is symmetric
+            \begin{align*}
+                \mathbf{x}^{\top}\mathsf{C}^{\mathsf{\top}}\mathbf{y} = \mathbf{x}^{\top}\mathsf{C}\mathbf{y}   = 0
+            .\end{align*}
+            Notice we have two points on a line $\mathbf{x}, \mathbf{y}$ on a line $\mathbf{\ell}$. Thus, any point on this line can be expressed as 
+            \begin{align*}
+                \mathbf{z} = \mathbf{x} + \alpha\mathbf{y}
+            .\end{align*}
+            To check if this point exists on $\mathsf{C}$, we examine
+            \begin{align*}
+                (\mathbf{x} + \alpha \mathbf{y})^{\mathsf{\top}}\mathsf{C}(\mathbf{x} + \alpha\mathbf{y})
+            .\end{align*}
+            Expanding gives 
+            \begin{align*}
+                \mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{x} + \alpha\mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{y} + \alpha\mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{x} + \alpha^{2}\mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{y}
+            .\end{align*}
+            Since
+            \begin{align*}
+                \mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{x} = (\mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{x})^{\mathsf{\top}} = \mathbf{x}^{\mathsf{\top}}\mathsf{C}^{\mathsf{\top}}\mathbf{y} = \mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{y}
+            ,\end{align*}
+            we have
+            \begin{align*}
+               \mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{x} + 2\alpha(\mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{y})  + a^{2}(\mathbf{y}^{\mathsf{\top}}\mathsf{C}\mathbf{y}) = 0 + 2\alpha(0) + a^{2}(0) = 0
+            .\end{align*}
+            Thus, it must be that the whole line $\mathbf{\ell} = \mathsf{C}\mathbf{x}$ lies on the conic $\mathsf{C}$, which would be degenerate.
+        \item \textbf{Dual conics}: The conic $\mathsf{C}$ defined above is more properly termed a \textbf{point conic}, as it defines an equation on points.
+            \bigbreak \noindent 
+            It is not surprising that there is also a conic which defines an equation on lines. This dual (or line) conic is also represented by a $3\times 3$ matrix, which we denote as $\mathsf{C}^{*}$. A line $\mathbf{\ell}$ tangent to the conic $\mathsf{C}$ satisfies $\mathbf{\ell}^{\mathsf{T}}\mathtt{C}^{*}\mathbf{\ell}=0$. The notation $\mathtt{C}^{*}$ indicates that $\mathsf{C}^{*}$ is the \textbf{adjoint} matrix of $\mathsf{C}$. For a non-singular symmetric matrix $\mathtt{C}^{*}=\mathtt{C}^{-1}$ (up to scale).
+        \item \textbf{The adjoint}: The adjoint of a linear map \(A\) is the map \(A^*\) that lets you move \(A\) from one side of an inner product to the other:
+            \[
+                \langle Ax,y\rangle=\langle x,A^*y\rangle \qquad\text{for every }x,y.
+            \]
+            If \(A:V\to W\), then \(A^*:W\to V\). Both sides give the same scalar. On the left, you apply \(A\) to \(x\) and measure the result against \(y\). On the right, you apply \(A^*\) to \(y\) and measure \(x\) against that result.
+            \bigbreak \noindent 
+            With the usual dot product on \(\mathbb R^n\),
+            \begin{align*}
+                (Ax)\cdot y=(Ax)^T y=x^T A^T y=x\cdot(A^T y)
+            .\end{align*}
+            So in standard coordinates, \(A^*=A^T\). For complex spaces with the standard inner product, the adjoint is the conjugate transpose \(A^*=\overline{A}^{\,T}\).
+            \bigbreak \noindent 
+            Consider the shear
+            \[
+                A=\begin{pmatrix}1&2\\0&1\end{pmatrix},
+                \qquad
+                A\begin{pmatrix}x_1\\x_2\end{pmatrix}
+                =\begin{pmatrix}x_1+2x_2\\x_2\end{pmatrix}.
+            \]
+            Suppose you only care about the first coordinate of the output. Taking the dot product with \(e_1=(1,0)^T\) picks it out:
+            \[
+                (Ax)\cdot e_1=x_1+2x_2.
+            \]
+            The adjoint tells you which vector to dot with the original input to get that same number:
+            \[
+                A^*e_1=\begin{pmatrix}1\\2\end{pmatrix},
+                \qquad
+                x\cdot(A^*e_1)=x_1+2x_2.
+            \]
+            So \(A^*e_1\) tells you how each input coordinate contributes to the first output coordinate. \(A\) is a horizontal shear because it slides each horizontal row sideways by an amount proportional to its height.
 
         
     \end{itemize}
@@ -1284,7 +1378,7 @@
     \begin{itemize}
         \item \textbf{Result 2.1}: The point $\mathbf{x}$ lies on the line $\mathbf{\ell}$ if and only if $\mathbf{x}^{T}\ell = 0$.
         \item \textbf{Result 2.2}: The intersection of two lines $\mathbf{\ell}$ and $\ell'$ is the point $\mathbf{x}=\ell\times \ell'$
-        \item \textbf{Result 2.4}: The line through two points x and $\mathbf{x}'$ is $\mathbf{\ell}=\mathbf{x}\times \mathbf{x}'$
+        \item \textbf{Result 2.4}: The line through two points $\mathbf{x}$ and $\mathbf{x}'$ is $\mathbf{\ell}=\mathbf{x}\times \mathbf{x}'$
         \item \textbf{Result 2.6. Duality principle}: To any theorem of 2-dimensional projective geometry there corresponds a dual theorem, which may be derived by interchanging the roles of points and lines in the original theorem.
 
     \end{itemize}
