@@ -1339,6 +1339,15 @@
         \item \textbf{Dual conics}: The conic $\mathsf{C}$ defined above is more properly termed a \textbf{point conic}, as it defines an equation on points.
             \bigbreak \noindent 
             It is not surprising that there is also a conic which defines an equation on lines. This dual (or line) conic is also represented by a $3\times 3$ matrix, which we denote as $\mathsf{C}^{*}$. A line $\mathbf{\ell}$ tangent to the conic $\mathsf{C}$ satisfies $\mathbf{\ell}^{\mathsf{T}}\mathtt{C}^{*}\mathbf{\ell}=0$. The notation $\mathtt{C}^{*}$ indicates that $\mathsf{C}^{*}$ is the \textbf{adjoint} matrix of $\mathsf{C}$. For a non-singular symmetric matrix $\mathtt{C}^{*}=\mathtt{C}^{-1}$ (up to scale).
+            \bigbreak \noindent 
+            The equation for a dual conic is straightforward to derive in the case that $\mathsf{C}$ has full rank
+            \bigbreak \noindent 
+            At a point $\mathbf{x}$ on $\mathsf{C}$ the tangent is $\mathbf{\ell}=\mathtt{C}\mathbf{x}$. Inverting, we find the point x at which the line l is tangent to $\mathsf{C}$ is $\mathbf{x}=\mathtt{C}^{-1}\mathbf{\ell}$. Since $\mathbf{x}$ satisfies $\mathbf{x}^{\mathsf{\top}}\mathsf{C}\mathbf{x} = 0$  we obtain $(\mathtt{C}^{-1}\mathbf{\ell})^{\mathsf{T}}\mathtt{C}(\mathtt{C}^{-1}\mathbf{\ell})=\mathbf{\ell}^{\mathsf{T}}\mathtt{C}^{-1}\mathbf{\ell}=0$, the last step following from $\mathtt{C}^{-\mathsf{T}}=\mathtt{C}^{-1}$ because $\mathsf{C}$ is symmetric.
+            \bigbreak \noindent 
+            Dual conics are also known as conic envelopes, and the reason for this is illustrated in figure 2.2. A dual conic has five degrees of freedom. In a similar manner to points defining a point conic, it follows that five lines in general position define a dual conic.
+            \bigbreak \noindent 
+            \fig{.4}{./figures/7.png}
+        \item \textbf{Degenerate conics}: If the matrix $\mathsf{C}$ is not of full rank, then the conic is termed degenerate. Degenerate point conics include two lines (rank 2), and a repeated line (rank 1).
         \item \textbf{The adjoint}: The adjoint of a linear map \(A\) is the map \(A^*\) that lets you move \(A\) from one side of an inner product to the other:
             \[
                 \langle Ax,y\rangle=\langle x,A^*y\rangle \qquad\text{for every }x,y.
